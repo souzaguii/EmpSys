@@ -1121,6 +1121,7 @@ public final class main extends javax.swing.JFrame {
         };
     }
 
+    @SuppressWarnings("unchecked")
     public void comboboxentrada(JComboBox cmb, int op) {
 
         try {
