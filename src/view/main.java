@@ -1215,39 +1215,41 @@ public final class main extends javax.swing.JFrame {
         btnMasPla = new javax.swing.JLabel();
         btnCadDes = new javax.swing.JLabel();
         btnDes = new javax.swing.JLabel();
-        pnlOs = new javax.swing.JPanel();
-        btnGerOs = new javax.swing.JButton();
-        btnCanOs = new javax.swing.JButton();
-        lblEndOs = new javax.swing.JLabel();
-        txtEndOs = new javax.swing.JTextField();
-        sepModCadEst1 = new javax.swing.JSeparator();
-        lblCliOs = new javax.swing.JLabel();
-        txtCliOs = new javax.swing.JTextField();
-        sepMarCadEst1 = new javax.swing.JSeparator();
-        lblEquOs = new javax.swing.JLabel();
-        txtEquOs = new javax.swing.JTextField();
-        sepCorCadEst1 = new javax.swing.JSeparator();
-        lblMarOs = new javax.swing.JLabel();
-        txtMarOs = new javax.swing.JTextField();
-        sepMatCadEst1 = new javax.swing.JSeparator();
-        lblTelOs = new javax.swing.JLabel();
-        txtTelOs = new javax.swing.JTextField();
-        sepQuaCadEst1 = new javax.swing.JSeparator();
-        lblModOs = new javax.swing.JLabel();
-        txtModOs = new javax.swing.JTextField();
-        sepLocCadEst1 = new javax.swing.JSeparator();
-        lblConOs = new javax.swing.JLabel();
-        txtConOs = new javax.swing.JTextField();
-        sepDetCadEst1 = new javax.swing.JSeparator();
-        lblDefOs = new javax.swing.JLabel();
-        txtDefOs = new javax.swing.JTextField();
-        sepDetCadEst2 = new javax.swing.JSeparator();
-        lblDatOs = new javax.swing.JLabel();
-        txtDatOs = new javax.swing.JTextField();
-        sepDetCadEst3 = new javax.swing.JSeparator();
-        lblHorOs = new javax.swing.JLabel();
-        txtHorOs = new javax.swing.JTextField();
-        sepDetCadEst4 = new javax.swing.JSeparator();
+        pnlCadEnt = new javax.swing.JPanel();
+        btnIteCadEnt = new javax.swing.JButton();
+        btnSalCadEnt = new javax.swing.JButton();
+        btnCanCadEnt = new javax.swing.JButton();
+        rbtnSerCadEnt = new javax.swing.JRadioButton();
+        rbtnVenCadEnt = new javax.swing.JRadioButton();
+        rbtnAssCadEnt = new javax.swing.JRadioButton();
+        lblDatCadEnt = new javax.swing.JLabel();
+        txtDatCadEnt = new javax.swing.JTextField();
+        sepDatCadEnt = new javax.swing.JSeparator();
+        lblR$CadEnt = new javax.swing.JLabel();
+        lblPreCadEnt = new javax.swing.JLabel();
+        txtPreCadEnt = new javax.swing.JTextField();
+        sepPreCadEnt = new javax.swing.JSeparator();
+        cmbSerCadEnt = new javax.swing.JComboBox<>();
+        lblDetCadEnt = new javax.swing.JLabel();
+        txtDetCadEnt = new javax.swing.JTextField();
+        sepDetCadEnt = new javax.swing.JSeparator();
+        lblSerCadEnt = new javax.swing.JLabel();
+        txtCodCadEnt = new javax.swing.JTextField();
+        pnlIteCadEnt = new javax.swing.JPanel();
+        btnVolIteCadEnt = new javax.swing.JButton();
+        scrEstIteCadEnt = new javax.swing.JScrollPane();
+        tblEstIteCadEnt = new javax.swing.JTable();
+        scrSelIteCadEnt = new javax.swing.JScrollPane();
+        tblSelIteCadEnt = new javax.swing.JTable();
+        lblSelIteCadEnt = new javax.swing.JLabel();
+        lblEstIteCadEnt = new javax.swing.JLabel();
+        rbtnAssIteCadEnt = new javax.swing.JRadioButton();
+        rbtnPelIteCadEnt = new javax.swing.JRadioButton();
+        rbtnCapIteCadEnt = new javax.swing.JRadioButton();
+        rbtnChiIteCadEnt = new javax.swing.JRadioButton();
+        lblBusIteCadEnt = new javax.swing.JLabel();
+        txtBusIteCadEnt = new javax.swing.JTextField();
+        sepBusIteCadEnt = new javax.swing.JSeparator();
         pnlGerEnt = new javax.swing.JPanel();
         btnExcGerEnt = new javax.swing.JButton();
         btnBusGerEnt = new javax.swing.JButton();
@@ -1287,111 +1289,6 @@ public final class main extends javax.swing.JFrame {
         lblBusIteGerEnt = new javax.swing.JLabel();
         txtBusIteGerEnt = new javax.swing.JTextField();
         sepBusIteCadEnt1 = new javax.swing.JSeparator();
-        pnlDes = new javax.swing.JPanel();
-        scrConDes = new javax.swing.JScrollPane();
-        tblConDes = new javax.swing.JTable();
-        btnVolDes = new javax.swing.JButton();
-        pnlGerDes = new javax.swing.JPanel();
-        lblDesGerDes = new javax.swing.JLabel();
-        lblDatGerDes = new javax.swing.JLabel();
-        lblPreGerDes = new javax.swing.JLabel();
-        lblR$GerDes = new javax.swing.JLabel();
-        txtDatGerDes = new javax.swing.JTextField();
-        txtDesGerDes = new javax.swing.JTextField();
-        sepPreGerDes = new javax.swing.JSeparator();
-        sepDatGerDes = new javax.swing.JSeparator();
-        sepDesGerDes = new javax.swing.JSeparator();
-        txtPreGerDes = new javax.swing.JTextField();
-        btnExcGerDes = new javax.swing.JButton();
-        btnAltGerDes = new javax.swing.JButton();
-        btnCanGerDes = new javax.swing.JButton();
-        lblDesTipSer3 = new javax.swing.JLabel();
-        scrGerDes = new javax.swing.JScrollPane();
-        tblGerDes = new javax.swing.JTable();
-        pnlCadDes = new javax.swing.JPanel();
-        btnSalDes = new javax.swing.JButton();
-        lblDatDes = new javax.swing.JLabel();
-        txtDatDes = new javax.swing.JTextField();
-        sepDatCadEnt7 = new javax.swing.JSeparator();
-        lblDesDes = new javax.swing.JLabel();
-        txtDesDes = new javax.swing.JTextField();
-        sepDatCadEnt4 = new javax.swing.JSeparator();
-        lblR$Des = new javax.swing.JLabel();
-        lblPreDes = new javax.swing.JLabel();
-        txtPreDes = new javax.swing.JTextField();
-        sepDatCadEnt6 = new javax.swing.JSeparator();
-        btnCanDes = new javax.swing.JButton();
-        pnlRel = new javax.swing.JPanel();
-        scrRel = new javax.swing.JScrollPane();
-        tblRel = new javax.swing.JTable();
-        btnVolRel = new javax.swing.JButton();
-        rbtnSerTimRel = new javax.swing.JRadioButton();
-        rbtnSerRel = new javax.swing.JRadioButton();
-        rbtnVenRel = new javax.swing.JRadioButton();
-        rbtnTodRel = new javax.swing.JRadioButton();
-        lblDatIniRel = new javax.swing.JLabel();
-        txtDatIniRel = new javax.swing.JTextField();
-        sepDatCadEnt1 = new javax.swing.JSeparator();
-        btnTodRel = new javax.swing.JLabel();
-        btnAnoRel = new javax.swing.JLabel();
-        lblDatFinRel = new javax.swing.JLabel();
-        txtDatFinRel = new javax.swing.JTextField();
-        sepDatCadEnt2 = new javax.swing.JSeparator();
-        btnDiaRel = new javax.swing.JLabel();
-        btnMesRel = new javax.swing.JLabel();
-        btnSemRel = new javax.swing.JLabel();
-        rbtnAssRel = new javax.swing.JRadioButton();
-        sepDatCadEnt3 = new javax.swing.JSeparator();
-        lblTotEntRel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        lblValTotRel = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        lblValMedRel = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        pnlCadEnt = new javax.swing.JPanel();
-        btnIteCadEnt = new javax.swing.JButton();
-        btnSalCadEnt = new javax.swing.JButton();
-        btnCanCadEnt = new javax.swing.JButton();
-        rbtnSerCadEnt = new javax.swing.JRadioButton();
-        rbtnVenCadEnt = new javax.swing.JRadioButton();
-        rbtnAssCadEnt = new javax.swing.JRadioButton();
-        lblDatCadEnt = new javax.swing.JLabel();
-        txtDatCadEnt = new javax.swing.JTextField();
-        sepDatCadEnt = new javax.swing.JSeparator();
-        lblR$CadEnt = new javax.swing.JLabel();
-        lblPreCadEnt = new javax.swing.JLabel();
-        txtPreCadEnt = new javax.swing.JTextField();
-        sepPreCadEnt = new javax.swing.JSeparator();
-        cmbSerCadEnt = new javax.swing.JComboBox<>();
-        lblDetCadEnt = new javax.swing.JLabel();
-        txtDetCadEnt = new javax.swing.JTextField();
-        sepDetCadEnt = new javax.swing.JSeparator();
-        lblSerCadEnt = new javax.swing.JLabel();
-        txtCodCadEnt = new javax.swing.JTextField();
-        pnlIteCadEnt = new javax.swing.JPanel();
-        btnVolIteCadEnt = new javax.swing.JButton();
-        scrEstIteCadEnt = new javax.swing.JScrollPane();
-        tblEstIteCadEnt = new javax.swing.JTable();
-        scrSelIteCadEnt = new javax.swing.JScrollPane();
-        tblSelIteCadEnt = new javax.swing.JTable();
-        lblSelIteCadEnt = new javax.swing.JLabel();
-        lblEstIteCadEnt = new javax.swing.JLabel();
-        rbtnAssIteCadEnt = new javax.swing.JRadioButton();
-        rbtnPelIteCadEnt = new javax.swing.JRadioButton();
-        rbtnCapIteCadEnt = new javax.swing.JRadioButton();
-        rbtnChiIteCadEnt = new javax.swing.JRadioButton();
-        lblBusIteCadEnt = new javax.swing.JLabel();
-        txtBusIteCadEnt = new javax.swing.JTextField();
-        sepBusIteCadEnt = new javax.swing.JSeparator();
-        pnlCadTipSer = new javax.swing.JPanel();
-        btnSalTipSer = new javax.swing.JButton();
-        btnCanTipSer = new javax.swing.JButton();
-        rbtnOutTipSer = new javax.swing.JRadioButton();
-        rbtnSerTimTipSer = new javax.swing.JRadioButton();
-        rbtnAssTipSer = new javax.swing.JRadioButton();
-        lblDesTipSer = new javax.swing.JLabel();
-        txtDesTipSer = new javax.swing.JTextField();
-        sepDesTipSer = new javax.swing.JSeparator();
         pnlCadEst = new javax.swing.JPanel();
         btnSalCadEst = new javax.swing.JButton();
         btnCanCadEst = new javax.swing.JButton();
@@ -1483,6 +1380,85 @@ public final class main extends javax.swing.JFrame {
         sepBusGerEst = new javax.swing.JSeparator();
         scrGerEst = new javax.swing.JScrollPane();
         tblGerEst = new javax.swing.JTable();
+        pnlRel = new javax.swing.JPanel();
+        scrRel = new javax.swing.JScrollPane();
+        tblRel = new javax.swing.JTable();
+        btnVolRel = new javax.swing.JButton();
+        rbtnSerTimRel = new javax.swing.JRadioButton();
+        rbtnSerRel = new javax.swing.JRadioButton();
+        rbtnVenRel = new javax.swing.JRadioButton();
+        rbtnTodRel = new javax.swing.JRadioButton();
+        lblDatIniRel = new javax.swing.JLabel();
+        txtDatIniRel = new javax.swing.JTextField();
+        sepDatCadEnt1 = new javax.swing.JSeparator();
+        btnTodRel = new javax.swing.JLabel();
+        btnAnoRel = new javax.swing.JLabel();
+        lblDatFinRel = new javax.swing.JLabel();
+        txtDatFinRel = new javax.swing.JTextField();
+        sepDatCadEnt2 = new javax.swing.JSeparator();
+        btnDiaRel = new javax.swing.JLabel();
+        btnMesRel = new javax.swing.JLabel();
+        btnSemRel = new javax.swing.JLabel();
+        rbtnAssRel = new javax.swing.JRadioButton();
+        sepDatCadEnt3 = new javax.swing.JSeparator();
+        lblTotEntRel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblValTotRel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblValMedRel = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        pnlOs = new javax.swing.JPanel();
+        btnGerOs = new javax.swing.JButton();
+        btnCanOs = new javax.swing.JButton();
+        lblEndOs = new javax.swing.JLabel();
+        txtEndOs = new javax.swing.JTextField();
+        sepModCadEst1 = new javax.swing.JSeparator();
+        lblCliOs = new javax.swing.JLabel();
+        txtCliOs = new javax.swing.JTextField();
+        sepMarCadEst1 = new javax.swing.JSeparator();
+        lblEquOs = new javax.swing.JLabel();
+        txtEquOs = new javax.swing.JTextField();
+        sepCorCadEst1 = new javax.swing.JSeparator();
+        lblMarOs = new javax.swing.JLabel();
+        txtMarOs = new javax.swing.JTextField();
+        sepMatCadEst1 = new javax.swing.JSeparator();
+        lblTelOs = new javax.swing.JLabel();
+        txtTelOs = new javax.swing.JTextField();
+        sepQuaCadEst1 = new javax.swing.JSeparator();
+        lblModOs = new javax.swing.JLabel();
+        txtModOs = new javax.swing.JTextField();
+        sepLocCadEst1 = new javax.swing.JSeparator();
+        lblConOs = new javax.swing.JLabel();
+        txtConOs = new javax.swing.JTextField();
+        sepDetCadEst1 = new javax.swing.JSeparator();
+        lblDefOs = new javax.swing.JLabel();
+        txtDefOs = new javax.swing.JTextField();
+        sepDetCadEst2 = new javax.swing.JSeparator();
+        lblDatOs = new javax.swing.JLabel();
+        txtDatOs = new javax.swing.JTextField();
+        sepDetCadEst3 = new javax.swing.JSeparator();
+        lblHorOs = new javax.swing.JLabel();
+        txtHorOs = new javax.swing.JTextField();
+        sepDetCadEst4 = new javax.swing.JSeparator();
+        pnlCadTipSer = new javax.swing.JPanel();
+        btnSalTipSer = new javax.swing.JButton();
+        btnCanTipSer = new javax.swing.JButton();
+        rbtnOutTipSer = new javax.swing.JRadioButton();
+        rbtnSerTimTipSer = new javax.swing.JRadioButton();
+        rbtnAssTipSer = new javax.swing.JRadioButton();
+        lblDesTipSer = new javax.swing.JLabel();
+        txtDesTipSer = new javax.swing.JTextField();
+        sepDesTipSer = new javax.swing.JSeparator();
+        pnlGerTipSer = new javax.swing.JPanel();
+        btnExcGerTipSer = new javax.swing.JButton();
+        btnAltGerTipSer = new javax.swing.JButton();
+        btnCanGerTipSer = new javax.swing.JButton();
+        lblDesTipSer2 = new javax.swing.JLabel();
+        lblDesGerTipSer = new javax.swing.JLabel();
+        txtDesGerTipSer = new javax.swing.JTextField();
+        sepDesGerTipSer = new javax.swing.JSeparator();
+        scrTipSer = new javax.swing.JScrollPane();
+        tblTipSer = new javax.swing.JTable();
         pnlMas = new javax.swing.JPanel();
         btnGerMas = new javax.swing.JButton();
         btnCanMas = new javax.swing.JButton();
@@ -1518,16 +1494,40 @@ public final class main extends javax.swing.JFrame {
         sepDesGerTipSer9 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreMas = new javax.swing.JTextArea();
-        pnlGerTipSer = new javax.swing.JPanel();
-        btnExcGerTipSer = new javax.swing.JButton();
-        btnAltGerTipSer = new javax.swing.JButton();
-        btnCanGerTipSer = new javax.swing.JButton();
-        lblDesTipSer2 = new javax.swing.JLabel();
-        lblDesGerTipSer = new javax.swing.JLabel();
-        txtDesGerTipSer = new javax.swing.JTextField();
-        sepDesGerTipSer = new javax.swing.JSeparator();
-        scrTipSer = new javax.swing.JScrollPane();
-        tblTipSer = new javax.swing.JTable();
+        pnlDes = new javax.swing.JPanel();
+        scrConDes = new javax.swing.JScrollPane();
+        tblConDes = new javax.swing.JTable();
+        btnVolDes = new javax.swing.JButton();
+        pnlCadDes = new javax.swing.JPanel();
+        btnSalDes = new javax.swing.JButton();
+        lblDatDes = new javax.swing.JLabel();
+        txtDatDes = new javax.swing.JTextField();
+        sepDatCadEnt7 = new javax.swing.JSeparator();
+        lblDesDes = new javax.swing.JLabel();
+        txtDesDes = new javax.swing.JTextField();
+        sepDatCadEnt4 = new javax.swing.JSeparator();
+        lblR$Des = new javax.swing.JLabel();
+        lblPreDes = new javax.swing.JLabel();
+        txtPreDes = new javax.swing.JTextField();
+        sepDatCadEnt6 = new javax.swing.JSeparator();
+        btnCanDes = new javax.swing.JButton();
+        pnlGerDes = new javax.swing.JPanel();
+        lblDesGerDes = new javax.swing.JLabel();
+        lblDatGerDes = new javax.swing.JLabel();
+        lblPreGerDes = new javax.swing.JLabel();
+        lblR$GerDes = new javax.swing.JLabel();
+        txtDatGerDes = new javax.swing.JTextField();
+        txtDesGerDes = new javax.swing.JTextField();
+        sepPreGerDes = new javax.swing.JSeparator();
+        sepDatGerDes = new javax.swing.JSeparator();
+        sepDesGerDes = new javax.swing.JSeparator();
+        txtPreGerDes = new javax.swing.JTextField();
+        btnExcGerDes = new javax.swing.JButton();
+        btnAltGerDes = new javax.swing.JButton();
+        btnCanGerDes = new javax.swing.JButton();
+        lblDesTipSer3 = new javax.swing.JLabel();
+        scrGerDes = new javax.swing.JScrollPane();
+        tblGerDes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSys 1.0");
@@ -1878,1324 +1878,6 @@ public final class main extends javax.swing.JFrame {
         });
         pnlPri.add(btnDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 320, 60, 20));
 
-        pnlOs.setBackground(new java.awt.Color(246, 246, 246));
-        pnlOs.setLayout(null);
-
-        btnGerOs.setFont(fontmed(12));
-        btnGerOs.setForeground(new java.awt.Color(10, 60, 133));
-        btnGerOs.setText("Gerar");
-        btnGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGerOs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerOsActionPerformed(evt);
-            }
-        });
-        pnlOs.add(btnGerOs);
-        btnGerOs.setBounds(700, 280, 90, 50);
-
-        btnCanOs.setFont(fontmed(12));
-        btnCanOs.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanOs.setText("Cancelar");
-        btnCanOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanOs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanOsActionPerformed(evt);
-            }
-        });
-        pnlOs.add(btnCanOs);
-        btnCanOs.setBounds(850, 280, 90, 50);
-
-        lblEndOs.setFont(fontmed(12));
-        lblEndOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblEndOs.setText("Endereço");
-        lblEndOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblEndOs);
-        lblEndOs.setBounds(370, 130, 60, 20);
-
-        txtEndOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtEndOs.setFont(fontmed(13));
-        txtEndOs.setBorder(null);
-        txtEndOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEndOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtEndOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtEndOs);
-        txtEndOs.setBounds(370, 130, 240, 20);
-
-        sepModCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepModCadEst1);
-        sepModCadEst1.setBounds(370, 150, 240, 10);
-
-        lblCliOs.setFont(fontmed(12));
-        lblCliOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblCliOs.setText("Cliente");
-        lblCliOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblCliOs);
-        lblCliOs.setBounds(370, 30, 60, 20);
-
-        txtCliOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtCliOs.setFont(fontmed(13));
-        txtCliOs.setBorder(null);
-        txtCliOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCliOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCliOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtCliOs);
-        txtCliOs.setBounds(370, 30, 240, 20);
-
-        sepMarCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepMarCadEst1);
-        sepMarCadEst1.setBounds(370, 50, 240, 10);
-
-        lblEquOs.setFont(fontmed(12));
-        lblEquOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblEquOs.setText("Equipamento");
-        lblEquOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblEquOs);
-        lblEquOs.setBounds(700, 30, 80, 20);
-
-        txtEquOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtEquOs.setFont(fontmed(13));
-        txtEquOs.setBorder(null);
-        txtEquOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEquOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtEquOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtEquOs);
-        txtEquOs.setBounds(700, 30, 240, 20);
-
-        sepCorCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepCorCadEst1);
-        sepCorCadEst1.setBounds(700, 50, 240, 10);
-
-        lblMarOs.setFont(fontmed(12));
-        lblMarOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblMarOs.setText("Marca");
-        lblMarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblMarOs);
-        lblMarOs.setBounds(700, 80, 50, 20);
-
-        txtMarOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtMarOs.setFont(fontmed(13));
-        txtMarOs.setBorder(null);
-        txtMarOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtMarOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtMarOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtMarOs);
-        txtMarOs.setBounds(700, 80, 240, 20);
-
-        sepMatCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepMatCadEst1);
-        sepMatCadEst1.setBounds(700, 100, 240, 10);
-
-        lblTelOs.setFont(fontmed(12));
-        lblTelOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblTelOs.setText("Telefone");
-        lblTelOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblTelOs);
-        lblTelOs.setBounds(370, 80, 80, 20);
-
-        txtTelOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtTelOs.setFont(fontmed(13));
-        txtTelOs.setBorder(null);
-        txtTelOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtTelOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTelOsFocusLost(evt);
-            }
-        });
-        txtTelOs.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTelOsKeyTyped(evt);
-            }
-        });
-        pnlOs.add(txtTelOs);
-        txtTelOs.setBounds(370, 80, 130, 20);
-
-        sepQuaCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepQuaCadEst1);
-        sepQuaCadEst1.setBounds(370, 100, 130, 10);
-
-        lblModOs.setFont(fontmed(12));
-        lblModOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblModOs.setText("Modelo");
-        lblModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblModOs);
-        lblModOs.setBounds(700, 130, 60, 20);
-
-        txtModOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtModOs.setFont(fontmed(13));
-        txtModOs.setBorder(null);
-        txtModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtModOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtModOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtModOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtModOs);
-        txtModOs.setBounds(700, 130, 240, 20);
-
-        sepLocCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepLocCadEst1);
-        sepLocCadEst1.setBounds(700, 150, 240, 10);
-
-        lblConOs.setFont(fontmed(12));
-        lblConOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblConOs.setText("Condições");
-        lblConOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblConOs);
-        lblConOs.setBounds(700, 180, 70, 20);
-
-        txtConOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtConOs.setFont(fontmed(13));
-        txtConOs.setBorder(null);
-        txtConOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtConOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtConOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtConOs);
-        txtConOs.setBounds(700, 180, 240, 20);
-
-        sepDetCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepDetCadEst1);
-        sepDetCadEst1.setBounds(700, 200, 240, 10);
-
-        lblDefOs.setFont(fontmed(12));
-        lblDefOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblDefOs.setText("Defeito(s)");
-        lblDefOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblDefOs);
-        lblDefOs.setBounds(700, 230, 70, 20);
-
-        txtDefOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtDefOs.setFont(fontmed(13));
-        txtDefOs.setBorder(null);
-        txtDefOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDefOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDefOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtDefOs);
-        txtDefOs.setBounds(700, 230, 240, 20);
-
-        sepDetCadEst2.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepDetCadEst2);
-        sepDetCadEst2.setBounds(700, 250, 240, 10);
-
-        lblDatOs.setFont(fontmed(12));
-        lblDatOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatOs.setText("Data");
-        lblDatOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblDatOs);
-        lblDatOs.setBounds(370, 160, 60, 20);
-
-        txtDatOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtDatOs.setFont(fontmed(13));
-        txtDatOs.setBorder(null);
-        txtDatOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatOsFocusLost(evt);
-            }
-        });
-        txtDatOs.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatOsKeyTyped(evt);
-            }
-        });
-        pnlOs.add(txtDatOs);
-        txtDatOs.setBounds(370, 180, 90, 20);
-
-        sepDetCadEst3.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepDetCadEst3);
-        sepDetCadEst3.setBounds(370, 200, 90, 10);
-
-        lblHorOs.setFont(fontmed(12));
-        lblHorOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblHorOs.setText("Horário");
-        lblHorOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblHorOs);
-        lblHorOs.setBounds(370, 210, 80, 20);
-
-        txtHorOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtHorOs.setFont(fontmed(13));
-        txtHorOs.setBorder(null);
-        txtHorOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtHorOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtHorOsFocusLost(evt);
-            }
-        });
-        txtHorOs.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtHorOsKeyTyped(evt);
-            }
-        });
-        pnlOs.add(txtHorOs);
-        txtHorOs.setBounds(370, 230, 90, 20);
-
-        sepDetCadEst4.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepDetCadEst4);
-        sepDetCadEst4.setBounds(370, 250, 90, 10);
-
-        pnlPri.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 1300, 390));
-
-        pnlGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        pnlGerEnt.setLayout(null);
-
-        btnExcGerEnt.setFont(fontmed(12));
-        btnExcGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        btnExcGerEnt.setText("Excluir");
-        btnExcGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExcGerEnt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcGerEntActionPerformed(evt);
-            }
-        });
-        pnlGerEnt.add(btnExcGerEnt);
-        btnExcGerEnt.setBounds(1120, 250, 90, 50);
-
-        btnBusGerEnt.setFont(fontmed(12));
-        btnBusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        btnBusGerEnt.setText("Buscar");
-        btnBusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBusGerEnt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBusGerEntActionPerformed(evt);
-            }
-        });
-        pnlGerEnt.add(btnBusGerEnt);
-        btnBusGerEnt.setBounds(70, 90, 90, 50);
-
-        btnIteGerEnt.setFont(fontmed(12));
-        btnIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        btnIteGerEnt.setText("Ítens");
-        btnIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIteGerEntActionPerformed(evt);
-            }
-        });
-        pnlGerEnt.add(btnIteGerEnt);
-        btnIteGerEnt.setBounds(1120, 110, 90, 50);
-
-        btnCanGerEnt.setFont(fontmed(12));
-        btnCanGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanGerEnt.setText("Cancelar");
-        btnCanGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanGerEnt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanGerEntActionPerformed(evt);
-            }
-        });
-        pnlGerEnt.add(btnCanGerEnt);
-        btnCanGerEnt.setBounds(170, 90, 90, 50);
-
-        lblDatGerEnt.setFont(fontmed(12));
-        lblDatGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatGerEnt.setText("Data");
-        lblDatGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerEnt.add(lblDatGerEnt);
-        lblDatGerEnt.setBounds(860, 70, 40, 20);
-
-        txtDatGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        txtDatGerEnt.setFont(fontmed(13));
-        txtDatGerEnt.setBorder(null);
-        txtDatGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatGerEntFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatGerEntFocusLost(evt);
-            }
-        });
-        txtDatGerEnt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatGerEntKeyTyped(evt);
-            }
-        });
-        pnlGerEnt.add(txtDatGerEnt);
-        txtDatGerEnt.setBounds(860, 70, 130, 20);
-
-        sepDatGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerEnt.add(sepDatGerEnt);
-        sepDatGerEnt.setBounds(860, 90, 130, 10);
-
-        lblR$GerEnt.setFont(fontmed(13));
-        lblR$GerEnt.setText("R$");
-        lblR$GerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerEnt.add(lblR$GerEnt);
-        lblR$GerEnt.setBounds(860, 130, 20, 21);
-
-        lblPreGerEnt.setFont(fontmed(12));
-        lblPreGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        lblPreGerEnt.setText("Preço");
-        lblPreGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerEnt.add(lblPreGerEnt);
-        lblPreGerEnt.setBounds(860, 130, 40, 20);
-
-        txtPreGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        txtPreGerEnt.setFont(fontmed(13));
-        txtPreGerEnt.setBorder(null);
-        txtPreGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPreGerEntFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPreGerEntFocusLost(evt);
-            }
-        });
-        pnlGerEnt.add(txtPreGerEnt);
-        txtPreGerEnt.setBounds(880, 130, 80, 20);
-
-        sepPreGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerEnt.add(sepPreGerEnt);
-        sepPreGerEnt.setBounds(860, 150, 100, 10);
-
-        lblDetGerEnt.setFont(fontmed(12));
-        lblDetGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        lblDetGerEnt.setText("Detalhes");
-        lblDetGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerEnt.add(lblDetGerEnt);
-        lblDetGerEnt.setBounds(860, 190, 70, 20);
-
-        txtDetGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        txtDetGerEnt.setFont(fontmed(13));
-        txtDetGerEnt.setBorder(null);
-        txtDetGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDetGerEntFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDetGerEntFocusLost(evt);
-            }
-        });
-        txtDetGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtDetGerEntMouseClicked(evt);
-            }
-        });
-        pnlGerEnt.add(txtDetGerEnt);
-        txtDetGerEnt.setBounds(860, 190, 190, 20);
-
-        sepDetGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerEnt.add(sepDetGerEnt);
-        sepDetGerEnt.setBounds(860, 210, 190, 10);
-
-        lblDatBusGerEnt.setFont(fontmed(12));
-        lblDatBusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatBusGerEnt.setText("Data");
-        lblDatBusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerEnt.add(lblDatBusGerEnt);
-        lblDatBusGerEnt.setBounds(70, 50, 50, 20);
-
-        txtDatBusGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        txtDatBusGerEnt.setFont(fontmed(13));
-        txtDatBusGerEnt.setBorder(null);
-        txtDatBusGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatBusGerEntFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatBusGerEntFocusLost(evt);
-            }
-        });
-        txtDatBusGerEnt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatBusGerEntKeyTyped(evt);
-            }
-        });
-        pnlGerEnt.add(txtDatBusGerEnt);
-        txtDatBusGerEnt.setBounds(70, 50, 190, 20);
-
-        sepMod3.setForeground(new java.awt.Color(10, 60, 133));
-        sepMod3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        pnlGerEnt.add(sepMod3);
-        sepMod3.setBounds(750, 80, 20, 210);
-
-        sepBusGerEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerEnt.add(sepBusGerEst1);
-        sepBusGerEst1.setBounds(70, 70, 190, 10);
-
-        cmbSerGerEnt.setFont(fontmed(13));
-        cmbSerGerEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
-        cmbSerGerEnt.setToolTipText("");
-        cmbSerGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlGerEnt.add(cmbSerGerEnt);
-        cmbSerGerEnt.setBounds(860, 270, 190, 30);
-
-        lblSerGerEnt.setFont(fontmed(12));
-        lblSerGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        lblSerGerEnt.setText("Serviço");
-        pnlGerEnt.add(lblSerGerEnt);
-        lblSerGerEnt.setBounds(860, 240, 90, 30);
-
-        scrGerEnt.setBackground(new java.awt.Color(250, 250, 250));
-        scrGerEnt.setBorder(BorderFactory.createEmptyBorder());
-
-        tblConEst.setEnabled(false);
-        tblGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        tblGerEnt.setBorder(null);
-        tblGerEnt.setFont(fontmed(10));
-        tblGerEnt.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblGerEnt.setFocusable(false);
-        tblGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblGerEntMouseClicked(evt);
-            }
-        });
-        scrGerEnt.setViewportView(tblGerEnt);
-
-        pnlGerEnt.add(scrGerEnt);
-        scrGerEnt.setBounds(40, 170, 670, 170);
-
-        btnAltGerEnt.setFont(fontmed(12));
-        btnAltGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        btnAltGerEnt.setText("Alterar");
-        btnAltGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAltGerEnt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAltGerEntActionPerformed(evt);
-            }
-        });
-        pnlGerEnt.add(btnAltGerEnt);
-        btnAltGerEnt.setBounds(1120, 180, 90, 50);
-
-        pnlPri.add(pnlGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
-
-        pnlIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        pnlIteGerEnt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        scrEstIteGerEnt.setBackground(new java.awt.Color(250, 250, 250));
-        scrEstIteGerEnt.setBorder(BorderFactory.createEmptyBorder());
-
-        tblEstIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        tblEstIteGerEnt.setBorder(null);
-        tblEstIteGerEnt.setFont(fontmed(10));
-        tblEstIteGerEnt.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblEstIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblEstIteGerEnt.setFocusable(false);
-        tblEstIteGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblEstIteGerEntMouseClicked(evt);
-            }
-        });
-        scrEstIteGerEnt.setViewportView(tblEstIteGerEnt);
-
-        pnlIteGerEnt.add(scrEstIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 780, 120));
-
-        scrSelIteGerEnt.setBackground(new java.awt.Color(250, 250, 250));
-        scrSelIteGerEnt.setBorder(BorderFactory.createEmptyBorder());
-
-        tblSelIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        tblSelIteGerEnt.setBorder(null);
-        tblSelIteGerEnt.setFont(fontmed(10));
-        tblSelIteGerEnt.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblSelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblSelIteGerEnt.setFocusable(false);
-        tblSelIteGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblSelIteGerEntMouseClicked(evt);
-            }
-        });
-        scrSelIteGerEnt.setViewportView(tblSelIteGerEnt);
-
-        pnlIteGerEnt.add(scrSelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 780, 120));
-
-        btnVolIteGerEnt.setFont(fontmed(12));
-        btnVolIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        btnVolIteGerEnt.setText("Voltar");
-        btnVolIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVolIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolIteGerEntActionPerformed(evt);
-            }
-        });
-        pnlIteGerEnt.add(btnVolIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 90, 50));
-
-        lblSelIteGerEnt.setFont(fontmed(12));
-        lblSelIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        lblSelIteGerEnt.setText("Ítens selecionados");
-        pnlIteGerEnt.add(lblSelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 170, 20));
-
-        lblEstIteGerEnt.setFont(fontmed(12));
-        lblEstIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        lblEstIteGerEnt.setText("Ítens do estoque");
-        pnlIteGerEnt.add(lblEstIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 120, 20));
-
-        btnGroup1.add(rbtnAssIteGerEnt);
-        rbtnAssIteGerEnt.setFont(fontmed(12));
-        rbtnAssIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnAssIteGerEnt.setText("Acessório");
-        rbtnAssIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlIteGerEnt.add(rbtnAssIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 100, -1));
-
-        btnGroup1.add(rbtnPelIteGerEnt);
-        rbtnPelIteGerEnt.setFont(fontmed(12));
-        rbtnPelIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnPelIteGerEnt.setText("Película");
-        rbtnPelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlIteGerEnt.add(rbtnPelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 80, -1));
-
-        btnGroup1.add(rbtnCapIteGerEnt);
-        rbtnCapIteGerEnt.setFont(fontmed(12));
-        rbtnCapIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnCapIteGerEnt.setSelected(true);
-        rbtnCapIteGerEnt.setText("Capinha");
-        rbtnCapIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlIteGerEnt.add(rbtnCapIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 90, -1));
-
-        btnGroup1.add(rbtnChiIteGerEnt);
-        rbtnChiIteGerEnt.setFont(fontmed(12));
-        rbtnChiIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnChiIteGerEnt.setText("Chip");
-        rbtnChiIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlIteGerEnt.add(rbtnChiIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 70, -1));
-
-        lblBusIteGerEnt.setFont(fontmed(12));
-        lblBusIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        lblBusIteGerEnt.setText("Buscar");
-        lblBusIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlIteGerEnt.add(lblBusIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 50, 20));
-
-        txtBusIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
-        txtBusIteGerEnt.setFont(fontmed(13));
-        txtBusIteGerEnt.setBorder(null);
-        txtBusIteGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtBusIteGerEntFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtBusIteGerEntFocusLost(evt);
-            }
-        });
-        txtBusIteGerEnt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBusIteGerEntKeyPressed(evt);
-            }
-        });
-        pnlIteGerEnt.add(txtBusIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 200, 20));
-
-        sepBusIteCadEnt1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlIteGerEnt.add(sepBusIteCadEnt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 200, 10));
-
-        pnlPri.add(pnlIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
-
-        pnlDes.setBackground(new java.awt.Color(246, 246, 246));
-        pnlDes.setLayout(null);
-
-        scrConDes.setBackground(new java.awt.Color(250, 250, 250));
-        scrConDes.setBorder(BorderFactory.createEmptyBorder());
-
-        tblConDes.setBackground(new java.awt.Color(246, 246, 246));
-        tblConDes.setBorder(null);
-        tblConDes.setFont(fontmed(10));
-        tblConDes.setForeground(new java.awt.Color(229, 192, 191));
-        tblConDes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblConDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblConDes.setFocusable(false);
-        tblConDes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblConDesMouseClicked(evt);
-            }
-        });
-        scrConDes.setViewportView(tblConDes);
-
-        pnlDes.add(scrConDes);
-        scrConDes.setBounds(270, 20, 760, 190);
-
-        btnVolDes.setFont(fontmed(12));
-        btnVolDes.setForeground(new java.awt.Color(10, 60, 133));
-        btnVolDes.setText("Voltar");
-        btnVolDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVolDes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolDesActionPerformed(evt);
-            }
-        });
-        pnlDes.add(btnVolDes);
-        btnVolDes.setBounds(270, 240, 90, 50);
-
-        pnlPri.add(pnlDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
-
-        pnlGerDes.setBackground(new java.awt.Color(246, 246, 246));
-        pnlGerDes.setLayout(null);
-
-        lblDesGerDes.setFont(fontmed(12));
-        lblDesGerDes.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesGerDes.setText("Descrição");
-        lblDesGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerDes.add(lblDesGerDes);
-        lblDesGerDes.setBounds(870, 40, 90, 20);
-
-        lblDatGerDes.setFont(fontmed(12));
-        lblDatGerDes.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatGerDes.setText("Data");
-        lblDatGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerDes.add(lblDatGerDes);
-        lblDatGerDes.setBounds(870, 160, 50, 20);
-
-        lblPreGerDes.setFont(fontmed(12));
-        lblPreGerDes.setForeground(new java.awt.Color(10, 60, 133));
-        lblPreGerDes.setText("Preço");
-        lblPreGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerDes.add(lblPreGerDes);
-        lblPreGerDes.setBounds(870, 100, 50, 20);
-
-        lblR$GerDes.setFont(fontmed(13));
-        lblR$GerDes.setText("R$");
-        lblR$GerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerDes.add(lblR$GerDes);
-        lblR$GerDes.setBounds(870, 100, 20, 21);
-
-        txtDatGerDes.setBackground(new java.awt.Color(246, 246, 246));
-        txtDatGerDes.setFont(fontmed(13));
-        txtDatGerDes.setBorder(null);
-        txtDatGerDes.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatGerDesFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatGerDesFocusLost(evt);
-            }
-        });
-        txtDatGerDes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatGerDesKeyTyped(evt);
-            }
-        });
-        pnlGerDes.add(txtDatGerDes);
-        txtDatGerDes.setBounds(870, 160, 130, 20);
-
-        txtDesGerDes.setBackground(new java.awt.Color(246, 246, 246));
-        txtDesGerDes.setFont(fontmed(13));
-        txtDesGerDes.setBorder(null);
-        txtDesGerDes.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDesGerDesFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDesGerDesFocusLost(evt);
-            }
-        });
-        pnlGerDes.add(txtDesGerDes);
-        txtDesGerDes.setBounds(870, 40, 210, 20);
-
-        sepPreGerDes.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerDes.add(sepPreGerDes);
-        sepPreGerDes.setBounds(870, 120, 100, 10);
-
-        sepDatGerDes.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerDes.add(sepDatGerDes);
-        sepDatGerDes.setBounds(870, 180, 130, 10);
-
-        sepDesGerDes.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerDes.add(sepDesGerDes);
-        sepDesGerDes.setBounds(870, 60, 210, 10);
-
-        txtPreGerDes.setBackground(new java.awt.Color(246, 246, 246));
-        txtPreGerDes.setFont(fontmed(13));
-        txtPreGerDes.setBorder(null);
-        txtPreGerDes.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPreGerDesFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPreGerDesFocusLost(evt);
-            }
-        });
-        pnlGerDes.add(txtPreGerDes);
-        txtPreGerDes.setBounds(890, 100, 80, 20);
-
-        btnExcGerDes.setFont(fontmed(12));
-        btnExcGerDes.setForeground(new java.awt.Color(10, 60, 133));
-        btnExcGerDes.setText("Excluir");
-        btnExcGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExcGerDes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcGerDesActionPerformed(evt);
-            }
-        });
-        pnlGerDes.add(btnExcGerDes);
-        btnExcGerDes.setBounds(970, 220, 90, 40);
-
-        btnAltGerDes.setFont(fontmed(12));
-        btnAltGerDes.setForeground(new java.awt.Color(10, 60, 133));
-        btnAltGerDes.setText("Alterar");
-        btnAltGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAltGerDes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAltGerDesActionPerformed(evt);
-            }
-        });
-        pnlGerDes.add(btnAltGerDes);
-        btnAltGerDes.setBounds(870, 220, 90, 40);
-
-        btnCanGerDes.setFont(fontmed(12));
-        btnCanGerDes.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanGerDes.setText("Cancelar");
-        btnCanGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanGerDes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanGerDesActionPerformed(evt);
-            }
-        });
-        pnlGerDes.add(btnCanGerDes);
-        btnCanGerDes.setBounds(1070, 220, 90, 40);
-
-        lblDesTipSer3.setFont(fontmed(12));
-        lblDesTipSer3.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesTipSer3.setText("Escolha um para alterar ou excluir");
-        lblDesTipSer3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerDes.add(lblDesTipSer3);
-        lblDesTipSer3.setBounds(110, 50, 260, 20);
-
-        scrGerDes.setBackground(new java.awt.Color(250, 250, 250));
-        scrGerDes.setBorder(BorderFactory.createEmptyBorder());
-        scrGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        tblTipSer.setTableHeader(null);
-        tblGerDes.setBackground(new java.awt.Color(246, 246, 246));
-        tblGerDes.setBorder(null);
-        tblGerDes.setFont(fontmed(12));
-        tblGerDes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblGerDes.setFocusable(false);
-        tblGerDes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblGerDesMouseClicked(evt);
-            }
-        });
-        scrGerDes.setViewportView(tblGerDes);
-
-        pnlGerDes.add(scrGerDes);
-        scrGerDes.setBounds(110, 80, 610, 160);
-
-        pnlPri.add(pnlGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 1300, 360));
-
-        pnlCadDes.setBackground(new java.awt.Color(246, 246, 246));
-        pnlCadDes.setLayout(null);
-
-        btnSalDes.setFont(fontmed(12));
-        btnSalDes.setForeground(new java.awt.Color(10, 60, 133));
-        btnSalDes.setText("Salvar");
-        btnSalDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalDes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalDesActionPerformed(evt);
-            }
-        });
-        pnlCadDes.add(btnSalDes);
-        btnSalDes.setBounds(540, 260, 90, 50);
-
-        lblDatDes.setFont(fontmed(12));
-        lblDatDes.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatDes.setText("Data");
-        lblDatDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadDes.add(lblDatDes);
-        lblDatDes.setBounds(540, 180, 50, 20);
-
-        txtDatDes.setBackground(new java.awt.Color(246, 246, 246));
-        txtDatDes.setFont(fontmed(13));
-        txtDatDes.setBorder(null);
-        txtDatDes.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatDesFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatDesFocusLost(evt);
-            }
-        });
-        txtDatDes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatDesKeyTyped(evt);
-            }
-        });
-        pnlCadDes.add(txtDatDes);
-        txtDatDes.setBounds(540, 180, 130, 20);
-
-        sepDatCadEnt7.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadDes.add(sepDatCadEnt7);
-        sepDatCadEnt7.setBounds(540, 200, 130, 10);
-
-        lblDesDes.setFont(fontmed(12));
-        lblDesDes.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesDes.setText("Descrição");
-        lblDesDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadDes.add(lblDesDes);
-        lblDesDes.setBounds(540, 60, 90, 20);
-
-        txtDesDes.setBackground(new java.awt.Color(246, 246, 246));
-        txtDesDes.setFont(fontmed(13));
-        txtDesDes.setBorder(null);
-        txtDesDes.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDesDesFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDesDesFocusLost(evt);
-            }
-        });
-        pnlCadDes.add(txtDesDes);
-        txtDesDes.setBounds(540, 60, 190, 20);
-
-        sepDatCadEnt4.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadDes.add(sepDatCadEnt4);
-        sepDatCadEnt4.setBounds(540, 80, 190, 10);
-
-        lblR$Des.setFont(fontmed(13));
-        lblR$Des.setText("R$");
-        lblR$Des.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadDes.add(lblR$Des);
-        lblR$Des.setBounds(540, 120, 20, 21);
-
-        lblPreDes.setFont(fontmed(12));
-        lblPreDes.setForeground(new java.awt.Color(10, 60, 133));
-        lblPreDes.setText("Preço");
-        lblPreDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadDes.add(lblPreDes);
-        lblPreDes.setBounds(540, 120, 50, 20);
-
-        txtPreDes.setBackground(new java.awt.Color(246, 246, 246));
-        txtPreDes.setFont(fontmed(13));
-        txtPreDes.setBorder(null);
-        txtPreDes.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPreDesFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPreDesFocusLost(evt);
-            }
-        });
-        txtPreDes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPreDesKeyTyped(evt);
-            }
-        });
-        pnlCadDes.add(txtPreDes);
-        txtPreDes.setBounds(560, 120, 80, 20);
-
-        sepDatCadEnt6.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadDes.add(sepDatCadEnt6);
-        sepDatCadEnt6.setBounds(540, 140, 100, 10);
-
-        btnCanDes.setFont(fontmed(12));
-        btnCanDes.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanDes.setText("Cancelar");
-        btnCanDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanDes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanDesActionPerformed(evt);
-            }
-        });
-        pnlCadDes.add(btnCanDes);
-        btnCanDes.setBounds(640, 260, 90, 50);
-
-        pnlPri.add(pnlCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
-
-        pnlRel.setBackground(new java.awt.Color(246, 246, 246));
-        pnlRel.setLayout(null);
-
-        scrRel.setBackground(new java.awt.Color(250, 250, 250));
-        scrRel.setBorder(BorderFactory.createEmptyBorder());
-
-        tblRel.setBackground(new java.awt.Color(246, 246, 246));
-        tblRel.setBorder(null);
-        tblRel.setFont(fontmed(10));
-        tblRel.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblRel.setFocusable(false);
-        scrRel.setViewportView(tblRel);
-
-        pnlRel.add(scrRel);
-        scrRel.setBounds(40, 200, 760, 150);
-
-        btnVolRel.setFont(fontmed(12));
-        btnVolRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnVolRel.setText("Voltar");
-        btnVolRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVolRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(btnVolRel);
-        btnVolRel.setBounds(60, 122, 90, 50);
-
-        btnGroup.add(rbtnSerTimRel);
-        rbtnSerTimRel.setFont(fontmed(12));
-        rbtnSerTimRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnSerTimRel.setText("Serviço TIM");
-        rbtnSerTimRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnSerTimRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnSerTimRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnSerTimRel);
-        rbtnSerTimRel.setBounds(455, 30, 100, 21);
-
-        btnGroup.add(rbtnSerRel);
-        rbtnSerRel.setFont(fontmed(12));
-        rbtnSerRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnSerRel.setText("Serviço");
-        rbtnSerRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnSerRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnSerRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnSerRel);
-        rbtnSerRel.setBounds(260, 30, 90, 21);
-
-        btnGroup.add(rbtnVenRel);
-        rbtnVenRel.setFont(fontmed(12));
-        rbtnVenRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnVenRel.setText("Venda");
-        rbtnVenRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnVenRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnVenRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnVenRel);
-        rbtnVenRel.setBounds(360, 30, 80, 21);
-
-        btnGroup.add(rbtnTodRel);
-        rbtnTodRel.setFont(fontmed(12));
-        rbtnTodRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnTodRel.setText("Todos");
-        rbtnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnTodRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnTodRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnTodRel);
-        rbtnTodRel.setBounds(170, 30, 70, 21);
-
-        lblDatIniRel.setFont(fontmed(12));
-        lblDatIniRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatIniRel.setText("Data inicial");
-        lblDatIniRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        lblDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                lblDatIniRelFocusGained(evt);
-            }
-        });
-        pnlRel.add(lblDatIniRel);
-        lblDatIniRel.setBounds(290, 150, 90, 20);
-
-        txtDatIniRel.setBackground(new java.awt.Color(246, 246, 246));
-        txtDatIniRel.setFont(fontmed(13));
-        txtDatIniRel.setBorder(null);
-        txtDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatIniRelFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatIniRelFocusLost(evt);
-            }
-        });
-        txtDatIniRel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtDatIniRelKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDatIniRelKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatIniRelKeyTyped(evt);
-            }
-        });
-        pnlRel.add(txtDatIniRel);
-        txtDatIniRel.setBounds(290, 150, 100, 20);
-
-        sepDatCadEnt1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlRel.add(sepDatCadEnt1);
-        sepDatCadEnt1.setBounds(290, 170, 100, 10);
-
-        btnTodRel.setFont(fontbold(12));
-        btnTodRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnTodRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnTodRel.setText("Todos");
-        btnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnTodRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnTodRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTodRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnTodRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnTodRel);
-        btnTodRel.setBounds(270, 90, 40, 20);
-
-        btnAnoRel.setFont(fontmed(12));
-        btnAnoRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnAnoRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAnoRel.setText("Ano");
-        btnAnoRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAnoRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAnoRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAnoRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnAnoRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnAnoRel);
-        btnAnoRel.setBounds(530, 90, 30, 20);
-
-        lblDatFinRel.setFont(fontmed(12));
-        lblDatFinRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatFinRel.setText("Data final");
-        lblDatFinRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlRel.add(lblDatFinRel);
-        lblDatFinRel.setBounds(430, 150, 80, 20);
-
-        txtDatFinRel.setBackground(new java.awt.Color(246, 246, 246));
-        txtDatFinRel.setFont(fontmed(13));
-        txtDatFinRel.setBorder(null);
-        txtDatFinRel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatFinRelFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatFinRelFocusLost(evt);
-            }
-        });
-        txtDatFinRel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtDatFinRelKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatFinRelKeyTyped(evt);
-            }
-        });
-        pnlRel.add(txtDatFinRel);
-        txtDatFinRel.setBounds(430, 150, 100, 20);
-
-        sepDatCadEnt2.setForeground(new java.awt.Color(10, 60, 133));
-        sepDatCadEnt2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        pnlRel.add(sepDatCadEnt2);
-        sepDatCadEnt2.setBounds(840, 70, 10, 240);
-
-        btnDiaRel.setFont(fontmed(12));
-        btnDiaRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDiaRel.setText("Dia");
-        btnDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDiaRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDiaRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnDiaRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnDiaRel);
-        btnDiaRel.setBounds(340, 90, 30, 20);
-
-        btnMesRel.setFont(fontmed(12));
-        btnMesRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnMesRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnMesRel.setText("Mês");
-        btnMesRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMesRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMesRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMesRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnMesRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnMesRel);
-        btnMesRel.setBounds(470, 90, 30, 20);
-
-        btnSemRel.setFont(fontmed(12));
-        btnSemRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnSemRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnSemRel.setText("Semana");
-        btnSemRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSemRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSemRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSemRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnSemRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnSemRel);
-        btnSemRel.setBounds(390, 90, 60, 20);
-
-        btnGroup.add(rbtnAssRel);
-        rbtnAssRel.setFont(fontmed(12));
-        rbtnAssRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnAssRel.setText("Assistência");
-        rbtnAssRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnAssRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnAssRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnAssRel);
-        rbtnAssRel.setBounds(580, 30, 100, 21);
-
-        sepDatCadEnt3.setForeground(new java.awt.Color(10, 60, 133));
-        pnlRel.add(sepDatCadEnt3);
-        sepDatCadEnt3.setBounds(430, 170, 100, 10);
-
-        lblTotEntRel.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
-        lblTotEntRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblTotEntRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTotEntRel.setText("0");
-        pnlRel.add(lblTotEntRel);
-        lblTotEntRel.setBounds(990, 100, 160, 30);
-
-        jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 0, 16)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Total de entradas");
-        pnlRel.add(jLabel2);
-        jLabel2.setBounds(990, 80, 160, 20);
-
-        lblValTotRel.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
-        lblValTotRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblValTotRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValTotRel.setText("R$0,00");
-        pnlRel.add(lblValTotRel);
-        lblValTotRel.setBounds(990, 180, 160, 30);
-
-        jLabel4.setFont(new java.awt.Font("Poppins SemiBold", 0, 16)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Valor total");
-        pnlRel.add(jLabel4);
-        jLabel4.setBounds(990, 160, 160, 20);
-
-        lblValMedRel.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
-        lblValMedRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblValMedRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValMedRel.setText("R$0,00");
-        pnlRel.add(lblValMedRel);
-        lblValMedRel.setBounds(990, 260, 160, 30);
-
-        jLabel6.setFont(new java.awt.Font("Poppins SemiBold", 0, 16)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Valor médio");
-        pnlRel.add(jLabel6);
-        jLabel6.setBounds(990, 240, 160, 20);
-
-        pnlPri.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
-
         pnlCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadEnt.setLayout(null);
 
@@ -3534,103 +2216,377 @@ public final class main extends javax.swing.JFrame {
 
         pnlPri.add(pnlIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
 
-        pnlCadTipSer.setBackground(new java.awt.Color(246, 246, 246));
-        pnlCadTipSer.setLayout(null);
+        pnlGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        pnlGerEnt.setLayout(null);
 
-        btnSalTipSer.setFont(fontmed(12));
-        btnSalTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnSalTipSer.setText("Salvar");
-        btnSalTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalTipSer.addActionListener(new java.awt.event.ActionListener() {
+        btnExcGerEnt.setFont(fontmed(12));
+        btnExcGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        btnExcGerEnt.setText("Excluir");
+        btnExcGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalTipSerActionPerformed(evt);
+                btnExcGerEntActionPerformed(evt);
             }
         });
-        pnlCadTipSer.add(btnSalTipSer);
-        btnSalTipSer.setBounds(550, 160, 90, 40);
+        pnlGerEnt.add(btnExcGerEnt);
+        btnExcGerEnt.setBounds(1120, 230, 90, 50);
 
-        btnCanTipSer.setFont(fontmed(12));
-        btnCanTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanTipSer.setText("Cancelar");
-        btnCanTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanTipSer.addActionListener(new java.awt.event.ActionListener() {
+        btnBusGerEnt.setFont(fontmed(12));
+        btnBusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        btnBusGerEnt.setText("Buscar");
+        btnBusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanTipSerActionPerformed(evt);
+                btnBusGerEntActionPerformed(evt);
             }
         });
-        pnlCadTipSer.add(btnCanTipSer);
-        btnCanTipSer.setBounds(650, 160, 90, 40);
+        pnlGerEnt.add(btnBusGerEnt);
+        btnBusGerEnt.setBounds(70, 90, 90, 50);
 
-        btnGroup.add(rbtnOutTipSer);
-        rbtnOutTipSer.setFont(fontmed(12));
-        rbtnOutTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnOutTipSer.setText("Outros");
-        rbtnOutTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnOutTipSer.addActionListener(new java.awt.event.ActionListener() {
+        btnIteGerEnt.setFont(fontmed(12));
+        btnIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        btnIteGerEnt.setText("Ítens");
+        btnIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnOutTipSerActionPerformed(evt);
+                btnIteGerEntActionPerformed(evt);
             }
         });
-        pnlCadTipSer.add(rbtnOutTipSer);
-        rbtnOutTipSer.setBounds(780, 20, 80, 21);
+        pnlGerEnt.add(btnIteGerEnt);
+        btnIteGerEnt.setBounds(1120, 110, 90, 50);
 
-        btnGroup.add(rbtnSerTimTipSer);
-        rbtnSerTimTipSer.setFont(fontmed(12));
-        rbtnSerTimTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnSerTimTipSer.setText("Serviços TIM");
-        rbtnSerTimTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnSerTimTipSer.addActionListener(new java.awt.event.ActionListener() {
+        btnCanGerEnt.setFont(fontmed(12));
+        btnCanGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanGerEnt.setText("Cancelar");
+        btnCanGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnSerTimTipSerActionPerformed(evt);
+                btnCanGerEntActionPerformed(evt);
             }
         });
-        pnlCadTipSer.add(rbtnSerTimTipSer);
-        rbtnSerTimTipSer.setBounds(440, 20, 110, 21);
+        pnlGerEnt.add(btnCanGerEnt);
+        btnCanGerEnt.setBounds(170, 90, 90, 50);
 
-        btnGroup.add(rbtnAssTipSer);
-        rbtnAssTipSer.setFont(fontmed(12));
-        rbtnAssTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnAssTipSer.setText("Serviços Assistência Técnica");
-        rbtnAssTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnAssTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnAssTipSerActionPerformed(evt);
-            }
-        });
-        pnlCadTipSer.add(rbtnAssTipSer);
-        rbtnAssTipSer.setBounds(562, 20, 210, 21);
+        lblDatGerEnt.setFont(fontmed(12));
+        lblDatGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatGerEnt.setText("Data");
+        lblDatGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerEnt.add(lblDatGerEnt);
+        lblDatGerEnt.setBounds(860, 80, 40, 20);
 
-        lblDesTipSer.setFont(fontmed(12));
-        lblDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesTipSer.setText("Descrição");
-        lblDesTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadTipSer.add(lblDesTipSer);
-        lblDesTipSer.setBounds(510, 110, 70, 20);
-
-        txtDesTipSer.setBackground(new java.awt.Color(246, 246, 246));
-        txtDesTipSer.setFont(fontmed(13));
-        txtDesTipSer.setBorder(null);
-        txtDesTipSer.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDatGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatGerEnt.setFont(fontmed(13));
+        txtDatGerEnt.setBorder(null);
+        txtDatGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDesTipSerFocusGained(evt);
+                txtDatGerEntFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDesTipSerFocusLost(evt);
+                txtDatGerEntFocusLost(evt);
             }
         });
-        txtDesTipSer.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDatGerEnt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDesTipSerKeyTyped(evt);
+                txtDatGerEntKeyTyped(evt);
             }
         });
-        pnlCadTipSer.add(txtDesTipSer);
-        txtDesTipSer.setBounds(510, 110, 280, 20);
+        pnlGerEnt.add(txtDatGerEnt);
+        txtDatGerEnt.setBounds(860, 80, 130, 20);
 
-        sepDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadTipSer.add(sepDesTipSer);
-        sepDesTipSer.setBounds(510, 130, 280, 10);
+        sepDatGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerEnt.add(sepDatGerEnt);
+        sepDatGerEnt.setBounds(860, 100, 130, 10);
 
-        pnlPri.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 1300, 360));
+        lblR$GerEnt.setFont(fontmed(13));
+        lblR$GerEnt.setText("R$");
+        lblR$GerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerEnt.add(lblR$GerEnt);
+        lblR$GerEnt.setBounds(860, 130, 20, 21);
+
+        lblPreGerEnt.setFont(fontmed(12));
+        lblPreGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblPreGerEnt.setText("Preço");
+        lblPreGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerEnt.add(lblPreGerEnt);
+        lblPreGerEnt.setBounds(860, 130, 40, 20);
+
+        txtPreGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreGerEnt.setFont(fontmed(13));
+        txtPreGerEnt.setBorder(null);
+        txtPreGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPreGerEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPreGerEntFocusLost(evt);
+            }
+        });
+        pnlGerEnt.add(txtPreGerEnt);
+        txtPreGerEnt.setBounds(880, 130, 80, 20);
+
+        sepPreGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerEnt.add(sepPreGerEnt);
+        sepPreGerEnt.setBounds(860, 150, 100, 10);
+
+        lblDetGerEnt.setFont(fontmed(12));
+        lblDetGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblDetGerEnt.setText("Detalhes");
+        lblDetGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerEnt.add(lblDetGerEnt);
+        lblDetGerEnt.setBounds(860, 180, 70, 20);
+
+        txtDetGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtDetGerEnt.setFont(fontmed(13));
+        txtDetGerEnt.setBorder(null);
+        txtDetGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDetGerEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDetGerEntFocusLost(evt);
+            }
+        });
+        txtDetGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDetGerEntMouseClicked(evt);
+            }
+        });
+        pnlGerEnt.add(txtDetGerEnt);
+        txtDetGerEnt.setBounds(860, 180, 190, 20);
+
+        sepDetGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerEnt.add(sepDetGerEnt);
+        sepDetGerEnt.setBounds(860, 200, 190, 10);
+
+        lblDatBusGerEnt.setFont(fontmed(12));
+        lblDatBusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatBusGerEnt.setText("Data");
+        lblDatBusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerEnt.add(lblDatBusGerEnt);
+        lblDatBusGerEnt.setBounds(70, 50, 50, 20);
+
+        txtDatBusGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatBusGerEnt.setFont(fontmed(13));
+        txtDatBusGerEnt.setBorder(null);
+        txtDatBusGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatBusGerEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatBusGerEntFocusLost(evt);
+            }
+        });
+        txtDatBusGerEnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatBusGerEntKeyTyped(evt);
+            }
+        });
+        pnlGerEnt.add(txtDatBusGerEnt);
+        txtDatBusGerEnt.setBounds(70, 50, 190, 20);
+
+        sepMod3.setForeground(new java.awt.Color(10, 60, 133));
+        sepMod3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        pnlGerEnt.add(sepMod3);
+        sepMod3.setBounds(750, 80, 20, 210);
+
+        sepBusGerEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerEnt.add(sepBusGerEst1);
+        sepBusGerEst1.setBounds(70, 70, 190, 10);
+
+        cmbSerGerEnt.setFont(fontmed(13));
+        cmbSerGerEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
+        cmbSerGerEnt.setToolTipText("");
+        cmbSerGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlGerEnt.add(cmbSerGerEnt);
+        cmbSerGerEnt.setBounds(860, 250, 190, 30);
+
+        lblSerGerEnt.setFont(fontmed(12));
+        lblSerGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblSerGerEnt.setText("Serviço");
+        pnlGerEnt.add(lblSerGerEnt);
+        lblSerGerEnt.setBounds(860, 220, 90, 30);
+
+        scrGerEnt.setBackground(new java.awt.Color(250, 250, 250));
+        scrGerEnt.setBorder(BorderFactory.createEmptyBorder());
+
+        tblConEst.setEnabled(false);
+        tblGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblGerEnt.setBorder(null);
+        tblGerEnt.setFont(fontmed(10));
+        tblGerEnt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblGerEnt.setFocusable(false);
+        tblGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblGerEntMouseClicked(evt);
+            }
+        });
+        scrGerEnt.setViewportView(tblGerEnt);
+
+        pnlGerEnt.add(scrGerEnt);
+        scrGerEnt.setBounds(40, 170, 670, 170);
+
+        btnAltGerEnt.setFont(fontmed(12));
+        btnAltGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        btnAltGerEnt.setText("Alterar");
+        btnAltGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltGerEntActionPerformed(evt);
+            }
+        });
+        pnlGerEnt.add(btnAltGerEnt);
+        btnAltGerEnt.setBounds(1120, 170, 90, 50);
+
+        pnlPri.add(pnlGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
+
+        pnlIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        pnlIteGerEnt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        scrEstIteGerEnt.setBackground(new java.awt.Color(250, 250, 250));
+        scrEstIteGerEnt.setBorder(BorderFactory.createEmptyBorder());
+
+        tblEstIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblEstIteGerEnt.setBorder(null);
+        tblEstIteGerEnt.setFont(fontmed(10));
+        tblEstIteGerEnt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblEstIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblEstIteGerEnt.setFocusable(false);
+        tblEstIteGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEstIteGerEntMouseClicked(evt);
+            }
+        });
+        scrEstIteGerEnt.setViewportView(tblEstIteGerEnt);
+
+        pnlIteGerEnt.add(scrEstIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 780, 120));
+
+        scrSelIteGerEnt.setBackground(new java.awt.Color(250, 250, 250));
+        scrSelIteGerEnt.setBorder(BorderFactory.createEmptyBorder());
+
+        tblSelIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblSelIteGerEnt.setBorder(null);
+        tblSelIteGerEnt.setFont(fontmed(10));
+        tblSelIteGerEnt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblSelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblSelIteGerEnt.setFocusable(false);
+        tblSelIteGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSelIteGerEntMouseClicked(evt);
+            }
+        });
+        scrSelIteGerEnt.setViewportView(tblSelIteGerEnt);
+
+        pnlIteGerEnt.add(scrSelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 780, 120));
+
+        btnVolIteGerEnt.setFont(fontmed(12));
+        btnVolIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        btnVolIteGerEnt.setText("Voltar");
+        btnVolIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolIteGerEntActionPerformed(evt);
+            }
+        });
+        pnlIteGerEnt.add(btnVolIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 90, 50));
+
+        lblSelIteGerEnt.setFont(fontmed(12));
+        lblSelIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblSelIteGerEnt.setText("Ítens selecionados");
+        pnlIteGerEnt.add(lblSelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 170, 20));
+
+        lblEstIteGerEnt.setFont(fontmed(12));
+        lblEstIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblEstIteGerEnt.setText("Ítens do estoque");
+        pnlIteGerEnt.add(lblEstIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 120, 20));
+
+        btnGroup1.add(rbtnAssIteGerEnt);
+        rbtnAssIteGerEnt.setFont(fontmed(12));
+        rbtnAssIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnAssIteGerEnt.setText("Acessório");
+        rbtnAssIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlIteGerEnt.add(rbtnAssIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 100, -1));
+
+        btnGroup1.add(rbtnPelIteGerEnt);
+        rbtnPelIteGerEnt.setFont(fontmed(12));
+        rbtnPelIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnPelIteGerEnt.setText("Película");
+        rbtnPelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlIteGerEnt.add(rbtnPelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 80, -1));
+
+        btnGroup1.add(rbtnCapIteGerEnt);
+        rbtnCapIteGerEnt.setFont(fontmed(12));
+        rbtnCapIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnCapIteGerEnt.setSelected(true);
+        rbtnCapIteGerEnt.setText("Capinha");
+        rbtnCapIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlIteGerEnt.add(rbtnCapIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 90, -1));
+
+        btnGroup1.add(rbtnChiIteGerEnt);
+        rbtnChiIteGerEnt.setFont(fontmed(12));
+        rbtnChiIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnChiIteGerEnt.setText("Chip");
+        rbtnChiIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlIteGerEnt.add(rbtnChiIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 70, -1));
+
+        lblBusIteGerEnt.setFont(fontmed(12));
+        lblBusIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblBusIteGerEnt.setText("Buscar");
+        lblBusIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlIteGerEnt.add(lblBusIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 50, 20));
+
+        txtBusIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusIteGerEnt.setFont(fontmed(13));
+        txtBusIteGerEnt.setBorder(null);
+        txtBusIteGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBusIteGerEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBusIteGerEntFocusLost(evt);
+            }
+        });
+        txtBusIteGerEnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBusIteGerEntKeyPressed(evt);
+            }
+        });
+        pnlIteGerEnt.add(txtBusIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 200, 20));
+
+        sepBusIteCadEnt1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlIteGerEnt.add(sepBusIteCadEnt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 200, 10));
+
+        pnlPri.add(pnlIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
 
         pnlCadEst.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadEst.setLayout(null);
@@ -4486,6 +3442,822 @@ public final class main extends javax.swing.JFrame {
 
         pnlPri.add(pnlGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
 
+        pnlRel.setBackground(new java.awt.Color(246, 246, 246));
+        pnlRel.setLayout(null);
+
+        scrRel.setBackground(new java.awt.Color(250, 250, 250));
+        scrRel.setBorder(BorderFactory.createEmptyBorder());
+
+        tblRel.setBackground(new java.awt.Color(246, 246, 246));
+        tblRel.setBorder(null);
+        tblRel.setFont(fontmed(10));
+        tblRel.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblRel.setFocusable(false);
+        scrRel.setViewportView(tblRel);
+
+        pnlRel.add(scrRel);
+        scrRel.setBounds(40, 200, 760, 150);
+
+        btnVolRel.setFont(fontmed(12));
+        btnVolRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnVolRel.setText("Voltar");
+        btnVolRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(btnVolRel);
+        btnVolRel.setBounds(60, 122, 90, 50);
+
+        btnGroup.add(rbtnSerTimRel);
+        rbtnSerTimRel.setFont(fontmed(12));
+        rbtnSerTimRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnSerTimRel.setText("Serviço TIM");
+        rbtnSerTimRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnSerTimRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSerTimRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnSerTimRel);
+        rbtnSerTimRel.setBounds(455, 30, 100, 21);
+
+        btnGroup.add(rbtnSerRel);
+        rbtnSerRel.setFont(fontmed(12));
+        rbtnSerRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnSerRel.setText("Serviço");
+        rbtnSerRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnSerRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSerRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnSerRel);
+        rbtnSerRel.setBounds(260, 30, 90, 21);
+
+        btnGroup.add(rbtnVenRel);
+        rbtnVenRel.setFont(fontmed(12));
+        rbtnVenRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnVenRel.setText("Venda");
+        rbtnVenRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnVenRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnVenRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnVenRel);
+        rbtnVenRel.setBounds(360, 30, 80, 21);
+
+        btnGroup.add(rbtnTodRel);
+        rbtnTodRel.setFont(fontmed(12));
+        rbtnTodRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnTodRel.setText("Todos");
+        rbtnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnTodRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTodRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnTodRel);
+        rbtnTodRel.setBounds(170, 30, 70, 21);
+
+        lblDatIniRel.setFont(fontmed(12));
+        lblDatIniRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatIniRel.setText("Data inicial");
+        lblDatIniRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lblDatIniRelFocusGained(evt);
+            }
+        });
+        pnlRel.add(lblDatIniRel);
+        lblDatIniRel.setBounds(290, 150, 90, 20);
+
+        txtDatIniRel.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatIniRel.setFont(fontmed(13));
+        txtDatIniRel.setBorder(null);
+        txtDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatIniRelFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatIniRelFocusLost(evt);
+            }
+        });
+        txtDatIniRel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDatIniRelKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDatIniRelKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatIniRelKeyTyped(evt);
+            }
+        });
+        pnlRel.add(txtDatIniRel);
+        txtDatIniRel.setBounds(290, 150, 100, 20);
+
+        sepDatCadEnt1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlRel.add(sepDatCadEnt1);
+        sepDatCadEnt1.setBounds(290, 170, 100, 10);
+
+        btnTodRel.setFont(fontbold(12));
+        btnTodRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnTodRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnTodRel.setText("Todos");
+        btnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTodRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTodRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTodRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnTodRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnTodRel);
+        btnTodRel.setBounds(270, 90, 40, 20);
+
+        btnAnoRel.setFont(fontmed(12));
+        btnAnoRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnAnoRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAnoRel.setText("Ano");
+        btnAnoRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAnoRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAnoRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAnoRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAnoRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnAnoRel);
+        btnAnoRel.setBounds(530, 90, 30, 20);
+
+        lblDatFinRel.setFont(fontmed(12));
+        lblDatFinRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatFinRel.setText("Data final");
+        lblDatFinRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlRel.add(lblDatFinRel);
+        lblDatFinRel.setBounds(430, 150, 80, 20);
+
+        txtDatFinRel.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatFinRel.setFont(fontmed(13));
+        txtDatFinRel.setBorder(null);
+        txtDatFinRel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatFinRelFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatFinRelFocusLost(evt);
+            }
+        });
+        txtDatFinRel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDatFinRelKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatFinRelKeyTyped(evt);
+            }
+        });
+        pnlRel.add(txtDatFinRel);
+        txtDatFinRel.setBounds(430, 150, 100, 20);
+
+        sepDatCadEnt2.setForeground(new java.awt.Color(10, 60, 133));
+        sepDatCadEnt2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        pnlRel.add(sepDatCadEnt2);
+        sepDatCadEnt2.setBounds(840, 70, 10, 240);
+
+        btnDiaRel.setFont(fontmed(12));
+        btnDiaRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnDiaRel.setText("Dia");
+        btnDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnDiaRel);
+        btnDiaRel.setBounds(340, 90, 30, 20);
+
+        btnMesRel.setFont(fontmed(12));
+        btnMesRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnMesRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMesRel.setText("Mês");
+        btnMesRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMesRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMesRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMesRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMesRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnMesRel);
+        btnMesRel.setBounds(470, 90, 30, 20);
+
+        btnSemRel.setFont(fontmed(12));
+        btnSemRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnSemRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSemRel.setText("Semana");
+        btnSemRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSemRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSemRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSemRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnSemRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnSemRel);
+        btnSemRel.setBounds(390, 90, 60, 20);
+
+        btnGroup.add(rbtnAssRel);
+        rbtnAssRel.setFont(fontmed(12));
+        rbtnAssRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnAssRel.setText("Assistência");
+        rbtnAssRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAssRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnAssRel);
+        rbtnAssRel.setBounds(580, 30, 100, 21);
+
+        sepDatCadEnt3.setForeground(new java.awt.Color(10, 60, 133));
+        pnlRel.add(sepDatCadEnt3);
+        sepDatCadEnt3.setBounds(430, 170, 100, 10);
+
+        lblTotEntRel.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
+        lblTotEntRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblTotEntRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotEntRel.setText("0");
+        pnlRel.add(lblTotEntRel);
+        lblTotEntRel.setBounds(990, 100, 160, 30);
+
+        jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 0, 16)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Total de entradas");
+        pnlRel.add(jLabel2);
+        jLabel2.setBounds(990, 80, 160, 20);
+
+        lblValTotRel.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
+        lblValTotRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValTotRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValTotRel.setText("R$0,00");
+        pnlRel.add(lblValTotRel);
+        lblValTotRel.setBounds(990, 180, 160, 30);
+
+        jLabel4.setFont(new java.awt.Font("Poppins SemiBold", 0, 16)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Valor total");
+        pnlRel.add(jLabel4);
+        jLabel4.setBounds(990, 160, 160, 20);
+
+        lblValMedRel.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
+        lblValMedRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValMedRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValMedRel.setText("R$0,00");
+        pnlRel.add(lblValMedRel);
+        lblValMedRel.setBounds(990, 260, 160, 30);
+
+        jLabel6.setFont(new java.awt.Font("Poppins SemiBold", 0, 16)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Valor médio");
+        pnlRel.add(jLabel6);
+        jLabel6.setBounds(990, 240, 160, 20);
+
+        pnlPri.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
+
+        pnlOs.setBackground(new java.awt.Color(246, 246, 246));
+        pnlOs.setLayout(null);
+
+        btnGerOs.setFont(fontmed(12));
+        btnGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnGerOs.setText("Gerar");
+        btnGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerOsActionPerformed(evt);
+            }
+        });
+        pnlOs.add(btnGerOs);
+        btnGerOs.setBounds(700, 280, 90, 50);
+
+        btnCanOs.setFont(fontmed(12));
+        btnCanOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanOs.setText("Cancelar");
+        btnCanOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanOsActionPerformed(evt);
+            }
+        });
+        pnlOs.add(btnCanOs);
+        btnCanOs.setBounds(850, 280, 90, 50);
+
+        lblEndOs.setFont(fontmed(12));
+        lblEndOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblEndOs.setText("Endereço");
+        lblEndOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblEndOs);
+        lblEndOs.setBounds(370, 130, 60, 20);
+
+        txtEndOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtEndOs.setFont(fontmed(13));
+        txtEndOs.setBorder(null);
+        txtEndOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEndOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEndOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtEndOs);
+        txtEndOs.setBounds(370, 130, 240, 20);
+
+        sepModCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepModCadEst1);
+        sepModCadEst1.setBounds(370, 150, 240, 10);
+
+        lblCliOs.setFont(fontmed(12));
+        lblCliOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblCliOs.setText("Cliente");
+        lblCliOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblCliOs);
+        lblCliOs.setBounds(370, 30, 60, 20);
+
+        txtCliOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtCliOs.setFont(fontmed(13));
+        txtCliOs.setBorder(null);
+        txtCliOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCliOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCliOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtCliOs);
+        txtCliOs.setBounds(370, 30, 240, 20);
+
+        sepMarCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepMarCadEst1);
+        sepMarCadEst1.setBounds(370, 50, 240, 10);
+
+        lblEquOs.setFont(fontmed(12));
+        lblEquOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblEquOs.setText("Equipamento");
+        lblEquOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblEquOs);
+        lblEquOs.setBounds(700, 30, 80, 20);
+
+        txtEquOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtEquOs.setFont(fontmed(13));
+        txtEquOs.setBorder(null);
+        txtEquOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEquOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEquOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtEquOs);
+        txtEquOs.setBounds(700, 30, 240, 20);
+
+        sepCorCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepCorCadEst1);
+        sepCorCadEst1.setBounds(700, 50, 240, 10);
+
+        lblMarOs.setFont(fontmed(12));
+        lblMarOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblMarOs.setText("Marca");
+        lblMarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblMarOs);
+        lblMarOs.setBounds(700, 80, 50, 20);
+
+        txtMarOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtMarOs.setFont(fontmed(13));
+        txtMarOs.setBorder(null);
+        txtMarOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMarOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtMarOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtMarOs);
+        txtMarOs.setBounds(700, 80, 240, 20);
+
+        sepMatCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepMatCadEst1);
+        sepMatCadEst1.setBounds(700, 100, 240, 10);
+
+        lblTelOs.setFont(fontmed(12));
+        lblTelOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblTelOs.setText("Telefone");
+        lblTelOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblTelOs);
+        lblTelOs.setBounds(370, 80, 80, 20);
+
+        txtTelOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtTelOs.setFont(fontmed(13));
+        txtTelOs.setBorder(null);
+        txtTelOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTelOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTelOsFocusLost(evt);
+            }
+        });
+        txtTelOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelOsKeyTyped(evt);
+            }
+        });
+        pnlOs.add(txtTelOs);
+        txtTelOs.setBounds(370, 80, 130, 20);
+
+        sepQuaCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepQuaCadEst1);
+        sepQuaCadEst1.setBounds(370, 100, 130, 10);
+
+        lblModOs.setFont(fontmed(12));
+        lblModOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblModOs.setText("Modelo");
+        lblModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblModOs);
+        lblModOs.setBounds(700, 130, 60, 20);
+
+        txtModOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtModOs.setFont(fontmed(13));
+        txtModOs.setBorder(null);
+        txtModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtModOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtModOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtModOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtModOs);
+        txtModOs.setBounds(700, 130, 240, 20);
+
+        sepLocCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepLocCadEst1);
+        sepLocCadEst1.setBounds(700, 150, 240, 10);
+
+        lblConOs.setFont(fontmed(12));
+        lblConOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblConOs.setText("Condições");
+        lblConOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblConOs);
+        lblConOs.setBounds(700, 180, 70, 20);
+
+        txtConOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtConOs.setFont(fontmed(13));
+        txtConOs.setBorder(null);
+        txtConOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtConOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtConOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtConOs);
+        txtConOs.setBounds(700, 180, 240, 20);
+
+        sepDetCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepDetCadEst1);
+        sepDetCadEst1.setBounds(700, 200, 240, 10);
+
+        lblDefOs.setFont(fontmed(12));
+        lblDefOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblDefOs.setText("Defeito(s)");
+        lblDefOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblDefOs);
+        lblDefOs.setBounds(700, 230, 70, 20);
+
+        txtDefOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtDefOs.setFont(fontmed(13));
+        txtDefOs.setBorder(null);
+        txtDefOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDefOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDefOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtDefOs);
+        txtDefOs.setBounds(700, 230, 240, 20);
+
+        sepDetCadEst2.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepDetCadEst2);
+        sepDetCadEst2.setBounds(700, 250, 240, 10);
+
+        lblDatOs.setFont(fontmed(12));
+        lblDatOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatOs.setText("Data");
+        lblDatOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblDatOs);
+        lblDatOs.setBounds(370, 160, 60, 20);
+
+        txtDatOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatOs.setFont(fontmed(13));
+        txtDatOs.setBorder(null);
+        txtDatOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatOsFocusLost(evt);
+            }
+        });
+        txtDatOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatOsKeyTyped(evt);
+            }
+        });
+        pnlOs.add(txtDatOs);
+        txtDatOs.setBounds(370, 180, 90, 20);
+
+        sepDetCadEst3.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepDetCadEst3);
+        sepDetCadEst3.setBounds(370, 200, 90, 10);
+
+        lblHorOs.setFont(fontmed(12));
+        lblHorOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblHorOs.setText("Horário");
+        lblHorOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblHorOs);
+        lblHorOs.setBounds(370, 210, 80, 20);
+
+        txtHorOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtHorOs.setFont(fontmed(13));
+        txtHorOs.setBorder(null);
+        txtHorOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtHorOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtHorOsFocusLost(evt);
+            }
+        });
+        txtHorOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHorOsKeyTyped(evt);
+            }
+        });
+        pnlOs.add(txtHorOs);
+        txtHorOs.setBounds(370, 230, 90, 20);
+
+        sepDetCadEst4.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepDetCadEst4);
+        sepDetCadEst4.setBounds(370, 250, 90, 10);
+
+        pnlPri.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 1300, 390));
+
+        pnlCadTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        pnlCadTipSer.setLayout(null);
+
+        btnSalTipSer.setFont(fontmed(12));
+        btnSalTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnSalTipSer.setText("Salvar");
+        btnSalTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(btnSalTipSer);
+        btnSalTipSer.setBounds(550, 160, 90, 40);
+
+        btnCanTipSer.setFont(fontmed(12));
+        btnCanTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanTipSer.setText("Cancelar");
+        btnCanTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(btnCanTipSer);
+        btnCanTipSer.setBounds(650, 160, 90, 40);
+
+        btnGroup.add(rbtnOutTipSer);
+        rbtnOutTipSer.setFont(fontmed(12));
+        rbtnOutTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnOutTipSer.setText("Outros");
+        rbtnOutTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnOutTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnOutTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(rbtnOutTipSer);
+        rbtnOutTipSer.setBounds(780, 20, 80, 21);
+
+        btnGroup.add(rbtnSerTimTipSer);
+        rbtnSerTimTipSer.setFont(fontmed(12));
+        rbtnSerTimTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnSerTimTipSer.setText("Serviços TIM");
+        rbtnSerTimTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnSerTimTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSerTimTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(rbtnSerTimTipSer);
+        rbtnSerTimTipSer.setBounds(440, 20, 110, 21);
+
+        btnGroup.add(rbtnAssTipSer);
+        rbtnAssTipSer.setFont(fontmed(12));
+        rbtnAssTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnAssTipSer.setText("Serviços Assistência Técnica");
+        rbtnAssTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAssTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(rbtnAssTipSer);
+        rbtnAssTipSer.setBounds(562, 20, 210, 21);
+
+        lblDesTipSer.setFont(fontmed(12));
+        lblDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        lblDesTipSer.setText("Descrição");
+        lblDesTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadTipSer.add(lblDesTipSer);
+        lblDesTipSer.setBounds(510, 110, 70, 20);
+
+        txtDesTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        txtDesTipSer.setFont(fontmed(13));
+        txtDesTipSer.setBorder(null);
+        txtDesTipSer.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDesTipSerFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDesTipSerFocusLost(evt);
+            }
+        });
+        txtDesTipSer.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDesTipSerKeyTyped(evt);
+            }
+        });
+        pnlCadTipSer.add(txtDesTipSer);
+        txtDesTipSer.setBounds(510, 110, 280, 20);
+
+        sepDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadTipSer.add(sepDesTipSer);
+        sepDesTipSer.setBounds(510, 130, 280, 10);
+
+        pnlPri.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 1300, 360));
+
+        pnlGerTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        pnlGerTipSer.setLayout(null);
+
+        btnExcGerTipSer.setFont(fontmed(12));
+        btnExcGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnExcGerTipSer.setText("Excluir");
+        btnExcGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(btnExcGerTipSer);
+        btnExcGerTipSer.setBounds(600, 250, 90, 40);
+
+        btnAltGerTipSer.setFont(fontmed(12));
+        btnAltGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnAltGerTipSer.setText("Alterar");
+        btnAltGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(btnAltGerTipSer);
+        btnAltGerTipSer.setBounds(500, 250, 90, 40);
+
+        btnCanGerTipSer.setFont(fontmed(12));
+        btnCanGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanGerTipSer.setText("Cancelar");
+        btnCanGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(btnCanGerTipSer);
+        btnCanGerTipSer.setBounds(700, 250, 90, 40);
+
+        lblDesTipSer2.setFont(fontmed(12));
+        lblDesTipSer2.setForeground(new java.awt.Color(10, 60, 133));
+        lblDesTipSer2.setText("Escolha um para alterar ou excluir");
+        lblDesTipSer2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerTipSer.add(lblDesTipSer2);
+        lblDesTipSer2.setBounds(510, 10, 260, 20);
+
+        lblDesGerTipSer.setFont(fontmed(12));
+        lblDesGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        lblDesGerTipSer.setText("Descrição");
+        lblDesGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerTipSer.add(lblDesGerTipSer);
+        lblDesGerTipSer.setBounds(510, 200, 70, 20);
+
+        txtDesGerTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        txtDesGerTipSer.setFont(fontmed(13));
+        txtDesGerTipSer.setBorder(null);
+        txtDesGerTipSer.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDesGerTipSerFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDesGerTipSerFocusLost(evt);
+            }
+        });
+        pnlGerTipSer.add(txtDesGerTipSer);
+        txtDesGerTipSer.setBounds(510, 200, 270, 20);
+
+        sepDesGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerTipSer.add(sepDesGerTipSer);
+        sepDesGerTipSer.setBounds(510, 220, 270, 10);
+
+        scrTipSer.setBackground(new java.awt.Color(250, 250, 250));
+        scrTipSer.setBorder(BorderFactory.createEmptyBorder());
+        scrTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        tblTipSer.setTableHeader(null);
+        tblTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        tblTipSer.setBorder(null);
+        tblTipSer.setFont(fontmed(12));
+        tblTipSer.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblTipSer.setFocusable(false);
+        tblTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTipSerMouseClicked(evt);
+            }
+        });
+        scrTipSer.setViewportView(tblTipSer);
+
+        pnlGerTipSer.add(scrTipSer);
+        scrTipSer.setBounds(510, 40, 270, 120);
+
+        pnlPri.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 1300, 360));
+
         pnlMas.setBackground(new java.awt.Color(246, 246, 246));
         pnlMas.setLayout(null);
 
@@ -4809,86 +4581,17 @@ public final class main extends javax.swing.JFrame {
 
         pnlPri.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 1300, 360));
 
-        pnlGerTipSer.setBackground(new java.awt.Color(246, 246, 246));
-        pnlGerTipSer.setLayout(null);
+        pnlDes.setBackground(new java.awt.Color(246, 246, 246));
+        pnlDes.setLayout(null);
 
-        btnExcGerTipSer.setFont(fontmed(12));
-        btnExcGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnExcGerTipSer.setText("Excluir");
-        btnExcGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExcGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(btnExcGerTipSer);
-        btnExcGerTipSer.setBounds(600, 250, 90, 40);
+        scrConDes.setBackground(new java.awt.Color(250, 250, 250));
+        scrConDes.setBorder(BorderFactory.createEmptyBorder());
 
-        btnAltGerTipSer.setFont(fontmed(12));
-        btnAltGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnAltGerTipSer.setText("Alterar");
-        btnAltGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAltGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAltGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(btnAltGerTipSer);
-        btnAltGerTipSer.setBounds(500, 250, 90, 40);
-
-        btnCanGerTipSer.setFont(fontmed(12));
-        btnCanGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanGerTipSer.setText("Cancelar");
-        btnCanGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(btnCanGerTipSer);
-        btnCanGerTipSer.setBounds(700, 250, 90, 40);
-
-        lblDesTipSer2.setFont(fontmed(12));
-        lblDesTipSer2.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesTipSer2.setText("Escolha um para alterar ou excluir");
-        lblDesTipSer2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerTipSer.add(lblDesTipSer2);
-        lblDesTipSer2.setBounds(510, 10, 260, 20);
-
-        lblDesGerTipSer.setFont(fontmed(12));
-        lblDesGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesGerTipSer.setText("Descrição");
-        lblDesGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerTipSer.add(lblDesGerTipSer);
-        lblDesGerTipSer.setBounds(510, 200, 70, 20);
-
-        txtDesGerTipSer.setBackground(new java.awt.Color(246, 246, 246));
-        txtDesGerTipSer.setFont(fontmed(13));
-        txtDesGerTipSer.setBorder(null);
-        txtDesGerTipSer.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDesGerTipSerFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDesGerTipSerFocusLost(evt);
-            }
-        });
-        pnlGerTipSer.add(txtDesGerTipSer);
-        txtDesGerTipSer.setBounds(510, 200, 270, 20);
-
-        sepDesGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerTipSer.add(sepDesGerTipSer);
-        sepDesGerTipSer.setBounds(510, 220, 270, 10);
-
-        scrTipSer.setBackground(new java.awt.Color(250, 250, 250));
-        scrTipSer.setBorder(BorderFactory.createEmptyBorder());
-        scrTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        tblTipSer.setTableHeader(null);
-        tblTipSer.setBackground(new java.awt.Color(246, 246, 246));
-        tblTipSer.setBorder(null);
-        tblTipSer.setFont(fontmed(12));
-        tblTipSer.setModel(new javax.swing.table.DefaultTableModel(
+        tblConDes.setBackground(new java.awt.Color(246, 246, 246));
+        tblConDes.setBorder(null);
+        tblConDes.setFont(fontmed(10));
+        tblConDes.setForeground(new java.awt.Color(229, 192, 191));
+        tblConDes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -4899,19 +4602,316 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblTipSer.setFocusable(false);
-        tblTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblConDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblConDes.setFocusable(false);
+        tblConDes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblTipSerMouseClicked(evt);
+                tblConDesMouseClicked(evt);
             }
         });
-        scrTipSer.setViewportView(tblTipSer);
+        scrConDes.setViewportView(tblConDes);
 
-        pnlGerTipSer.add(scrTipSer);
-        scrTipSer.setBounds(510, 40, 270, 120);
+        pnlDes.add(scrConDes);
+        scrConDes.setBounds(270, 20, 760, 190);
 
-        pnlPri.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 1300, 360));
+        btnVolDes.setFont(fontmed(12));
+        btnVolDes.setForeground(new java.awt.Color(10, 60, 133));
+        btnVolDes.setText("Voltar");
+        btnVolDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolDes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolDesActionPerformed(evt);
+            }
+        });
+        pnlDes.add(btnVolDes);
+        btnVolDes.setBounds(270, 240, 90, 50);
+
+        pnlPri.add(pnlDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
+
+        pnlCadDes.setBackground(new java.awt.Color(246, 246, 246));
+        pnlCadDes.setLayout(null);
+
+        btnSalDes.setFont(fontmed(12));
+        btnSalDes.setForeground(new java.awt.Color(10, 60, 133));
+        btnSalDes.setText("Salvar");
+        btnSalDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalDes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalDesActionPerformed(evt);
+            }
+        });
+        pnlCadDes.add(btnSalDes);
+        btnSalDes.setBounds(540, 260, 90, 50);
+
+        lblDatDes.setFont(fontmed(12));
+        lblDatDes.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatDes.setText("Data");
+        lblDatDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadDes.add(lblDatDes);
+        lblDatDes.setBounds(540, 180, 50, 20);
+
+        txtDatDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatDes.setFont(fontmed(13));
+        txtDatDes.setBorder(null);
+        txtDatDes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatDesFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatDesFocusLost(evt);
+            }
+        });
+        txtDatDes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatDesKeyTyped(evt);
+            }
+        });
+        pnlCadDes.add(txtDatDes);
+        txtDatDes.setBounds(540, 180, 130, 20);
+
+        sepDatCadEnt7.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadDes.add(sepDatCadEnt7);
+        sepDatCadEnt7.setBounds(540, 200, 130, 10);
+
+        lblDesDes.setFont(fontmed(12));
+        lblDesDes.setForeground(new java.awt.Color(10, 60, 133));
+        lblDesDes.setText("Descrição");
+        lblDesDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadDes.add(lblDesDes);
+        lblDesDes.setBounds(540, 60, 90, 20);
+
+        txtDesDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtDesDes.setFont(fontmed(13));
+        txtDesDes.setBorder(null);
+        txtDesDes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDesDesFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDesDesFocusLost(evt);
+            }
+        });
+        pnlCadDes.add(txtDesDes);
+        txtDesDes.setBounds(540, 60, 190, 20);
+
+        sepDatCadEnt4.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadDes.add(sepDatCadEnt4);
+        sepDatCadEnt4.setBounds(540, 80, 190, 10);
+
+        lblR$Des.setFont(fontmed(13));
+        lblR$Des.setText("R$");
+        lblR$Des.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadDes.add(lblR$Des);
+        lblR$Des.setBounds(540, 120, 20, 21);
+
+        lblPreDes.setFont(fontmed(12));
+        lblPreDes.setForeground(new java.awt.Color(10, 60, 133));
+        lblPreDes.setText("Preço");
+        lblPreDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadDes.add(lblPreDes);
+        lblPreDes.setBounds(540, 120, 50, 20);
+
+        txtPreDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreDes.setFont(fontmed(13));
+        txtPreDes.setBorder(null);
+        txtPreDes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPreDesFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPreDesFocusLost(evt);
+            }
+        });
+        txtPreDes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPreDesKeyTyped(evt);
+            }
+        });
+        pnlCadDes.add(txtPreDes);
+        txtPreDes.setBounds(560, 120, 80, 20);
+
+        sepDatCadEnt6.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadDes.add(sepDatCadEnt6);
+        sepDatCadEnt6.setBounds(540, 140, 100, 10);
+
+        btnCanDes.setFont(fontmed(12));
+        btnCanDes.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanDes.setText("Cancelar");
+        btnCanDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanDes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanDesActionPerformed(evt);
+            }
+        });
+        pnlCadDes.add(btnCanDes);
+        btnCanDes.setBounds(640, 260, 90, 50);
+
+        pnlPri.add(pnlCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
+
+        pnlGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        pnlGerDes.setLayout(null);
+
+        lblDesGerDes.setFont(fontmed(12));
+        lblDesGerDes.setForeground(new java.awt.Color(10, 60, 133));
+        lblDesGerDes.setText("Descrição");
+        lblDesGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerDes.add(lblDesGerDes);
+        lblDesGerDes.setBounds(870, 40, 90, 20);
+
+        lblDatGerDes.setFont(fontmed(12));
+        lblDatGerDes.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatGerDes.setText("Data");
+        lblDatGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerDes.add(lblDatGerDes);
+        lblDatGerDes.setBounds(870, 160, 50, 20);
+
+        lblPreGerDes.setFont(fontmed(12));
+        lblPreGerDes.setForeground(new java.awt.Color(10, 60, 133));
+        lblPreGerDes.setText("Preço");
+        lblPreGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerDes.add(lblPreGerDes);
+        lblPreGerDes.setBounds(870, 100, 50, 20);
+
+        lblR$GerDes.setFont(fontmed(13));
+        lblR$GerDes.setText("R$");
+        lblR$GerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerDes.add(lblR$GerDes);
+        lblR$GerDes.setBounds(870, 100, 20, 21);
+
+        txtDatGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatGerDes.setFont(fontmed(13));
+        txtDatGerDes.setBorder(null);
+        txtDatGerDes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatGerDesFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatGerDesFocusLost(evt);
+            }
+        });
+        txtDatGerDes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatGerDesKeyTyped(evt);
+            }
+        });
+        pnlGerDes.add(txtDatGerDes);
+        txtDatGerDes.setBounds(870, 160, 130, 20);
+
+        txtDesGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtDesGerDes.setFont(fontmed(13));
+        txtDesGerDes.setBorder(null);
+        txtDesGerDes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDesGerDesFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDesGerDesFocusLost(evt);
+            }
+        });
+        pnlGerDes.add(txtDesGerDes);
+        txtDesGerDes.setBounds(870, 40, 210, 20);
+
+        sepPreGerDes.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerDes.add(sepPreGerDes);
+        sepPreGerDes.setBounds(870, 120, 100, 10);
+
+        sepDatGerDes.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerDes.add(sepDatGerDes);
+        sepDatGerDes.setBounds(870, 180, 130, 10);
+
+        sepDesGerDes.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerDes.add(sepDesGerDes);
+        sepDesGerDes.setBounds(870, 60, 210, 10);
+
+        txtPreGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreGerDes.setFont(fontmed(13));
+        txtPreGerDes.setBorder(null);
+        txtPreGerDes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPreGerDesFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPreGerDesFocusLost(evt);
+            }
+        });
+        pnlGerDes.add(txtPreGerDes);
+        txtPreGerDes.setBounds(890, 100, 80, 20);
+
+        btnExcGerDes.setFont(fontmed(12));
+        btnExcGerDes.setForeground(new java.awt.Color(10, 60, 133));
+        btnExcGerDes.setText("Excluir");
+        btnExcGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerDes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcGerDesActionPerformed(evt);
+            }
+        });
+        pnlGerDes.add(btnExcGerDes);
+        btnExcGerDes.setBounds(970, 220, 90, 40);
+
+        btnAltGerDes.setFont(fontmed(12));
+        btnAltGerDes.setForeground(new java.awt.Color(10, 60, 133));
+        btnAltGerDes.setText("Alterar");
+        btnAltGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerDes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltGerDesActionPerformed(evt);
+            }
+        });
+        pnlGerDes.add(btnAltGerDes);
+        btnAltGerDes.setBounds(870, 220, 90, 40);
+
+        btnCanGerDes.setFont(fontmed(12));
+        btnCanGerDes.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanGerDes.setText("Cancelar");
+        btnCanGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanGerDes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanGerDesActionPerformed(evt);
+            }
+        });
+        pnlGerDes.add(btnCanGerDes);
+        btnCanGerDes.setBounds(1070, 220, 90, 40);
+
+        lblDesTipSer3.setFont(fontmed(12));
+        lblDesTipSer3.setForeground(new java.awt.Color(10, 60, 133));
+        lblDesTipSer3.setText("Escolha um para alterar ou excluir");
+        lblDesTipSer3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerDes.add(lblDesTipSer3);
+        lblDesTipSer3.setBounds(110, 50, 260, 20);
+
+        scrGerDes.setBackground(new java.awt.Color(250, 250, 250));
+        scrGerDes.setBorder(BorderFactory.createEmptyBorder());
+        scrGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        tblTipSer.setTableHeader(null);
+        tblGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        tblGerDes.setBorder(null);
+        tblGerDes.setFont(fontmed(12));
+        tblGerDes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblGerDes.setFocusable(false);
+        tblGerDes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblGerDesMouseClicked(evt);
+            }
+        });
+        scrGerDes.setViewportView(tblGerDes);
+
+        pnlGerDes.add(scrGerDes);
+        scrGerDes.setBounds(110, 80, 610, 160);
+
+        pnlPri.add(pnlGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 1300, 360));
 
         getContentPane().add(pnlPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -8739,9 +8739,9 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDatBusGerEntKeyTyped
 
     private void tblGerEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGerEntMouseClicked
-        lblDatGerEnt.setLocation(860, 70);
+        lblDatGerEnt.setLocation(860, 80);
         lblPreGerEnt.setLocation(860, 130);
-        lblDetGerEnt.setLocation(860, 190);
+        lblDetGerEnt.setLocation(860, 180);
 
         txtDatGerEnt.setText(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 0).toString());
         txtPreGerEnt.setText((tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 4).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 4).toString().length()));
@@ -8996,9 +8996,9 @@ public final class main extends javax.swing.JFrame {
             btnBusGerEnt.setEnabled(false);
 
             lblDatBusGerEnt.setLocation(70, 50);
-            lblDatGerEnt.setLocation(860, 70);
+            lblDatGerEnt.setLocation(860, 80);
             lblPreGerEnt.setLocation(860, 130);
-            lblDetGerEnt.setLocation(860, 190);
+            lblDetGerEnt.setLocation(860, 180);
 
             lblTitPri.setText("Gerenciar Entrada");
             lblTitPri.setVisible(true);
