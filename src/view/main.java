@@ -5877,7 +5877,7 @@ public final class main extends javax.swing.JFrame {
             scrConEst.setVisible(false);
             tblConEst.setVisible(false);
 
-            JOptionPane.showMessageDialog(pnlConEst, "Não temos este ítem cadastrado no sistema!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(pnlConEst, "Ítem não cadastrado no sistema!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
 
         }
     }//GEN-LAST:event_btnBusConEstActionPerformed
