@@ -9,6 +9,7 @@ public class entrada {
     public Double preco;
     public String detalhes;
     public int quantidade;
+    public int formapagamento;
 
     public int getIdestoque() {
         return idestoque;
@@ -64,6 +65,14 @@ public class entrada {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public int getFormapagamento() {
+        return formapagamento;
+    }
+
+    public void setFormapagamento(int formapagamento) {
+        this.formapagamento = formapagamento;
     }
 
 }

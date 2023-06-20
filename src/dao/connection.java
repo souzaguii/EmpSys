@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class connection {
 
@@ -16,7 +17,7 @@ public class connection {
 
             String driverName = "com.mysql.cj.jdbc.Driver";
             Class.forName(driverName);
-            String serverName = "localhost";
+            String serverName = "192.168.0.123";
             String mydatabase = "empsysdatabase";
             String port = "3306";
             String aux = "?useTimezone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
@@ -34,10 +35,10 @@ public class connection {
             return connection;
 
         } catch (ClassNotFoundException e) {
-            System.out.println("O driver especificado não foi encontrado.");
+            JOptionPane.showMessageDialog(null, "O driver especificado não foi encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         } catch (SQLException e) {
-            System.out.println("Não foi possível conectar ao banco de dados.");
+            JOptionPane.showMessageDialog(null, "Erro ao conectar banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }

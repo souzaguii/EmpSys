@@ -23,7 +23,7 @@ public class entradaDAO {
 
         switch (tipo) {
             case 1 -> {
-                SQL = "INSERT INTO entradas(idEst, idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, quantidadeEnt, idTip) VALUES (" + id + ", ?, ?, ?, ?, ?, ?, ?)";
+                SQL = "INSERT INTO entradas(idEst, idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, quantidadeEnt, idTip, formapagamentoEnt) VALUES (" + id + ", ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 stmt = connection.Connect().prepareStatement(SQL);
 
@@ -34,9 +34,11 @@ public class entradaDAO {
                 stmt.setString(5, en.getDetalhes());
                 stmt.setInt(6, en.getQuantidade());
                 stmt.setInt(7, 1);
+                stmt.setInt(8, en.getFormapagamento());
+
             }
             case 2 -> {
-                SQL = "INSERT INTO entradas(idEst, codigoEnt, dataEnt, precoEnt, detalhesEnt, quantidadeEnt, idTip) VALUES (" + id + ", ?, ?, ?, ?, ?, ?)";
+                SQL = "INSERT INTO entradas(idEst, codigoEnt, dataEnt, precoEnt, detalhesEnt, quantidadeEnt, idTip, formapagamentoEnt) VALUES (" + id + ", ?, ?, ?, ?, ?, ?, ?)";
 
                 stmt = connection.Connect().prepareStatement(SQL);
 
@@ -46,9 +48,11 @@ public class entradaDAO {
                 stmt.setString(4, en.getDetalhes());
                 stmt.setInt(5, en.getQuantidade());
                 stmt.setInt(6, 2);
+                stmt.setInt(7, en.getFormapagamento());
+
             }
             default -> {
-                SQL = "INSERT INTO entradas(idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, idTip) VALUES (?, ?, ?, ?, ?, ?)";
+                SQL = "INSERT INTO entradas(idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, idTip, formapagamentoEnt) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
                 stmt = connection.Connect().prepareStatement(SQL);
 
@@ -58,6 +62,7 @@ public class entradaDAO {
                 stmt.setDouble(4, en.getPreco());
                 stmt.setString(5, en.getDetalhes());
                 stmt.setInt(6, 3);
+                stmt.setInt(7, en.getFormapagamento());
             }
         }
 
@@ -298,6 +303,7 @@ public class entradaDAO {
                     null,
                     produto,
                     rs.getString("precoEnt"),
+                    rs.getString("formapagamentoEnt"),
                     rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
@@ -311,6 +317,7 @@ public class entradaDAO {
                     rs.getString("descricaoTipSer"),
                     produto,
                     rs.getString("precoEnt"),
+                    rs.getString("formapagamentoEnt"),
                     rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
@@ -342,7 +349,6 @@ public class entradaDAO {
 
         while (rs.next()) {
 
-            
             String produto = null;
 
             if (!"3".equals(rs.getString("idTip"))) {
@@ -374,6 +380,7 @@ public class entradaDAO {
                     null,
                     produto,
                     rs.getString("precoEnt"),
+                    rs.getString("formapagamentoEnt"),
                     rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
@@ -388,6 +395,7 @@ public class entradaDAO {
                     rs.getString("descricaoTipSer"),
                     produto,
                     rs.getString("precoEnt"),
+                    rs.getString("formapagamentoEnt"),
                     rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
@@ -402,6 +410,7 @@ public class entradaDAO {
                     rs.getString("descricaoTipSer"),
                     produto,
                     rs.getString("precoEnt"),
+                    rs.getString("formapagamentoEnt"),
                     rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};

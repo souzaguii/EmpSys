@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.io.InputStream;
 import model.estoque;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -405,25 +406,39 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Serviço");
                 modelo.addColumn("Produto");
                 modelo.addColumn("Preço");
+                modelo.addColumn("Pagamento");
                 modelo.addColumn("Quantidade");
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
 
+                double somaCartao = 0;
+                double somaDinheiro = 0;
+                double somaPix = 0;
+
                 for (String[] row : lista) {
 
-                    Object[] rowData = new Object[7];
+                    Object[] rowData = new Object[8];
 
                     Date date = formatterbanco.parse(row[0]);
                     rowData[0] = formatter.format(date);
                     rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
                     rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
                     rowData[3] = moedadoublereal(Double.valueOf(row[3]));
-                    rowData[4] = (!"0".equals(row[4]) && row[4] != null) ? row[4] : "Não Aplicável";
-                    rowData[5] = (row[5] != null && !"".equals(row[5])) ? row[5] : "Sem Detalhes";
-                    rowData[6] = row[6];
+                    rowData[4] = ("1".equals(row[4])) ? "Dinheiro" : ("2".equals(row[4])) ? "Cartão" : ("3".equals(row[4])) ? "PIX" : null;
+                    rowData[5] = (!"0".equals(row[5]) && row[5] != null) ? row[5] : "Não Aplicável";
+                    rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
+                    rowData[7] = row[7];
 
                     modelo.addRow(rowData);
 
+                    // Realiza as somas separadamente
+                    if ("1".equals(row[4])) {
+                        somaCartao += Double.parseDouble(row[3]);
+                    } else if ("2".equals(row[4])) {
+                        somaDinheiro += Double.parseDouble(row[3]);
+                    } else if ("3".equals(row[4])) {
+                        somaPix += Double.parseDouble(row[3]);
+                    }
                 }
 
                 deheader.setHorizontalAlignment(JLabel.CENTER);
@@ -473,6 +488,11 @@ public final class main extends javax.swing.JFrame {
                 lblValMedRel.setText(moedadoublereal(somavalor / somaentrada));
                 lblTotEntRel.setText(String.valueOf(somaentrada));
 
+                // Atualiza as labels com as somas específicas
+                lblValDinRel.setText(moedadoublereal(somaCartao));
+                lblValCarRel.setText(moedadoublereal(somaDinheiro));
+                lblValPixRel.setText(moedadoublereal(somaPix));
+
             } else {
 
                 tblRel.setVisible(false);
@@ -481,6 +501,10 @@ public final class main extends javax.swing.JFrame {
                 lblValTotRel.setText("R$0,00");
                 lblValMedRel.setText("R$0,00");
                 lblTotEntRel.setText("0");
+
+                lblValDinRel.setText("R$0,00");
+                lblValCarRel.setText("R$0,00");
+                lblValPixRel.setText("R$0,00");
 
             }
 
@@ -512,13 +536,14 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Serviço");
                 modelo.addColumn("Produto");
                 modelo.addColumn("Preço");
+                modelo.addColumn("Pagamento");
                 modelo.addColumn("Quantidade");
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
 
                 for (String[] row : lista) {
 
-                    Object[] rowData = new Object[8];
+                    Object[] rowData = new Object[9];
 
                     Date date = formatterbanco.parse(row[0]);
                     rowData[0] = formatter.format(date);
@@ -526,9 +551,10 @@ public final class main extends javax.swing.JFrame {
                     rowData[2] = (row[2] != null) ? row[2] : "Nenhum Serviço";
                     rowData[3] = (!"null - null null - null".equals(row[3]) && row[3] != null) ? row[3] : "Nenhum Produto";
                     rowData[4] = moedadoublereal(Double.valueOf(row[4]));
-                    rowData[5] = (!"0".equals(row[5]) && row[5] != null) ? row[5] : "Não Aplicável";
-                    rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
-                    rowData[7] = row[7];
+                    rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
+                    rowData[6] = (!"0".equals(row[6]) && row[6] != null) ? row[6] : "Não Aplicável";
+                    rowData[7] = (row[7] != null && !"".equals(row[7])) ? row[7] : "Sem Detalhes";
+                    rowData[8] = row[8];
 
                     modelo.addRow(rowData);
 
@@ -1217,6 +1243,7 @@ public final class main extends javax.swing.JFrame {
         btnCadDes = new javax.swing.JLabel();
         btnDes = new javax.swing.JLabel();
         pnlCadEnt = new javax.swing.JPanel();
+        rbtnPixCadEnt = new javax.swing.JRadioButton();
         btnIteCadEnt = new javax.swing.JButton();
         btnSalCadEnt = new javax.swing.JButton();
         btnCanCadEnt = new javax.swing.JButton();
@@ -1236,6 +1263,8 @@ public final class main extends javax.swing.JFrame {
         sepDetCadEnt = new javax.swing.JSeparator();
         lblSerCadEnt = new javax.swing.JLabel();
         txtCodCadEnt = new javax.swing.JTextField();
+        rbtnCarCadEnt = new javax.swing.JRadioButton();
+        rbtnDinCadEnt = new javax.swing.JRadioButton();
         pnlIteCadEnt = new javax.swing.JPanel();
         btnVolIteCadEnt = new javax.swing.JButton();
         scrEstIteCadEnt = new javax.swing.JScrollPane();
@@ -1275,6 +1304,9 @@ public final class main extends javax.swing.JFrame {
         scrGerEnt = new javax.swing.JScrollPane();
         tblGerEnt = new javax.swing.JTable();
         btnAltGerEnt = new javax.swing.JButton();
+        rbtnCarGerEnt = new javax.swing.JRadioButton();
+        rbtnPixGerEnt = new javax.swing.JRadioButton();
+        rbtnDinGerEnt = new javax.swing.JRadioButton();
         pnlIteGerEnt = new javax.swing.JPanel();
         scrEstIteGerEnt = new javax.swing.JScrollPane();
         tblEstIteGerEnt = new javax.swing.JTable();
@@ -1402,12 +1434,18 @@ public final class main extends javax.swing.JFrame {
         btnSemRel = new javax.swing.JLabel();
         rbtnAssRel = new javax.swing.JRadioButton();
         sepDatCadEnt3 = new javax.swing.JSeparator();
+        lblValDinRel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         lblTotEntRel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblValTotRel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblValMedRel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblValCarRel = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lblValPixRel = new javax.swing.JLabel();
         pnlOs = new javax.swing.JPanel();
         btnGerOs = new javax.swing.JButton();
         btnCanOs = new javax.swing.JButton();
@@ -1531,7 +1569,7 @@ public final class main extends javax.swing.JFrame {
         tblGerDes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("EmpSys 1.0");
+        setTitle("EmpSys");
         setIconImage(new ImageIcon(getClass().getResource("/images/ICON.png")).getImage());
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1768,7 +1806,7 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setFont(fontmed(12));
         btnGerDes.setForeground(corforeazul);
         btnGerDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGerDes.setText("Gerenciar Despezas");
+        btnGerDes.setText("Gerenciar Afazeres");
         btnGerDes.setToolTipText("");
         btnGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGerDes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1844,7 +1882,7 @@ public final class main extends javax.swing.JFrame {
         btnCadDes.setFont(fontmed(12));
         btnCadDes.setForeground(corforeazul);
         btnCadDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCadDes.setText("Cadastrar Despezas");
+        btnCadDes.setText("Cadastrar Afazeres");
         btnCadDes.setToolTipText("");
         btnCadDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadDes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1863,7 +1901,7 @@ public final class main extends javax.swing.JFrame {
         btnDes.setFont(fontmed(12));
         btnDes.setForeground(corforeazul);
         btnDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDes.setText("Despezas");
+        btnDes.setText("Afazeres");
         btnDes.setToolTipText("");
         btnDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1882,6 +1920,20 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadEnt.setLayout(null);
 
+        btnGroup1.add(rbtnPixCadEnt);
+        rbtnPixCadEnt.setFont(fontmed(12));
+        rbtnPixCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnPixCadEnt.setText("PIX");
+        rbtnPixCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPixCadEnt.setEnabled(false);
+        rbtnPixCadEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnPixCadEntActionPerformed(evt);
+            }
+        });
+        pnlCadEnt.add(rbtnPixCadEnt);
+        rbtnPixCadEnt.setBounds(680, 30, 90, 21);
+
         btnIteCadEnt.setFont(fontmed(12));
         btnIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnIteCadEnt.setText("Ítens");
@@ -1892,7 +1944,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnIteCadEnt);
-        btnIteCadEnt.setBounds(720, 120, 90, 50);
+        btnIteCadEnt.setBounds(720, 130, 90, 50);
 
         btnSalCadEnt.setFont(fontmed(12));
         btnSalCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -1904,7 +1956,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnSalCadEnt);
-        btnSalCadEnt.setBounds(720, 180, 90, 50);
+        btnSalCadEnt.setBounds(720, 190, 90, 50);
 
         btnCanCadEnt.setFont(fontmed(12));
         btnCanCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -1916,7 +1968,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnCanCadEnt);
-        btnCanCadEnt.setBounds(720, 240, 90, 50);
+        btnCanCadEnt.setBounds(720, 250, 90, 50);
 
         btnGroup.add(rbtnSerCadEnt);
         rbtnSerCadEnt.setFont(fontmed(12));
@@ -1929,7 +1981,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnSerCadEnt);
-        rbtnSerCadEnt.setBounds(510, 20, 90, 21);
+        rbtnSerCadEnt.setBounds(510, 0, 90, 21);
 
         btnGroup.add(rbtnVenCadEnt);
         rbtnVenCadEnt.setFont(fontmed(12));
@@ -1942,7 +1994,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnVenCadEnt);
-        rbtnVenCadEnt.setBounds(600, 20, 80, 21);
+        rbtnVenCadEnt.setBounds(600, 0, 80, 21);
 
         btnGroup.add(rbtnAssCadEnt);
         rbtnAssCadEnt.setFont(fontmed(12));
@@ -1955,14 +2007,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnAssCadEnt);
-        rbtnAssCadEnt.setBounds(682, 20, 100, 21);
+        rbtnAssCadEnt.setBounds(680, 0, 100, 21);
 
         lblDatCadEnt.setFont(fontmed(12));
         lblDatCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDatCadEnt.setText("Data");
         lblDatCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblDatCadEnt);
-        lblDatCadEnt.setBounds(480, 90, 40, 20);
+        lblDatCadEnt.setBounds(480, 100, 40, 20);
 
         txtDatCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtDatCadEnt.setFont(fontmed(13));
@@ -1981,24 +2033,24 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtDatCadEnt);
-        txtDatCadEnt.setBounds(480, 90, 100, 20);
+        txtDatCadEnt.setBounds(480, 100, 100, 20);
 
         sepDatCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepDatCadEnt);
-        sepDatCadEnt.setBounds(480, 110, 100, 10);
+        sepDatCadEnt.setBounds(480, 120, 100, 10);
 
         lblR$CadEnt.setFont(fontmed(13));
         lblR$CadEnt.setText("R$");
         lblR$CadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblR$CadEnt);
-        lblR$CadEnt.setBounds(480, 140, 20, 21);
+        lblR$CadEnt.setBounds(480, 150, 20, 21);
 
         lblPreCadEnt.setFont(fontmed(12));
         lblPreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblPreCadEnt.setText("Preço");
         lblPreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblPreCadEnt);
-        lblPreCadEnt.setBounds(480, 140, 40, 20);
+        lblPreCadEnt.setBounds(480, 150, 40, 20);
 
         txtPreCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtPreCadEnt.setFont(fontmed(13));
@@ -2017,11 +2069,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtPreCadEnt);
-        txtPreCadEnt.setBounds(500, 140, 80, 20);
+        txtPreCadEnt.setBounds(500, 150, 80, 20);
 
         sepPreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepPreCadEnt);
-        sepPreCadEnt.setBounds(480, 160, 100, 10);
+        sepPreCadEnt.setBounds(480, 170, 100, 10);
 
         cmbSerCadEnt.setFont(fontmed(13));
         cmbSerCadEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
@@ -2033,14 +2085,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(cmbSerCadEnt);
-        cmbSerCadEnt.setBounds(480, 260, 190, 30);
+        cmbSerCadEnt.setBounds(480, 270, 190, 30);
 
         lblDetCadEnt.setFont(fontmed(12));
         lblDetCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDetCadEnt.setText("Detalhes");
         lblDetCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblDetCadEnt);
-        lblDetCadEnt.setBounds(480, 190, 70, 20);
+        lblDetCadEnt.setBounds(480, 200, 70, 20);
 
         txtDetCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtDetCadEnt.setFont(fontmed(13));
@@ -2054,19 +2106,47 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtDetCadEnt);
-        txtDetCadEnt.setBounds(480, 190, 190, 20);
+        txtDetCadEnt.setBounds(480, 200, 190, 20);
 
         sepDetCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepDetCadEnt);
-        sepDetCadEnt.setBounds(480, 210, 190, 10);
+        sepDetCadEnt.setBounds(480, 220, 190, 10);
 
         lblSerCadEnt.setFont(fontmed(12));
         lblSerCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblSerCadEnt.setText("Serviço");
         pnlCadEnt.add(lblSerCadEnt);
-        lblSerCadEnt.setBounds(480, 230, 90, 30);
+        lblSerCadEnt.setBounds(480, 240, 90, 30);
         pnlCadEnt.add(txtCodCadEnt);
         txtCodCadEnt.setBounds(190, 40, 64, 22);
+
+        btnGroup1.add(rbtnCarCadEnt);
+        rbtnCarCadEnt.setFont(fontmed(12));
+        rbtnCarCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnCarCadEnt.setText("Cartão");
+        rbtnCarCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCarCadEnt.setEnabled(false);
+        rbtnCarCadEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnCarCadEntActionPerformed(evt);
+            }
+        });
+        pnlCadEnt.add(rbtnCarCadEnt);
+        rbtnCarCadEnt.setBounds(600, 30, 90, 21);
+
+        btnGroup1.add(rbtnDinCadEnt);
+        rbtnDinCadEnt.setFont(fontmed(12));
+        rbtnDinCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnDinCadEnt.setText("Dinheiro");
+        rbtnDinCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnDinCadEnt.setEnabled(false);
+        rbtnDinCadEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnDinCadEntActionPerformed(evt);
+            }
+        });
+        pnlCadEnt.add(rbtnDinCadEnt);
+        rbtnDinCadEnt.setBounds(510, 30, 90, 21);
 
         pnlPri.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
 
@@ -2103,6 +2183,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblEstIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblEstIteCadEnt.setFocusable(false);
+        tblEstIteCadEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblEstIteCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblEstIteCadEntMouseClicked(evt);
@@ -2120,6 +2201,7 @@ public final class main extends javax.swing.JFrame {
         tblSelIteCadEnt.setFont(fontmed(10));
         tblSelIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblSelIteCadEnt.setFocusable(false);
+        tblSelIteCadEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSelIteCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblSelIteCadEntMouseClicked(evt);
@@ -2378,6 +2460,9 @@ public final class main extends javax.swing.JFrame {
             }
         });
         txtDatBusGerEnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDatBusGerEntKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDatBusGerEntKeyTyped(evt);
             }
@@ -2427,6 +2512,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblGerEnt.setFocusable(false);
+        tblGerEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblGerEntMouseClicked(evt);
@@ -2448,6 +2534,48 @@ public final class main extends javax.swing.JFrame {
         });
         pnlGerEnt.add(btnAltGerEnt);
         btnAltGerEnt.setBounds(1120, 170, 90, 50);
+
+        btnGroup.add(rbtnCarGerEnt);
+        rbtnCarGerEnt.setFont(fontmed(12));
+        rbtnCarGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnCarGerEnt.setText("Cartão");
+        rbtnCarGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCarGerEnt.setEnabled(false);
+        rbtnCarGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnCarGerEntActionPerformed(evt);
+            }
+        });
+        pnlGerEnt.add(rbtnCarGerEnt);
+        rbtnCarGerEnt.setBounds(1010, 20, 90, 21);
+
+        btnGroup.add(rbtnPixGerEnt);
+        rbtnPixGerEnt.setFont(fontmed(12));
+        rbtnPixGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnPixGerEnt.setText("PIX");
+        rbtnPixGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPixGerEnt.setEnabled(false);
+        rbtnPixGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnPixGerEntActionPerformed(evt);
+            }
+        });
+        pnlGerEnt.add(rbtnPixGerEnt);
+        rbtnPixGerEnt.setBounds(1100, 20, 90, 21);
+
+        btnGroup.add(rbtnDinGerEnt);
+        rbtnDinGerEnt.setFont(fontmed(12));
+        rbtnDinGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnDinGerEnt.setText("Dinheiro");
+        rbtnDinGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnDinGerEnt.setEnabled(false);
+        rbtnDinGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnDinGerEntActionPerformed(evt);
+            }
+        });
+        pnlGerEnt.add(rbtnDinGerEnt);
+        rbtnDinGerEnt.setBounds(910, 20, 90, 21);
 
         pnlPri.add(pnlGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
 
@@ -2473,6 +2601,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblEstIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblEstIteGerEnt.setFocusable(false);
+        tblEstIteGerEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblEstIteGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblEstIteGerEntMouseClicked(evt);
@@ -2501,6 +2630,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblSelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblSelIteGerEnt.setFocusable(false);
+        tblSelIteGerEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSelIteGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblSelIteGerEntMouseClicked(evt);
@@ -2548,7 +2678,6 @@ public final class main extends javax.swing.JFrame {
         btnGroup1.add(rbtnCapIteGerEnt);
         rbtnCapIteGerEnt.setFont(fontmed(12));
         rbtnCapIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnCapIteGerEnt.setSelected(true);
         rbtnCapIteGerEnt.setText("Capinha");
         rbtnCapIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlIteGerEnt.add(rbtnCapIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 90, -1));
@@ -3001,6 +3130,9 @@ public final class main extends javax.swing.JFrame {
             }
         });
         txtBusConEst.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBusConEstKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBusConEstKeyTyped(evt);
             }
@@ -3395,6 +3527,9 @@ public final class main extends javax.swing.JFrame {
             }
         });
         txtBusGerEst.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBusGerEstKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBusGerEstKeyTyped(evt);
             }
@@ -3431,6 +3566,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblGerEst.setFocusable(false);
+        tblGerEst.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblGerEst.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblGerEstMouseClicked(evt);
@@ -3465,6 +3601,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblRel.setFocusable(false);
+        tblRel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrRel.setViewportView(tblRel);
 
         pnlRel.add(scrRel);
@@ -3721,44 +3858,83 @@ public final class main extends javax.swing.JFrame {
         pnlRel.add(sepDatCadEnt3);
         sepDatCadEnt3.setBounds(430, 170, 100, 10);
 
-        lblTotEntRel.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
+        lblValDinRel.setFont(fontmed(16));
+        lblValDinRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValDinRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValDinRel.setText("R$0,00");
+        pnlRel.add(lblValDinRel);
+        lblValDinRel.setBounds(870, 310, 110, 30);
+
+        jLabel7.setFont(fontmed(14));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Dinheiro");
+        pnlRel.add(jLabel7);
+        jLabel7.setBounds(870, 290, 110, 20);
+
+        lblTotEntRel.setFont(fontmed(18));
         lblTotEntRel.setForeground(new java.awt.Color(10, 60, 133));
         lblTotEntRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotEntRel.setText("0");
         pnlRel.add(lblTotEntRel);
-        lblTotEntRel.setBounds(990, 100, 160, 30);
+        lblTotEntRel.setBounds(990, 70, 160, 30);
 
-        jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 0, 16)); // NOI18N
+        jLabel2.setFont(fontbold(16));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Total de entradas");
         pnlRel.add(jLabel2);
-        jLabel2.setBounds(990, 80, 160, 20);
+        jLabel2.setBounds(990, 50, 160, 20);
 
-        lblValTotRel.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
+        lblValTotRel.setFont(fontmed(18));
         lblValTotRel.setForeground(new java.awt.Color(10, 60, 133));
         lblValTotRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblValTotRel.setText("R$0,00");
         pnlRel.add(lblValTotRel);
-        lblValTotRel.setBounds(990, 180, 160, 30);
+        lblValTotRel.setBounds(990, 150, 160, 30);
 
-        jLabel4.setFont(new java.awt.Font("Poppins SemiBold", 0, 16)); // NOI18N
+        jLabel4.setFont(fontbold(16));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Valor total");
         pnlRel.add(jLabel4);
-        jLabel4.setBounds(990, 160, 160, 20);
+        jLabel4.setBounds(990, 130, 160, 20);
 
-        lblValMedRel.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
+        lblValMedRel.setFont(fontmed(18));
         lblValMedRel.setForeground(new java.awt.Color(10, 60, 133));
         lblValMedRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblValMedRel.setText("R$0,00");
         pnlRel.add(lblValMedRel);
-        lblValMedRel.setBounds(990, 260, 160, 30);
+        lblValMedRel.setBounds(990, 230, 160, 30);
 
-        jLabel6.setFont(new java.awt.Font("Poppins SemiBold", 0, 16)); // NOI18N
+        jLabel6.setFont(fontbold(16));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Valor médio");
         pnlRel.add(jLabel6);
-        jLabel6.setBounds(990, 240, 160, 20);
+        jLabel6.setBounds(990, 210, 160, 20);
+
+        jLabel8.setFont(fontmed(14));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Cartão");
+        pnlRel.add(jLabel8);
+        jLabel8.setBounds(1010, 290, 120, 20);
+
+        lblValCarRel.setFont(fontmed(16));
+        lblValCarRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValCarRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValCarRel.setText("R$0,00");
+        pnlRel.add(lblValCarRel);
+        lblValCarRel.setBounds(1010, 310, 120, 30);
+
+        jLabel9.setFont(fontmed(14));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("PIX");
+        pnlRel.add(jLabel9);
+        jLabel9.setBounds(1140, 290, 108, 20);
+
+        lblValPixRel.setFont(fontmed(16));
+        lblValPixRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValPixRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValPixRel.setText("R$0,00");
+        pnlRel.add(lblValPixRel);
+        lblValPixRel.setBounds(1140, 310, 108, 30);
 
         pnlPri.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1300, 380));
 
@@ -4247,6 +4423,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblTipSer.setFocusable(false);
+        tblTipSer.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTipSerMouseClicked(evt);
@@ -4605,6 +4782,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblConDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblConDes.setFocusable(false);
+        tblConDes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblConDes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblConDesMouseClicked(evt);
@@ -4902,6 +5080,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblGerDes.setFocusable(false);
+        tblGerDes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblGerDes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblGerDesMouseClicked(evt);
@@ -5656,7 +5835,7 @@ public final class main extends javax.swing.JFrame {
             txtDatDes.setText(null);
             btnSalDes.setEnabled(false);
 
-            lblTitPri.setText("Cadastrar Despezas");
+            lblTitPri.setText("Cadastrar Afazeres");
             lblTitPri.setVisible(true);
 
             lblDesDes.setLocation(540, 60);
@@ -5707,7 +5886,7 @@ public final class main extends javax.swing.JFrame {
                 pnlConEst.setVisible(false);
                 pnlGerEst.setVisible(false);
 
-                lblTitPri.setText("Despezas");
+                lblTitPri.setText("Afazeres");
                 lblTitPri.setVisible(true);
                 pnlCadEnt.setVisible(false);
                 pnlRel.setVisible(false);
@@ -5724,7 +5903,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlDes, "Sem despezas. Cadastre-as primeiro!", "Gerenciar Despezas", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(pnlDes, "Sem afazeres. Cadastre-as primeiro!", "Gerenciar Afazeres", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -5896,41 +6075,49 @@ public final class main extends javax.swing.JFrame {
 
         if (resp == JOptionPane.YES_OPTION) {
 
-            try {
-                estoque es = new estoque();
-                estoqueDAO esdao = new estoqueDAO();
+            if (tblGerEst.getSelectedRow() != 0) {
 
-                es.setId(Integer.parseInt(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 0).toString()));
-                es.setModelo(txtModGerEst.getText());
-                es.setMarca(txtMarGerEst.getText());
-                es.setCor(txtCorGerEst.getText());
-                es.setMaterial(txtMatGerEst.getText());
-                es.setDetalhes(txtDetGerEst.getText());
-                es.setLocalizacao(txtLocGerEst.getText());
-                es.setPreco(Double.valueOf(txtPreGerEst.getText().replace(".", "").replace(",", ".")));
-                es.setQuantidade(Integer.parseInt(txtQuaGerEst.getText()));
+                try {
+                    estoque es = new estoque();
+                    estoqueDAO esdao = new estoqueDAO();
 
-                if (txtTipGerEst.getText().equals("Chip")) {
-                    es.setTipochip((String) cmbChiGerEst.getSelectedItem());
-                } else {
-                    es.setTipochip(null);
+                    es.setId(Integer.parseInt(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 0).toString()));
+                    es.setModelo(txtModGerEst.getText());
+                    es.setMarca(txtMarGerEst.getText());
+                    es.setCor(txtCorGerEst.getText());
+                    es.setMaterial(txtMatGerEst.getText());
+                    es.setDetalhes(txtDetGerEst.getText());
+                    es.setLocalizacao(txtLocGerEst.getText());
+                    es.setPreco(Double.valueOf(txtPreGerEst.getText().replace(".", "").replace(",", ".")));
+                    es.setQuantidade(Integer.parseInt(txtQuaGerEst.getText()));
+
+                    if (txtTipGerEst.getText().equals("Chip")) {
+                        es.setTipochip((String) cmbChiGerEst.getSelectedItem());
+                    } else {
+                        es.setTipochip(null);
+                    }
+
+                    esdao.alterar(es);
+
+                    JOptionPane.showMessageDialog(pnlGerEst, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    pnlGerEst.setVisible(false);
+                    lblTitPri.setVisible(false);
+                } catch (SQLException ex) {
+
+                    JOptionPane.showMessageDialog(pnlGerEst, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+
+                } catch (NumberFormatException n) {
+
+                    JOptionPane.showMessageDialog(pnlCadEst, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
+
                 }
 
-                esdao.alterar(es);
+            } else {
 
-                JOptionPane.showMessageDialog(pnlGerEst, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-                pnlGerEst.setVisible(false);
-                lblTitPri.setVisible(false);
-            } catch (SQLException ex) {
-
-                JOptionPane.showMessageDialog(pnlGerEst, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-
-            } catch (NumberFormatException n) {
-
-                JOptionPane.showMessageDialog(pnlCadEst, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
-
+                JOptionPane.showMessageDialog(pnlGerEst, "Selecione uma linha na tabela para alterar!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
+
         }
     }//GEN-LAST:event_btnAltGerEstActionPerformed
 
@@ -6680,6 +6867,13 @@ public final class main extends javax.swing.JFrame {
                 try {
 
                     int idser = 0;
+                    int idpagamento = 1;
+
+                    if (rbtnCarCadEnt.isSelected()) {
+                        idpagamento = 2;
+                    } else if (rbtnPixCadEnt.isSelected()) {
+                        idpagamento = 3;
+                    }
 
                     if (cmbSerCadEnt.getSelectedIndex() != 0) {
                         itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
@@ -6692,12 +6886,12 @@ public final class main extends javax.swing.JFrame {
 
                             entrada en = new entrada();
                             entradaDAO endao = new entradaDAO();
-                            estoque es = new estoque();
 
                             en.setCodigo(txtCodCadEnt.getText());
                             en.setData(formatterbanco.format(((formatter.parse(txtDatCadEnt.getText())))));
                             en.setPreco(Double.valueOf(txtPreCadEnt.getText().replace(".", "").replace(",", ".")));
                             en.setDetalhes(txtDetCadEnt.getText());
+                            en.setFormapagamento(idpagamento);
 
                             if (rbtnSerCadEnt.isSelected()) {
 
@@ -6728,6 +6922,7 @@ public final class main extends javax.swing.JFrame {
                         en.setDetalhes(txtDetCadEnt.getText());
                         en.setIdtiposervico(idser);
                         en.setIdestoque(1);
+                        en.setFormapagamento(idpagamento);
 
                         if (rbtnSerCadEnt.isSelected()) {
 
@@ -6820,13 +7015,22 @@ public final class main extends javax.swing.JFrame {
         cmbSerCadEnt.setEnabled(true);
         btnSalCadEnt.setEnabled(true);
         btnIteCadEnt.setEnabled(true);
+        rbtnDinCadEnt.setEnabled(true);
+        rbtnCarCadEnt.setEnabled(true);
+        rbtnPixCadEnt.setEnabled(true);
+
+        if (!(rbtnDinCadEnt.isSelected() || rbtnCarCadEnt.isSelected() || rbtnPixCadEnt.isSelected())) {
+
+            rbtnDinCadEnt.setSelected(true);
+
+        }
 
         comboboxentrada(cmbSerCadEnt, 1);
 
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
 
-        lblDatCadEnt.setLocation(480, 90);
+        lblDatCadEnt.setLocation(480, 100);
         anitxtin(lblDatCadEnt);
     }//GEN-LAST:event_rbtnSerCadEntActionPerformed
 
@@ -6850,7 +7054,7 @@ public final class main extends javax.swing.JFrame {
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
 
-        lblDatCadEnt.setLocation(480, 90);
+        lblDatCadEnt.setLocation(480, 100);
         anitxtin(lblDatCadEnt);
     }//GEN-LAST:event_rbtnVenCadEntActionPerformed
 
@@ -6874,7 +7078,7 @@ public final class main extends javax.swing.JFrame {
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
 
-        lblDatCadEnt.setLocation(480, 90);
+        lblDatCadEnt.setLocation(480, 100);
         anitxtin(lblDatCadEnt);
     }//GEN-LAST:event_rbtnAssCadEntActionPerformed
 
@@ -7061,10 +7265,10 @@ public final class main extends javax.swing.JFrame {
 
             txtCodCadEnt.setText(sb.toString());
 
-            lblDetCadEnt.setLocation(480, 190);
+            lblDetCadEnt.setLocation(480, 200);
 
-            lblPreCadEnt.setLocation(480, 140);
-            lblDatCadEnt.setLocation(480, 90);
+            lblPreCadEnt.setLocation(480, 150);
+            lblDatCadEnt.setLocation(480, 100);
 
             lblDatCadEnt.setEnabled(false);
             txtDatCadEnt.setEnabled(false);
@@ -7092,6 +7296,10 @@ public final class main extends javax.swing.JFrame {
 
             btnGroup.clearSelection();
             btnGroup1.clearSelection();
+
+            rbtnDinCadEnt.setEnabled(false);
+            rbtnCarCadEnt.setEnabled(false);
+            rbtnPixCadEnt.setEnabled(false);
 
             lblEstIteCadEnt.setForeground(new Color(246, 246, 246));
             lblSelIteCadEnt.setForeground(new Color(246, 246, 246));
@@ -8184,7 +8392,7 @@ public final class main extends javax.swing.JFrame {
 
             dedao.inserir(de);
 
-            JOptionPane.showMessageDialog(pnlCadDes, "Despeza inserida com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(pnlCadDes, "Afazer inserida com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             pnlCadDes.setVisible(false);
             lblTitPri.setVisible(false);
@@ -8493,7 +8701,7 @@ public final class main extends javax.swing.JFrame {
             if (tabelagerenciardespezas(tblGerDes, scrGerDes)) {
 
                 pnlGerDes.setVisible(true);
-                lblTitPri.setText("Gerenciar Despezas");
+                lblTitPri.setText("Gerenciar Afazeres");
                 lblTitPri.setVisible(true);
 
                 pnlCadEst.setVisible(false);
@@ -8542,7 +8750,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlGerDes, "Sem despezas para gerenciar. Cadastre-as primeiro!", "Gerenciar Despezas", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(pnlGerDes, "Sem afazeres para gerenciar. Cadastre-as primeiro!", "Gerenciar afazeres", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -8746,7 +8954,7 @@ public final class main extends javax.swing.JFrame {
 
         txtDatGerEnt.setText(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 0).toString());
         txtPreGerEnt.setText((tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 4).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 4).toString().length()));
-        txtDetGerEnt.setText((!"Sem Detalhes".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString() : null);
+        txtDetGerEnt.setText((!"Sem Detalhes".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString() : null);
 
         estoque es = new estoque();
 
@@ -8756,7 +8964,21 @@ public final class main extends javax.swing.JFrame {
 
         tabelaestoqueconsulta(es, tblEstIteGerEnt, scrEstIteGerEnt);
 
-        tabelaitensselecionadosgerenciar(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString());
+        tabelaitensselecionadosgerenciar(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
+
+        if ("Dinheiro".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString())) {
+
+            rbtnDinGerEnt.setSelected(true);
+
+        } else if ("Cartão".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString())) {
+
+            rbtnCarGerEnt.setSelected(true);
+
+        } else {
+
+            rbtnPixGerEnt.setSelected(true);
+
+        }
 
         if ("Venda".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
 
@@ -8830,6 +9052,10 @@ public final class main extends javax.swing.JFrame {
         lblPreGerEnt.setEnabled(true);
         lblDetGerEnt.setEnabled(true);
 
+        rbtnDinGerEnt.setEnabled(true);
+        rbtnCarGerEnt.setEnabled(true);
+        rbtnPixGerEnt.setEnabled(true);
+
         sepDatGerEnt.setForeground(corforeazul);
         sepPreGerEnt.setForeground(corforeazul);
         sepDetGerEnt.setForeground(corforeazul);
@@ -8860,7 +9086,7 @@ public final class main extends javax.swing.JFrame {
                 entrada en = new entrada();
                 entradaDAO endao = new entradaDAO();
 
-                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString());
+                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
 
                 endao.excluir(en);
 
@@ -8872,6 +9098,14 @@ public final class main extends javax.swing.JFrame {
 
                             int idser = 0;
 
+                            int idpagamento = 1;
+
+                            if (rbtnCarGerEnt.isSelected()) {
+                                idpagamento = 2;
+                            } else if (rbtnPixGerEnt.isSelected()) {
+                                idpagamento = 3;
+                            }
+
                             if (cmbSerGerEnt.getSelectedIndex() != 0) {
                                 itens selectedItem = (itens) cmbSerGerEnt.getSelectedItem();
                                 idser = selectedItem.getId();
@@ -8881,10 +9115,11 @@ public final class main extends javax.swing.JFrame {
 
                                 for (int i = 1; i <= tblSelIteGerEnt.getRowCount(); i++) {
 
-                                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString());
+                                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
                                     en.setData(formatterbanco.format(((formatter.parse(txtDatGerEnt.getText())))));
                                     en.setPreco(Double.valueOf(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
                                     en.setDetalhes(txtDetGerEnt.getText());
+                                    en.setFormapagamento(idpagamento);
 
                                     if ("Serviço".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
 
@@ -8906,12 +9141,13 @@ public final class main extends javax.swing.JFrame {
 
                             } else {
 
-                                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString());
+                                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
                                 en.setData(formatterbanco.format((formatter.parse(txtDatGerEnt.getText()))));
                                 en.setPreco(Double.valueOf(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
                                 en.setDetalhes(txtDetGerEnt.getText());
                                 en.setIdtiposervico(idser);
                                 en.setIdestoque(1);
+                                en.setFormapagamento(idpagamento);
 
                                 if ("Serviço".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
 
@@ -8972,7 +9208,13 @@ public final class main extends javax.swing.JFrame {
             txtDatGerEnt.setText(null);
             txtPreGerEnt.setText(null);
             txtDetGerEnt.setText(null);
-
+            
+            btnGroup.clearSelection();
+            
+            rbtnCarGerEnt.setEnabled(false);
+            rbtnDinGerEnt.setEnabled(false);
+            rbtnPixGerEnt.setEnabled(false);
+            
             tblGerEnt.setVisible(false);
             scrGerEnt.setVisible(false);
 
@@ -9490,7 +9732,9 @@ public final class main extends javax.swing.JFrame {
                 parameters.put("Defeito", txtDefOs.getText());
                 parameters.put("DataEntrada", datahora);
 
-                JasperPrint print = JasperFillManager.fillReport("C:\\Users\\Geral\\Documents\\NetBeansProjects\\EmporioSys\\src\\os\\OSEmpSysView.jasper", parameters, new JREmptyDataSource(1));
+                InputStream inputStream = getClass().getClassLoader().getResourceAsStream("os/OSEmpSysView.jasper");
+
+                JasperPrint print = JasperFillManager.fillReport(inputStream, parameters, new JREmptyDataSource(1));
 
                 JasperViewer jc = new JasperViewer(print, false);
                 jc.setVisible(true);
@@ -9770,6 +10014,106 @@ public final class main extends javax.swing.JFrame {
 
         pnlOs.setVisible(true);
     }//GEN-LAST:event_btnOrdSerPriMouseReleased
+
+    private void txtDatBusGerEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatBusGerEntKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            try {
+
+                String data = formatterbanco.format(formatter.parse(txtDatBusGerEnt.getText()));
+
+                if (tabelagerenciarentrada(tblGerEnt, scrGerEnt, data)) {
+
+                    tblGerEnt.setVisible(true);
+                    scrGerEnt.setVisible(true);
+
+                } else {
+
+                    JOptionPane.showMessageDialog(pnlGerEnt, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+
+            } catch (ParseException ex) {
+                Logger.getLogger(main.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_txtDatBusGerEntKeyPressed
+
+    private void txtBusConEstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusConEstKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            estoque es = new estoque();
+
+            es.setModelo(txtBusConEst.getText());
+            es.setTipoproduto(txtTipConEst.getText());
+
+            if (tabelaestoqueconsulta(es, tblConEst, scrConEst)) {
+
+                scrConEst.setVisible(true);
+                tblConEst.setVisible(true);
+
+            } else {
+
+                scrConEst.setVisible(false);
+                tblConEst.setVisible(false);
+
+                JOptionPane.showMessageDialog(pnlConEst, "Ítem não cadastrado no sistema!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
+    }//GEN-LAST:event_txtBusConEstKeyPressed
+
+    private void txtBusGerEstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusGerEstKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            estoque es = new estoque();
+
+            es.setModelo(txtBusGerEst.getText());
+            es.setTipoproduto(txtTipGerEst.getText());
+
+            if (tabelaestoquegerenciar(es)) {
+
+                scrGerEst.setVisible(true);
+                tblGerEst.setVisible(true);
+
+            } else {
+
+                scrGerEst.setVisible(false);
+                tblGerEst.setVisible(false);
+
+                JOptionPane.showMessageDialog(pnlGerEst, "Nenhum dado encontrado!", "Gerenciar", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
+    }//GEN-LAST:event_txtBusGerEstKeyPressed
+
+    private void rbtnPixCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPixCadEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnPixCadEntActionPerformed
+
+    private void rbtnCarCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCarCadEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnCarCadEntActionPerformed
+
+    private void rbtnDinCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDinCadEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnDinCadEntActionPerformed
+
+    private void rbtnDinGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDinGerEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnDinGerEntActionPerformed
+
+    private void rbtnCarGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCarGerEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnCarGerEntActionPerformed
+
+    private void rbtnPixGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPixGerEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnPixGerEntActionPerformed
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -9846,6 +10190,9 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBusConEst;
     private javax.swing.JLabel lblBusGerEst;
@@ -9918,7 +10265,10 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelOs;
     private javax.swing.JLabel lblTitPri;
     private javax.swing.JLabel lblTotEntRel;
+    private javax.swing.JLabel lblValCarRel;
+    private javax.swing.JLabel lblValDinRel;
     private javax.swing.JLabel lblValMedRel;
+    private javax.swing.JLabel lblValPixRel;
     private javax.swing.JLabel lblValTotRel;
     private javax.swing.JLabel lblVenMas;
     private javax.swing.JPanel pnlCadDes;
@@ -9952,11 +10302,15 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnCapGerEst;
     private javax.swing.JRadioButton rbtnCapIteCadEnt;
     private javax.swing.JRadioButton rbtnCapIteGerEnt;
+    private javax.swing.JRadioButton rbtnCarCadEnt;
+    private javax.swing.JRadioButton rbtnCarGerEnt;
     private javax.swing.JRadioButton rbtnChiCadEst;
     private javax.swing.JRadioButton rbtnChiConEst;
     private javax.swing.JRadioButton rbtnChiGerEst;
     private javax.swing.JRadioButton rbtnChiIteCadEnt;
     private javax.swing.JRadioButton rbtnChiIteGerEnt;
+    private javax.swing.JRadioButton rbtnDinCadEnt;
+    private javax.swing.JRadioButton rbtnDinGerEnt;
     private javax.swing.JRadioButton rbtnMigMas;
     private javax.swing.JRadioButton rbtnMigTroMas;
     private javax.swing.JRadioButton rbtnOutTipSer;
@@ -9965,6 +10319,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnPelGerEst;
     private javax.swing.JRadioButton rbtnPelIteCadEnt;
     private javax.swing.JRadioButton rbtnPelIteGerEnt;
+    private javax.swing.JRadioButton rbtnPixCadEnt;
+    private javax.swing.JRadioButton rbtnPixGerEnt;
     private javax.swing.JRadioButton rbtnSerCadEnt;
     private javax.swing.JRadioButton rbtnSerRel;
     private javax.swing.JRadioButton rbtnSerTimRel;
