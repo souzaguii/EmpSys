@@ -37,6 +37,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -63,7 +64,8 @@ public final class main extends javax.swing.JFrame {
 
         initComponents();
         iniciasistema();
-
+        setLocationRelativeTo(null);
+        
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -431,7 +433,6 @@ public final class main extends javax.swing.JFrame {
 
                     modelo.addRow(rowData);
 
-                    // Realiza as somas separadamente
                     if ("1".equals(row[4])) {
                         somaCartao += Double.parseDouble(row[3]);
                     } else if ("2".equals(row[4])) {
@@ -470,7 +471,8 @@ public final class main extends javax.swing.JFrame {
                 String codigoAnterior = null;
 
                 for (String[] row : lista) {
-                    String codigoAtual = row[6];
+
+                    String codigoAtual = row[7];
 
                     if (codigoAnterior == null || !codigoAtual.equals(codigoAnterior)) {
                         double valor = Double.parseDouble(row[3]);
@@ -488,7 +490,6 @@ public final class main extends javax.swing.JFrame {
                 lblValMedRel.setText(moedadoublereal(somavalor / somaentrada));
                 lblTotEntRel.setText(String.valueOf(somaentrada));
 
-                // Atualiza as labels com as somas específicas
                 lblValDinRel.setText(moedadoublereal(somaCartao));
                 lblValCarRel.setText(moedadoublereal(somaDinheiro));
                 lblValPixRel.setText(moedadoublereal(somaPix));
@@ -1216,7 +1217,6 @@ public final class main extends javax.swing.JFrame {
         return formatadorMoeda.format(valor);
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -2970,7 +2970,8 @@ public final class main extends javax.swing.JFrame {
         lblChiCadEst.setBounds(700, 270, 30, 30);
 
         cmbChiCadEst.setFont(fontmed(13));
-        cmbChiCadEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Triplo 4G HLR 230", "eSIM", "Naked" }));
+        cmbChiCadEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o chip", "Triplo 4G HLR 230", "eSIM", "Naked" }));
+        cmbChiCadEst.setToolTipText("");
         cmbChiCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlCadEst.add(cmbChiCadEst);
         cmbChiCadEst.setBounds(700, 300, 190, 30);
@@ -3448,7 +3449,7 @@ public final class main extends javax.swing.JFrame {
         lblChiGerEst.setBounds(1030, 250, 30, 30);
 
         cmbChiGerEst.setFont(fontmed(13));
-        cmbChiGerEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Triplo 4G HLR 230", "eSIM", "Naked" }));
+        cmbChiGerEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o chip", "Triplo 4G HLR 230", "eSIM", "Naked" }));
         cmbChiGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlGerEst.add(cmbChiGerEst);
         cmbChiGerEst.setBounds(1030, 280, 190, 30);
@@ -5675,7 +5676,7 @@ public final class main extends javax.swing.JFrame {
             btnBusGerEst.setEnabled(false);
 
             btnGroup.clearSelection();
-            cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
+            cmbChiGerEst.setSelectedIndex(0);
 
             lblR$GerEst.setVisible(false);
 
@@ -8777,7 +8778,7 @@ public final class main extends javax.swing.JFrame {
                         entrada en = new entrada();
                         entradaDAO endao = new entradaDAO();
 
-                        en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString());
+                        en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
 
                         endao.excluir(en);
 
@@ -8791,8 +8792,7 @@ public final class main extends javax.swing.JFrame {
 
                     entrada en = new entrada();
                     entradaDAO endao = new entradaDAO();
-
-                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString());
+                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
                     endao.excluir(en);
 
                     JOptionPane.showMessageDialog(pnlIteGerEnt, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
@@ -9208,13 +9208,15 @@ public final class main extends javax.swing.JFrame {
             txtDatGerEnt.setText(null);
             txtPreGerEnt.setText(null);
             txtDetGerEnt.setText(null);
-            
+
             btnGroup.clearSelection();
-            
+
+            cmbSerGerEnt.setSelectedIndex(0);
+
             rbtnCarGerEnt.setEnabled(false);
             rbtnDinGerEnt.setEnabled(false);
             rbtnPixGerEnt.setEnabled(false);
-            
+
             tblGerEnt.setVisible(false);
             scrGerEnt.setVisible(false);
 

@@ -2853,12 +2853,14 @@
                   <Connection code="fontmed(13)" type="code"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Triplo 4G HLR 230"/>
-                    <StringItem index="1" value="eSIM"/>
-                    <StringItem index="2" value="Naked"/>
+                  <StringArray count="4">
+                    <StringItem index="0" value="Selecione o chip"/>
+                    <StringItem index="1" value="Triplo 4G HLR 230"/>
+                    <StringItem index="2" value="eSIM"/>
+                    <StringItem index="3" value="Naked"/>
                   </StringArray>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
                 </Property>
@@ -3855,10 +3857,11 @@
                   <Connection code="fontmed(13)" type="code"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Triplo 4G HLR 230"/>
-                    <StringItem index="1" value="eSIM"/>
-                    <StringItem index="2" value="Naked"/>
+                  <StringArray count="4">
+                    <StringItem index="0" value="Selecione o chip"/>
+                    <StringItem index="1" value="Triplo 4G HLR 230"/>
+                    <StringItem index="2" value="eSIM"/>
+                    <StringItem index="3" value="Naked"/>
                   </StringArray>
                 </Property>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
