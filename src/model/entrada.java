@@ -7,7 +7,10 @@ public class entrada {
     public String codigo;
     public String data;
     public Double preco;
+    public Double custo;
     public String detalhes;
+    public String cliente;
+    public String fornecedor;
     public int quantidade;
     public int formapagamento;
 
@@ -51,12 +54,36 @@ public class entrada {
         this.preco = preco;
     }
 
+    public Double getCusto() {
+        return custo;
+    }
+
+    public void setCusto(Double custo) {
+        this.custo = custo;
+    }
+
     public String getDetalhes() {
         return detalhes;
     }
 
     public void setDetalhes(String detalhes) {
         this.detalhes = detalhes;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(String fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public int getQuantidade() {

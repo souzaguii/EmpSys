@@ -37,7 +37,6 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -125,6 +124,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEst.setVisible(false);
         pnlCadTipSer.setVisible(false);
         pnlGerTipSer.setVisible(false);
+        pnlConEnt.setVisible(false);
         pnlGerEst.setVisible(false);
         pnlCadEnt.setVisible(false);
         pnlIteCadEnt.setVisible(false);
@@ -159,6 +159,7 @@ public final class main extends javax.swing.JFrame {
         btnDes.setVisible(false);
         btnMasPla.setVisible(false);
         btnCadEnt.setVisible(false);
+        btnConEnt.setVisible(false);
         btnGerDes.setVisible(false);
         btnGerEnt.setVisible(false);
 
@@ -389,12 +390,13 @@ public final class main extends javax.swing.JFrame {
         return true;
     }
 
-    private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2) {
+    private boolean tabelaconsultarentrada(JTable tbl, JScrollPane scr, String busca) {
 
         try {
 
             entradaDAO endao = new entradaDAO();
-            List<String[]> lista = endao.buscar(opc, opc1, data1, data2);
+
+            List<String[]> lista = endao.buscar(busca);
 
             if (!lista.isEmpty()) {
 
@@ -405,41 +407,38 @@ public final class main extends javax.swing.JFrame {
                 DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
 
                 modelo.addColumn("Data");
+                modelo.addColumn("Área");
                 modelo.addColumn("Serviço");
+                modelo.addColumn("Cliente");
                 modelo.addColumn("Produto");
                 modelo.addColumn("Preço");
+                modelo.addColumn("Custo");
                 modelo.addColumn("Pagamento");
+                modelo.addColumn("Fornecedor");
                 modelo.addColumn("Quantidade");
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
 
-                double somaCartao = 0;
-                double somaDinheiro = 0;
-                double somaPix = 0;
-
                 for (String[] row : lista) {
 
-                    Object[] rowData = new Object[8];
+                    Object[] rowData = new Object[12];
 
                     Date date = formatterbanco.parse(row[0]);
                     rowData[0] = formatter.format(date);
-                    rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
-                    rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
-                    rowData[3] = moedadoublereal(Double.valueOf(row[3]));
-                    rowData[4] = ("1".equals(row[4])) ? "Dinheiro" : ("2".equals(row[4])) ? "Cartão" : ("3".equals(row[4])) ? "PIX" : null;
-                    rowData[5] = (!"0".equals(row[5]) && row[5] != null) ? row[5] : "Não Aplicável";
-                    rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
-                    rowData[7] = row[7];
+                    rowData[1] = row[1];
+                    rowData[2] = (row[2] != null) ? row[2] : "Nenhum Serviço";
+                    rowData[3] = (row[3] != null) ? row[3] : "Não Aplicável";
+                    rowData[4] = (!"null - null null - null".equals(row[4]) && row[4] != null) ? row[4] : "Nenhum Produto";
+                    rowData[5] = moedadoublereal(Double.valueOf(row[5]));
+                    rowData[6] = (row[6] != null) ? moedadoublereal(Double.valueOf(row[6])) : "Não Aplicável";
+                    rowData[7] = ("1".equals(row[7])) ? "Dinheiro" : ("2".equals(row[7])) ? "Cartão" : ("3".equals(row[7])) ? "PIX" : null;
+                    rowData[8] = (!"0".equals(row[8]) && row[8] != null) ? row[8] : "Não Aplicável";
+                    rowData[9] = (row[9] != null) ? row[9] : "Não Aplicável";
+                    rowData[10] = (row[10] != null && !"".equals(row[10])) ? row[10] : "Sem Detalhes";
+                    rowData[11] = row[11];
 
                     modelo.addRow(rowData);
 
-                    if ("1".equals(row[4])) {
-                        somaCartao += Double.parseDouble(row[3]);
-                    } else if ("2".equals(row[4])) {
-                        somaDinheiro += Double.parseDouble(row[3]);
-                    } else if ("3".equals(row[4])) {
-                        somaPix += Double.parseDouble(row[3]);
-                    }
                 }
 
                 deheader.setHorizontalAlignment(JLabel.CENTER);
@@ -450,6 +449,80 @@ public final class main extends javax.swing.JFrame {
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
 
+                header.setFont(fontbold(12));
+                header.setReorderingAllowed(false);
+
+                tbl.setModel(modelo);
+                tbl.setRowHeight(25);
+                tbl.setDefaultEditor(Object.class, null);
+                scr.getVerticalScrollBar().setValue(0);
+
+                for (int i = 0; i < tbl.getColumnCount(); i++) {
+                    tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
+                }
+
+                tbl.setVisible(true);
+                scr.setVisible(true);
+
+            } else {
+
+                return false;
+            }
+
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
+    }
+
+    private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2) {
+        try {
+            entradaDAO endao = new entradaDAO();
+            List<String[]> lista = endao.buscar(opc, opc1, data1, data2);
+
+            if (!lista.isEmpty()) {
+                DefaultTableModel modelo = new DefaultTableModel();
+                JTableHeader header = tbl.getTableHeader();
+                DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
+
+                modelo.addColumn("Data");
+                modelo.addColumn("Serviço");
+                modelo.addColumn("Produto");
+                modelo.addColumn("Preço");
+                modelo.addColumn("Custo");
+                modelo.addColumn("Pagamento");
+                modelo.addColumn("Detalhes");
+                modelo.addColumn("Código Entrada");
+
+                double somaCartao = 0;
+                double somaDinheiro = 0;
+                double somaPix = 0;
+                double somaCusto = 0; // Soma dos valores da coluna "Custo"
+
+                for (String[] row : lista) {
+                    Object[] rowData = new Object[8];
+
+                    Date date = formatterbanco.parse(row[0]);
+                    rowData[0] = formatter.format(date);
+                    rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
+                    rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
+                    rowData[3] = moedadoublereal(Double.valueOf(row[3]));
+                    rowData[4] = (row[4] != null) ? moedadoublereal(Double.valueOf(row[4])) : "Não Aplicável";
+                    rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
+                    rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
+                    rowData[7] = row[7];
+
+                    modelo.addRow(rowData);
+
+                }
+
+                deheader.setHorizontalAlignment(JLabel.CENTER);
+                deheader.setForeground(Color.BLACK);
+                deheader.setFont(fontmed(12));
+
+                header.setForeground(corforeazul);
+                header.setBackground(new Color(246, 246, 246));
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
 
@@ -462,11 +535,7 @@ public final class main extends javax.swing.JFrame {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
 
-                TableColumnModel columnModel = tbl.getColumnModel();
-                TableColumn column = columnModel.getColumn(6);
-                columnModel.removeColumn(column);
-
-                double somavalor = 0;
+                double somaValor = 0;
                 int somaentrada = 0;
                 String codigoAnterior = null;
 
@@ -475,8 +544,32 @@ public final class main extends javax.swing.JFrame {
                     String codigoAtual = row[7];
 
                     if (codigoAnterior == null || !codigoAtual.equals(codigoAnterior)) {
-                        double valor = Double.parseDouble(row[3]);
-                        somavalor += valor;
+
+                        if ("1".equals(row[5])) {
+                            somaDinheiro += Double.parseDouble(row[3]);
+                            if (row[4] != null && chkCus.isSelected()) {
+                                somaDinheiro -= Double.parseDouble(row[4]);
+                            }
+                        } else if ("2".equals(row[5])) {
+                            somaCartao += Double.parseDouble(row[3]);
+                            if (row[4] != null && chkCus.isSelected()) {
+                                somaCartao -= Double.parseDouble(row[4]);
+                            }
+                        } else if ("3".equals(row[5])) {
+                            somaPix += Double.parseDouble(row[3]);
+                            if (row[4] != null && chkCus.isSelected()) {
+                                somaPix -= Double.parseDouble(row[4]);
+                            }
+                        }
+
+                        if (row[4] != null) {
+
+                            somaCusto += Double.parseDouble(row[4]);
+
+                        }
+
+                        somaValor += Double.parseDouble(row[3]);
+
                         somaentrada++;
                     }
 
@@ -486,12 +579,17 @@ public final class main extends javax.swing.JFrame {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
 
-                lblValTotRel.setText(moedadoublereal(somavalor));
-                lblValMedRel.setText(moedadoublereal(somavalor / somaentrada));
+                if (chkCus.isSelected()) {
+                    lblValTotRel.setText(moedadoublereal(somaValor - somaCusto));
+                } else {
+                    lblValTotRel.setText(moedadoublereal(somaValor));
+                }
+
+                lblValMedRel.setText(moedadoublereal(somaCusto));
                 lblTotEntRel.setText(String.valueOf(somaentrada));
 
-                lblValDinRel.setText(moedadoublereal(somaCartao));
-                lblValCarRel.setText(moedadoublereal(somaDinheiro));
+                lblValDinRel.setText(moedadoublereal(somaDinheiro));
+                lblValCarRel.setText(moedadoublereal(somaCartao));
                 lblValPixRel.setText(moedadoublereal(somaPix));
 
             } else {
@@ -506,9 +604,7 @@ public final class main extends javax.swing.JFrame {
                 lblValDinRel.setText("R$0,00");
                 lblValCarRel.setText("R$0,00");
                 lblValPixRel.setText("R$0,00");
-
             }
-
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -535,27 +631,33 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Data");
                 modelo.addColumn("Área");
                 modelo.addColumn("Serviço");
+                modelo.addColumn("Cliente");
                 modelo.addColumn("Produto");
                 modelo.addColumn("Preço");
+                modelo.addColumn("Custo");
                 modelo.addColumn("Pagamento");
+                modelo.addColumn("Fornecedor");
                 modelo.addColumn("Quantidade");
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
 
                 for (String[] row : lista) {
 
-                    Object[] rowData = new Object[9];
+                    Object[] rowData = new Object[12];
 
                     Date date = formatterbanco.parse(row[0]);
                     rowData[0] = formatter.format(date);
                     rowData[1] = row[1];
                     rowData[2] = (row[2] != null) ? row[2] : "Nenhum Serviço";
-                    rowData[3] = (!"null - null null - null".equals(row[3]) && row[3] != null) ? row[3] : "Nenhum Produto";
-                    rowData[4] = moedadoublereal(Double.valueOf(row[4]));
-                    rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
-                    rowData[6] = (!"0".equals(row[6]) && row[6] != null) ? row[6] : "Não Aplicável";
-                    rowData[7] = (row[7] != null && !"".equals(row[7])) ? row[7] : "Sem Detalhes";
-                    rowData[8] = row[8];
+                    rowData[3] = (row[3] != null) ? row[3] : "Não Aplicável";
+                    rowData[4] = (!"null - null null - null".equals(row[4]) && row[4] != null) ? row[4] : "Nenhum Produto";
+                    rowData[5] = moedadoublereal(Double.valueOf(row[5]));
+                    rowData[6] = (row[6] != null) ? moedadoublereal(Double.valueOf(row[6])) : "Não Aplicável";
+                    rowData[7] = ("1".equals(row[7])) ? "Dinheiro" : ("2".equals(row[7])) ? "Cartão" : ("3".equals(row[7])) ? "PIX" : null;
+                    rowData[8] = (!"0".equals(row[8]) && row[8] != null) ? row[8] : "Não Aplicável";
+                    rowData[9] = (row[9] != null) ? row[9] : "Não Aplicável";
+                    rowData[10] = (row[10] != null && !"".equals(row[10])) ? row[10] : "Sem Detalhes";
+                    rowData[11] = row[11];
 
                     modelo.addRow(rowData);
 
@@ -1224,24 +1326,25 @@ public final class main extends javax.swing.JFrame {
         btnGroup1 = new javax.swing.ButtonGroup();
         pnlPri = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
-        btnCadEnt = new javax.swing.JLabel();
-        btnGerEnt = new javax.swing.JLabel();
         btnEntPri = new javax.swing.JLabel();
+        btnCadEnt = new javax.swing.JLabel();
+        btnConEnt = new javax.swing.JLabel();
+        btnGerEnt = new javax.swing.JLabel();
         btnEstPri = new javax.swing.JLabel();
+        btnCadEst = new javax.swing.JLabel();
+        btnConEst = new javax.swing.JLabel();
+        btnGerEst = new javax.swing.JLabel();
         btnRelPri = new javax.swing.JLabel();
         btnOrdSerPri = new javax.swing.JLabel();
         btnTipSerPri = new javax.swing.JLabel();
-        btnOutPri = new javax.swing.JLabel();
-        lblTitPri = new javax.swing.JLabel();
         btnCadTipSer = new javax.swing.JLabel();
         btnGerTipSer = new javax.swing.JLabel();
-        btnCadEst = new javax.swing.JLabel();
-        btnGerDes = new javax.swing.JLabel();
-        btnConEst = new javax.swing.JLabel();
-        btnGerEst = new javax.swing.JLabel();
+        btnOutPri = new javax.swing.JLabel();
         btnMasPla = new javax.swing.JLabel();
-        btnCadDes = new javax.swing.JLabel();
         btnDes = new javax.swing.JLabel();
+        btnCadDes = new javax.swing.JLabel();
+        btnGerDes = new javax.swing.JLabel();
+        lblTitPri = new javax.swing.JLabel();
         pnlCadEnt = new javax.swing.JPanel();
         rbtnPixCadEnt = new javax.swing.JRadioButton();
         btnIteCadEnt = new javax.swing.JButton();
@@ -1265,6 +1368,16 @@ public final class main extends javax.swing.JFrame {
         txtCodCadEnt = new javax.swing.JTextField();
         rbtnCarCadEnt = new javax.swing.JRadioButton();
         rbtnDinCadEnt = new javax.swing.JRadioButton();
+        lblR$CusCadEnt = new javax.swing.JLabel();
+        lblCusCadEnt = new javax.swing.JLabel();
+        txtCusCadEnt = new javax.swing.JTextField();
+        sepCusCadEnt = new javax.swing.JSeparator();
+        lblForCadEnt = new javax.swing.JLabel();
+        txtForCadEnt = new javax.swing.JTextField();
+        sepForCadEnt = new javax.swing.JSeparator();
+        lblCliCadEnt = new javax.swing.JLabel();
+        txtCliCadEnt = new javax.swing.JTextField();
+        sepCliCadEnt = new javax.swing.JSeparator();
         pnlIteCadEnt = new javax.swing.JPanel();
         btnVolIteCadEnt = new javax.swing.JButton();
         scrEstIteCadEnt = new javax.swing.JScrollPane();
@@ -1280,6 +1393,14 @@ public final class main extends javax.swing.JFrame {
         lblBusIteCadEnt = new javax.swing.JLabel();
         txtBusIteCadEnt = new javax.swing.JTextField();
         sepBusIteCadEnt = new javax.swing.JSeparator();
+        pnlConEnt = new javax.swing.JPanel();
+        btnCanConEnt = new javax.swing.JButton();
+        btnBusConEnt = new javax.swing.JButton();
+        lblBusConEnt = new javax.swing.JLabel();
+        txtBusConEnt = new javax.swing.JTextField();
+        sepBusConEst1 = new javax.swing.JSeparator();
+        scrConEnt = new javax.swing.JScrollPane();
+        tblConEnt = new javax.swing.JTable();
         pnlGerEnt = new javax.swing.JPanel();
         btnExcGerEnt = new javax.swing.JButton();
         btnBusGerEnt = new javax.swing.JButton();
@@ -1307,6 +1428,16 @@ public final class main extends javax.swing.JFrame {
         rbtnCarGerEnt = new javax.swing.JRadioButton();
         rbtnPixGerEnt = new javax.swing.JRadioButton();
         rbtnDinGerEnt = new javax.swing.JRadioButton();
+        lblCliGerEnt = new javax.swing.JLabel();
+        txtCliGerEnt = new javax.swing.JTextField();
+        sepCliGerEnt = new javax.swing.JSeparator();
+        lblCusGerEnt = new javax.swing.JLabel();
+        lblR$CusGerEnt = new javax.swing.JLabel();
+        txtCusGerEnt = new javax.swing.JTextField();
+        sepCusGerEnt = new javax.swing.JSeparator();
+        lblForGerEnt = new javax.swing.JLabel();
+        txtForGerEnt = new javax.swing.JTextField();
+        sepForGerEnt = new javax.swing.JSeparator();
         pnlIteGerEnt = new javax.swing.JPanel();
         scrEstIteGerEnt = new javax.swing.JScrollPane();
         tblEstIteGerEnt = new javax.swing.JTable();
@@ -1446,6 +1577,7 @@ public final class main extends javax.swing.JFrame {
         lblValCarRel = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         lblValPixRel = new javax.swing.JLabel();
+        chkCus = new javax.swing.JCheckBox();
         pnlOs = new javax.swing.JPanel();
         btnGerOs = new javax.swing.JButton();
         btnCanOs = new javax.swing.JButton();
@@ -1582,44 +1714,6 @@ public final class main extends javax.swing.JFrame {
         imgLogo.setText("jLabel1");
         pnlPri.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 580, 190));
 
-        btnCadEnt.setFont(fontmed(12));
-        btnCadEnt.setForeground(corforeazul);
-        btnCadEnt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCadEnt.setText("Nova");
-        btnCadEnt.setToolTipText("");
-        btnCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCadEntMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCadEntMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnCadEntMouseReleased(evt);
-            }
-        });
-        pnlPri.add(btnCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 70, 20));
-
-        btnGerEnt.setFont(fontmed(12));
-        btnGerEnt.setForeground(corforeazul);
-        btnGerEnt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGerEnt.setText("Gerenciar");
-        btnGerEnt.setToolTipText("");
-        btnGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGerEntMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGerEntMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnGerEntMouseReleased(evt);
-            }
-        });
-        pnlPri.add(btnGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 70, 20));
-
         btnEntPri.setFont(fontmed(14));
         btnEntPri.setForeground(new java.awt.Color(10, 60, 133));
         btnEntPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1640,6 +1734,63 @@ public final class main extends javax.swing.JFrame {
         });
         pnlPri.add(btnEntPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, 40));
 
+        btnCadEnt.setFont(fontmed(12));
+        btnCadEnt.setForeground(corforeazul);
+        btnCadEnt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCadEnt.setText("Nova");
+        btnCadEnt.setToolTipText("");
+        btnCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCadEntMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCadEntMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnCadEntMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 70, 20));
+
+        btnConEnt.setFont(fontmed(12));
+        btnConEnt.setForeground(corforeazul);
+        btnConEnt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnConEnt.setText("Consultar");
+        btnConEnt.setToolTipText("");
+        btnConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConEnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnConEntMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnConEntMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnConEntMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnConEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 70, 20));
+
+        btnGerEnt.setFont(fontmed(12));
+        btnGerEnt.setForeground(corforeazul);
+        btnGerEnt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGerEnt.setText("Gerenciar");
+        btnGerEnt.setToolTipText("");
+        btnGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGerEntMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGerEntMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnGerEntMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 70, 20));
+
         btnEstPri.setFont(fontmed(14));
         btnEstPri.setForeground(new java.awt.Color(10, 60, 133));
         btnEstPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1659,6 +1810,63 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlPri.add(btnEstPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, 40));
+
+        btnCadEst.setFont(fontmed(12));
+        btnCadEst.setForeground(corforeazul);
+        btnCadEst.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCadEst.setText("Cadastrar");
+        btnCadEst.setToolTipText("");
+        btnCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadEst.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCadEstMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCadEstMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnCadEstMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 70, 20));
+
+        btnConEst.setFont(fontmed(12));
+        btnConEst.setForeground(corforeazul);
+        btnConEst.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnConEst.setText("Consultar");
+        btnConEst.setToolTipText("");
+        btnConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConEst.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnConEstMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnConEstMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnConEstMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnConEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 70, 20));
+
+        btnGerEst.setFont(fontmed(12));
+        btnGerEst.setForeground(corforeazul);
+        btnGerEst.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGerEst.setText("Gerenciar");
+        btnGerEst.setToolTipText("");
+        btnGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerEst.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGerEstMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGerEstMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnGerEstMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 90, 20));
 
         btnRelPri.setFont(fontmed(14));
         btnRelPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -1720,32 +1928,6 @@ public final class main extends javax.swing.JFrame {
         });
         pnlPri.add(btnTipSerPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 170, 40));
 
-        btnOutPri.setFont(fontmed(14));
-        btnOutPri.setForeground(new java.awt.Color(10, 60, 133));
-        btnOutPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnOutPri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BackBtnPrin4.png"))); // NOI18N
-        btnOutPri.setText("Outros");
-        btnOutPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnOutPri.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnOutPri.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnOutPriMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnOutPriMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnOutPriMouseReleased(evt);
-            }
-        });
-        pnlPri.add(btnOutPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 210, 140, 40));
-
-        lblTitPri.setFont(fontmed(17));
-        lblTitPri.setForeground(corforeazul);
-        lblTitPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitPri.setText("Cadastrar Estoque");
-        pnlPri.add(lblTitPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 270, 270, 50));
-
         btnCadTipSer.setFont(fontmed(12));
         btnCadTipSer.setForeground(corforeazul);
         btnCadTipSer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1784,81 +1966,25 @@ public final class main extends javax.swing.JFrame {
         });
         pnlPri.add(btnGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 280, 70, 20));
 
-        btnCadEst.setFont(fontmed(12));
-        btnCadEst.setForeground(corforeazul);
-        btnCadEst.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCadEst.setText("Cadastrar");
-        btnCadEst.setToolTipText("");
-        btnCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadEst.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnOutPri.setFont(fontmed(14));
+        btnOutPri.setForeground(new java.awt.Color(10, 60, 133));
+        btnOutPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnOutPri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BackBtnPrin4.png"))); // NOI18N
+        btnOutPri.setText("Outros");
+        btnOutPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOutPri.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOutPri.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCadEstMouseEntered(evt);
+                btnOutPriMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCadEstMouseExited(evt);
+                btnOutPriMouseExited(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnCadEstMouseReleased(evt);
+                btnOutPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 70, 20));
-
-        btnGerDes.setFont(fontmed(12));
-        btnGerDes.setForeground(corforeazul);
-        btnGerDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGerDes.setText("Gerenciar Afazeres");
-        btnGerDes.setToolTipText("");
-        btnGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGerDes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGerDesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGerDesMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnGerDesMouseReleased(evt);
-            }
-        });
-        pnlPri.add(btnGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 320, 140, 20));
-
-        btnConEst.setFont(fontmed(12));
-        btnConEst.setForeground(corforeazul);
-        btnConEst.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnConEst.setText("Consultar");
-        btnConEst.setToolTipText("");
-        btnConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnConEst.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnConEstMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnConEstMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnConEstMouseReleased(evt);
-            }
-        });
-        pnlPri.add(btnConEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 70, 20));
-
-        btnGerEst.setFont(fontmed(12));
-        btnGerEst.setForeground(corforeazul);
-        btnGerEst.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGerEst.setText("Gerenciar");
-        btnGerEst.setToolTipText("");
-        btnGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGerEst.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGerEstMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGerEstMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnGerEstMouseReleased(evt);
-            }
-        });
-        pnlPri.add(btnGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 90, 20));
+        pnlPri.add(btnOutPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 210, 140, 40));
 
         btnMasPla.setFont(fontmed(12));
         btnMasPla.setForeground(corforeazul);
@@ -1879,25 +2005,6 @@ public final class main extends javax.swing.JFrame {
         });
         pnlPri.add(btnMasPla, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 260, 100, 20));
 
-        btnCadDes.setFont(fontmed(12));
-        btnCadDes.setForeground(corforeazul);
-        btnCadDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCadDes.setText("Cadastrar Afazeres");
-        btnCadDes.setToolTipText("");
-        btnCadDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadDes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCadDesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCadDesMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnCadDesMouseReleased(evt);
-            }
-        });
-        pnlPri.add(btnCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 300, 140, 20));
-
         btnDes.setFont(fontmed(12));
         btnDes.setForeground(corforeazul);
         btnDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1917,6 +2024,50 @@ public final class main extends javax.swing.JFrame {
         });
         pnlPri.add(btnDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 280, 60, 20));
 
+        btnCadDes.setFont(fontmed(12));
+        btnCadDes.setForeground(corforeazul);
+        btnCadDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCadDes.setText("Cadastrar Afazeres");
+        btnCadDes.setToolTipText("");
+        btnCadDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadDes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCadDesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCadDesMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnCadDesMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 300, 140, 20));
+
+        btnGerDes.setFont(fontmed(12));
+        btnGerDes.setForeground(corforeazul);
+        btnGerDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGerDes.setText("Gerenciar Afazeres");
+        btnGerDes.setToolTipText("");
+        btnGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerDes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGerDesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGerDesMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnGerDesMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 320, 140, 20));
+
+        lblTitPri.setFont(fontmed(17));
+        lblTitPri.setForeground(corforeazul);
+        lblTitPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitPri.setText("Cadastrar Estoque");
+        pnlPri.add(lblTitPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 270, 270, 50));
+
         pnlCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadEnt.setLayout(null);
 
@@ -1932,7 +2083,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnPixCadEnt);
-        rbtnPixCadEnt.setBounds(680, 30, 90, 21);
+        rbtnPixCadEnt.setBounds(690, 30, 90, 21);
 
         btnIteCadEnt.setFont(fontmed(12));
         btnIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -1944,7 +2095,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnIteCadEnt);
-        btnIteCadEnt.setBounds(720, 130, 90, 50);
+        btnIteCadEnt.setBounds(840, 130, 90, 50);
 
         btnSalCadEnt.setFont(fontmed(12));
         btnSalCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -1956,7 +2107,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnSalCadEnt);
-        btnSalCadEnt.setBounds(720, 190, 90, 50);
+        btnSalCadEnt.setBounds(840, 190, 90, 50);
 
         btnCanCadEnt.setFont(fontmed(12));
         btnCanCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -1968,7 +2119,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnCanCadEnt);
-        btnCanCadEnt.setBounds(720, 250, 90, 50);
+        btnCanCadEnt.setBounds(840, 250, 90, 50);
 
         btnGroup.add(rbtnSerCadEnt);
         rbtnSerCadEnt.setFont(fontmed(12));
@@ -1981,7 +2132,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnSerCadEnt);
-        rbtnSerCadEnt.setBounds(510, 0, 90, 21);
+        rbtnSerCadEnt.setBounds(520, 0, 90, 21);
 
         btnGroup.add(rbtnVenCadEnt);
         rbtnVenCadEnt.setFont(fontmed(12));
@@ -1994,7 +2145,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnVenCadEnt);
-        rbtnVenCadEnt.setBounds(600, 0, 80, 21);
+        rbtnVenCadEnt.setBounds(610, 0, 80, 21);
 
         btnGroup.add(rbtnAssCadEnt);
         rbtnAssCadEnt.setFont(fontmed(12));
@@ -2007,14 +2158,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnAssCadEnt);
-        rbtnAssCadEnt.setBounds(680, 0, 100, 21);
+        rbtnAssCadEnt.setBounds(690, 0, 100, 21);
 
         lblDatCadEnt.setFont(fontmed(12));
         lblDatCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDatCadEnt.setText("Data");
         lblDatCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblDatCadEnt);
-        lblDatCadEnt.setBounds(480, 100, 40, 20);
+        lblDatCadEnt.setBounds(390, 100, 40, 20);
 
         txtDatCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtDatCadEnt.setFont(fontmed(13));
@@ -2033,24 +2184,24 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtDatCadEnt);
-        txtDatCadEnt.setBounds(480, 100, 100, 20);
+        txtDatCadEnt.setBounds(390, 100, 100, 20);
 
         sepDatCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepDatCadEnt);
-        sepDatCadEnt.setBounds(480, 120, 100, 10);
+        sepDatCadEnt.setBounds(390, 120, 100, 10);
 
         lblR$CadEnt.setFont(fontmed(13));
         lblR$CadEnt.setText("R$");
         lblR$CadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblR$CadEnt);
-        lblR$CadEnt.setBounds(480, 150, 20, 21);
+        lblR$CadEnt.setBounds(390, 150, 20, 21);
 
         lblPreCadEnt.setFont(fontmed(12));
         lblPreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblPreCadEnt.setText("Preço");
         lblPreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblPreCadEnt);
-        lblPreCadEnt.setBounds(480, 150, 40, 20);
+        lblPreCadEnt.setBounds(390, 150, 40, 20);
 
         txtPreCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtPreCadEnt.setFont(fontmed(13));
@@ -2069,11 +2220,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtPreCadEnt);
-        txtPreCadEnt.setBounds(500, 150, 80, 20);
+        txtPreCadEnt.setBounds(410, 150, 80, 20);
 
         sepPreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepPreCadEnt);
-        sepPreCadEnt.setBounds(480, 170, 100, 10);
+        sepPreCadEnt.setBounds(390, 170, 100, 10);
 
         cmbSerCadEnt.setFont(fontmed(13));
         cmbSerCadEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
@@ -2085,14 +2236,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(cmbSerCadEnt);
-        cmbSerCadEnt.setBounds(480, 270, 190, 30);
+        cmbSerCadEnt.setBounds(390, 270, 190, 30);
 
         lblDetCadEnt.setFont(fontmed(12));
         lblDetCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDetCadEnt.setText("Detalhes");
         lblDetCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblDetCadEnt);
-        lblDetCadEnt.setBounds(480, 200, 70, 20);
+        lblDetCadEnt.setBounds(390, 200, 70, 20);
 
         txtDetCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtDetCadEnt.setFont(fontmed(13));
@@ -2106,17 +2257,17 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtDetCadEnt);
-        txtDetCadEnt.setBounds(480, 200, 190, 20);
+        txtDetCadEnt.setBounds(390, 200, 190, 20);
 
         sepDetCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepDetCadEnt);
-        sepDetCadEnt.setBounds(480, 220, 190, 10);
+        sepDetCadEnt.setBounds(390, 220, 190, 10);
 
         lblSerCadEnt.setFont(fontmed(12));
         lblSerCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblSerCadEnt.setText("Serviço");
         pnlCadEnt.add(lblSerCadEnt);
-        lblSerCadEnt.setBounds(480, 240, 90, 30);
+        lblSerCadEnt.setBounds(390, 240, 90, 30);
         pnlCadEnt.add(txtCodCadEnt);
         txtCodCadEnt.setBounds(190, 40, 64, 22);
 
@@ -2132,7 +2283,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnCarCadEnt);
-        rbtnCarCadEnt.setBounds(600, 30, 90, 21);
+        rbtnCarCadEnt.setBounds(610, 30, 90, 21);
 
         btnGroup1.add(rbtnDinCadEnt);
         rbtnDinCadEnt.setFont(fontmed(12));
@@ -2146,7 +2297,93 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnDinCadEnt);
-        rbtnDinCadEnt.setBounds(510, 30, 90, 21);
+        rbtnDinCadEnt.setBounds(520, 30, 90, 21);
+
+        lblR$CusCadEnt.setFont(fontmed(13));
+        lblR$CusCadEnt.setText("R$");
+        lblR$CusCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadEnt.add(lblR$CusCadEnt);
+        lblR$CusCadEnt.setBounds(630, 150, 20, 21);
+
+        lblCusCadEnt.setFont(fontmed(12));
+        lblCusCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblCusCadEnt.setText("Custo");
+        lblCusCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadEnt.add(lblCusCadEnt);
+        lblCusCadEnt.setBounds(630, 150, 40, 20);
+
+        txtCusCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtCusCadEnt.setFont(fontmed(13));
+        txtCusCadEnt.setBorder(null);
+        txtCusCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCusCadEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCusCadEntFocusLost(evt);
+            }
+        });
+        txtCusCadEnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCusCadEntKeyTyped(evt);
+            }
+        });
+        pnlCadEnt.add(txtCusCadEnt);
+        txtCusCadEnt.setBounds(650, 150, 80, 20);
+
+        sepCusCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadEnt.add(sepCusCadEnt);
+        sepCusCadEnt.setBounds(630, 170, 100, 10);
+
+        lblForCadEnt.setFont(fontmed(12));
+        lblForCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblForCadEnt.setText("Fornecedor");
+        lblForCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadEnt.add(lblForCadEnt);
+        lblForCadEnt.setBounds(630, 200, 90, 20);
+
+        txtForCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtForCadEnt.setFont(fontmed(13));
+        txtForCadEnt.setBorder(null);
+        txtForCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtForCadEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtForCadEntFocusLost(evt);
+            }
+        });
+        pnlCadEnt.add(txtForCadEnt);
+        txtForCadEnt.setBounds(630, 200, 160, 20);
+
+        sepForCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadEnt.add(sepForCadEnt);
+        sepForCadEnt.setBounds(630, 220, 160, 10);
+
+        lblCliCadEnt.setFont(fontmed(12));
+        lblCliCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblCliCadEnt.setText("Cliente");
+        lblCliCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadEnt.add(lblCliCadEnt);
+        lblCliCadEnt.setBounds(630, 100, 90, 20);
+
+        txtCliCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtCliCadEnt.setFont(fontmed(13));
+        txtCliCadEnt.setBorder(null);
+        txtCliCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCliCadEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCliCadEntFocusLost(evt);
+            }
+        });
+        pnlCadEnt.add(txtCliCadEnt);
+        txtCliCadEnt.setBounds(630, 100, 160, 20);
+
+        sepCliCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadEnt.add(sepCliCadEnt);
+        sepCliCadEnt.setBounds(630, 120, 160, 10);
 
         pnlPri.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -2299,6 +2536,93 @@ public final class main extends javax.swing.JFrame {
 
         pnlPri.add(pnlIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
+        pnlConEnt.setBackground(new java.awt.Color(246, 246, 246));
+        pnlConEnt.setLayout(null);
+
+        btnCanConEnt.setFont(fontmed(12));
+        btnCanConEnt.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanConEnt.setText("Cancelar");
+        btnCanConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanConEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanConEntActionPerformed(evt);
+            }
+        });
+        pnlConEnt.add(btnCanConEnt);
+        btnCanConEnt.setBounds(870, 10, 90, 40);
+
+        btnBusConEnt.setFont(fontmed(12));
+        btnBusConEnt.setForeground(new java.awt.Color(10, 60, 133));
+        btnBusConEnt.setText("Buscar");
+        btnBusConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusConEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusConEntActionPerformed(evt);
+            }
+        });
+        pnlConEnt.add(btnBusConEnt);
+        btnBusConEnt.setBounds(760, 10, 90, 40);
+
+        lblBusConEnt.setFont(fontmed(12));
+        lblBusConEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblBusConEnt.setText("Buscar");
+        lblBusConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlConEnt.add(lblBusConEnt);
+        lblBusConEnt.setBounds(450, 30, 50, 20);
+
+        txtBusConEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusConEnt.setFont(fontmed(13));
+        txtBusConEnt.setBorder(null);
+        txtBusConEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBusConEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBusConEntFocusLost(evt);
+            }
+        });
+        txtBusConEnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBusConEntKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBusConEntKeyTyped(evt);
+            }
+        });
+        pnlConEnt.add(txtBusConEnt);
+        txtBusConEnt.setBounds(450, 30, 290, 20);
+
+        sepBusConEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlConEnt.add(sepBusConEst1);
+        sepBusConEst1.setBounds(450, 50, 290, 10);
+
+        scrConEnt.setBackground(new java.awt.Color(250, 250, 250));
+        scrConEnt.setBorder(BorderFactory.createEmptyBorder());
+
+        tblConEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblConEnt.setBorder(null);
+        tblConEnt.setFont(fontmed(12));
+        tblConEnt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblConEnt.setEnabled(false);
+        tblConEnt.setFocusable(false);
+        scrConEnt.setViewportView(tblConEnt);
+
+        pnlConEnt.add(scrConEnt);
+        scrConEnt.setBounds(60, 100, 1180, 200);
+
+        pnlPri.add(pnlConEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+
         pnlGerEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlGerEnt.setLayout(null);
 
@@ -2312,7 +2636,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(btnExcGerEnt);
-        btnExcGerEnt.setBounds(1120, 230, 90, 50);
+        btnExcGerEnt.setBounds(1180, 230, 90, 50);
 
         btnBusGerEnt.setFont(fontmed(12));
         btnBusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -2336,7 +2660,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(btnIteGerEnt);
-        btnIteGerEnt.setBounds(1120, 110, 90, 50);
+        btnIteGerEnt.setBounds(980, 230, 90, 50);
 
         btnCanGerEnt.setFont(fontmed(12));
         btnCanGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -2355,7 +2679,7 @@ public final class main extends javax.swing.JFrame {
         lblDatGerEnt.setText("Data");
         lblDatGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEnt.add(lblDatGerEnt);
-        lblDatGerEnt.setBounds(860, 80, 40, 20);
+        lblDatGerEnt.setBounds(780, 80, 40, 20);
 
         txtDatGerEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtDatGerEnt.setFont(fontmed(13));
@@ -2374,24 +2698,24 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(txtDatGerEnt);
-        txtDatGerEnt.setBounds(860, 80, 130, 20);
+        txtDatGerEnt.setBounds(780, 80, 130, 20);
 
         sepDatGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEnt.add(sepDatGerEnt);
-        sepDatGerEnt.setBounds(860, 100, 130, 10);
+        sepDatGerEnt.setBounds(780, 100, 130, 10);
 
         lblR$GerEnt.setFont(fontmed(13));
         lblR$GerEnt.setText("R$");
         lblR$GerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEnt.add(lblR$GerEnt);
-        lblR$GerEnt.setBounds(860, 130, 20, 21);
+        lblR$GerEnt.setBounds(780, 130, 20, 21);
 
         lblPreGerEnt.setFont(fontmed(12));
         lblPreGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblPreGerEnt.setText("Preço");
         lblPreGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEnt.add(lblPreGerEnt);
-        lblPreGerEnt.setBounds(860, 130, 40, 20);
+        lblPreGerEnt.setBounds(780, 130, 40, 20);
 
         txtPreGerEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtPreGerEnt.setFont(fontmed(13));
@@ -2405,18 +2729,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(txtPreGerEnt);
-        txtPreGerEnt.setBounds(880, 130, 80, 20);
+        txtPreGerEnt.setBounds(800, 130, 80, 20);
 
         sepPreGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEnt.add(sepPreGerEnt);
-        sepPreGerEnt.setBounds(860, 150, 100, 10);
+        sepPreGerEnt.setBounds(780, 150, 100, 10);
 
         lblDetGerEnt.setFont(fontmed(12));
         lblDetGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDetGerEnt.setText("Detalhes");
         lblDetGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEnt.add(lblDetGerEnt);
-        lblDetGerEnt.setBounds(860, 180, 70, 20);
+        lblDetGerEnt.setBounds(780, 180, 70, 20);
 
         txtDetGerEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtDetGerEnt.setFont(fontmed(13));
@@ -2435,11 +2759,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(txtDetGerEnt);
-        txtDetGerEnt.setBounds(860, 180, 190, 20);
+        txtDetGerEnt.setBounds(780, 180, 190, 20);
 
         sepDetGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEnt.add(sepDetGerEnt);
-        sepDetGerEnt.setBounds(860, 200, 190, 10);
+        sepDetGerEnt.setBounds(780, 200, 190, 10);
 
         lblDatBusGerEnt.setFont(fontmed(12));
         lblDatBusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -2473,7 +2797,7 @@ public final class main extends javax.swing.JFrame {
         sepMod3.setForeground(new java.awt.Color(10, 60, 133));
         sepMod3.setOrientation(javax.swing.SwingConstants.VERTICAL);
         pnlGerEnt.add(sepMod3);
-        sepMod3.setBounds(750, 80, 20, 210);
+        sepMod3.setBounds(745, 80, 20, 210);
 
         sepBusGerEst1.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEnt.add(sepBusGerEst1);
@@ -2484,13 +2808,13 @@ public final class main extends javax.swing.JFrame {
         cmbSerGerEnt.setToolTipText("");
         cmbSerGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlGerEnt.add(cmbSerGerEnt);
-        cmbSerGerEnt.setBounds(860, 250, 190, 30);
+        cmbSerGerEnt.setBounds(780, 250, 190, 30);
 
         lblSerGerEnt.setFont(fontmed(12));
         lblSerGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblSerGerEnt.setText("Serviço");
         pnlGerEnt.add(lblSerGerEnt);
-        lblSerGerEnt.setBounds(860, 220, 90, 30);
+        lblSerGerEnt.setBounds(780, 220, 90, 30);
 
         scrGerEnt.setBackground(new java.awt.Color(250, 250, 250));
         scrGerEnt.setBorder(BorderFactory.createEmptyBorder());
@@ -2521,7 +2845,7 @@ public final class main extends javax.swing.JFrame {
         scrGerEnt.setViewportView(tblGerEnt);
 
         pnlGerEnt.add(scrGerEnt);
-        scrGerEnt.setBounds(40, 170, 670, 170);
+        scrGerEnt.setBounds(30, 170, 680, 170);
 
         btnAltGerEnt.setFont(fontmed(12));
         btnAltGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -2533,7 +2857,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(btnAltGerEnt);
-        btnAltGerEnt.setBounds(1120, 170, 90, 50);
+        btnAltGerEnt.setBounds(1080, 230, 90, 50);
 
         btnGroup.add(rbtnCarGerEnt);
         rbtnCarGerEnt.setFont(fontmed(12));
@@ -2547,7 +2871,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(rbtnCarGerEnt);
-        rbtnCarGerEnt.setBounds(1010, 20, 90, 21);
+        rbtnCarGerEnt.setBounds(877, 20, 90, 21);
 
         btnGroup.add(rbtnPixGerEnt);
         rbtnPixGerEnt.setFont(fontmed(12));
@@ -2561,7 +2885,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(rbtnPixGerEnt);
-        rbtnPixGerEnt.setBounds(1100, 20, 90, 21);
+        rbtnPixGerEnt.setBounds(967, 20, 90, 21);
 
         btnGroup.add(rbtnDinGerEnt);
         rbtnDinGerEnt.setFont(fontmed(12));
@@ -2575,7 +2899,98 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(rbtnDinGerEnt);
-        rbtnDinGerEnt.setBounds(910, 20, 90, 21);
+        rbtnDinGerEnt.setBounds(777, 20, 90, 21);
+
+        lblCliGerEnt.setFont(fontmed(12));
+        lblCliGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblCliGerEnt.setText("Cliente");
+        lblCliGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerEnt.add(lblCliGerEnt);
+        lblCliGerEnt.setBounds(1020, 80, 90, 20);
+
+        txtCliGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtCliGerEnt.setFont(fontmed(13));
+        txtCliGerEnt.setBorder(null);
+        txtCliGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCliGerEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCliGerEntFocusLost(evt);
+            }
+        });
+        pnlGerEnt.add(txtCliGerEnt);
+        txtCliGerEnt.setBounds(1020, 80, 160, 20);
+
+        sepCliGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerEnt.add(sepCliGerEnt);
+        sepCliGerEnt.setBounds(1020, 100, 160, 10);
+
+        lblCusGerEnt.setFont(fontmed(12));
+        lblCusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblCusGerEnt.setText("Custo");
+        lblCusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerEnt.add(lblCusGerEnt);
+        lblCusGerEnt.setBounds(1020, 130, 40, 20);
+
+        lblR$CusGerEnt.setFont(fontmed(13));
+        lblR$CusGerEnt.setText("R$");
+        lblR$CusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerEnt.add(lblR$CusGerEnt);
+        lblR$CusGerEnt.setBounds(1020, 130, 20, 20);
+
+        txtCusGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtCusGerEnt.setFont(fontmed(13));
+        txtCusGerEnt.setBorder(null);
+        txtCusGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCusGerEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCusGerEntFocusLost(evt);
+            }
+        });
+        txtCusGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCusGerEntActionPerformed(evt);
+            }
+        });
+        txtCusGerEnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCusGerEntKeyTyped(evt);
+            }
+        });
+        pnlGerEnt.add(txtCusGerEnt);
+        txtCusGerEnt.setBounds(1040, 130, 80, 20);
+
+        sepCusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerEnt.add(sepCusGerEnt);
+        sepCusGerEnt.setBounds(1020, 150, 100, 10);
+
+        lblForGerEnt.setFont(fontmed(12));
+        lblForGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblForGerEnt.setText("Fornecedor");
+        lblForGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerEnt.add(lblForGerEnt);
+        lblForGerEnt.setBounds(1020, 180, 90, 20);
+
+        txtForGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtForGerEnt.setFont(fontmed(13));
+        txtForGerEnt.setBorder(null);
+        txtForGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtForGerEntFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtForGerEntFocusLost(evt);
+            }
+        });
+        pnlGerEnt.add(txtForGerEnt);
+        txtForGerEnt.setBounds(1020, 180, 160, 20);
+
+        sepForGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerEnt.add(sepForGerEnt);
+        sepForGerEnt.setBounds(1020, 200, 160, 10);
 
         pnlPri.add(pnlGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -3631,7 +4046,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlRel.add(rbtnSerTimRel);
-        rbtnSerTimRel.setBounds(455, 30, 100, 21);
+        rbtnSerTimRel.setBounds(405, 30, 100, 21);
 
         btnGroup.add(rbtnSerRel);
         rbtnSerRel.setFont(fontmed(12));
@@ -3644,7 +4059,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlRel.add(rbtnSerRel);
-        rbtnSerRel.setBounds(260, 30, 90, 21);
+        rbtnSerRel.setBounds(210, 30, 90, 21);
 
         btnGroup.add(rbtnVenRel);
         rbtnVenRel.setFont(fontmed(12));
@@ -3657,7 +4072,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlRel.add(rbtnVenRel);
-        rbtnVenRel.setBounds(360, 30, 80, 21);
+        rbtnVenRel.setBounds(310, 30, 80, 21);
 
         btnGroup.add(rbtnTodRel);
         rbtnTodRel.setFont(fontmed(12));
@@ -3670,7 +4085,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlRel.add(rbtnTodRel);
-        rbtnTodRel.setBounds(170, 30, 70, 21);
+        rbtnTodRel.setBounds(120, 30, 70, 21);
 
         lblDatIniRel.setFont(fontmed(12));
         lblDatIniRel.setForeground(new java.awt.Color(10, 60, 133));
@@ -3853,7 +4268,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlRel.add(rbtnAssRel);
-        rbtnAssRel.setBounds(580, 30, 100, 21);
+        rbtnAssRel.setBounds(530, 30, 100, 21);
 
         sepDatCadEnt3.setForeground(new java.awt.Color(10, 60, 133));
         pnlRel.add(sepDatCadEnt3);
@@ -3907,7 +4322,7 @@ public final class main extends javax.swing.JFrame {
 
         jLabel6.setFont(fontbold(16));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Valor médio");
+        jLabel6.setText("Custo");
         pnlRel.add(jLabel6);
         jLabel6.setBounds(990, 210, 160, 20);
 
@@ -3936,6 +4351,19 @@ public final class main extends javax.swing.JFrame {
         lblValPixRel.setText("R$0,00");
         pnlRel.add(lblValPixRel);
         lblValPixRel.setBounds(1140, 310, 108, 30);
+
+        chkCus.setFont(fontmed(12));
+        chkCus.setForeground(new java.awt.Color(10, 60, 133));
+        chkCus.setText("Custo");
+        chkCus.setBorder(null);
+        chkCus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkCus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkCusActionPerformed(evt);
+            }
+        });
+        pnlRel.add(chkCus);
+        chkCus.setBounds(650, 30, 60, 20);
 
         pnlPri.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -5185,10 +5613,22 @@ public final class main extends javax.swing.JFrame {
             btnCadEst.setVisible(false);
             btnConEst.setVisible(false);
             btnGerEst.setVisible(false);
+
         } else {
             btnCadEst.setVisible(true);
             btnConEst.setVisible(true);
             btnGerEst.setVisible(true);
+
+            btnCadEnt.setVisible(false);
+            btnGerEnt.setVisible(false);
+            btnConEnt.setVisible(false);
+
+            btnCadTipSer.setVisible(false);
+            btnGerTipSer.setVisible(false);
+            btnMasPla.setVisible(false);
+            btnDes.setVisible(false);
+            btnCadDes.setVisible(false);
+            btnGerDes.setVisible(false);
         }
     }//GEN-LAST:event_btnEstPriMouseReleased
 
@@ -5401,6 +5841,7 @@ public final class main extends javax.swing.JFrame {
             pnlGerEnt.setVisible(false);
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
 
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Tipo de Serviço");
@@ -5452,6 +5893,7 @@ public final class main extends javax.swing.JFrame {
                 pnlGerEnt.setVisible(false);
                 pnlOs.setVisible(false);
                 pnlIteGerEnt.setVisible(false);
+                pnlConEnt.setVisible(false);
 
                 lblTitPri.setVisible(true);
                 lblTitPri.setText("Gerenciar Tipo de Serviço");
@@ -5476,6 +5918,18 @@ public final class main extends javax.swing.JFrame {
         if (!btnGerTipSer.isVisible()) {
             btnGerTipSer.setVisible(true);
             btnCadTipSer.setVisible(true);
+
+            btnCadEnt.setVisible(false);
+            btnGerEnt.setVisible(false);
+            btnConEnt.setVisible(false);
+            btnCadEst.setVisible(false);
+            btnConEst.setVisible(false);
+            btnGerEst.setVisible(false);
+
+            btnMasPla.setVisible(false);
+            btnDes.setVisible(false);
+            btnCadDes.setVisible(false);
+            btnGerDes.setVisible(false);
         } else {
             btnGerTipSer.setVisible(false);
             btnCadTipSer.setVisible(false);
@@ -5558,6 +6012,7 @@ public final class main extends javax.swing.JFrame {
             pnlCadDes.setVisible(false);
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
 
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Estoque");
@@ -5601,7 +6056,9 @@ public final class main extends javax.swing.JFrame {
             pnlCadDes.setVisible(false);
             pnlGerEnt.setVisible(false);
             pnlOs.setVisible(false);
+            btnConEnt.setVisible(false);
             pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
 
             scrConEst.setVisible(false);
             btnBusConEst.setEnabled(false);
@@ -5715,6 +6172,7 @@ public final class main extends javax.swing.JFrame {
             pnlCadDes.setVisible(false);
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
 
             lblTitPri.setVisible(true);
             lblTitPri.setText("Gerenciar Estoque");
@@ -5750,6 +6208,16 @@ public final class main extends javax.swing.JFrame {
             btnDes.setVisible(true);
             btnCadDes.setVisible(true);
             btnGerDes.setVisible(true);
+
+            btnCadEnt.setVisible(false);
+            btnGerEnt.setVisible(false);
+            btnConEnt.setVisible(false);
+            btnCadEst.setVisible(false);
+            btnConEst.setVisible(false);
+            btnGerEst.setVisible(false);
+            btnCadTipSer.setVisible(false);
+            btnGerTipSer.setVisible(false);
+
         }
     }//GEN-LAST:event_btnOutPriMouseReleased
 
@@ -5808,7 +6276,7 @@ public final class main extends javax.swing.JFrame {
             pnlGerEnt.setVisible(false);
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
-
+            pnlConEnt.setVisible(false);
             btnCanMas.grabFocus();
 
             btnCopMas.setVisible(false);
@@ -5861,6 +6329,7 @@ public final class main extends javax.swing.JFrame {
             pnlGerEnt.setVisible(false);
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
 
         }
     }//GEN-LAST:event_btnCadDesMouseReleased
@@ -5901,6 +6370,7 @@ public final class main extends javax.swing.JFrame {
                 pnlGerEnt.setVisible(false);
                 pnlOs.setVisible(false);
                 pnlIteGerEnt.setVisible(false);
+                pnlConEnt.setVisible(false);
 
             } else {
 
@@ -6076,7 +6546,7 @@ public final class main extends javax.swing.JFrame {
 
         if (resp == JOptionPane.YES_OPTION) {
 
-            if (tblGerEst.getSelectedRow() != 0) {
+            if (tblGerEst.getSelectedRow() != -1) {
 
                 try {
                     estoque es = new estoque();
@@ -6931,6 +7401,10 @@ public final class main extends javax.swing.JFrame {
 
                         } else if (rbtnAssCadEnt.isSelected()) {
 
+                            en.setCliente(txtCliCadEnt.getText());
+                            en.setCusto(Double.valueOf(txtCusCadEnt.getText().replace(".", "").replace(",", ".")));
+                            en.setFornecedor(txtForCadEnt.getText());
+
                             endao.inserir(en, 3);
 
                         }
@@ -7006,13 +7480,35 @@ public final class main extends javax.swing.JFrame {
         lblDatCadEnt.setEnabled(true);
         txtDatCadEnt.setEnabled(true);
         sepDatCadEnt.setForeground(corforeazul);
+
         lblPreCadEnt.setEnabled(true);
         txtPreCadEnt.setEnabled(true);
         sepPreCadEnt.setForeground(corforeazul);
+
         lblDetCadEnt.setEnabled(true);
         txtDetCadEnt.setEnabled(true);
         sepDetCadEnt.setForeground(corforeazul);
+
         lblSerCadEnt.setEnabled(true);
+
+        txtCliCadEnt.setEnabled(false);
+        txtCliCadEnt.setText(null);
+        sepCliCadEnt.setForeground(Color.GRAY);
+        lblCliCadEnt.setEnabled(false);
+        lblR$CusCadEnt.setVisible(false);
+        lblCliCadEnt.setLocation(630, 100);
+        lblCusCadEnt.setLocation(630, 150);
+        lblForCadEnt.setLocation(630, 200);
+
+        txtCusCadEnt.setEnabled(false);
+        txtCusCadEnt.setText(null);
+        sepCusCadEnt.setForeground(Color.GRAY);
+        lblCusCadEnt.setEnabled(false);
+
+        txtForCadEnt.setEnabled(false);
+        txtForCadEnt.setText(null);
+        sepForCadEnt.setForeground(Color.GRAY);
+        lblForCadEnt.setEnabled(false);
         cmbSerCadEnt.setEnabled(true);
         btnSalCadEnt.setEnabled(true);
         btnIteCadEnt.setEnabled(true);
@@ -7031,8 +7527,7 @@ public final class main extends javax.swing.JFrame {
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
 
-        lblDatCadEnt.setLocation(480, 100);
-        anitxtin(lblDatCadEnt);
+        lblDatCadEnt.setLocation(390, 80);
     }//GEN-LAST:event_rbtnSerCadEntActionPerformed
 
     private void rbtnVenCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVenCadEntActionPerformed
@@ -7046,6 +7541,24 @@ public final class main extends javax.swing.JFrame {
         txtDetCadEnt.setEnabled(true);
         sepDetCadEnt.setForeground(corforeazul);
         lblSerCadEnt.setEnabled(false);
+        txtCliCadEnt.setEnabled(false);
+        txtCliCadEnt.setText(null);
+        sepCliCadEnt.setForeground(Color.GRAY);
+        lblCliCadEnt.setEnabled(false);
+        lblR$CusCadEnt.setVisible(false);
+        lblCliCadEnt.setLocation(630, 100);
+        lblCusCadEnt.setLocation(630, 150);
+        lblForCadEnt.setLocation(630, 200);
+
+        txtCusCadEnt.setEnabled(false);
+        txtCusCadEnt.setText(null);
+        sepCusCadEnt.setForeground(Color.GRAY);
+        lblCusCadEnt.setEnabled(false);
+
+        txtForCadEnt.setEnabled(false);
+        txtForCadEnt.setText(null);
+        sepForCadEnt.setForeground(Color.GRAY);
+        lblForCadEnt.setEnabled(false);
         cmbSerCadEnt.setEnabled(false);
         btnSalCadEnt.setEnabled(true);
         btnIteCadEnt.setEnabled(true);
@@ -7059,8 +7572,7 @@ public final class main extends javax.swing.JFrame {
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
 
-        lblDatCadEnt.setLocation(480, 100);
-        anitxtin(lblDatCadEnt);
+        lblDatCadEnt.setLocation(390, 80);
     }//GEN-LAST:event_rbtnVenCadEntActionPerformed
 
     private void rbtnAssCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAssCadEntActionPerformed
@@ -7074,6 +7586,17 @@ public final class main extends javax.swing.JFrame {
         txtDetCadEnt.setEnabled(true);
         sepDetCadEnt.setForeground(corforeazul);
         lblSerCadEnt.setEnabled(true);
+        txtCliCadEnt.setEnabled(true);
+        sepCliCadEnt.setForeground(corforeazul);
+        lblCliCadEnt.setEnabled(true);
+
+        txtCusCadEnt.setEnabled(true);
+        sepCusCadEnt.setForeground(corforeazul);
+        lblCusCadEnt.setEnabled(true);
+
+        txtForCadEnt.setEnabled(true);
+        sepForCadEnt.setForeground(corforeazul);
+        lblForCadEnt.setEnabled(true);
         cmbSerCadEnt.setEnabled(true);
         btnSalCadEnt.setEnabled(true);
         btnIteCadEnt.setEnabled(false);
@@ -7086,9 +7609,7 @@ public final class main extends javax.swing.JFrame {
 
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
-
-        lblDatCadEnt.setLocation(480, 100);
-        anitxtin(lblDatCadEnt);
+        lblDatCadEnt.setLocation(390, 80);
     }//GEN-LAST:event_rbtnAssCadEntActionPerformed
 
     private void txtDatCadEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatCadEntFocusGained
@@ -7274,10 +7795,13 @@ public final class main extends javax.swing.JFrame {
 
             txtCodCadEnt.setText(sb.toString());
 
-            lblDetCadEnt.setLocation(480, 200);
+            lblDetCadEnt.setLocation(390, 200);
 
-            lblPreCadEnt.setLocation(480, 150);
-            lblDatCadEnt.setLocation(480, 100);
+            lblPreCadEnt.setLocation(390, 150);
+            lblDatCadEnt.setLocation(390, 100);
+            lblCliCadEnt.setLocation(630, 100);
+            lblCusCadEnt.setLocation(630, 150);
+            lblForCadEnt.setLocation(630, 200);
 
             lblDatCadEnt.setEnabled(false);
             txtDatCadEnt.setEnabled(false);
@@ -7294,14 +7818,31 @@ public final class main extends javax.swing.JFrame {
             txtDetCadEnt.setEnabled(false);
             txtDetCadEnt.setText(null);
 
+            txtCliCadEnt.setEnabled(false);
+            txtCliCadEnt.setText(null);
+            sepCliCadEnt.setForeground(Color.GRAY);
+            lblCliCadEnt.setEnabled(false);
+
+            txtCusCadEnt.setEnabled(false);
+            txtCusCadEnt.setText(null);
+            sepCusCadEnt.setForeground(Color.GRAY);
+            lblCusCadEnt.setEnabled(false);
+
+            txtForCadEnt.setEnabled(false);
+            txtForCadEnt.setText(null);
+            sepForCadEnt.setForeground(Color.GRAY);
+            lblForCadEnt.setEnabled(false);
+
             sepDetCadEnt.setForeground(Color.GRAY);
             lblSerCadEnt.setEnabled(false);
             cmbSerCadEnt.setEnabled(false);
             cmbSerCadEnt.setSelectedIndex(0);
             lblR$CadEnt.setVisible(false);
+            lblR$CusCadEnt.setVisible(false);
 
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
+            btnConEnt.setVisible(false);
 
             btnGroup.clearSelection();
             btnGroup1.clearSelection();
@@ -7345,6 +7886,7 @@ public final class main extends javax.swing.JFrame {
             pnlGerEnt.setVisible(false);
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
 
         }
     }//GEN-LAST:event_btnCadEntMouseReleased
@@ -7435,9 +7977,20 @@ public final class main extends javax.swing.JFrame {
         if (!btnCadEnt.isVisible()) {
             btnCadEnt.setVisible(true);
             btnGerEnt.setVisible(true);
+            btnConEnt.setVisible(true);
+            btnCadEst.setVisible(false);
+            btnConEst.setVisible(false);
+            btnGerEst.setVisible(false);
+            btnCadTipSer.setVisible(false);
+            btnGerTipSer.setVisible(false);
+            btnMasPla.setVisible(false);
+            btnDes.setVisible(false);
+            btnCadDes.setVisible(false);
+            btnGerDes.setVisible(false);
         } else {
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
+            btnConEnt.setVisible(false);
         }
     }//GEN-LAST:event_btnEntPriMouseReleased
 
@@ -7496,7 +8049,7 @@ public final class main extends javax.swing.JFrame {
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
 
-        btnTodRel.setFont(fontbold(12));
+        btnTodRel.setFont(fontbold(13));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
         btnMesRel.setFont(fontmed(12));
@@ -7514,7 +8067,7 @@ public final class main extends javax.swing.JFrame {
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
 
-        btnTodRel.setFont(fontbold(12));
+        btnTodRel.setFont(fontbold(13));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
         btnMesRel.setFont(fontmed(12));
@@ -7532,7 +8085,7 @@ public final class main extends javax.swing.JFrame {
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
 
-        btnTodRel.setFont(fontbold(12));
+        btnTodRel.setFont(fontbold(13));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
         btnMesRel.setFont(fontmed(12));
@@ -7639,7 +8192,7 @@ public final class main extends javax.swing.JFrame {
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
 
-        btnTodRel.setFont(fontbold(12));
+        btnTodRel.setFont(fontbold(13));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
         btnMesRel.setFont(fontmed(12));
@@ -7652,6 +8205,19 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnAssRelActionPerformed
 
     private void btnRelPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelPriMouseReleased
+
+        btnCadEnt.setVisible(false);
+        btnGerEnt.setVisible(false);
+        btnConEnt.setVisible(false);
+        btnCadEst.setVisible(false);
+        btnConEst.setVisible(false);
+        btnGerEst.setVisible(false);
+        btnCadTipSer.setVisible(false);
+        btnGerTipSer.setVisible(false);
+        btnMasPla.setVisible(false);
+        btnDes.setVisible(false);
+        btnCadDes.setVisible(false);
+        btnGerDes.setVisible(false);
         if (!pnlRel.isVisible()) {
 
             rbtnTodRel.setSelected(true);
@@ -7664,7 +8230,7 @@ public final class main extends javax.swing.JFrame {
 
             btnVolRel.grabFocus();
 
-            btnTodRel.setFont(fontbold(12));
+            btnTodRel.setFont(fontbold(13));
             btnDiaRel.setFont(fontmed(12));
             btnSemRel.setFont(fontmed(12));
             btnMesRel.setFont(fontmed(12));
@@ -7692,6 +8258,7 @@ public final class main extends javax.swing.JFrame {
             pnlGerEnt.setVisible(false);
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
 
         }
     }//GEN-LAST:event_btnRelPriMouseReleased
@@ -7744,7 +8311,7 @@ public final class main extends javax.swing.JFrame {
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
 
-        btnTodRel.setFont(fontbold(12));
+        btnTodRel.setFont(fontbold(13));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
         btnMesRel.setFont(fontmed(12));
@@ -7781,7 +8348,7 @@ public final class main extends javax.swing.JFrame {
         txtDatFinRel.setText(null);
 
         btnTodRel.setFont(fontmed(12));
-        btnDiaRel.setFont(fontbold(12));
+        btnDiaRel.setFont(fontbold(13));
         btnSemRel.setFont(fontmed(12));
         btnMesRel.setFont(fontmed(12));
         btnAnoRel.setFont(fontmed(12));
@@ -7816,7 +8383,7 @@ public final class main extends javax.swing.JFrame {
 
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
-        btnSemRel.setFont(fontbold(12));
+        btnSemRel.setFont(fontbold(13));
         btnMesRel.setFont(fontmed(12));
         btnAnoRel.setFont(fontmed(12));
         lblDatIniRel.setFont(fontmed(12));
@@ -7852,7 +8419,7 @@ public final class main extends javax.swing.JFrame {
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
-        btnMesRel.setFont(fontbold(12));
+        btnMesRel.setFont(fontbold(13));
         btnAnoRel.setFont(fontmed(12));
         lblDatIniRel.setFont(fontmed(12));
         lblDatFinRel.setFont(fontmed(12));
@@ -7887,7 +8454,7 @@ public final class main extends javax.swing.JFrame {
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
         btnMesRel.setFont(fontmed(12));
-        btnAnoRel.setFont(fontbold(12));
+        btnAnoRel.setFont(fontbold(13));
         lblDatIniRel.setFont(fontmed(12));
         lblDatFinRel.setFont(fontmed(12));
 
@@ -7920,7 +8487,7 @@ public final class main extends javax.swing.JFrame {
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
 
-        btnTodRel.setFont(fontbold(12));
+        btnTodRel.setFont(fontbold(13));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
         btnMesRel.setFont(fontmed(12));
@@ -7958,8 +8525,8 @@ public final class main extends javax.swing.JFrame {
                 btnSemRel.setFont(fontmed(12));
                 btnMesRel.setFont(fontmed(12));
                 btnAnoRel.setFont(fontmed(12));
-                lblDatIniRel.setFont(fontbold(12));
-                lblDatFinRel.setFont(fontbold(12));
+                lblDatIniRel.setFont(fontbold(13));
+                lblDatFinRel.setFont(fontbold(13));
 
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(pnlRel, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -8728,7 +9295,7 @@ public final class main extends javax.swing.JFrame {
                 pnlMas.setVisible(false);
                 pnlGerEnt.setVisible(false);
                 pnlOs.setVisible(false);
-
+                pnlConEnt.setVisible(false);
                 btnMasPla.setVisible(false);
                 btnDes.setVisible(false);
                 btnCadDes.setVisible(false);
@@ -8786,13 +9353,14 @@ public final class main extends javax.swing.JFrame {
                         entrada en = new entrada();
                         entradaDAO endao = new entradaDAO();
 
-                        en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
+                        en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
 
                         endao.excluir(en);
 
                         JOptionPane.showMessageDialog(pnlIteGerEnt, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
                         pnlGerEnt.setVisible(false);
+                        lblTitPri.setVisible(false);
 
                     }
 
@@ -8800,7 +9368,7 @@ public final class main extends javax.swing.JFrame {
 
                     entrada en = new entrada();
                     entradaDAO endao = new entradaDAO();
-                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
+                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
                     endao.excluir(en);
 
                     JOptionPane.showMessageDialog(pnlIteGerEnt, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
@@ -8956,13 +9524,33 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDatBusGerEntKeyTyped
 
     private void tblGerEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGerEntMouseClicked
-        lblDatGerEnt.setLocation(860, 80);
-        lblPreGerEnt.setLocation(860, 130);
-        lblDetGerEnt.setLocation(860, 180);
+        lblDatGerEnt.setLocation(780, 80);
+        lblPreGerEnt.setLocation(780, 130);
+        lblDetGerEnt.setLocation(780, 180);
+        lblCliGerEnt.setLocation(1020, 80);
+        lblCusGerEnt.setLocation(1020, 130);
+        lblForGerEnt.setLocation(1020, 180);
+        lblR$CusGerEnt.setVisible(false);
 
         txtDatGerEnt.setText(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 0).toString());
-        txtPreGerEnt.setText((tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 4).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 4).toString().length()));
-        txtDetGerEnt.setText((!"Sem Detalhes".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString() : null);
+        txtPreGerEnt.setText((tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString().length()));
+        txtDetGerEnt.setText((!"Sem Detalhes".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString() : null);
+
+        txtCliGerEnt.setEnabled(false);
+        sepCliGerEnt.setForeground(Color.GRAY);
+        lblCliGerEnt.setEnabled(false);
+
+        txtCusGerEnt.setEnabled(false);
+        sepCusGerEnt.setForeground(Color.GRAY);
+        lblCusGerEnt.setEnabled(false);
+
+        txtForGerEnt.setEnabled(false);
+        sepForGerEnt.setForeground(Color.GRAY);
+        lblForGerEnt.setEnabled(false);
+
+        txtCliGerEnt.setText(null);
+        txtCusGerEnt.setText(null);
+        txtForGerEnt.setText(null);
 
         estoque es = new estoque();
 
@@ -8972,13 +9560,13 @@ public final class main extends javax.swing.JFrame {
 
         tabelaestoqueconsulta(es, tblEstIteGerEnt, scrEstIteGerEnt);
 
-        tabelaitensselecionadosgerenciar(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
+        tabelaitensselecionadosgerenciar(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
 
-        if ("Dinheiro".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString())) {
+        if ("Dinheiro".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString())) {
 
             rbtnDinGerEnt.setSelected(true);
 
-        } else if ("Cartão".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString())) {
+        } else if ("Cartão".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString())) {
 
             rbtnCarGerEnt.setSelected(true);
 
@@ -9004,6 +9592,22 @@ public final class main extends javax.swing.JFrame {
             lblSerGerEnt.setEnabled(true);
 
             comboboxentrada(cmbSerGerEnt, 2);
+
+            txtCliGerEnt.setEnabled(true);
+            sepCliGerEnt.setForeground(corforeazul);
+            lblCliGerEnt.setEnabled(true);
+
+            txtCusGerEnt.setEnabled(true);
+            sepCusGerEnt.setForeground(corforeazul);
+            lblCusGerEnt.setEnabled(true);
+
+            txtForGerEnt.setEnabled(true);
+            sepForGerEnt.setForeground(corforeazul);
+            lblForGerEnt.setEnabled(true);
+
+            txtCliGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString() : null);
+            txtCusGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString())) ? (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString().length()) : null);
+            txtForGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString() : null);
 
             for (int i = 1; i <= cmbSerGerEnt.getItemCount(); i++) {
 
@@ -9082,6 +9686,18 @@ public final class main extends javax.swing.JFrame {
         if (!txtDetGerEnt.getText().isEmpty()) {
             anitxtin(lblDetGerEnt);
         }
+        if (!txtCliGerEnt.getText().isEmpty()) {
+            anitxtin(lblCliGerEnt);
+        }
+        if (!txtCusGerEnt.getText().isEmpty()) {
+            anitxtin(lblCusGerEnt);
+            lblR$CusGerEnt.setVisible(true);
+        } else {
+            lblR$CusGerEnt.setVisible(false);
+        }
+        if (!txtForGerEnt.getText().isEmpty()) {
+            anitxtin(lblForGerEnt);
+        }
     }//GEN-LAST:event_tblGerEntMouseClicked
 
     private void btnAltGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerEntActionPerformed
@@ -9094,7 +9710,7 @@ public final class main extends javax.swing.JFrame {
                 entrada en = new entrada();
                 entradaDAO endao = new entradaDAO();
 
-                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
+                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
 
                 endao.excluir(en);
 
@@ -9123,7 +9739,7 @@ public final class main extends javax.swing.JFrame {
 
                                 for (int i = 1; i <= tblSelIteGerEnt.getRowCount(); i++) {
 
-                                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
+                                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
                                     en.setData(formatterbanco.format(((formatter.parse(txtDatGerEnt.getText())))));
                                     en.setPreco(Double.valueOf(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
                                     en.setDetalhes(txtDetGerEnt.getText());
@@ -9149,7 +9765,7 @@ public final class main extends javax.swing.JFrame {
 
                             } else {
 
-                                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString());
+                                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
                                 en.setData(formatterbanco.format((formatter.parse(txtDatGerEnt.getText()))));
                                 en.setPreco(Double.valueOf(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
                                 en.setDetalhes(txtDetGerEnt.getText());
@@ -9162,6 +9778,10 @@ public final class main extends javax.swing.JFrame {
                                     endao.inserir(en, 1);
 
                                 } else if ("Assistência".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
+
+                                    en.setCliente(txtCliGerEnt.getText());
+                                    en.setCusto(Double.valueOf(txtCusGerEnt.getText().replace(".", "").replace(",", ".")));
+                                    en.setFornecedor(txtForGerEnt.getText());
 
                                     endao.inserir(en, 3);
 
@@ -9209,6 +9829,7 @@ public final class main extends javax.swing.JFrame {
     private void btnGerEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerEntMouseReleased
         btnGerEnt.setVisible(false);
         btnCadEnt.setVisible(false);
+        btnConEnt.setVisible(false);
 
         if (!pnlGerEnt.isVisible()) {
 
@@ -9228,10 +9849,26 @@ public final class main extends javax.swing.JFrame {
             tblGerEnt.setVisible(false);
             scrGerEnt.setVisible(false);
 
+            txtCliGerEnt.setEnabled(false);
+            txtCliGerEnt.setText(null);
+            sepCliGerEnt.setForeground(Color.GRAY);
+            lblCliGerEnt.setEnabled(false);
+
+            txtCusGerEnt.setEnabled(false);
+            txtCusGerEnt.setText(null);
+            sepCusGerEnt.setForeground(Color.GRAY);
+            lblCusGerEnt.setEnabled(false);
+
+            txtForGerEnt.setEnabled(false);
+            txtForGerEnt.setText(null);
+            sepForGerEnt.setForeground(Color.GRAY);
+            lblForGerEnt.setEnabled(false);
+
             lblDatGerEnt.setEnabled(false);
             txtDatGerEnt.setEnabled(false);
             lblPreGerEnt.setEnabled(false);
             lblR$GerEnt.setVisible(false);
+            lblR$CusGerEnt.setVisible(false);
 
             txtPreGerEnt.setEnabled(false);
             lblDetGerEnt.setEnabled(false);
@@ -9249,9 +9886,13 @@ public final class main extends javax.swing.JFrame {
             btnBusGerEnt.setEnabled(false);
 
             lblDatBusGerEnt.setLocation(70, 50);
-            lblDatGerEnt.setLocation(860, 80);
-            lblPreGerEnt.setLocation(860, 130);
-            lblDetGerEnt.setLocation(860, 180);
+            lblDatGerEnt.setLocation(780, 80);
+            lblPreGerEnt.setLocation(780, 130);
+            lblDetGerEnt.setLocation(780, 180);
+
+            lblCliGerEnt.setLocation(1020, 80);
+            lblCusGerEnt.setLocation(1020, 130);
+            lblForGerEnt.setLocation(1020, 180);
 
             lblTitPri.setText("Gerenciar Entrada");
             lblTitPri.setVisible(true);
@@ -9270,6 +9911,7 @@ public final class main extends javax.swing.JFrame {
             pnlCadDes.setVisible(false);
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
 
             pnlGerEnt.setVisible(true);
         }
@@ -9980,49 +10622,67 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHorOsKeyTyped
 
     private void btnOrdSerPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOrdSerPriMouseReleased
-        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+        btnCadEnt.setVisible(false);
+        btnGerEnt.setVisible(false);
+        btnConEnt.setVisible(false);
+        btnCadEst.setVisible(false);
+        btnConEst.setVisible(false);
+        btnGerEst.setVisible(false);
+        btnCadTipSer.setVisible(false);
+        btnGerTipSer.setVisible(false);
+        btnMasPla.setVisible(false);
+        btnDes.setVisible(false);
+        btnCadDes.setVisible(false);
+        btnGerDes.setVisible(false);
 
-        txtCliOs.setText(null);
-        txtEndOs.setText(null);
-        txtTelOs.setText(null);
-        txtEquOs.setText(null);
-        txtMarOs.setText(null);
-        txtModOs.setText(null);
-        txtConOs.setText(null);
-        txtDefOs.setText(null);
-        txtHorOs.setText(LocalTime.now().format(formatoHora));
-        txtDatOs.setText(LocalDate.now().format(formatteratual));
+        if (!pnlOs.isVisible()) {
 
-        lblCliOs.setLocation(370, 30);
-        lblTelOs.setLocation(370, 80);
-        lblEndOs.setLocation(370, 130);
-        lblDatOs.setLocation(370, 160);
-        lblHorOs.setLocation(370, 210);
-        lblEquOs.setLocation(700, 30);
-        lblMarOs.setLocation(700, 80);
-        lblModOs.setLocation(700, 130);
-        lblConOs.setLocation(700, 180);
-        lblDefOs.setLocation(700, 230);
+            DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
 
-        lblTitPri.setText("Ordem de Serviço");
-        lblTitPri.setVisible(true);
+            txtCliOs.setText(null);
+            txtEndOs.setText(null);
+            txtTelOs.setText(null);
+            txtEquOs.setText(null);
+            txtMarOs.setText(null);
+            txtModOs.setText(null);
+            txtConOs.setText(null);
+            txtDefOs.setText(null);
+            txtHorOs.setText(LocalTime.now().format(formatoHora));
+            txtDatOs.setText(LocalDate.now().format(formatteratual));
 
-        pnlCadEnt.setVisible(false);
-        pnlRel.setVisible(false);
-        pnlIteCadEnt.setVisible(false);
-        pnlIteGerEnt.setVisible(false);
-        pnlCadTipSer.setVisible(false);
-        pnlCadEst.setVisible(false);
-        pnlConEst.setVisible(false);
-        pnlGerEst.setVisible(false);
-        pnlGerTipSer.setVisible(false);
-        pnlMas.setVisible(false);
-        pnlDes.setVisible(false);
-        pnlGerDes.setVisible(false);
-        pnlCadDes.setVisible(false);
-        pnlGerEnt.setVisible(false);
+            lblCliOs.setLocation(370, 30);
+            lblTelOs.setLocation(370, 80);
+            lblEndOs.setLocation(370, 130);
+            lblDatOs.setLocation(370, 160);
+            lblHorOs.setLocation(370, 210);
+            lblEquOs.setLocation(700, 30);
+            lblMarOs.setLocation(700, 80);
+            lblModOs.setLocation(700, 130);
+            lblConOs.setLocation(700, 180);
+            lblDefOs.setLocation(700, 230);
 
-        pnlOs.setVisible(true);
+            lblTitPri.setText("Ordem de Serviço");
+            lblTitPri.setVisible(true);
+
+            pnlCadEnt.setVisible(false);
+            pnlRel.setVisible(false);
+            pnlIteCadEnt.setVisible(false);
+            pnlIteGerEnt.setVisible(false);
+            pnlCadTipSer.setVisible(false);
+            pnlCadEst.setVisible(false);
+            pnlConEst.setVisible(false);
+            pnlGerEst.setVisible(false);
+            pnlGerTipSer.setVisible(false);
+            pnlMas.setVisible(false);
+            pnlDes.setVisible(false);
+            pnlGerDes.setVisible(false);
+            pnlCadDes.setVisible(false);
+            pnlGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
+
+            pnlOs.setVisible(true);
+
+        }
     }//GEN-LAST:event_btnOrdSerPriMouseReleased
 
     private void txtDatBusGerEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatBusGerEntKeyPressed
@@ -10124,6 +10784,354 @@ public final class main extends javax.swing.JFrame {
     private void rbtnPixGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPixGerEntActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtnPixGerEntActionPerformed
+
+    private void txtCusCadEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCusCadEntFocusGained
+        if (txtCusCadEnt.getText().isEmpty()) {
+            anitxtin(lblCusCadEnt);
+            lblR$CusCadEnt.setVisible(true);
+        }
+    }//GEN-LAST:event_txtCusCadEntFocusGained
+
+    private void txtCusCadEntFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCusCadEntFocusLost
+        if (txtCusCadEnt.getText().isEmpty()) {
+            anitxtout(lblCusCadEnt);
+            lblR$CusCadEnt.setVisible(false);
+        }
+    }//GEN-LAST:event_txtCusCadEntFocusLost
+
+    private void txtCusCadEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCusCadEntKeyTyped
+        if (evt.getKeyChar() == 44) {
+            if (txtCusCadEnt.getText().contains(",")) {
+                evt.consume();
+            }
+
+        } else if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCusCadEntKeyTyped
+
+    private void txtForCadEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtForCadEntFocusGained
+        if (txtForCadEnt.getText().isEmpty()) {
+            anitxtin(lblForCadEnt);
+        }
+    }//GEN-LAST:event_txtForCadEntFocusGained
+
+    private void txtForCadEntFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtForCadEntFocusLost
+        if (txtForCadEnt.getText().isEmpty()) {
+            anitxtout(lblForCadEnt);
+        }
+    }//GEN-LAST:event_txtForCadEntFocusLost
+
+    private void txtCliCadEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCliCadEntFocusGained
+        if (txtCliCadEnt.getText().isEmpty()) {
+            anitxtin(lblCliCadEnt);
+        }
+    }//GEN-LAST:event_txtCliCadEntFocusGained
+
+    private void txtCliCadEntFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCliCadEntFocusLost
+        if (txtCliCadEnt.getText().isEmpty()) {
+            anitxtout(lblCliCadEnt);
+        }
+    }//GEN-LAST:event_txtCliCadEntFocusLost
+
+    private void txtCusGerEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCusGerEntFocusGained
+        if (txtCusGerEnt.getText().isEmpty()) {
+            anitxtin(lblCusGerEnt);
+            lblR$CusGerEnt.setVisible(true);
+        }
+    }//GEN-LAST:event_txtCusGerEntFocusGained
+
+    private void txtCusGerEntFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCusGerEntFocusLost
+        if (txtCusGerEnt.getText().isEmpty()) {
+            anitxtout(lblCusGerEnt);
+            lblR$CusGerEnt.setVisible(false);
+        }
+    }//GEN-LAST:event_txtCusGerEntFocusLost
+
+    private void txtCusGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCusGerEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCusGerEntActionPerformed
+
+    private void txtCusGerEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCusGerEntKeyTyped
+        if (evt.getKeyChar() == 44) {
+            if (txtPreGerEnt.getText().contains(",")) {
+                evt.consume();
+            }
+
+        } else if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCusGerEntKeyTyped
+
+    private void txtForGerEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtForGerEntFocusGained
+        if (txtForGerEnt.getText().isEmpty()) {
+            anitxtin(lblForGerEnt);
+        }
+    }//GEN-LAST:event_txtForGerEntFocusGained
+
+    private void txtForGerEntFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtForGerEntFocusLost
+        if (txtForGerEnt.getText().isEmpty()) {
+            anitxtout(lblForGerEnt);
+        }
+    }//GEN-LAST:event_txtForGerEntFocusLost
+
+    private void txtCliGerEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCliGerEntFocusGained
+        if (txtCliGerEnt.getText().isEmpty()) {
+            anitxtin(lblCliGerEnt);
+        }
+    }//GEN-LAST:event_txtCliGerEntFocusGained
+
+    private void txtCliGerEntFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCliGerEntFocusLost
+        if (txtCliGerEnt.getText().isEmpty()) {
+            anitxtout(lblCliGerEnt);
+        }
+    }//GEN-LAST:event_txtCliGerEntFocusLost
+
+    private void btnCanConEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanConEntActionPerformed
+        pnlConEnt.setVisible(false);
+        lblTitPri.setVisible(false);
+    }//GEN-LAST:event_btnCanConEntActionPerformed
+
+    private void btnBusConEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusConEntActionPerformed
+        try {
+
+            if (tabelaconsultarentrada(tblConEnt, scrConEnt, formatterbanco.format(formatter.parse(txtBusConEnt.getText())))) {
+
+                scrConEnt.setVisible(true);
+                tblConEnt.setVisible(true);
+
+            } else {
+
+                scrConEnt.setVisible(false);
+                tblConEnt.setVisible(false);
+
+                JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        } catch (ParseException ex) {
+
+            if (tabelaconsultarentrada(tblConEnt, scrConEnt, txtBusConEnt.getText())) {
+
+                scrConEnt.setVisible(true);
+                tblConEnt.setVisible(true);
+
+            } else {
+
+                scrConEnt.setVisible(false);
+                tblConEnt.setVisible(false);
+
+                JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
+    }//GEN-LAST:event_btnBusConEntActionPerformed
+
+    private void txtBusConEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusConEntFocusGained
+        if (txtBusConEnt.getText().isEmpty()) {
+            anitxtin(lblBusConEnt);
+        }
+    }//GEN-LAST:event_txtBusConEntFocusGained
+
+    private void txtBusConEntFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusConEntFocusLost
+        if (txtBusConEnt.getText().isEmpty()) {
+            anitxtout(lblBusConEnt);
+        }
+    }//GEN-LAST:event_txtBusConEntFocusLost
+
+    private void txtBusConEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusConEntKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+
+                if (tabelaconsultarentrada(tblConEnt, scrConEnt, formatterbanco.format(formatter.parse(txtBusConEnt.getText())))) {
+
+                    scrConEnt.setVisible(true);
+                    tblConEnt.setVisible(true);
+
+                } else {
+
+                    scrConEnt.setVisible(false);
+                    tblConEnt.setVisible(false);
+
+                    JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+
+            } catch (ParseException ex) {
+
+                if (tabelaconsultarentrada(tblConEnt, scrConEnt, txtBusConEnt.getText())) {
+
+                    scrConEnt.setVisible(true);
+                    tblConEnt.setVisible(true);
+
+                } else {
+
+                    scrConEnt.setVisible(false);
+                    tblConEnt.setVisible(false);
+
+                    JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+
+            }
+        }
+    }//GEN-LAST:event_txtBusConEntKeyPressed
+
+    private void txtBusConEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusConEntKeyTyped
+        btnBusConEnt.setEnabled(true);
+    }//GEN-LAST:event_txtBusConEntKeyTyped
+
+    private void btnConEntMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEntMouseEntered
+        btnConEnt.setForeground(corforeazulenter);
+    }//GEN-LAST:event_btnConEntMouseEntered
+
+    private void btnConEntMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEntMouseExited
+        btnConEnt.setForeground(corforeazul);
+    }//GEN-LAST:event_btnConEntMouseExited
+
+    private void btnConEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEntMouseReleased
+        btnGerEnt.setVisible(false);
+        btnCadEnt.setVisible(false);
+        btnConEnt.setVisible(false);
+
+        if (!pnlConEnt.isVisible()) {
+
+            txtBusConEnt.setText(null);
+
+            tblConEnt.setVisible(false);
+            scrConEnt.setVisible(false);
+
+            btnBusConEnt.setEnabled(false);
+
+            lblBusConEnt.setLocation(450, 30);
+
+            lblTitPri.setText("Consultar Entrada");
+            lblTitPri.setVisible(true);
+
+            pnlCadEnt.setVisible(false);
+            pnlRel.setVisible(false);
+            pnlIteCadEnt.setVisible(false);
+            pnlCadTipSer.setVisible(false);
+            pnlCadEst.setVisible(false);
+            pnlConEst.setVisible(false);
+            pnlGerEst.setVisible(false);
+            pnlGerTipSer.setVisible(false);
+            pnlMas.setVisible(false);
+            pnlDes.setVisible(false);
+            pnlGerDes.setVisible(false);
+            pnlCadDes.setVisible(false);
+            pnlOs.setVisible(false);
+            pnlIteGerEnt.setVisible(false);
+
+            pnlGerEnt.setVisible(false);
+            pnlConEnt.setVisible(true);
+        }
+    }//GEN-LAST:event_btnConEntMouseReleased
+
+    private void chkCusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCusActionPerformed
+        try {
+
+            if (btnTodRel.getFont().getSize() == 13) {
+                tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
+            } else if (btnDiaRel.getFont().getSize() == 13) {
+                tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
+            } else if (btnSemRel.getFont().getSize() == 13) {
+                tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
+            } else if (btnMesRel.getFont().getSize() == 13) {
+                tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
+            } else if (btnAnoRel.getFont().getSize() == 13) {
+                tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
+            } else if (lblDatIniRel.getFont().getSize() == 13) {
+                tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+            }
+
+            if (rbtnTodRel.isSelected()) {
+
+                if (btnTodRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
+                } else if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
+                } else if (lblDatIniRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                }
+
+            } else if (rbtnSerRel.isSelected()) {
+
+                if (btnTodRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
+                } else if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 2, null, null);
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 3, null, null);
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 4, null, null);
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 5, null, null);
+                } else if (lblDatIniRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 6,formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                }
+
+            } else if (rbtnVenRel.isSelected()) {
+
+                if (btnTodRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
+                } else if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 2, null, null);
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 3, null, null);
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 4, null, null);
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 5, null, null);
+                } else if (lblDatIniRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                }
+
+            } else if (rbtnSerTimRel.isSelected()) {
+
+                if (btnTodRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 1, null, null);
+                } else if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 2, null, null);
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 3, null, null);
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 4, null, null);
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 5, null, null);
+                } else if (lblDatIniRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                }
+
+            } else {
+
+                if (btnTodRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
+                } else if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 2, null, null);
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 3, null, null);
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 4, null, null);
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 5, null, null);
+                } else if (lblDatIniRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                }
+
+            }
+       
+        } catch (ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_chkCusActionPerformed
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -10137,6 +11145,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnAltGerEst;
     private javax.swing.JButton btnAltGerTipSer;
     private javax.swing.JLabel btnAnoRel;
+    private javax.swing.JButton btnBusConEnt;
     private javax.swing.JButton btnBusConEst;
     private javax.swing.JButton btnBusGerEnt;
     private javax.swing.JButton btnBusGerEst;
@@ -10146,6 +11155,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel btnCadTipSer;
     private javax.swing.JButton btnCanCadEnt;
     private javax.swing.JButton btnCanCadEst;
+    private javax.swing.JButton btnCanConEnt;
     private javax.swing.JButton btnCanConEst;
     private javax.swing.JButton btnCanDes;
     private javax.swing.JButton btnCanGerDes;
@@ -10155,6 +11165,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnCanMas;
     private javax.swing.JButton btnCanOs;
     private javax.swing.JButton btnCanTipSer;
+    private javax.swing.JLabel btnConEnt;
     private javax.swing.JLabel btnConEst;
     private javax.swing.JLabel btnCopMas;
     private javax.swing.JLabel btnDes;
@@ -10192,6 +11203,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnVolIteGerEnt;
     private javax.swing.JButton btnVolRel;
     private javax.swing.JCheckBox chkC6Mas;
+    private javax.swing.JCheckBox chkCus;
     private javax.swing.JComboBox<String> cmbChiCadEst;
     private javax.swing.JComboBox<String> cmbChiGerEst;
     private javax.swing.JComboBox<String> cmbSerCadEnt;
@@ -10204,17 +11216,22 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBusConEnt;
     private javax.swing.JLabel lblBusConEst;
     private javax.swing.JLabel lblBusGerEst;
     private javax.swing.JLabel lblBusIteCadEnt;
     private javax.swing.JLabel lblBusIteGerEnt;
     private javax.swing.JLabel lblChiCadEst;
     private javax.swing.JLabel lblChiGerEst;
+    private javax.swing.JLabel lblCliCadEnt;
+    private javax.swing.JLabel lblCliGerEnt;
     private javax.swing.JLabel lblCliOs;
     private javax.swing.JLabel lblConOs;
     private javax.swing.JLabel lblCorCadEst;
     private javax.swing.JLabel lblCorGerEst;
     private javax.swing.JLabel lblCpfMas;
+    private javax.swing.JLabel lblCusCadEnt;
+    private javax.swing.JLabel lblCusGerEnt;
     private javax.swing.JLabel lblDatBusGerEnt;
     private javax.swing.JLabel lblDatCadEnt;
     private javax.swing.JLabel lblDatDes;
@@ -10238,6 +11255,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblEquOs;
     private javax.swing.JLabel lblEstIteCadEnt;
     private javax.swing.JLabel lblEstIteGerEnt;
+    private javax.swing.JLabel lblForCadEnt;
+    private javax.swing.JLabel lblForGerEnt;
     private javax.swing.JLabel lblHorOs;
     private javax.swing.JLabel lblLocCadEst;
     private javax.swing.JLabel lblLocGerEst;
@@ -10264,6 +11283,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblQuaGerEst;
     private javax.swing.JLabel lblR$CadEnt;
     private javax.swing.JLabel lblR$CadEst;
+    private javax.swing.JLabel lblR$CusCadEnt;
+    private javax.swing.JLabel lblR$CusGerEnt;
     private javax.swing.JLabel lblR$Des;
     private javax.swing.JLabel lblR$GerDes;
     private javax.swing.JLabel lblR$GerEnt;
@@ -10285,6 +11306,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JPanel pnlCadEnt;
     private javax.swing.JPanel pnlCadEst;
     private javax.swing.JPanel pnlCadTipSer;
+    private javax.swing.JPanel pnlConEnt;
     private javax.swing.JPanel pnlConEst;
     private javax.swing.JPanel pnlDes;
     private javax.swing.JPanel pnlGerDes;
@@ -10340,6 +11362,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnVenCadEnt;
     private javax.swing.JRadioButton rbtnVenRel;
     private javax.swing.JScrollPane scrConDes;
+    private javax.swing.JScrollPane scrConEnt;
     private javax.swing.JScrollPane scrConEst;
     private javax.swing.JScrollPane scrEstIteCadEnt;
     private javax.swing.JScrollPane scrEstIteGerEnt;
@@ -10351,13 +11374,18 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrSelIteGerEnt;
     private javax.swing.JScrollPane scrTipSer;
     private javax.swing.JSeparator sepBusConEst;
+    private javax.swing.JSeparator sepBusConEst1;
     private javax.swing.JSeparator sepBusGerEst;
     private javax.swing.JSeparator sepBusGerEst1;
     private javax.swing.JSeparator sepBusIteCadEnt;
     private javax.swing.JSeparator sepBusIteCadEnt1;
+    private javax.swing.JSeparator sepCliCadEnt;
+    private javax.swing.JSeparator sepCliGerEnt;
     private javax.swing.JSeparator sepCorCadEst;
     private javax.swing.JSeparator sepCorCadEst1;
     private javax.swing.JSeparator sepCorGerEst;
+    private javax.swing.JSeparator sepCusCadEnt;
+    private javax.swing.JSeparator sepCusGerEnt;
     private javax.swing.JSeparator sepDatCadEnt;
     private javax.swing.JSeparator sepDatCadEnt1;
     private javax.swing.JSeparator sepDatCadEnt2;
@@ -10387,6 +11415,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepDetCadEst4;
     private javax.swing.JSeparator sepDetGerEnt;
     private javax.swing.JSeparator sepDetGerEst;
+    private javax.swing.JSeparator sepForCadEnt;
+    private javax.swing.JSeparator sepForGerEnt;
     private javax.swing.JSeparator sepLocCadEst;
     private javax.swing.JSeparator sepLocCadEst1;
     private javax.swing.JSeparator sepLocGerEst;
@@ -10410,6 +11440,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepQuaCadEst1;
     private javax.swing.JSeparator sepQuaGerEst;
     private javax.swing.JTable tblConDes;
+    private javax.swing.JTable tblConEnt;
     private javax.swing.JTable tblConEst;
     private javax.swing.JTable tblEstIteCadEnt;
     private javax.swing.JTable tblEstIteGerEnt;
@@ -10421,16 +11452,21 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTable tblSelIteGerEnt;
     private javax.swing.JTable tblTipSer;
     private javax.swing.JTextArea txtAreMas;
+    private javax.swing.JTextField txtBusConEnt;
     private javax.swing.JTextField txtBusConEst;
     private javax.swing.JTextField txtBusGerEst;
     private javax.swing.JTextField txtBusIteCadEnt;
     private javax.swing.JTextField txtBusIteGerEnt;
+    private javax.swing.JTextField txtCliCadEnt;
+    private javax.swing.JTextField txtCliGerEnt;
     private javax.swing.JTextField txtCliOs;
     private javax.swing.JTextField txtCodCadEnt;
     private javax.swing.JTextField txtConOs;
     private javax.swing.JTextField txtCorCadEst;
     private javax.swing.JTextField txtCorGerEst;
     private javax.swing.JTextField txtCpfMas;
+    private javax.swing.JTextField txtCusCadEnt;
+    private javax.swing.JTextField txtCusGerEnt;
     private javax.swing.JTextField txtDatBusGerEnt;
     private javax.swing.JTextField txtDatCadEnt;
     private javax.swing.JTextField txtDatDes;
@@ -10450,6 +11486,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtDetGerEst;
     private javax.swing.JTextField txtEndOs;
     private javax.swing.JTextField txtEquOs;
+    private javax.swing.JTextField txtForCadEnt;
+    private javax.swing.JTextField txtForGerEnt;
     private javax.swing.JTextField txtHorOs;
     private javax.swing.JTextField txtLocCadEst;
     private javax.swing.JTextField txtLocGerEst;

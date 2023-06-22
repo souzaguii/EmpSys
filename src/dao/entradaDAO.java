@@ -52,7 +52,7 @@ public class entradaDAO {
 
             }
             default -> {
-                SQL = "INSERT INTO entradas(idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, idTip, formapagamentoEnt) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                SQL = "INSERT INTO entradas(idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, idTip, formapagamentoEnt, clienteEnt, fornecedorEnt, custoEnt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 stmt = connection.Connect().prepareStatement(SQL);
 
@@ -63,6 +63,10 @@ public class entradaDAO {
                 stmt.setString(5, en.getDetalhes());
                 stmt.setInt(6, 3);
                 stmt.setInt(7, en.getFormapagamento());
+                stmt.setString(8, en.getCliente());
+                stmt.setString(9, en.getFornecedor());
+                stmt.setDouble(10, en.getCusto());
+
             }
         }
 
@@ -303,8 +307,22 @@ public class entradaDAO {
                     null,
                     produto,
                     rs.getString("precoEnt"),
+                    null,
                     rs.getString("formapagamentoEnt"),
-                    rs.getString("quantidadeEnt"),
+                    rs.getString("detalhesEnt"),
+                    rs.getString("codigoEnt")};
+
+                listaen.add(rowData);
+
+            } else if ("1".equals(rs.getString("idTip"))) {
+
+                String[] rowData = {
+                    rs.getString("dataEnt"),
+                    rs.getString("descricaoTipSer"),
+                    produto,
+                    rs.getString("precoEnt"),
+                    null,
+                    rs.getString("formapagamentoEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
 
@@ -315,10 +333,10 @@ public class entradaDAO {
                 String[] rowData = {
                     rs.getString("dataEnt"),
                     rs.getString("descricaoTipSer"),
-                    produto,
+                    null,
                     rs.getString("precoEnt"),
+                    rs.getString("custoEnt"),
                     rs.getString("formapagamentoEnt"),
-                    rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
 
@@ -378,9 +396,12 @@ public class entradaDAO {
                     rs.getString("dataEnt"),
                     "Venda",
                     null,
+                    null,
                     produto,
                     rs.getString("precoEnt"),
+                    null,
                     rs.getString("formapagamentoEnt"),
+                    null,
                     rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
@@ -393,9 +414,12 @@ public class entradaDAO {
                     rs.getString("dataEnt"),
                     "Serviço",
                     rs.getString("descricaoTipSer"),
+                    null,
                     produto,
                     rs.getString("precoEnt"),
+                    null,
                     rs.getString("formapagamentoEnt"),
+                    null,
                     rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
@@ -408,9 +432,12 @@ public class entradaDAO {
                     rs.getString("dataEnt"),
                     "Assistência",
                     rs.getString("descricaoTipSer"),
+                    rs.getString("clienteEnt"),
                     produto,
                     rs.getString("precoEnt"),
+                    rs.getString("custoEnt"),
                     rs.getString("formapagamentoEnt"),
+                    rs.getString("fornecedorEnt"),
                     rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
@@ -472,6 +499,105 @@ public class entradaDAO {
                 rs.getString("precoEst")};
 
             listaen.add(rowData);
+
+        }
+
+        rs.close();
+        stmt.close();
+        connection.Close();
+
+        return listaen;
+    }
+
+    public List<String[]> buscar(String busca) throws SQLException {
+
+        List<String[]> listaen = new ArrayList<>();
+
+        String SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE dataEnt LIKE '%" + busca + "%' OR precoEnt LIKE '%" + busca + "%' OR detalhesEnt LIKE '%" + busca + "%' OR formapagamentoEnt LIKE '%" + busca + "%' OR clienteEnt LIKE '%" + busca + "%' OR custoEnt LIKE '%" + busca + "%' OR fornecedorEnt LIKE '%" + busca + "%' OR codigoEnt LIKE '%" + busca + "%'";
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            String produto = null;
+
+            if (!"3".equals(rs.getString("idTip"))) {
+
+                if ("Chip".equals(rs.getString("tipoprodutoEst"))) {
+
+                    produto = rs.getString("tipoprodutoEst") + " - " + rs.getString("tipochipEst");
+
+                } else {
+
+                    if (!"".equals(rs.getString("corEst"))) {
+
+                        produto = rs.getString("tipoprodutoEst") + " - " + rs.getString("marcaEst") + " " + rs.getString("modeloEst") + " - " + rs.getString("corEst");
+
+                    } else {
+
+                        produto = rs.getString("tipoprodutoEst") + " - " + rs.getString("marcaEst") + " " + rs.getString("modeloEst");
+
+                    }
+
+                }
+            }
+
+            if ("2".equals(rs.getString("idTip"))) {
+
+                String[] rowData = {
+                    rs.getString("dataEnt"),
+                    "Venda",
+                    null,
+                    null,
+                    produto,
+                    rs.getString("precoEnt"),
+                    null,
+                    rs.getString("formapagamentoEnt"),
+                    null,
+                    rs.getString("quantidadeEnt"),
+                    rs.getString("detalhesEnt"),
+                    rs.getString("codigoEnt")};
+
+                listaen.add(rowData);
+
+            } else if ("1".equals(rs.getString("idTip"))) {
+
+                String[] rowData = {
+                    rs.getString("dataEnt"),
+                    "Serviço",
+                    rs.getString("descricaoTipSer"),
+                    null,
+                    produto,
+                    rs.getString("precoEnt"),
+                    null,
+                    rs.getString("formapagamentoEnt"),
+                    null,
+                    rs.getString("quantidadeEnt"),
+                    rs.getString("detalhesEnt"),
+                    rs.getString("codigoEnt")};
+
+                listaen.add(rowData);
+
+            } else {
+
+                String[] rowData = {
+                    rs.getString("dataEnt"),
+                    "Assistência",
+                    rs.getString("descricaoTipSer"),
+                    rs.getString("clienteEnt"),
+                    produto,
+                    rs.getString("precoEnt"),
+                    rs.getString("custoEnt"),
+                    rs.getString("formapagamentoEnt"),
+                    rs.getString("fornecedorEnt"),
+                    rs.getString("quantidadeEnt"),
+                    rs.getString("detalhesEnt"),
+                    rs.getString("codigoEnt")};
+
+                listaen.add(rowData);
+
+            }
 
         }
 

@@ -10,9 +10,7 @@ import java.util.Locale;
 import model.estoque;
 
 public class estoqueDAO {
-
-    NumberFormat moedadr = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-
+    
     public void inserir(estoque es) throws SQLException {
 
         String SQL = "INSERT INTO estoque(tipoprodutoEst, modeloEst, marcaEst, corEst, materialEst, detalhesEst, localizacaoEst, precoEst, quantidadeEst, tipochipEst) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
