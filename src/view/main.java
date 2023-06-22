@@ -3578,6 +3578,7 @@ public final class main extends javax.swing.JFrame {
             }
         ));
         tblConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblConEst.setEnabled(false);
         tblConEst.setFocusable(false);
         scrConEst.setViewportView(tblConEst);
 
@@ -4016,6 +4017,7 @@ public final class main extends javax.swing.JFrame {
             }
         ));
         tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblRel.setEnabled(false);
         tblRel.setFocusable(false);
         tblRel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrRel.setViewportView(tblRel);
@@ -8205,7 +8207,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnAssRelActionPerformed
 
     private void btnRelPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelPriMouseReleased
-
         btnCadEnt.setVisible(false);
         btnGerEnt.setVisible(false);
         btnConEnt.setVisible(false);
@@ -8218,6 +8219,7 @@ public final class main extends javax.swing.JFrame {
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
         btnGerDes.setVisible(false);
+        
         if (!pnlRel.isVisible()) {
 
             rbtnTodRel.setSelected(true);
@@ -8226,9 +8228,7 @@ public final class main extends javax.swing.JFrame {
             lblDatFinRel.setLocation(430, 150);
 
             txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-
-            btnVolRel.grabFocus();
+            txtDatFinRel.setText(null);         
 
             btnTodRel.setFont(fontbold(13));
             btnDiaRel.setFont(fontmed(12));
@@ -8259,6 +8259,8 @@ public final class main extends javax.swing.JFrame {
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
+            
+             btnVolRel.grabFocus();
 
         }
     }//GEN-LAST:event_btnRelPriMouseReleased

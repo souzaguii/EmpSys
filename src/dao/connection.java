@@ -17,8 +17,8 @@ public class connection {
 
             String driverName = "com.mysql.cj.jdbc.Driver";
             Class.forName(driverName);
-            String serverName = "localhost";
-            String mydatabase = "test";
+            String serverName = "192.168.0.123";
+            String mydatabase = "empsysdatabase";
             String port = "3306";
             String aux = "?useTimezone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
             String url = "jdbc:mysql://" + serverName + ":" + port + "/" + mydatabase + aux;
