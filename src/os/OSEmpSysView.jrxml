@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="21941461-8f02-456e-86bf-4f91f79731a3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="Nome" class="java.lang.String"/>
+	<parameter name="Endereco" class="java.lang.String"/>
+	<parameter name="Telefone" class="java.lang.String"/>
+	<parameter name="Equipamento" class="java.lang.String"/>
+	<parameter name="Marca" class="java.lang.String"/>
+	<parameter name="Modelo" class="java.lang.String"/>
+	<parameter name="Condicoes" class="java.lang.String"/>
+	<parameter name="Defeito" class="java.lang.String"/>
+	<parameter name="DataEntrada" class="java.lang.String"/>
+	<parameter name="LogoLoja" class="java.io.InputStream"/>
+	<parameter name="LogoTim" class="java.io.InputStream"/>
+	<parameter name="Preco" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="103" splitType="Stretch">
+			<image vAlign="Middle">
+				<reportElement x="13" y="3" width="109" height="70" uuid="d69890af-85a4-411b-8339-ecf62791a32b">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{LogoLoja}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="170" y="3" width="220" height="33" uuid="3632bfe5-0f0f-45c2-a730-c5a17014b4d9">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Poppins ExtraBold" size="15"/>
+				</textElement>
+				<text><![CDATA[Empório Cell - TIM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="23" width="220" height="16" uuid="e7de9249-a052-43c6-a97c-59207fbb397a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Poppins Medium"/>
+				</textElement>
+				<text><![CDATA[Rua Bias Fortes, 485 | Centro | Frutal - MG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="39" width="220" height="18" uuid="9314c364-417e-471b-bc58-7e011ff15600">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Poppins Medium" size="10"/>
+				</textElement>
+				<text><![CDATA[(34) 99298-4848 | (34) 99192-9394]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="53" width="220" height="16" uuid="70abaa3d-c2b6-4d1f-a5cc-370e33cf788a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Poppins Medium"/>
+				</textElement>
+				<text><![CDATA[emporiocellfrutal@gmail.com]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="440" y="13" width="100" height="50" uuid="c6765c6b-4c19-4f67-bf5b-7049a24f33fe">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{LogoTim}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="73" width="555" height="30" forecolor="#030303" backcolor="#E8E8E8" uuid="b80d19fc-0606-4f6b-962a-f2f2426a6406">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins ExtraBold" size="16"/>
+				</textElement>
+				<text><![CDATA[ORDEM DE SERVIÇO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="48" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="0" y="20" width="210" height="28" backcolor="#FFFFFF" uuid="a5a792d3-1590-45c6-b463-32d9279d7bed">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="210" y="20" width="220" height="28" backcolor="#FFFFFF" uuid="f5a39ade-54a4-4993-bd78-5438c00d9d7b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="430" y="20" width="125" height="28" backcolor="#FFFFFF" uuid="151273e7-e966-4e0b-a66c-c81398f0d437">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#030303" backcolor="#E8E8E8" uuid="5ba0e172-ed5e-49ff-bb95-f31ae3b26065">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="4" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#030303"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#030303"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#030303"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#030303"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Poppins SemiBold" size="13"/>
+				</textElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="50" height="15" uuid="b2961804-6084-473d-8835-513ae76d7125">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="20" width="60" height="15" uuid="e2370844-d529-44a2-97c1-c32076d76cfb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="20" width="60" height="15" uuid="8c97579f-6d8c-4b1c-bf3c-e92a2db09727">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="35" width="210" height="12" uuid="961d4eed-92b6-4d2b-abbf-bf29c66a66b8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="35" width="220" height="12" uuid="cca567fb-b3a4-4b79-89a1-85ef5daa6181">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Endereco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="35" width="125" height="12" uuid="e1d3f93d-0822-477c-998f-6da164d8e49b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Telefone}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="161" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="0" y="20" width="210" height="28" backcolor="#FFFFFF" uuid="7e70ba4d-4409-4f41-867e-f48cd81e44e3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="210" y="20" width="220" height="28" backcolor="#FFFFFF" uuid="ba146397-9e0a-48e9-95c6-363b30fd1234"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="430" y="20" width="125" height="28" backcolor="#FFFFFF" uuid="cfc91e6a-a7d4-461b-8295-9728afa4b3dd">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="0" y="90" width="555" height="58" backcolor="#FFFFFF" uuid="72b07e7a-52b5-43f8-b917-3f3d95abba02">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="210" y="48" width="220" height="42" backcolor="#FFFFFF" uuid="c764410a-86c8-49b1-82ac-2a02f2358e68">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="0" y="48" width="210" height="42" backcolor="#FFFFFF" uuid="ef01358e-f9c6-4a42-9dd7-d866433a05d1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="430" y="35" width="125" height="12" uuid="6104bee2-ee0c-460a-8a29-d0920fcd6446">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="35" width="210" height="12" uuid="08dffdcc-f84f-4af7-8567-34dd9375f146">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Equipamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="35" width="220" height="12" uuid="ccab6d2d-e000-43ec-8b09-674066c323ba">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Marca}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="80" height="15" uuid="5a7228b6-3e80-450e-8a4b-76a6d1283c05">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Equipamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="20" width="49" height="15" uuid="63c413a7-7e14-4318-810e-cd4b47667657">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="20" width="49" height="15" uuid="097a684f-8da4-4673-a5be-f0ecad31b63a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="90" width="80" height="15" uuid="64a8d70b-a0e8-4390-b06d-d7b1e27b5468">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Entrada]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="63" width="210" height="27" uuid="abbda492-f019-48f3-9ff7-a283d29f3abb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Condicoes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="210" y="48" width="80" height="15" uuid="a4e22ecb-e411-4ca5-86de-361bb2d8d0d7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Reparo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="63" width="220" height="27" uuid="bcd6d9c8-c3bc-4a0e-a559-76d22c72fbb3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Defeito}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="105" width="120" height="12" uuid="8c280f6f-cace-495e-a2d9-c1a0d51d878d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DataEntrada}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#030303" backcolor="#E8E8E8" uuid="75326731-6dc5-4aaf-9d07-6d93adbbfdc9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Poppins SemiBold" size="13"/>
+				</textElement>
+				<text><![CDATA[EQUIPAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="118" width="80" height="15" uuid="d7ce5ae9-53a3-48bc-8948-01a1a16b62d5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Saída]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="144" width="75" height="1" uuid="81443937-ac2a-4813-a702-d8bc630b0881">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="23" y="136" width="3" height="8" uuid="f28ea834-cdca-4303-a8ca-d88e2697491e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="42" y="136" width="3" height="8" uuid="24c24794-18e1-435a-b177-eed72c58d07f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="89" y="144" width="45" height="1" uuid="9973b8ba-62c7-468a-a1e7-68f0b84dd1be">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="80" y="129" width="60" height="15" uuid="771be48e-fba7-4527-9fa7-abfa84968ae4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="Poppins SemiBold" size="8"/>
+				</textElement>
+				<text><![CDATA[-            :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="180" y="134" width="330" height="1" uuid="765d2583-b5ea-4d28-b6f0-6701dcef82a2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="290" y="136" width="110" height="12" uuid="cdae8015-41a2-4879-99b6-e7ab438be40e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<text><![CDATA[Assinatura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="48" width="134" height="15" uuid="4c21f865-3c6f-4521-8067-587e36ad2930">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Defeito relatado]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="-151" width="555" height="299" uuid="37f48916-a38b-45f3-bdf0-4a7f906c0fb2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="-78" width="555" height="1" uuid="f5997557-5996-4f87-a581-3620086ba101"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="430" y="48" width="125" height="42" backcolor="#FFFFFF" uuid="92ba5e97-8732-4867-8f61-89bf250da212">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="430" y="48" width="80" height="15" uuid="820ae421-02bd-4e75-a50e-7c58d9714064">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Poppins SemiBold"/>
+				</textElement>
+				<text><![CDATA[Preço]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="63" width="125" height="27" uuid="e862eebc-ad8b-406f-919d-ac426094473b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="4" rightPadding="4"/>
+				<textElement>
+					<font fontName="Poppins Regular" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Preco}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
