@@ -1,3 +1,4 @@
+
 package view;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -37,17 +38,23 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.DefaultFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 import model.despezas;
 import model.entrada;
 import model.tiposervico;
@@ -166,19 +173,32 @@ public final class main extends javax.swing.JFrame {
     }
 
     public Color corforeazul = new java.awt.Color(10, 60, 133);
+
+
     public Color corforeazulenter = new Color(19, 84, 178);
 
+
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+
     SimpleDateFormat formatterbanco = new SimpleDateFormat("yyyy-MM-dd");
+
+
     DateTimeFormatter formatteratual = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
     public void anitxtin(JLabel lbl) {
 
         Timer timer = new Timer(4, new ActionListener() {
 
             int x = lbl.getX();
+
+
             int y = lbl.getY();
+
+
             int count = 0;
+
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,6 +215,7 @@ public final class main extends javax.swing.JFrame {
                 }
 
             }
+
         });
         timer.start();
 
@@ -205,8 +226,13 @@ public final class main extends javax.swing.JFrame {
         Timer timer = new Timer(4, new ActionListener() {
 
             int x = lbl.getX();
+
+
             int y = lbl.getY();
+
+
             int count = 0;
+
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -223,6 +249,7 @@ public final class main extends javax.swing.JFrame {
                 }
 
             }
+
         });
         timer.start();
 
@@ -799,6 +826,7 @@ public final class main extends javax.swing.JFrame {
                         }
                         return null;
                     }
+
                 };
 
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -1293,7 +1321,10 @@ public final class main extends javax.swing.JFrame {
     static class itens {
 
         private final int id;
+
+
         private final String descricao;
+
 
         public itens(int id, String descricao) {
             this.id = id;
@@ -1312,6 +1343,7 @@ public final class main extends javax.swing.JFrame {
         public String toString() {
             return descricao;
         }
+
     }
 
     private String moedadoublereal(Double valor) {
@@ -1324,6 +1356,8 @@ public final class main extends javax.swing.JFrame {
 
         btnGroup = new javax.swing.ButtonGroup();
         btnGroup1 = new javax.swing.ButtonGroup();
+        btnGroup2 = new javax.swing.ButtonGroup();
+        btnGroup3 = new javax.swing.ButtonGroup();
         pnlPri = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
         btnEntPri = new javax.swing.JLabel();
@@ -1360,7 +1394,7 @@ public final class main extends javax.swing.JFrame {
         lblPreCadEnt = new javax.swing.JLabel();
         txtPreCadEnt = new javax.swing.JTextField();
         sepPreCadEnt = new javax.swing.JSeparator();
-        cmbSerCadEnt = new javax.swing.JComboBox<>();
+        cmbVezCar = new javax.swing.JComboBox<>();
         lblDetCadEnt = new javax.swing.JLabel();
         txtDetCadEnt = new javax.swing.JTextField();
         sepDetCadEnt = new javax.swing.JSeparator();
@@ -1378,6 +1412,10 @@ public final class main extends javax.swing.JFrame {
         lblCliCadEnt = new javax.swing.JLabel();
         txtCliCadEnt = new javax.swing.JTextField();
         sepCliCadEnt = new javax.swing.JSeparator();
+        rbtnCreCadEnt = new javax.swing.JRadioButton();
+        rbtnDebCadEnt = new javax.swing.JRadioButton();
+        spnParCadEnt = new javax.swing.JSpinner();
+        lblParCadEnt = new javax.swing.JLabel();
         pnlIteCadEnt = new javax.swing.JPanel();
         btnVolIteCadEnt = new javax.swing.JButton();
         scrEstIteCadEnt = new javax.swing.JScrollPane();
@@ -2099,7 +2137,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnIteCadEnt);
-        btnIteCadEnt.setBounds(840, 130, 90, 50);
+        btnIteCadEnt.setBounds(840, 150, 90, 50);
 
         btnSalCadEnt.setFont(fontmed(12));
         btnSalCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -2111,7 +2149,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnSalCadEnt);
-        btnSalCadEnt.setBounds(840, 190, 90, 50);
+        btnSalCadEnt.setBounds(840, 210, 90, 50);
 
         btnCanCadEnt.setFont(fontmed(12));
         btnCanCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -2123,7 +2161,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnCanCadEnt);
-        btnCanCadEnt.setBounds(840, 250, 90, 50);
+        btnCanCadEnt.setBounds(840, 270, 90, 50);
 
         btnGroup.add(rbtnSerCadEnt);
         rbtnSerCadEnt.setFont(fontmed(12));
@@ -2169,7 +2207,7 @@ public final class main extends javax.swing.JFrame {
         lblDatCadEnt.setText("Data");
         lblDatCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblDatCadEnt);
-        lblDatCadEnt.setBounds(390, 100, 40, 20);
+        lblDatCadEnt.setBounds(390, 130, 40, 20);
 
         txtDatCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtDatCadEnt.setFont(fontmed(13));
@@ -2188,24 +2226,24 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtDatCadEnt);
-        txtDatCadEnt.setBounds(390, 100, 100, 20);
+        txtDatCadEnt.setBounds(390, 130, 100, 20);
 
         sepDatCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepDatCadEnt);
-        sepDatCadEnt.setBounds(390, 120, 100, 10);
+        sepDatCadEnt.setBounds(390, 150, 100, 10);
 
         lblR$CadEnt.setFont(fontmed(13));
         lblR$CadEnt.setText("R$");
         lblR$CadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblR$CadEnt);
-        lblR$CadEnt.setBounds(390, 150, 20, 21);
+        lblR$CadEnt.setBounds(390, 180, 20, 21);
 
         lblPreCadEnt.setFont(fontmed(12));
         lblPreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblPreCadEnt.setText("Preço");
         lblPreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblPreCadEnt);
-        lblPreCadEnt.setBounds(390, 150, 40, 20);
+        lblPreCadEnt.setBounds(390, 180, 40, 20);
 
         txtPreCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtPreCadEnt.setFont(fontmed(13));
@@ -2224,30 +2262,30 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtPreCadEnt);
-        txtPreCadEnt.setBounds(410, 150, 80, 20);
+        txtPreCadEnt.setBounds(410, 180, 80, 20);
 
         sepPreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepPreCadEnt);
-        sepPreCadEnt.setBounds(390, 170, 100, 10);
+        sepPreCadEnt.setBounds(390, 200, 100, 10);
 
-        cmbSerCadEnt.setFont(fontmed(13));
-        cmbSerCadEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
-        cmbSerCadEnt.setToolTipText("");
-        cmbSerCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cmbSerCadEnt.addActionListener(new java.awt.event.ActionListener() {
+        cmbVezCar.setFont(fontmed(13));
+        cmbVezCar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
+        cmbVezCar.setToolTipText("");
+        cmbVezCar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbVezCar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbSerCadEntActionPerformed(evt);
+                cmbVezCarActionPerformed(evt);
             }
         });
-        pnlCadEnt.add(cmbSerCadEnt);
-        cmbSerCadEnt.setBounds(390, 270, 190, 30);
+        pnlCadEnt.add(cmbVezCar);
+        cmbVezCar.setBounds(390, 300, 190, 30);
 
         lblDetCadEnt.setFont(fontmed(12));
         lblDetCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDetCadEnt.setText("Detalhes");
         lblDetCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblDetCadEnt);
-        lblDetCadEnt.setBounds(390, 200, 70, 20);
+        lblDetCadEnt.setBounds(390, 230, 70, 20);
 
         txtDetCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtDetCadEnt.setFont(fontmed(13));
@@ -2261,19 +2299,19 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtDetCadEnt);
-        txtDetCadEnt.setBounds(390, 200, 190, 20);
+        txtDetCadEnt.setBounds(390, 230, 190, 20);
 
         sepDetCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepDetCadEnt);
-        sepDetCadEnt.setBounds(390, 220, 190, 10);
+        sepDetCadEnt.setBounds(390, 250, 190, 10);
 
         lblSerCadEnt.setFont(fontmed(12));
         lblSerCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblSerCadEnt.setText("Serviço");
         pnlCadEnt.add(lblSerCadEnt);
-        lblSerCadEnt.setBounds(390, 240, 90, 30);
+        lblSerCadEnt.setBounds(390, 270, 90, 30);
         pnlCadEnt.add(txtCodCadEnt);
-        txtCodCadEnt.setBounds(190, 40, 64, 22);
+        txtCodCadEnt.setBounds(190, 60, 64, 22);
 
         btnGroup1.add(rbtnCarCadEnt);
         rbtnCarCadEnt.setFont(fontmed(12));
@@ -2287,7 +2325,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(rbtnCarCadEnt);
-        rbtnCarCadEnt.setBounds(610, 30, 90, 21);
+        rbtnCarCadEnt.setBounds(610, 30, 70, 20);
 
         btnGroup1.add(rbtnDinCadEnt);
         rbtnDinCadEnt.setFont(fontmed(12));
@@ -2307,14 +2345,14 @@ public final class main extends javax.swing.JFrame {
         lblR$CusCadEnt.setText("R$");
         lblR$CusCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblR$CusCadEnt);
-        lblR$CusCadEnt.setBounds(630, 150, 20, 21);
+        lblR$CusCadEnt.setBounds(630, 180, 20, 21);
 
         lblCusCadEnt.setFont(fontmed(12));
         lblCusCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblCusCadEnt.setText("Custo");
         lblCusCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblCusCadEnt);
-        lblCusCadEnt.setBounds(630, 150, 40, 20);
+        lblCusCadEnt.setBounds(630, 180, 40, 20);
 
         txtCusCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtCusCadEnt.setFont(fontmed(13));
@@ -2333,18 +2371,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtCusCadEnt);
-        txtCusCadEnt.setBounds(650, 150, 80, 20);
+        txtCusCadEnt.setBounds(650, 180, 80, 20);
 
         sepCusCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepCusCadEnt);
-        sepCusCadEnt.setBounds(630, 170, 100, 10);
+        sepCusCadEnt.setBounds(630, 200, 100, 10);
 
         lblForCadEnt.setFont(fontmed(12));
         lblForCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblForCadEnt.setText("Fornecedor");
         lblForCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblForCadEnt);
-        lblForCadEnt.setBounds(630, 200, 90, 20);
+        lblForCadEnt.setBounds(630, 230, 90, 20);
 
         txtForCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtForCadEnt.setFont(fontmed(13));
@@ -2358,18 +2396,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtForCadEnt);
-        txtForCadEnt.setBounds(630, 200, 160, 20);
+        txtForCadEnt.setBounds(630, 230, 160, 20);
 
         sepForCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepForCadEnt);
-        sepForCadEnt.setBounds(630, 220, 160, 10);
+        sepForCadEnt.setBounds(630, 250, 160, 10);
 
         lblCliCadEnt.setFont(fontmed(12));
         lblCliCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblCliCadEnt.setText("Cliente");
         lblCliCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEnt.add(lblCliCadEnt);
-        lblCliCadEnt.setBounds(630, 100, 90, 20);
+        lblCliCadEnt.setBounds(630, 130, 90, 20);
 
         txtCliCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         txtCliCadEnt.setFont(fontmed(13));
@@ -2383,13 +2421,65 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(txtCliCadEnt);
-        txtCliCadEnt.setBounds(630, 100, 160, 20);
+        txtCliCadEnt.setBounds(630, 130, 160, 20);
 
         sepCliCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEnt.add(sepCliCadEnt);
-        sepCliCadEnt.setBounds(630, 120, 160, 10);
+        sepCliCadEnt.setBounds(630, 150, 160, 10);
 
-        pnlPri.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        btnGroup3.add(rbtnCreCadEnt);
+        rbtnCreCadEnt.setFont(fontmed(12));
+        rbtnCreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnCreCadEnt.setText("Crédito");
+        rbtnCreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCreCadEnt.setEnabled(false);
+        rbtnCreCadEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnCreCadEntActionPerformed(evt);
+            }
+        });
+        pnlCadEnt.add(rbtnCreCadEnt);
+        rbtnCreCadEnt.setBounds(690, 60, 70, 21);
+
+        btnGroup3.add(rbtnDebCadEnt);
+        rbtnDebCadEnt.setFont(fontmed(12));
+        rbtnDebCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnDebCadEnt.setText("Débito");
+        rbtnDebCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnDebCadEnt.setEnabled(false);
+        rbtnDebCadEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnDebCadEntActionPerformed(evt);
+            }
+        });
+        pnlCadEnt.add(rbtnDebCadEnt);
+        rbtnDebCadEnt.setBounds(610, 60, 80, 20);
+
+        spnParCadEnt.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        spnParCadEnt.setFont(fontmed(13));
+        spnParCadEnt.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        spnParCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        spnParCadEnt.setEditor(new javax.swing.JSpinner.NumberEditor(spnParCadEnt, ""));
+        spnParCadEnt.setEnabled(false);
+        spnParCadEnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                spnParCadEntKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                spnParCadEntKeyTyped(evt);
+            }
+        });
+        pnlCadEnt.add(spnParCadEnt);
+        spnParCadEnt.setBounds(764, 55, 55, 30);
+
+        lblParCadEnt.setFont(fontmed(12));
+        lblParCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        lblParCadEnt.setText("parcela(s)");
+        lblParCadEnt.setEnabled(false);
+        pnlCadEnt.add(lblParCadEnt);
+        lblParCadEnt.setBounds(828, 58, 80, 20);
+
+        pnlPri.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 420));
 
         pnlIteCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlIteCadEnt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2463,7 +2553,7 @@ public final class main extends javax.swing.JFrame {
         lblEstIteCadEnt.setText("Ítens do estoque");
         pnlIteCadEnt.add(lblEstIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 120, 20));
 
-        btnGroup1.add(rbtnAssIteCadEnt);
+        btnGroup2.add(rbtnAssIteCadEnt);
         rbtnAssIteCadEnt.setFont(fontmed(12));
         rbtnAssIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAssIteCadEnt.setText("Acessório");
@@ -2475,7 +2565,7 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteCadEnt.add(rbtnAssIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 100, -1));
 
-        btnGroup1.add(rbtnPelIteCadEnt);
+        btnGroup2.add(rbtnPelIteCadEnt);
         rbtnPelIteCadEnt.setFont(fontmed(12));
         rbtnPelIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnPelIteCadEnt.setText("Película");
@@ -2487,7 +2577,7 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteCadEnt.add(rbtnPelIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 80, -1));
 
-        btnGroup1.add(rbtnCapIteCadEnt);
+        btnGroup2.add(rbtnCapIteCadEnt);
         rbtnCapIteCadEnt.setFont(fontmed(12));
         rbtnCapIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCapIteCadEnt.setText("Capinha");
@@ -2499,7 +2589,7 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteCadEnt.add(rbtnCapIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 90, -1));
 
-        btnGroup1.add(rbtnChiIteCadEnt);
+        btnGroup2.add(rbtnChiIteCadEnt);
         rbtnChiIteCadEnt.setFont(fontmed(12));
         rbtnChiIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnChiIteCadEnt.setText("Chip");
@@ -7380,12 +7470,74 @@ public final class main extends javax.swing.JFrame {
     private void btnSalCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadEntActionPerformed
         if (!(rbtnVenCadEnt.isSelected() && tblSelIteCadEnt.getRowCount() == 0)) {
 
-            if (!(cmbSerCadEnt.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
+            if (!(cmbVezCar.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
 
                 try {
 
                     int idser = 0;
                     int idpagamento = 1;
+                    double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
+
+                    if (rbtnCarCadEnt.isSelected()) {
+
+                        if (rbtnDebCadEnt.isSelected()) {
+
+                            preco = preco - (preco * 1.99 / 100);
+
+                        } else if (rbtnCreCadEnt.isSelected()) {
+
+                            if ((int) spnParCadEnt.getValue() == 1) {
+
+                                preco = preco - (preco * 4.98 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 2) {
+
+                                preco = preco - (preco * 9.90 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 3) {
+
+                                preco = preco - (preco * 11.28 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 4) {
+
+                                preco = preco - (preco * 12.64 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 5) {
+
+                                preco = preco - (preco * 13.97 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 6) {
+
+                                preco = preco - (preco * 15.27 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 7) {
+
+                                preco = preco - (preco * 16.55 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 8) {
+                                preco = preco - (preco * 17.81 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 9) {
+
+                                preco = preco - (preco * 19.04 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 10) {
+
+                                preco = preco - (preco * 20.24 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 11) {
+
+                                preco = preco - (preco * 21.43 / 100);
+
+                            } else if ((int) spnParCadEnt.getValue() == 12) {
+
+                                preco = preco - (preco * 22.59 / 100);
+
+                            }
+
+                        }
+
+                    }
 
                     if (rbtnCarCadEnt.isSelected()) {
                         idpagamento = 2;
@@ -7393,8 +7545,8 @@ public final class main extends javax.swing.JFrame {
                         idpagamento = 3;
                     }
 
-                    if (cmbSerCadEnt.getSelectedIndex() != 0) {
-                        itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
+                    if (cmbVezCar.getSelectedIndex() != 0) {
+                        itens selectedItem = (itens) cmbVezCar.getSelectedItem();
                         idser = selectedItem.getId();
                     }
 
@@ -7407,7 +7559,7 @@ public final class main extends javax.swing.JFrame {
 
                             en.setCodigo(txtCodCadEnt.getText());
                             en.setData(formatterbanco.format(((formatter.parse(txtDatCadEnt.getText())))));
-                            en.setPreco(Double.valueOf(txtPreCadEnt.getText().replace(".", "").replace(",", ".")));
+                            en.setPreco(preco);
                             en.setDetalhes(txtDetCadEnt.getText());
                             en.setFormapagamento(idpagamento);
 
@@ -7436,7 +7588,7 @@ public final class main extends javax.swing.JFrame {
 
                         en.setCodigo(txtCodCadEnt.getText());
                         en.setData(formatterbanco.format((formatter.parse(txtDatCadEnt.getText()))));
-                        en.setPreco(Double.valueOf(txtPreCadEnt.getText().replace(".", "").replace(",", ".")));
+                        en.setPreco(preco);
                         en.setDetalhes(txtDetCadEnt.getText());
                         en.setIdtiposervico(idser);
                         en.setIdestoque(1);
@@ -7463,8 +7615,7 @@ public final class main extends javax.swing.JFrame {
                     pnlCadEnt.setVisible(false);
 
                 } catch (SQLException | ParseException ex) {
-                    Logger.getLogger(main.class
-                            .getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else {
@@ -7543,9 +7694,9 @@ public final class main extends javax.swing.JFrame {
         sepCliCadEnt.setForeground(Color.GRAY);
         lblCliCadEnt.setEnabled(false);
         lblR$CusCadEnt.setVisible(false);
-        lblCliCadEnt.setLocation(630, 100);
-        lblCusCadEnt.setLocation(630, 150);
-        lblForCadEnt.setLocation(630, 200);
+        lblCliCadEnt.setLocation(630, 130);
+        lblCusCadEnt.setLocation(630, 180);
+        lblForCadEnt.setLocation(630, 230);
 
         txtCusCadEnt.setEnabled(false);
         txtCusCadEnt.setText(null);
@@ -7556,25 +7707,19 @@ public final class main extends javax.swing.JFrame {
         txtForCadEnt.setText(null);
         sepForCadEnt.setForeground(Color.GRAY);
         lblForCadEnt.setEnabled(false);
-        cmbSerCadEnt.setEnabled(true);
+        cmbVezCar.setEnabled(true);
         btnSalCadEnt.setEnabled(true);
         btnIteCadEnt.setEnabled(true);
         rbtnDinCadEnt.setEnabled(true);
         rbtnCarCadEnt.setEnabled(true);
         rbtnPixCadEnt.setEnabled(true);
 
-        if (!(rbtnDinCadEnt.isSelected() || rbtnCarCadEnt.isSelected() || rbtnPixCadEnt.isSelected())) {
-
-            rbtnDinCadEnt.setSelected(true);
-
-        }
-
-        comboboxentrada(cmbSerCadEnt, 1);
+        comboboxentrada(cmbVezCar, 1);
 
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
 
-        lblDatCadEnt.setLocation(390, 80);
+        lblDatCadEnt.setLocation(390, 110);
     }//GEN-LAST:event_rbtnSerCadEntActionPerformed
 
     private void rbtnVenCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVenCadEntActionPerformed
@@ -7593,9 +7738,9 @@ public final class main extends javax.swing.JFrame {
         sepCliCadEnt.setForeground(Color.GRAY);
         lblCliCadEnt.setEnabled(false);
         lblR$CusCadEnt.setVisible(false);
-        lblCliCadEnt.setLocation(630, 100);
-        lblCusCadEnt.setLocation(630, 150);
-        lblForCadEnt.setLocation(630, 200);
+        lblCliCadEnt.setLocation(630, 130);
+        lblCusCadEnt.setLocation(630, 180);
+        lblForCadEnt.setLocation(630, 230);
 
         txtCusCadEnt.setEnabled(false);
         txtCusCadEnt.setText(null);
@@ -7606,20 +7751,19 @@ public final class main extends javax.swing.JFrame {
         txtForCadEnt.setText(null);
         sepForCadEnt.setForeground(Color.GRAY);
         lblForCadEnt.setEnabled(false);
-        cmbSerCadEnt.setEnabled(false);
+        cmbVezCar.setEnabled(false);
         btnSalCadEnt.setEnabled(true);
         btnIteCadEnt.setEnabled(true);
         rbtnDinCadEnt.setEnabled(true);
         rbtnCarCadEnt.setEnabled(true);
         rbtnPixCadEnt.setEnabled(true);
-        rbtnDinCadEnt.setSelected(true);
 
-        comboboxentrada(cmbSerCadEnt, 1);
+        comboboxentrada(cmbVezCar, 1);
 
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
 
-        lblDatCadEnt.setLocation(390, 80);
+        lblDatCadEnt.setLocation(390, 110);
     }//GEN-LAST:event_rbtnVenCadEntActionPerformed
 
     private void rbtnAssCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAssCadEntActionPerformed
@@ -7644,19 +7788,18 @@ public final class main extends javax.swing.JFrame {
         txtForCadEnt.setEnabled(true);
         sepForCadEnt.setForeground(corforeazul);
         lblForCadEnt.setEnabled(true);
-        cmbSerCadEnt.setEnabled(true);
+        cmbVezCar.setEnabled(true);
         btnSalCadEnt.setEnabled(true);
         btnIteCadEnt.setEnabled(false);
         rbtnDinCadEnt.setEnabled(true);
         rbtnCarCadEnt.setEnabled(true);
         rbtnPixCadEnt.setEnabled(true);
-        rbtnDinCadEnt.setSelected(true);
 
-        comboboxentrada(cmbSerCadEnt, 2);
+        comboboxentrada(cmbVezCar, 2);
 
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
-        lblDatCadEnt.setLocation(390, 80);
+        lblDatCadEnt.setLocation(390, 110);
     }//GEN-LAST:event_rbtnAssCadEntActionPerformed
 
     private void txtDatCadEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatCadEntFocusGained
@@ -7842,13 +7985,13 @@ public final class main extends javax.swing.JFrame {
 
             txtCodCadEnt.setText(sb.toString());
 
-            lblDetCadEnt.setLocation(390, 200);
+            lblDatCadEnt.setLocation(390, 130);
+            lblPreCadEnt.setLocation(390, 180);
+            lblDetCadEnt.setLocation(390, 230);
 
-            lblPreCadEnt.setLocation(390, 150);
-            lblDatCadEnt.setLocation(390, 100);
-            lblCliCadEnt.setLocation(630, 100);
-            lblCusCadEnt.setLocation(630, 150);
-            lblForCadEnt.setLocation(630, 200);
+            lblCliCadEnt.setLocation(630, 130);
+            lblCusCadEnt.setLocation(630, 180);
+            lblForCadEnt.setLocation(630, 230);
 
             lblDatCadEnt.setEnabled(false);
             txtDatCadEnt.setEnabled(false);
@@ -7882,8 +8025,8 @@ public final class main extends javax.swing.JFrame {
 
             sepDetCadEnt.setForeground(Color.GRAY);
             lblSerCadEnt.setEnabled(false);
-            cmbSerCadEnt.setEnabled(false);
-            cmbSerCadEnt.setSelectedIndex(0);
+            cmbVezCar.setEnabled(false);
+            cmbVezCar.setSelectedIndex(0);
             lblR$CadEnt.setVisible(false);
             lblR$CusCadEnt.setVisible(false);
 
@@ -7893,6 +8036,22 @@ public final class main extends javax.swing.JFrame {
 
             btnGroup.clearSelection();
             btnGroup1.clearSelection();
+            btnGroup2.clearSelection();
+            btnGroup3.clearSelection();
+
+            spnParCadEnt.setVisible(false);
+            lblParCadEnt.setVisible(false);
+
+            JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) spnParCadEnt.getEditor();
+            editor.getTextField().setEditable(false);
+
+            spnParCadEnt.setValue(0);
+            spnParCadEnt.setEnabled(false);
+            lblParCadEnt.setEnabled(false);
+            rbtnCreCadEnt.setEnabled(false);
+            rbtnDebCadEnt.setEnabled(false);
+            rbtnCreCadEnt.setVisible(false);
+            rbtnDebCadEnt.setVisible(false);
 
             rbtnDinCadEnt.setEnabled(false);
             rbtnCarCadEnt.setEnabled(false);
@@ -7916,7 +8075,7 @@ public final class main extends javax.swing.JFrame {
 
             btnIteCadEnt.setEnabled(false);
             btnSalCadEnt.setEnabled(false);
-            cmbSerCadEnt.setEnabled(false);
+            cmbVezCar.setEnabled(false);
 
             pnlCadEnt.setVisible(true);
             pnlRel.setVisible(false);
@@ -8080,10 +8239,6 @@ public final class main extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_txtBusIteCadEntKeyPressed
-
-    private void cmbSerCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSerCadEntActionPerformed
-
-    }//GEN-LAST:event_cmbSerCadEntActionPerformed
 
     private void btnVolRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolRelActionPerformed
         pnlRel.setVisible(false);
@@ -10817,15 +10972,35 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBusGerEstKeyPressed
 
     private void rbtnPixCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPixCadEntActionPerformed
-        // TODO add your handling code here:
+        rbtnDebCadEnt.setEnabled(false);
+        rbtnCreCadEnt.setEnabled(false);
+        rbtnCreCadEnt.setVisible(false);
+        rbtnDebCadEnt.setVisible(false);
+        spnParCadEnt.setVisible(false);
+        lblParCadEnt.setVisible(false);
     }//GEN-LAST:event_rbtnPixCadEntActionPerformed
 
     private void rbtnCarCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCarCadEntActionPerformed
-        // TODO add your handling code here:
+        rbtnDebCadEnt.setEnabled(true);
+        rbtnCreCadEnt.setEnabled(true);
+        rbtnCreCadEnt.setVisible(true);
+        rbtnDebCadEnt.setVisible(true);
+        spnParCadEnt.setVisible(true);
+        lblParCadEnt.setVisible(true);
+        spnParCadEnt.setValue(0);
+        spnParCadEnt.setEnabled(false);
+        lblParCadEnt.setEnabled(false);
+
+        btnGroup3.clearSelection();
     }//GEN-LAST:event_rbtnCarCadEntActionPerformed
 
     private void rbtnDinCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDinCadEntActionPerformed
-        // TODO add your handling code here:
+        rbtnDebCadEnt.setEnabled(false);
+        rbtnCreCadEnt.setEnabled(false);
+        rbtnCreCadEnt.setVisible(false);
+        rbtnDebCadEnt.setVisible(false);
+        spnParCadEnt.setVisible(false);
+        lblParCadEnt.setVisible(false);
     }//GEN-LAST:event_rbtnDinCadEntActionPerformed
 
     private void rbtnDinGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDinGerEntActionPerformed
@@ -11216,6 +11391,30 @@ public final class main extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtPreOsKeyTyped
+
+    private void rbtnCreCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCreCadEntActionPerformed
+        spnParCadEnt.setEnabled(true);
+        lblParCadEnt.setEnabled(true);
+        spnParCadEnt.setValue(1);
+    }//GEN-LAST:event_rbtnCreCadEntActionPerformed
+
+    private void rbtnDebCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDebCadEntActionPerformed
+        spnParCadEnt.setEnabled(false);
+        lblParCadEnt.setEnabled(false);
+        spnParCadEnt.setValue(0);
+    }//GEN-LAST:event_rbtnDebCadEntActionPerformed
+
+    private void cmbVezCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVezCarActionPerformed
+
+    }//GEN-LAST:event_cmbVezCarActionPerformed
+
+    private void spnParCadEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParCadEntKeyTyped
+
+    }//GEN-LAST:event_spnParCadEntKeyTyped
+
+    private void spnParCadEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParCadEntKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spnParCadEntKeyPressed
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -11268,6 +11467,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel btnGerTipSer;
     private javax.swing.ButtonGroup btnGroup;
     private javax.swing.ButtonGroup btnGroup1;
+    private javax.swing.ButtonGroup btnGroup2;
+    private javax.swing.ButtonGroup btnGroup3;
     private javax.swing.JButton btnIteCadEnt;
     private javax.swing.JButton btnIteGerEnt;
     private javax.swing.JLabel btnMasPla;
@@ -11290,8 +11491,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkCus;
     private javax.swing.JComboBox<String> cmbChiCadEst;
     private javax.swing.JComboBox<String> cmbChiGerEst;
-    private javax.swing.JComboBox<String> cmbSerCadEnt;
     private javax.swing.JComboBox<String> cmbSerGerEnt;
+    private javax.swing.JComboBox<String> cmbVezCar;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -11356,6 +11557,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblNumAceMas;
     private javax.swing.JLabel lblNumConMas;
     private javax.swing.JLabel lblNumPorMas;
+    private javax.swing.JLabel lblParCadEnt;
     private javax.swing.JLabel lblPlaMas;
     private javax.swing.JLabel lblPreCadEnt;
     private javax.swing.JLabel lblPreCadEst;
@@ -11427,6 +11629,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnChiGerEst;
     private javax.swing.JRadioButton rbtnChiIteCadEnt;
     private javax.swing.JRadioButton rbtnChiIteGerEnt;
+    private javax.swing.JRadioButton rbtnCreCadEnt;
+    private javax.swing.JRadioButton rbtnDebCadEnt;
     private javax.swing.JRadioButton rbtnDinCadEnt;
     private javax.swing.JRadioButton rbtnDinGerEnt;
     private javax.swing.JRadioButton rbtnMigMas;
@@ -11526,6 +11730,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepQuaCadEst;
     private javax.swing.JSeparator sepQuaCadEst1;
     private javax.swing.JSeparator sepQuaGerEst;
+    private javax.swing.JSpinner spnParCadEnt;
     private javax.swing.JTable tblConDes;
     private javax.swing.JTable tblConEnt;
     private javax.swing.JTable tblConEst;
