@@ -170,6 +170,8 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setVisible(false);
         btnGerEnt.setVisible(false);
 
+        connection.Connect();
+        
     }
 
     public Color corforeazul = new java.awt.Color(10, 60, 133);
