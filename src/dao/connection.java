@@ -8,38 +8,39 @@ import javax.swing.JOptionPane;
 public class connection {
 
     public static String status;
+    private static Connection connection;
 
     public static java.sql.Connection Connect() {
+        if (connection == null) {
+            createConnection();
+        }
+        return connection;
+    }
 
-        Connection connection;
-
+    private static void createConnection() {
+        
         try {
-
             String driverName = "com.mysql.cj.jdbc.Driver";
             Class.forName(driverName);
-            String serverName = "192.168.0.123";
-            String mydatabase = "empsysdatabase";
+            String serverName = "localhost";
+            String mydatabase = "EmpSysDatabase";
             String port = "3306";
             String aux = "?useTimezone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
             String url = "jdbc:mysql://" + serverName + ":" + port + "/" + mydatabase + aux;
             String username = "root";
-            String password = "Empcell4848@root";
+            String password = "Empcell@4848ROOT";
             connection = DriverManager.getConnection(url, username, password);
 
             if (connection != null) {
-                status = ("Conectado com sucesso!");
+                status = "Conectado com sucesso!";
             } else {
-                status = ("Não foi possível realizar a conexão!");
+                status = "Não foi possível realizar a conexão!";
             }
-
-            return connection;
 
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "O driver especificado não foi encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return null;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return null;
+            JOptionPane.showMessageDialog(null, "Erro ao conectar banco de dados. Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -48,12 +49,13 @@ public class connection {
     }
 
     public static boolean Close() throws SQLException {
-        connection.Connect().close();
-        return true;
+        if (connection != null) {
+            connection.close();
+            connection = null;
+            status = "Conexão fechada";
+            return true;
+        }
+        return false;
     }
-
-    public static java.sql.Connection Restart() throws SQLException {
-        Close();
-        return connection.Connect();
-    }
+ 
 }

@@ -1,7 +1,7 @@
-
 package view;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import dao.connection;
 import dao.despezasDAO;
 import dao.entradaDAO;
 import dao.estoqueDAO;
@@ -38,23 +38,16 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.JTable;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import javax.swing.text.DefaultFormatter;
-import javax.swing.text.DefaultFormatterFactory;
 import model.despezas;
 import model.entrada;
 import model.tiposervico;
@@ -169,25 +162,20 @@ public final class main extends javax.swing.JFrame {
         btnConEnt.setVisible(false);
         btnGerDes.setVisible(false);
         btnGerEnt.setVisible(false);
-
+     
         connection.Connect();
-        
+
     }
 
     public Color corforeazul = new java.awt.Color(10, 60, 133);
 
-
     public Color corforeazulenter = new Color(19, 84, 178);
-
 
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-
     SimpleDateFormat formatterbanco = new SimpleDateFormat("yyyy-MM-dd");
 
-
     DateTimeFormatter formatteratual = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
 
     public void anitxtin(JLabel lbl) {
 
@@ -195,12 +183,9 @@ public final class main extends javax.swing.JFrame {
 
             int x = lbl.getX();
 
-
             int y = lbl.getY();
 
-
             int count = 0;
-
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -229,12 +214,9 @@ public final class main extends javax.swing.JFrame {
 
             int x = lbl.getX();
 
-
             int y = lbl.getY();
 
-
             int count = 0;
-
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1324,9 +1306,7 @@ public final class main extends javax.swing.JFrame {
 
         private final int id;
 
-
         private final String descricao;
-
 
         public itens(int id, String descricao) {
             this.id = id;
