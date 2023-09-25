@@ -22,7 +22,7 @@ public class connection {
         try {
             String driverName = "com.mysql.cj.jdbc.Driver";
             Class.forName(driverName);
-            String serverName = "localhost";
+            String serverName = "192.168.0.123";
             String mydatabase = "EmpSysDatabase";
             String port = "3306";
             String aux = "?useTimezone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
