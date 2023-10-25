@@ -6,8 +6,10 @@ import dao.despezasDAO;
 import dao.entradaDAO;
 import dao.estoqueDAO;
 import dao.tiposervicoDAO;
+import dao.vencimentoDAO;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Toolkit;
@@ -18,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import model.estoque;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -51,6 +55,7 @@ import javax.swing.table.JTableHeader;
 import model.despezas;
 import model.entrada;
 import model.tiposervico;
+import model.vencimento;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -136,6 +141,8 @@ public final class main extends javax.swing.JFrame {
         pnlGerEnt.setVisible(false);
         pnlIteGerEnt.setVisible(false);
         pnlOs.setVisible(false);
+        pnlCadVen.setVisible(false);
+        pnlVen.setVisible(false);
 
         txtTipCadEst.setVisible(false);
         lblR$CadEst.setVisible(false);
@@ -162,10 +169,16 @@ public final class main extends javax.swing.JFrame {
         btnConEnt.setVisible(false);
         btnGerDes.setVisible(false);
         btnGerEnt.setVisible(false);
-     
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
+
         connection.Connect();
 
+        verificavencimento();
+
     }
+
+    ActionEvent timerven = null;
 
     public Color corforeazul = new java.awt.Color(10, 60, 133);
 
@@ -306,6 +319,55 @@ public final class main extends javax.swing.JFrame {
         }
 
         return true;
+    }
+
+    private void verificavencimento() {
+
+        try {
+
+            if (timerven != null) {
+
+                ((Timer) timerven.getSource()).stop();
+
+            }
+
+            vencimentoDAO ve = new vencimentoDAO();
+
+            if (ve.verificar()) {
+
+                Timer timer = new Timer(700, new ActionListener() {
+
+                    int n = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        timerven = e;
+
+                        n++;
+
+                        if (n % 2 == 0) {
+
+                            btnVenPri.setVisible(true);
+                        } else {
+
+                            btnVenPri.setVisible(false);
+                        }
+                    }
+
+                });
+                timer.start();
+
+            } else {
+
+                btnVenPri.setVisible(false);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private boolean tabelaestoqueconsulta(estoque es, JTable tbl, JScrollPane scr) {
@@ -849,6 +911,116 @@ public final class main extends javax.swing.JFrame {
         return true;
     }
 
+    private boolean tabelavencimento(JTable tbl, JScrollPane scr) {
+
+        try {
+
+            vencimentoDAO vendao = new vencimentoDAO();
+            List<String[]> lista = vendao.buscar();
+
+            if (!lista.isEmpty()) {
+
+                JTableHeader header = tbl.getTableHeader();
+
+                DefaultTableModel modelo = new DefaultTableModel();
+
+                modelo.addColumn("Cliente");
+                modelo.addColumn("Telefone");
+                modelo.addColumn("Plano");
+                modelo.addColumn("Data");
+                modelo.addColumn("Vencimento");
+
+                for (String[] row : lista) {
+
+                    Object[] rowData = new Object[5];
+
+                    Date date = formatterbanco.parse(row[3]);
+
+                    Date datecon = formatterbanco.parse(row[4]);
+
+                    rowData[0] = row[0];
+                    rowData[1] = row[1];
+                    rowData[2] = row[2];
+                    rowData[3] = formatter.format(date);
+                    rowData[4] = formatter.format(datecon);
+
+                    modelo.addRow(rowData);
+
+                }
+
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                        try {
+                            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                            Date dataatu = new Date();
+
+                            String dataat = formatterbanco.format(dataatu);
+                            Date dataatual = formatterbanco.parse(dataat);
+
+                            String vens = formatterbanco.format(((formatter.parse(table.getValueAt(row, 4).toString()))));
+
+                            Date vencimento = formatterbanco.parse(vens);
+
+                            int comparacao1 = dataatual.compareTo(vencimento);
+
+                            if (comparacao1 == 0) { // dataatual igual a data de vencimento
+                                component.setBackground(new Color(182, 222, 170)); // verde
+                            } else {
+                                component.setBackground(new Color(246, 246, 246)); // vermelho
+                            }
+
+                            component.setFont(fontmed(12));
+
+                            if (isSelected) {
+                                component.setBackground(new Color(211, 211, 211)); // Defina a cor de fundo da linha selecionada como vermelho
+                                component.setForeground(Color.BLACK);
+                            }
+
+                            return component;
+
+                        } catch (ParseException ex) {
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        return null;
+                    }
+                };
+
+                cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+                cellRenderer.setForeground(Color.BLACK);
+                cellRenderer.setFont(fontmed(12));
+
+                header.setForeground(corforeazul);
+                header.setBackground(new Color(246, 246, 246));
+
+                header.setFont(fontbold(13));
+                header.setReorderingAllowed(false);
+
+                tbl.setModel(modelo);
+                tbl.setRowHeight(25);
+                tbl.setDefaultEditor(Object.class, null);
+                scr.getVerticalScrollBar().setValue(0);
+
+                for (int i = 0; i < tbl.getColumnCount(); i++) {
+                    tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+                }
+
+                tbl.setVisible(true);
+                scr.setVisible(true);
+
+            } else {
+                return false;
+            }
+
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
+    }
+
     private boolean tabelagerenciardespezas(JTable tbl, JScrollPane scr) {
 
         try {
@@ -1342,6 +1514,7 @@ public final class main extends javax.swing.JFrame {
         btnGroup3 = new javax.swing.ButtonGroup();
         pnlPri = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
+        btnVenPri = new javax.swing.JLabel();
         btnEntPri = new javax.swing.JLabel();
         btnCadEnt = new javax.swing.JLabel();
         btnConEnt = new javax.swing.JLabel();
@@ -1360,7 +1533,15 @@ public final class main extends javax.swing.JFrame {
         btnDes = new javax.swing.JLabel();
         btnCadDes = new javax.swing.JLabel();
         btnGerDes = new javax.swing.JLabel();
+        btnVen = new javax.swing.JLabel();
+        btnCadVen = new javax.swing.JLabel();
         lblTitPri = new javax.swing.JLabel();
+        pnlVen = new javax.swing.JPanel();
+        scrVen = new javax.swing.JScrollPane();
+        tblVen = new javax.swing.JTable();
+        btnWppVen = new javax.swing.JButton();
+        btnVolVen = new javax.swing.JButton();
+        btnExcVen = new javax.swing.JButton();
         pnlCadEnt = new javax.swing.JPanel();
         rbtnPixCadEnt = new javax.swing.JRadioButton();
         btnIteCadEnt = new javax.swing.JButton();
@@ -1508,6 +1689,24 @@ public final class main extends javax.swing.JFrame {
         txtDetCadEst = new javax.swing.JTextField();
         sepDetCadEst = new javax.swing.JSeparator();
         txtTipCadEst = new javax.swing.JTextField();
+        pnlCadVen = new javax.swing.JPanel();
+        lblVenCadVen = new javax.swing.JLabel();
+        txtVenCadVen = new javax.swing.JTextField();
+        sepVenCadVen = new javax.swing.JSeparator();
+        btnSalCadVen = new javax.swing.JButton();
+        btnCanCadVen = new javax.swing.JButton();
+        lblPlaCadVen = new javax.swing.JLabel();
+        txtPlaCadVen = new javax.swing.JTextField();
+        sepPlaCadVen = new javax.swing.JSeparator();
+        lblCliCadVen = new javax.swing.JLabel();
+        txtCliCadVen = new javax.swing.JTextField();
+        sepCliCadVen = new javax.swing.JSeparator();
+        lblTelCadVen = new javax.swing.JLabel();
+        txtTelCadVen = new javax.swing.JTextField();
+        sepTelCadVen = new javax.swing.JSeparator();
+        lblDatCadVen = new javax.swing.JLabel();
+        txtDatCadVen = new javax.swing.JTextField();
+        sepDatCadVen = new javax.swing.JSeparator();
         pnlConEst = new javax.swing.JPanel();
         btnCanConEst = new javax.swing.JButton();
         btnBusConEst = new javax.swing.JButton();
@@ -1655,6 +1854,7 @@ public final class main extends javax.swing.JFrame {
         scrTipSer = new javax.swing.JScrollPane();
         tblTipSer = new javax.swing.JTable();
         pnlMas = new javax.swing.JPanel();
+        btnVenMas = new javax.swing.JButton();
         btnGerMas = new javax.swing.JButton();
         btnCanMas = new javax.swing.JButton();
         btnCopMas = new javax.swing.JLabel();
@@ -1737,6 +1937,25 @@ public final class main extends javax.swing.JFrame {
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoLoja580.png"))); // NOI18N
         imgLogo.setText("jLabel1");
         pnlPri.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 580, 190));
+
+        btnVenPri.setFont(fontmed(12));
+        btnVenPri.setForeground(corforeazul);
+        btnVenPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnVenPri.setText("Vencimento encontrado!");
+        btnVenPri.setToolTipText("");
+        btnVenPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVenPri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVenPriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVenPriMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnVenPriMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnVenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 20, 160, 20));
 
         btnEntPri.setFont(fontmed(14));
         btnEntPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -2027,7 +2246,7 @@ public final class main extends javax.swing.JFrame {
                 btnMasPlaMouseReleased(evt);
             }
         });
-        pnlPri.add(btnMasPla, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 260, 100, 20));
+        pnlPri.add(btnMasPla, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 260, 100, 20));
 
         btnDes.setFont(fontmed(12));
         btnDes.setForeground(corforeazul);
@@ -2046,7 +2265,7 @@ public final class main extends javax.swing.JFrame {
                 btnDesMouseReleased(evt);
             }
         });
-        pnlPri.add(btnDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 280, 60, 20));
+        pnlPri.add(btnDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 280, 60, 20));
 
         btnCadDes.setFont(fontmed(12));
         btnCadDes.setForeground(corforeazul);
@@ -2065,7 +2284,7 @@ public final class main extends javax.swing.JFrame {
                 btnCadDesMouseReleased(evt);
             }
         });
-        pnlPri.add(btnCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 300, 140, 20));
+        pnlPri.add(btnCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 300, 140, 20));
 
         btnGerDes.setFont(fontmed(12));
         btnGerDes.setForeground(corforeazul);
@@ -2084,13 +2303,124 @@ public final class main extends javax.swing.JFrame {
                 btnGerDesMouseReleased(evt);
             }
         });
-        pnlPri.add(btnGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 320, 140, 20));
+        pnlPri.add(btnGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 320, 140, 20));
+
+        btnVen.setFont(fontmed(12));
+        btnVen.setForeground(corforeazul);
+        btnVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnVen.setText("Vencimentos");
+        btnVen.setToolTipText("");
+        btnVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVenMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVenMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnVenMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 260, 140, 20));
+
+        btnCadVen.setFont(fontmed(12));
+        btnCadVen.setForeground(corforeazul);
+        btnCadVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCadVen.setText("Cadastrar Vencimento");
+        btnCadVen.setToolTipText("");
+        btnCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadVen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCadVenMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCadVenMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnCadVenMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 280, 140, 20));
 
         lblTitPri.setFont(fontmed(17));
         lblTitPri.setForeground(corforeazul);
         lblTitPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitPri.setText("Cadastrar Estoque");
         pnlPri.add(lblTitPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 270, 270, 50));
+
+        pnlVen.setBackground(new java.awt.Color(246, 246, 246));
+        pnlVen.setLayout(null);
+
+        scrVen.setBackground(new java.awt.Color(250, 250, 250));
+        scrVen.setBorder(BorderFactory.createEmptyBorder());
+
+        tblVen.setBackground(new java.awt.Color(246, 246, 246));
+        tblVen.setBorder(null);
+        tblVen.setFont(fontmed(10));
+        tblVen.setForeground(new java.awt.Color(229, 192, 191));
+        tblVen.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblVen.setGridColor(new java.awt.Color(192, 211, 250));
+        tblVen.setSelectionBackground(new java.awt.Color(255, 51, 0));
+        tblVen.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblVen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVenMouseClicked(evt);
+            }
+        });
+        scrVen.setViewportView(tblVen);
+
+        pnlVen.add(scrVen);
+        scrVen.setBounds(270, 20, 760, 240);
+
+        btnWppVen.setFont(fontmed(12));
+        btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnWppVen.setText("WhatsApp");
+        btnWppVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnWppVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWppVenActionPerformed(evt);
+            }
+        });
+        pnlVen.add(btnWppVen);
+        btnWppVen.setBounds(930, 280, 100, 50);
+
+        btnVolVen.setFont(fontmed(12));
+        btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnVolVen.setText("Voltar");
+        btnVolVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolVenActionPerformed(evt);
+            }
+        });
+        pnlVen.add(btnVolVen);
+        btnVolVen.setBounds(270, 280, 100, 50);
+
+        btnExcVen.setFont(fontmed(12));
+        btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnExcVen.setText("Excluir");
+        btnExcVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcVenActionPerformed(evt);
+            }
+        });
+        pnlVen.add(btnExcVen);
+        btnExcVen.setBounds(810, 280, 100, 50);
+
+        pnlPri.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
         pnlCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadEnt.setLayout(null);
@@ -3523,6 +3853,175 @@ public final class main extends javax.swing.JFrame {
         txtTipCadEst.setBounds(390, 20, 40, 22);
 
         pnlPri.add(pnlCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+
+        pnlCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        pnlCadVen.setLayout(null);
+
+        lblVenCadVen.setFont(fontmed(12));
+        lblVenCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblVenCadVen.setText("Vencimento");
+        lblVenCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblVenCadVen);
+        lblVenCadVen.setBounds(700, 180, 90, 20);
+
+        txtVenCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtVenCadVen.setFont(fontmed(13));
+        txtVenCadVen.setBorder(null);
+        txtVenCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtVenCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtVenCadVenFocusLost(evt);
+            }
+        });
+        txtVenCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtVenCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtVenCadVen);
+        txtVenCadVen.setBounds(700, 180, 190, 20);
+
+        sepVenCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepVenCadVen);
+        sepVenCadVen.setBounds(700, 200, 190, 10);
+
+        btnSalCadVen.setFont(fontmed(12));
+        btnSalCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnSalCadVen.setText("Salvar");
+        btnSalCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalCadVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalCadVenActionPerformed(evt);
+            }
+        });
+        pnlCadVen.add(btnSalCadVen);
+        btnSalCadVen.setBounds(550, 270, 90, 50);
+
+        btnCanCadVen.setFont(fontmed(12));
+        btnCanCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanCadVen.setText("Cancelar");
+        btnCanCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanCadVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanCadVenActionPerformed(evt);
+            }
+        });
+        pnlCadVen.add(btnCanCadVen);
+        btnCanCadVen.setBounds(650, 270, 90, 50);
+
+        lblPlaCadVen.setFont(fontmed(12));
+        lblPlaCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblPlaCadVen.setText("Plano");
+        lblPlaCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblPlaCadVen);
+        lblPlaCadVen.setBounds(400, 130, 50, 20);
+
+        txtPlaCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtPlaCadVen.setFont(fontmed(13));
+        txtPlaCadVen.setBorder(null);
+        txtPlaCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPlaCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPlaCadVenFocusLost(evt);
+            }
+        });
+        pnlCadVen.add(txtPlaCadVen);
+        txtPlaCadVen.setBounds(400, 130, 190, 20);
+
+        sepPlaCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepPlaCadVen);
+        sepPlaCadVen.setBounds(400, 150, 190, 10);
+
+        lblCliCadVen.setFont(fontmed(12));
+        lblCliCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblCliCadVen.setText("Cliente");
+        lblCliCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblCliCadVen);
+        lblCliCadVen.setBounds(400, 80, 60, 20);
+
+        txtCliCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtCliCadVen.setFont(fontmed(13));
+        txtCliCadVen.setBorder(null);
+        txtCliCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCliCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCliCadVenFocusLost(evt);
+            }
+        });
+        pnlCadVen.add(txtCliCadVen);
+        txtCliCadVen.setBounds(400, 80, 190, 20);
+
+        sepCliCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepCliCadVen);
+        sepCliCadVen.setBounds(400, 100, 190, 10);
+
+        lblTelCadVen.setFont(fontmed(12));
+        lblTelCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblTelCadVen.setText("Telefone");
+        lblTelCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblTelCadVen);
+        lblTelCadVen.setBounds(700, 80, 60, 20);
+
+        txtTelCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtTelCadVen.setFont(fontmed(13));
+        txtTelCadVen.setBorder(null);
+        txtTelCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTelCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTelCadVenFocusLost(evt);
+            }
+        });
+        txtTelCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtTelCadVen);
+        txtTelCadVen.setBounds(700, 80, 190, 20);
+
+        sepTelCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepTelCadVen);
+        sepTelCadVen.setBounds(700, 100, 190, 10);
+
+        lblDatCadVen.setFont(fontmed(12));
+        lblDatCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatCadVen.setText("Data");
+        lblDatCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblDatCadVen);
+        lblDatCadVen.setBounds(700, 130, 50, 20);
+
+        txtDatCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatCadVen.setFont(fontmed(13));
+        txtDatCadVen.setBorder(null);
+        txtDatCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatCadVenFocusLost(evt);
+            }
+        });
+        txtDatCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtDatCadVen);
+        txtDatCadVen.setBounds(700, 130, 190, 20);
+
+        sepDatCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepDatCadVen);
+        sepDatCadVen.setBounds(700, 150, 190, 10);
+
+        pnlPri.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
         pnlConEst.setBackground(new java.awt.Color(246, 246, 246));
         pnlConEst.setLayout(null);
@@ -4987,6 +5486,18 @@ public final class main extends javax.swing.JFrame {
         pnlMas.setBackground(new java.awt.Color(246, 246, 246));
         pnlMas.setLayout(null);
 
+        btnVenMas.setFont(fontmed(12));
+        btnVenMas.setForeground(new java.awt.Color(10, 60, 133));
+        btnVenMas.setText("Cadastrar");
+        btnVenMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVenMas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenMasActionPerformed(evt);
+            }
+        });
+        pnlMas.add(btnVenMas);
+        btnVenMas.setBounds(200, 230, 100, 40);
+
         btnGerMas.setFont(fontmed(12));
         btnGerMas.setForeground(new java.awt.Color(10, 60, 133));
         btnGerMas.setText("Gerar");
@@ -4997,7 +5508,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnGerMas);
-        btnGerMas.setBounds(90, 250, 90, 40);
+        btnGerMas.setBounds(90, 230, 100, 40);
 
         btnCanMas.setFont(fontmed(12));
         btnCanMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -5009,7 +5520,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnCanMas);
-        btnCanMas.setBounds(190, 250, 90, 40);
+        btnCanMas.setBounds(90, 280, 100, 40);
 
         btnCopMas.setFont(fontmed(12));
         btnCopMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -5748,6 +6259,8 @@ public final class main extends javax.swing.JFrame {
             btnDes.setVisible(false);
             btnCadDes.setVisible(false);
             btnGerDes.setVisible(false);
+            btnVen.setVisible(false);
+            btnCadVen.setVisible(false);
         }
     }//GEN-LAST:event_btnEstPriMouseReleased
 
@@ -5961,9 +6474,10 @@ public final class main extends javax.swing.JFrame {
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
-
+            pnlCadVen.setVisible(false);
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Tipo de Serviço");
+            pnlVen.setVisible(false);
 
             btnCadTipSer.setVisible(false);
             btnGerTipSer.setVisible(false);
@@ -6013,6 +6527,8 @@ public final class main extends javax.swing.JFrame {
                 pnlOs.setVisible(false);
                 pnlIteGerEnt.setVisible(false);
                 pnlConEnt.setVisible(false);
+                pnlCadVen.setVisible(false);
+                pnlVen.setVisible(false);
 
                 lblTitPri.setVisible(true);
                 lblTitPri.setText("Gerenciar Tipo de Serviço");
@@ -6044,6 +6560,9 @@ public final class main extends javax.swing.JFrame {
             btnCadEst.setVisible(false);
             btnConEst.setVisible(false);
             btnGerEst.setVisible(false);
+
+            btnVen.setVisible(false);
+            btnCadVen.setVisible(false);
 
             btnMasPla.setVisible(false);
             btnDes.setVisible(false);
@@ -6132,6 +6651,8 @@ public final class main extends javax.swing.JFrame {
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
+            pnlVen.setVisible(false);
+            pnlCadVen.setVisible(false);
 
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Estoque");
@@ -6178,6 +6699,8 @@ public final class main extends javax.swing.JFrame {
             btnConEnt.setVisible(false);
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
 
             scrConEst.setVisible(false);
             btnBusConEst.setEnabled(false);
@@ -6292,6 +6815,8 @@ public final class main extends javax.swing.JFrame {
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
 
             lblTitPri.setVisible(true);
             lblTitPri.setText("Gerenciar Estoque");
@@ -6321,12 +6846,16 @@ public final class main extends javax.swing.JFrame {
             btnDes.setVisible(false);
             btnCadDes.setVisible(false);
             btnGerDes.setVisible(false);
+            btnVen.setVisible(false);
+            btnCadVen.setVisible(false);
 
         } else {
             btnMasPla.setVisible(true);
             btnDes.setVisible(true);
             btnCadDes.setVisible(true);
             btnGerDes.setVisible(true);
+            btnVen.setVisible(true);
+            btnCadVen.setVisible(true);
 
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
@@ -6353,6 +6882,8 @@ public final class main extends javax.swing.JFrame {
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
         btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
 
         if (!pnlMas.isVisible()) {
 
@@ -6397,6 +6928,8 @@ public final class main extends javax.swing.JFrame {
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
             btnCanMas.grabFocus();
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
 
             btnCopMas.setVisible(false);
             pnlMas.setVisible(true);
@@ -6416,6 +6949,8 @@ public final class main extends javax.swing.JFrame {
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
         btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
 
         if (!pnlCadDes.isVisible()) {
             txtDesDes.setText(null);
@@ -6449,6 +6984,8 @@ public final class main extends javax.swing.JFrame {
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
 
         }
     }//GEN-LAST:event_btnCadDesMouseReleased
@@ -6466,6 +7003,8 @@ public final class main extends javax.swing.JFrame {
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
         btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
 
         if (!pnlDes.isVisible()) {
 
@@ -6490,6 +7029,8 @@ public final class main extends javax.swing.JFrame {
                 pnlOs.setVisible(false);
                 pnlIteGerEnt.setVisible(false);
                 pnlConEnt.setVisible(false);
+                pnlCadVen.setVisible(false);
+                pnlVen.setVisible(false);
 
             } else {
 
@@ -8075,6 +8616,8 @@ public final class main extends javax.swing.JFrame {
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
 
         }
     }//GEN-LAST:event_btnCadEntMouseReleased
@@ -8175,6 +8718,8 @@ public final class main extends javax.swing.JFrame {
             btnDes.setVisible(false);
             btnCadDes.setVisible(false);
             btnGerDes.setVisible(false);
+            btnVen.setVisible(false);
+            btnCadVen.setVisible(false);
         } else {
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
@@ -8401,6 +8946,9 @@ public final class main extends javax.swing.JFrame {
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
         btnGerDes.setVisible(false);
+        pnlCadVen.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
 
         if (!pnlRel.isVisible()) {
 
@@ -8441,6 +8989,8 @@ public final class main extends javax.swing.JFrame {
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
 
             btnVolRel.grabFocus();
 
@@ -9455,6 +10005,8 @@ public final class main extends javax.swing.JFrame {
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
         btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
 
         if (!pnlGerDes.isVisible()) {
 
@@ -9486,10 +10038,11 @@ public final class main extends javax.swing.JFrame {
                 btnGerDes.setVisible(false);
                 btnExcGerDes.setEnabled(false);
                 btnAltGerDes.setEnabled(false);
-
+                pnlCadVen.setVisible(false);
                 txtDesGerDes.setText(null);
                 txtPreGerDes.setText(null);
                 txtDatGerDes.setText(null);
+                pnlVen.setVisible(false);
 
                 lblDesGerDes.setLocation(870, 40);
                 lblPreGerDes.setLocation(870, 100);
@@ -10099,6 +10652,8 @@ public final class main extends javax.swing.JFrame {
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
 
             pnlGerEnt.setVisible(true);
         }
@@ -10822,6 +11377,9 @@ public final class main extends javax.swing.JFrame {
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
         btnGerDes.setVisible(false);
+        pnlCadVen.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
 
         if (!pnlOs.isVisible()) {
 
@@ -10871,6 +11429,8 @@ public final class main extends javax.swing.JFrame {
             pnlCadDes.setVisible(false);
             pnlGerEnt.setVisible(false);
             pnlConEnt.setVisible(false);
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
 
             pnlOs.setVisible(true);
 
@@ -11235,6 +11795,8 @@ public final class main extends javax.swing.JFrame {
             pnlCadDes.setVisible(false);
             pnlOs.setVisible(false);
             pnlIteGerEnt.setVisible(false);
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
 
             pnlGerEnt.setVisible(false);
             pnlConEnt.setVisible(true);
@@ -11397,6 +11959,484 @@ public final class main extends javax.swing.JFrame {
     private void spnParCadEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParCadEntKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_spnParCadEntKeyPressed
+
+    private void btnCadVenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadVenMouseEntered
+        btnCadVen.setForeground(corforeazulenter);
+    }//GEN-LAST:event_btnCadVenMouseEntered
+
+    private void btnCadVenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadVenMouseExited
+        btnCadVen.setForeground(corforeazul);
+    }//GEN-LAST:event_btnCadVenMouseExited
+
+    private void btnCadVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadVenMouseReleased
+        pnlCadEst.setVisible(false);
+        pnlConEst.setVisible(false);
+        pnlGerEst.setVisible(false);
+        pnlGerDes.setVisible(false);
+
+        pnlCadEnt.setVisible(false);
+        pnlGerEnt.setVisible(false);
+        pnlRel.setVisible(false);
+        pnlIteCadEnt.setVisible(false);
+        pnlCadTipSer.setVisible(false);
+        pnlGerTipSer.setVisible(false);
+        pnlMas.setVisible(false);
+        pnlDes.setVisible(false);
+        pnlCadDes.setVisible(false);
+        pnlOs.setVisible(false);
+        pnlIteGerEnt.setVisible(false);
+        pnlConEnt.setVisible(false);
+        pnlCadVen.setVisible(true);
+        pnlVen.setVisible(false);
+
+        btnMasPla.setVisible(false);
+        btnDes.setVisible(false);
+        btnCadDes.setVisible(false);
+        btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
+
+        lblCliCadVen.setLocation(400, 80);
+        lblPlaCadVen.setLocation(400, 130);
+        lblTelCadVen.setLocation(700, 80);
+        lblDatCadVen.setLocation(700, 130);
+        lblVenCadVen.setLocation(700, 180);
+
+        txtCliCadVen.setText(null);
+        txtPlaCadVen.setText(null);
+        txtTelCadVen.setText(null);
+        txtVenCadVen.setText(null);
+        txtDatCadVen.setText(null);
+
+        lblTitPri.setText("Cadastrar Vencimento");
+        lblTitPri.setVisible(true);
+    }//GEN-LAST:event_btnCadVenMouseReleased
+
+    private void btnVenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenMouseEntered
+        btnVen.setForeground(corforeazulenter);
+    }//GEN-LAST:event_btnVenMouseEntered
+
+    private void btnVenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenMouseExited
+        btnVen.setForeground(corforeazul);
+    }//GEN-LAST:event_btnVenMouseExited
+
+    private void btnVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenMouseReleased
+        pnlCadVen.setVisible(false);
+        btnMasPla.setVisible(false);
+        btnDes.setVisible(false);
+        btnCadDes.setVisible(false);
+        btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
+
+        if (!pnlVen.isVisible()) {
+
+            if (tabelavencimento(tblVen, scrVen)) {
+
+                lblTitPri.setText("Vencimentos");
+                lblTitPri.setVisible(true);
+                pnlCadEnt.setVisible(false);
+                pnlRel.setVisible(false);
+                pnlIteCadEnt.setVisible(false);
+                pnlCadTipSer.setVisible(false);
+                pnlGerTipSer.setVisible(false);
+                pnlMas.setVisible(false);
+                pnlVen.setVisible(true);
+                pnlGerDes.setVisible(false);
+                pnlCadDes.setVisible(false);
+                pnlGerEnt.setVisible(false);
+                pnlOs.setVisible(false);
+                pnlIteGerEnt.setVisible(false);
+                pnlConEnt.setVisible(false);
+                pnlCadVen.setVisible(false);
+                pnlDes.setVisible(false);
+
+                btnExcVen.setEnabled(false);
+                btnWppVen.setEnabled(false);
+
+            } else {
+
+                JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
+    }//GEN-LAST:event_btnVenMouseReleased
+
+    private void btnSalCadVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadVenActionPerformed
+        try {
+            vencimento ve = new vencimento();
+            vencimentoDAO vedao = new vencimentoDAO();
+
+            ve.setCliente(txtCliCadVen.getText());
+            ve.setPlano(txtPlaCadVen.getText());
+            ve.setTelefone(txtTelCadVen.getText());
+            ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
+            ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
+
+            vedao.inserir(ve);
+
+            JOptionPane.showMessageDialog(pnlCadVen, "Vencimento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            pnlCadVen.setVisible(false);
+            lblTitPri.setVisible(false);
+          
+            verificavencimento();
+
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSalCadVenActionPerformed
+
+    private void btnCanCadVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanCadVenActionPerformed
+        pnlCadVen.setVisible(false);
+        lblTitPri.setVisible(false);
+    }//GEN-LAST:event_btnCanCadVenActionPerformed
+
+    private void txtPlaCadVenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlaCadVenFocusGained
+        if (txtPlaCadVen.getText().isEmpty()) {
+            anitxtin(lblPlaCadVen);
+        }
+    }//GEN-LAST:event_txtPlaCadVenFocusGained
+
+    private void txtPlaCadVenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlaCadVenFocusLost
+        if (txtPlaCadVen.getText().isEmpty()) {
+            anitxtout(lblPlaCadVen);
+        }
+    }//GEN-LAST:event_txtPlaCadVenFocusLost
+
+    private void txtCliCadVenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCliCadVenFocusGained
+        if (txtCliCadVen.getText().isEmpty()) {
+            anitxtin(lblCliCadVen);
+        }
+    }//GEN-LAST:event_txtCliCadVenFocusGained
+
+    private void txtCliCadVenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCliCadVenFocusLost
+        if (txtCliCadVen.getText().isEmpty()) {
+            anitxtout(lblCliCadVen);
+        }
+    }//GEN-LAST:event_txtCliCadVenFocusLost
+
+    private void txtTelCadVenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelCadVenFocusGained
+        if (txtTelCadVen.getText().isEmpty()) {
+            anitxtin(lblTelCadVen);
+        }
+    }//GEN-LAST:event_txtTelCadVenFocusGained
+
+    private void txtTelCadVenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelCadVenFocusLost
+        if (txtTelCadVen.getText().isEmpty()) {
+            anitxtout(lblTelCadVen);
+        }
+    }//GEN-LAST:event_txtTelCadVenFocusLost
+
+    private void txtDatCadVenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatCadVenFocusGained
+        if (txtDatCadVen.getText().isEmpty()) {
+            anitxtin(lblDatCadVen);
+        }
+    }//GEN-LAST:event_txtDatCadVenFocusGained
+
+    private void txtDatCadVenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatCadVenFocusLost
+        if (txtDatCadVen.getText().isEmpty()) {
+            anitxtout(lblDatCadVen);
+        }
+    }//GEN-LAST:event_txtDatCadVenFocusLost
+
+    private void txtDatCadVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatCadVenKeyTyped
+        if (txtDatCadVen.getSelectedText() != null) {
+            if (!Character.isDigit(evt.getKeyChar())) {
+                evt.consume();
+            }
+        } else {
+
+            if (!Character.isDigit(evt.getKeyChar())) {
+
+                evt.consume();
+
+            } else {
+
+                if (txtDatCadVen.getText().length() == 2) {
+
+                    txtDatCadVen.setText(txtDatCadVen.getText() + "/");
+                    txtDatCadVen.setCaretPosition(3);
+
+                } else if (txtDatCadVen.getText().length() == 5) {
+
+                    txtDatCadVen.setText(txtDatCadVen.getText() + "/");
+                    txtDatCadVen.setCaretPosition(6);
+
+                }
+
+            }
+            if (txtDatCadVen.getText().length() > 9) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtDatCadVenKeyTyped
+
+    private void txtTelCadVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCadVenKeyTyped
+        if (txtTelCadVen.getSelectedText() != null) {
+            if (!Character.isDigit(evt.getKeyChar())) {
+                evt.consume();
+            }
+        } else {
+
+            if (!Character.isDigit(evt.getKeyChar())) {
+
+                evt.consume();
+
+            } else {
+
+                if (txtTelCadVen.getText().length() == 0) {
+
+                    txtTelCadVen.setText(txtTelCadVen.getText() + "(");
+                    txtTelCadVen.setCaretPosition(1);
+
+                } else if (txtTelCadVen.getText().length() == 3) {
+
+                    txtTelCadVen.setText(txtTelCadVen.getText() + ") ");
+                    txtTelCadVen.setCaretPosition(5);
+
+                } else if (txtTelCadVen.getText().length() == 10) {
+
+                    txtTelCadVen.setText(txtTelCadVen.getText() + "-");
+                    txtTelCadVen.setCaretPosition(11);
+
+                }
+
+            }
+            if (txtTelCadVen.getText().length() > 14) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtTelCadVenKeyTyped
+
+    private void txtVenCadVenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenCadVenFocusGained
+        if (txtVenCadVen.getText().isEmpty()) {
+            anitxtin(lblVenCadVen);
+        }
+    }//GEN-LAST:event_txtVenCadVenFocusGained
+
+    private void txtVenCadVenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenCadVenFocusLost
+        if (txtVenCadVen.getText().isEmpty()) {
+            anitxtout(lblVenCadVen);
+        }
+    }//GEN-LAST:event_txtVenCadVenFocusLost
+
+    private void txtVenCadVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVenCadVenKeyTyped
+        if (txtVenCadVen.getSelectedText() != null) {
+            if (!Character.isDigit(evt.getKeyChar())) {
+                evt.consume();
+            }
+        } else {
+
+            if (!Character.isDigit(evt.getKeyChar())) {
+
+                evt.consume();
+
+            } else {
+
+                if (txtVenCadVen.getText().length() == 2) {
+
+                    txtVenCadVen.setText(txtVenCadVen.getText() + "/");
+                    txtVenCadVen.setCaretPosition(3);
+
+                } else if (txtVenCadVen.getText().length() == 5) {
+
+                    txtVenCadVen.setText(txtVenCadVen.getText() + "/");
+                    txtVenCadVen.setCaretPosition(6);
+
+                }
+
+            }
+            if (txtVenCadVen.getText().length() > 9) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtVenCadVenKeyTyped
+
+    private void tblVenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVenMouseClicked
+        btnExcVen.setEnabled(true);
+        btnWppVen.setEnabled(true);
+    }//GEN-LAST:event_tblVenMouseClicked
+
+    private void btnVolVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolVenActionPerformed
+        pnlVen.setVisible(false);
+        lblTitPri.setVisible(false);
+    }//GEN-LAST:event_btnVolVenActionPerformed
+
+    private void btnWppVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWppVenActionPerformed
+        try {
+            String texto = "*Empório Cell - TIM*\n\n"
+                    + "Olá " + tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString() + ", tudo bem? Esperamos que sim!\n"
+                    + "Passando para te lembrar que o plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString() + "* que você fez com a gente no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString()
+                    + "* vence *hoje*.\n"
+                    + "O que está achando do seu novo plano TIM? Perfeito, né?!\n\n"
+                    + "Você pode fazer o pagamento por PIX no aplicativo *Meu TIM*, ou ir até a lotérica mais próxima e informar o seu número."
+                    + " Ou se preferir, pode vir até à loja que tiramos a fatura também, ok?\n\n"
+                    + "Conte para todos a incrível experiência de usar a *rede móvel líder em cobertura no Brasil!*\n"
+                    + "Qualquer dúvida, estamos à disposição. Obrigado por confiar na gente!";
+
+            String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
+
+            int resp = JOptionPane.showOptionDialog(pnlVen, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Mensagem", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+            if (resp == JOptionPane.YES_OPTION) {
+
+                String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "") + "&text=" + msg + "&app_absent=0";
+
+                URI link = new URI(l);
+
+                Desktop.getDesktop().browse(link);
+
+                int resp1 = JOptionPane.showOptionDialog(pnlVen, "Navegador aberto para envio!\n\nExclui registro?", "Vencimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                if (resp1 == JOptionPane.YES_OPTION) {
+
+                    try {
+                        vencimento ve = new vencimento();
+                        vencimentoDAO vedao = new vencimentoDAO();
+
+                        ve.setCliente(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
+                        ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString()))));
+                        ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString()))));
+
+                        vedao.excluir(ve);
+
+                        JOptionPane.showMessageDialog(pnlVen, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+                if (tabelavencimento(tblVen, scrVen)) {
+
+                } else {
+
+                    JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
+                    pnlVen.setVisible(false);
+                    lblTitPri.setVisible(false);
+                }
+
+                verificavencimento();
+
+                btnWppVen.setEnabled(false);
+                btnExcVen.setEnabled(false);
+
+            }
+
+        } catch (URISyntaxException | IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnWppVenActionPerformed
+
+    private void btnExcVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcVenActionPerformed
+        int resp = JOptionPane.showOptionDialog(pnlVen, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+        if (resp == JOptionPane.YES_OPTION) {
+
+            try {
+                vencimento ve = new vencimento();
+                vencimentoDAO vedao = new vencimentoDAO();
+
+                ve.setCliente(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
+                ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString()))));
+                ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString()))));
+
+                vedao.excluir(ve);
+
+                JOptionPane.showMessageDialog(pnlVen, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+
+                if (tabelavencimento(tblVen, scrVen)) {
+
+                } else {
+
+                    JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
+                    pnlVen.setVisible(false);
+                    lblTitPri.setVisible(false);
+                }
+               
+                verificavencimento();
+
+                btnWppVen.setEnabled(false);
+                btnExcVen.setEnabled(false);
+            } catch (SQLException | ParseException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnExcVenActionPerformed
+
+    private void btnVenMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenMasActionPerformed
+        if (txtNomMas.getText().isEmpty() || txtNumConMas.getText().isEmpty() || txtPlaMas.getText().isEmpty()) {
+        } else {
+            txtCliCadVen.setText(txtNomMas.getText());
+            txtPlaCadVen.setText(txtPlaMas.getText());
+            txtTelCadVen.setText(txtNumConMas.getText());
+
+            pnlMas.setVisible(false);
+            pnlCadVen.setVisible(true);
+            lblTitPri.setText("Cadastrar Vencimento");
+            lblTitPri.setVisible(true);
+            anitxtin(lblCliCadVen);
+            anitxtin(lblPlaCadVen);
+            anitxtin(lblTelCadVen);
+
+        }
+    }//GEN-LAST:event_btnVenMasActionPerformed
+
+    private void btnVenPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseEntered
+        btnVenPri.setForeground(corforeazulenter);
+    }//GEN-LAST:event_btnVenPriMouseEntered
+
+    private void btnVenPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseExited
+        btnVenPri.setForeground(corforeazul);
+    }//GEN-LAST:event_btnVenPriMouseExited
+
+    private void btnVenPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseReleased
+        pnlCadVen.setVisible(false);
+        btnMasPla.setVisible(false);
+        btnDes.setVisible(false);
+        btnCadDes.setVisible(false);
+        btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
+
+        if (!pnlVen.isVisible()) {
+
+            if (tabelavencimento(tblVen, scrVen)) {
+
+                lblTitPri.setText("Vencimentos");
+                lblTitPri.setVisible(true);
+                pnlCadEnt.setVisible(false);
+                pnlRel.setVisible(false);
+                pnlIteCadEnt.setVisible(false);
+                pnlCadTipSer.setVisible(false);
+                pnlGerTipSer.setVisible(false);
+                pnlMas.setVisible(false);
+                pnlVen.setVisible(true);
+                pnlGerDes.setVisible(false);
+                pnlCadDes.setVisible(false);
+                pnlGerEnt.setVisible(false);
+                pnlOs.setVisible(false);
+                pnlIteGerEnt.setVisible(false);
+                pnlConEnt.setVisible(false);
+                pnlCadVen.setVisible(false);
+                pnlDes.setVisible(false);
+
+                btnExcVen.setEnabled(false);
+                btnWppVen.setEnabled(false);
+
+            } else {
+
+                JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
+    }//GEN-LAST:event_btnVenPriMouseReleased
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -11418,8 +12458,10 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel btnCadEnt;
     private javax.swing.JLabel btnCadEst;
     private javax.swing.JLabel btnCadTipSer;
+    private javax.swing.JLabel btnCadVen;
     private javax.swing.JButton btnCanCadEnt;
     private javax.swing.JButton btnCanCadEst;
+    private javax.swing.JButton btnCanCadVen;
     private javax.swing.JButton btnCanConEnt;
     private javax.swing.JButton btnCanConEst;
     private javax.swing.JButton btnCanDes;
@@ -11441,6 +12483,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnExcGerEnt;
     private javax.swing.JButton btnExcGerEst;
     private javax.swing.JButton btnExcGerTipSer;
+    private javax.swing.JButton btnExcVen;
     private javax.swing.JLabel btnGerDes;
     private javax.swing.JLabel btnGerEnt;
     private javax.swing.JLabel btnGerEst;
@@ -11460,15 +12503,21 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel btnRelPri;
     private javax.swing.JButton btnSalCadEnt;
     private javax.swing.JButton btnSalCadEst;
+    private javax.swing.JButton btnSalCadVen;
     private javax.swing.JButton btnSalDes;
     private javax.swing.JButton btnSalTipSer;
     private javax.swing.JLabel btnSemRel;
     private javax.swing.JLabel btnTipSerPri;
     private javax.swing.JLabel btnTodRel;
+    private javax.swing.JLabel btnVen;
+    private javax.swing.JButton btnVenMas;
+    private javax.swing.JLabel btnVenPri;
     private javax.swing.JButton btnVolDes;
     private javax.swing.JButton btnVolIteCadEnt;
     private javax.swing.JButton btnVolIteGerEnt;
     private javax.swing.JButton btnVolRel;
+    private javax.swing.JButton btnVolVen;
+    private javax.swing.JButton btnWppVen;
     private javax.swing.JCheckBox chkC6Mas;
     private javax.swing.JCheckBox chkCus;
     private javax.swing.JComboBox<String> cmbChiCadEst;
@@ -11491,6 +12540,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblChiCadEst;
     private javax.swing.JLabel lblChiGerEst;
     private javax.swing.JLabel lblCliCadEnt;
+    private javax.swing.JLabel lblCliCadVen;
     private javax.swing.JLabel lblCliGerEnt;
     private javax.swing.JLabel lblCliOs;
     private javax.swing.JLabel lblConOs;
@@ -11501,6 +12551,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblCusGerEnt;
     private javax.swing.JLabel lblDatBusGerEnt;
     private javax.swing.JLabel lblDatCadEnt;
+    private javax.swing.JLabel lblDatCadVen;
     private javax.swing.JLabel lblDatDes;
     private javax.swing.JLabel lblDatFinRel;
     private javax.swing.JLabel lblDatGerDes;
@@ -11540,6 +12591,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblNumConMas;
     private javax.swing.JLabel lblNumPorMas;
     private javax.swing.JLabel lblParCadEnt;
+    private javax.swing.JLabel lblPlaCadVen;
     private javax.swing.JLabel lblPlaMas;
     private javax.swing.JLabel lblPreCadEnt;
     private javax.swing.JLabel lblPreCadEst;
@@ -11563,6 +12615,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblSelIteGerEnt;
     private javax.swing.JLabel lblSerCadEnt;
     private javax.swing.JLabel lblSerGerEnt;
+    private javax.swing.JLabel lblTelCadVen;
     private javax.swing.JLabel lblTelOs;
     private javax.swing.JLabel lblTitPri;
     private javax.swing.JLabel lblTotEntRel;
@@ -11571,11 +12624,13 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblValMedRel;
     private javax.swing.JLabel lblValPixRel;
     private javax.swing.JLabel lblValTotRel;
+    private javax.swing.JLabel lblVenCadVen;
     private javax.swing.JLabel lblVenMas;
     private javax.swing.JPanel pnlCadDes;
     private javax.swing.JPanel pnlCadEnt;
     private javax.swing.JPanel pnlCadEst;
     private javax.swing.JPanel pnlCadTipSer;
+    private javax.swing.JPanel pnlCadVen;
     private javax.swing.JPanel pnlConEnt;
     private javax.swing.JPanel pnlConEst;
     private javax.swing.JPanel pnlDes;
@@ -11589,6 +12644,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JPanel pnlOs;
     private javax.swing.JPanel pnlPri;
     private javax.swing.JPanel pnlRel;
+    private javax.swing.JPanel pnlVen;
     private javax.swing.JRadioButton rbtnAceCadEst;
     private javax.swing.JRadioButton rbtnAceConEst;
     private javax.swing.JRadioButton rbtnAceGerEst;
@@ -11645,6 +12701,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrSelIteCadEnt;
     private javax.swing.JScrollPane scrSelIteGerEnt;
     private javax.swing.JScrollPane scrTipSer;
+    private javax.swing.JScrollPane scrVen;
     private javax.swing.JSeparator sepBusConEst;
     private javax.swing.JSeparator sepBusConEst1;
     private javax.swing.JSeparator sepBusGerEst;
@@ -11652,6 +12709,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepBusIteCadEnt;
     private javax.swing.JSeparator sepBusIteCadEnt1;
     private javax.swing.JSeparator sepCliCadEnt;
+    private javax.swing.JSeparator sepCliCadVen;
     private javax.swing.JSeparator sepCliGerEnt;
     private javax.swing.JSeparator sepCorCadEst;
     private javax.swing.JSeparator sepCorCadEst1;
@@ -11666,6 +12724,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepDatCadEnt4;
     private javax.swing.JSeparator sepDatCadEnt6;
     private javax.swing.JSeparator sepDatCadEnt7;
+    private javax.swing.JSeparator sepDatCadVen;
     private javax.swing.JSeparator sepDatGerDes;
     private javax.swing.JSeparator sepDatGerEnt;
     private javax.swing.JSeparator sepDesGerDes;
@@ -11704,6 +12763,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepModCadEst;
     private javax.swing.JSeparator sepModCadEst1;
     private javax.swing.JSeparator sepModGerEst;
+    private javax.swing.JSeparator sepPlaCadVen;
     private javax.swing.JSeparator sepPreCadEnt;
     private javax.swing.JSeparator sepPreCadEst;
     private javax.swing.JSeparator sepPreGerDes;
@@ -11712,6 +12772,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepQuaCadEst;
     private javax.swing.JSeparator sepQuaCadEst1;
     private javax.swing.JSeparator sepQuaGerEst;
+    private javax.swing.JSeparator sepTelCadVen;
+    private javax.swing.JSeparator sepVenCadVen;
     private javax.swing.JSpinner spnParCadEnt;
     private javax.swing.JTable tblConDes;
     private javax.swing.JTable tblConEnt;
@@ -11725,6 +12787,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTable tblSelIteCadEnt;
     private javax.swing.JTable tblSelIteGerEnt;
     private javax.swing.JTable tblTipSer;
+    private javax.swing.JTable tblVen;
     private javax.swing.JTextArea txtAreMas;
     private javax.swing.JTextField txtBusConEnt;
     private javax.swing.JTextField txtBusConEst;
@@ -11732,6 +12795,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtBusIteCadEnt;
     private javax.swing.JTextField txtBusIteGerEnt;
     private javax.swing.JTextField txtCliCadEnt;
+    private javax.swing.JTextField txtCliCadVen;
     private javax.swing.JTextField txtCliGerEnt;
     private javax.swing.JTextField txtCliOs;
     private javax.swing.JTextField txtCodCadEnt;
@@ -11743,6 +12807,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtCusGerEnt;
     private javax.swing.JTextField txtDatBusGerEnt;
     private javax.swing.JTextField txtDatCadEnt;
+    private javax.swing.JTextField txtDatCadVen;
     private javax.swing.JTextField txtDatDes;
     private javax.swing.JTextField txtDatFinRel;
     private javax.swing.JTextField txtDatGerDes;
@@ -11777,6 +12842,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumAceMas;
     private javax.swing.JTextField txtNumConMas;
     private javax.swing.JTextField txtNumPorMas;
+    private javax.swing.JTextField txtPlaCadVen;
     private javax.swing.JTextField txtPlaMas;
     private javax.swing.JTextField txtPreCadEnt;
     private javax.swing.JTextField txtPreCadEst;
@@ -11787,10 +12853,12 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtPreOs;
     private javax.swing.JTextField txtQuaCadEst;
     private javax.swing.JTextField txtQuaGerEst;
+    private javax.swing.JTextField txtTelCadVen;
     private javax.swing.JTextField txtTelOs;
     private javax.swing.JTextField txtTipCadEst;
     private javax.swing.JTextField txtTipConEst;
     private javax.swing.JTextField txtTipGerEst;
+    private javax.swing.JTextField txtVenCadVen;
     private javax.swing.JTextField txtVenMas;
     // End of variables declaration//GEN-END:variables
 }
