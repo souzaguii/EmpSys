@@ -12021,7 +12021,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVenMouseExited
 
     private void btnVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenMouseReleased
-        pnlCadVen.setVisible(false);
         btnMasPla.setVisible(false);
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
