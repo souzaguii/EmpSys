@@ -9696,7 +9696,7 @@ public final class main extends javax.swing.JFrame {
             despezasDAO dedao = new despezasDAO();
 
             de.setDescricao(txtDesDes.getText());
-            de.setValor(Double.valueOf(txtPreDes.getText()));
+            de.setValor(Double.valueOf(txtPreDes.getText().replaceAll(",",".")));
             de.setData(formatterbanco.format(formatter.parse(txtDatDes.getText())));
             de.setStatus(0);
 
