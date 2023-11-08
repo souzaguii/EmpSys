@@ -225,30 +225,30 @@ public class entradaDAO {
                 }
                 break;
             case 4:
-                SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 1";
+                SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer != 3 OR idTip = 2";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 1 AND dataEnt = CURDATE()";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 3 OR idTip = 2) AND dataEnt = CURDATE()";
 
                 }
                 if (opc1 == 3) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 1 AND WEEK(dataEnt) = WEEK(CURDATE())";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 3 OR idTip = 2) AND WEEK(dataEnt) = WEEK(CURDATE())";
 
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 1 AND MONTH(dataEnt) = MONTH(CURDATE())";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 3 OR idTip = 2) AND MONTH(dataEnt) = MONTH(CURDATE())";
 
                 }
                 if (opc1 == 5) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 1 AND YEAR(dataEnt) = YEAR(CURDATE())";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 3 OR idTip = 2) AND YEAR(dataEnt) = YEAR(CURDATE())";
 
                 }
                 if (opc1 == 6) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 1 AND dataEnt BETWEEN ? AND ?";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 3 OR idTip = 2) AND dataEnt BETWEEN ? AND ?";
 
                 }
                 break;

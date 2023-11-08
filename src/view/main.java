@@ -33,9 +33,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -634,12 +636,174 @@ public final class main extends javax.swing.JFrame {
         return true;
     }
 
-    private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2) {
+    List<String[]> listacmb;
+
+    private void tabelacmbrelatorio(JTable tbl, JScrollPane scr, JComboBox cmb) {
+
         try {
+
+            DefaultTableModel modelo = new DefaultTableModel();
+            JTableHeader header = tbl.getTableHeader();
+            DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
+
+            modelo.addColumn("Data");
+            modelo.addColumn("Serviço");
+            modelo.addColumn("Produto");
+            modelo.addColumn("Preço");
+            modelo.addColumn("Custo");
+            modelo.addColumn("Pagamento");
+            modelo.addColumn("Detalhes");
+            modelo.addColumn("Código Entrada");
+
+            double somaCartao = 0;
+            double somaDinheiro = 0;
+            double somaPix = 0;
+            double somaCusto = 0;
+
+            List<String[]> listaa = new ArrayList<>();
+
+            for (String[] row : listacmb) {
+
+                if (rbtnVenRel.isSelected()) {
+
+                    if (cmb.getSelectedItem().equals(row[2]) || cmb.getSelectedItem().equals("Filtrar resultados")) {
+
+                        listaa.add(row);
+
+                    }
+
+                } else {
+
+                    if (cmb.getSelectedItem().equals(row[1]) || cmb.getSelectedItem().equals("Filtrar resultados")) {
+
+                        listaa.add(row);
+
+                    }
+
+                }
+
+            }
+
+            for (String[] row : listaa) {
+
+                Object[] rowData = new Object[8];
+
+                Date date = formatterbanco.parse(row[0]);
+                rowData[0] = formatter.format(date);
+                rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
+                rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
+                rowData[3] = moedadoublereal(Double.valueOf(row[3]));
+                rowData[4] = (row[4] != null) ? moedadoublereal(Double.valueOf(row[4])) : "Não Aplicável";
+                rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
+                rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
+                rowData[7] = row[7];
+
+                modelo.addRow(rowData);
+
+            }
+
+            deheader.setHorizontalAlignment(JLabel.CENTER);
+            deheader.setForeground(Color.BLACK);
+            deheader.setFont(fontmed(12));
+
+            header.setForeground(corforeazul);
+            header.setBackground(new Color(246, 246, 246));
+            header.setFont(fontbold(13));
+            header.setReorderingAllowed(false);
+
+            tbl.setModel(modelo);
+            tbl.setRowHeight(25);
+            tbl.setDefaultEditor(Object.class, null);
+            scr.getVerticalScrollBar().setValue(0);
+
+            for (int i = 0; i < tbl.getColumnCount(); i++) {
+                tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
+            }
+
+            double somaValor = 0;
+            int somaentrada = 0;
+            String codigoAnterior = null;
+
+            for (String[] row : listaa) {
+
+                String codigoAtual = row[7];
+
+                if (codigoAnterior == null || !codigoAtual.equals(codigoAnterior)) {
+
+                    if ("1".equals(row[5])) {
+                        somaDinheiro += Double.parseDouble(row[3]);
+                        if (row[4] != null && chkCus.isSelected()) {
+                            somaDinheiro -= Double.parseDouble(row[4]);
+                        }
+                    } else if ("2".equals(row[5])) {
+                        somaCartao += Double.parseDouble(row[3]);
+                        if (row[4] != null && chkCus.isSelected()) {
+                            somaCartao -= Double.parseDouble(row[4]);
+                        }
+                    } else if ("3".equals(row[5])) {
+                        somaPix += Double.parseDouble(row[3]);
+                        if (row[4] != null && chkCus.isSelected()) {
+                            somaPix -= Double.parseDouble(row[4]);
+                        }
+                    }
+
+                    if (row[4] != null) {
+
+                        somaCusto += Double.parseDouble(row[4]);
+
+                    }
+
+                    somaValor += Double.parseDouble(row[3]);
+
+                    somaentrada++;
+                }
+
+                codigoAnterior = codigoAtual;
+            }
+
+            tblRel.setVisible(true);
+            scrRel.setVisible(true);
+
+            if (chkCus.isSelected()) {
+                lblValTotRel.setText(moedadoublereal(somaValor - somaCusto));
+            } else {
+                lblValTotRel.setText(moedadoublereal(somaValor));
+            }
+
+            lblValMedRel.setText(moedadoublereal(somaCusto));
+            lblTotEntRel.setText(String.valueOf(somaentrada));
+
+            lblValDinRel.setText(moedadoublereal(somaDinheiro));
+            lblValCarRel.setText(moedadoublereal(somaCartao));
+            lblValPixRel.setText(moedadoublereal(somaPix));
+
+            if (somaCusto == 0) {
+
+                chkCus.setEnabled(false);
+                chkCus.setSelected(false);
+
+            } else {
+
+                chkCus.setEnabled(true);
+            }
+
+        } catch (ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2) {
+
+        try {
+
             entradaDAO endao = new entradaDAO();
             List<String[]> lista = endao.buscar(opc, opc1, data1, data2);
 
             if (!lista.isEmpty()) {
+
+                listacmb = lista;
+
                 DefaultTableModel modelo = new DefaultTableModel();
                 JTableHeader header = tbl.getTableHeader();
                 DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
@@ -656,9 +820,10 @@ public final class main extends javax.swing.JFrame {
                 double somaCartao = 0;
                 double somaDinheiro = 0;
                 double somaPix = 0;
-                double somaCusto = 0; // Soma dos valores da coluna "Custo"
+                double somaCusto = 0;
 
                 for (String[] row : lista) {
+
                     Object[] rowData = new Object[8];
 
                     Date date = formatterbanco.parse(row[0]);
@@ -750,6 +915,16 @@ public final class main extends javax.swing.JFrame {
                 lblValCarRel.setText(moedadoublereal(somaCartao));
                 lblValPixRel.setText(moedadoublereal(somaPix));
 
+                if (somaCusto == 0) {
+
+                    chkCus.setEnabled(false);
+                    chkCus.setSelected(false);
+
+                } else {
+
+                    chkCus.setEnabled(true);
+                }
+
             } else {
 
                 tblRel.setVisible(false);
@@ -768,6 +943,31 @@ public final class main extends javax.swing.JFrame {
         }
 
         return true;
+    }
+
+    public void cmbrelatorio(JTable tabela, JComboBox<String> cmbrelatorio, int coluna) {
+        Set<String> valoresUnicos = new HashSet<>();
+
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        int rowCount = modelo.getRowCount();
+
+        cmbrelatorio.removeAllItems();
+
+        cmbrelatorio.addItem("Filtrar resultados");
+
+        for (int i = 0; i < rowCount; i++) {
+            String valor = (String) modelo.getValueAt(i, coluna);
+
+            if ("Nenhum Serviço".equals(valor)) {
+                valor = "Venda";
+            }
+
+            valoresUnicos.add(valor);
+        }
+
+        for (String valor : valoresUnicos) {
+            cmbrelatorio.addItem(valor);
+        }
     }
 
     private boolean tabelagerenciarentrada(JTable tbl, JScrollPane scr, String data) {
@@ -1852,11 +2052,14 @@ public final class main extends javax.swing.JFrame {
         scrGerEst = new javax.swing.JScrollPane();
         tblGerEst = new javax.swing.JTable();
         pnlRel = new javax.swing.JPanel();
+        cmbRel = new javax.swing.JComboBox<>();
         scrRel = new javax.swing.JScrollPane();
         tblRel = new javax.swing.JTable();
         btnVolRel = new javax.swing.JButton();
         rbtnSerRel = new javax.swing.JRadioButton();
+        rbtnVenRel1 = new javax.swing.JRadioButton();
         rbtnVenRel = new javax.swing.JRadioButton();
+        rbtnAssRel = new javax.swing.JRadioButton();
         rbtnTodRel = new javax.swing.JRadioButton();
         lblDatIniRel = new javax.swing.JLabel();
         txtDatIniRel = new javax.swing.JTextField();
@@ -1869,7 +2072,6 @@ public final class main extends javax.swing.JFrame {
         btnDiaRel = new javax.swing.JLabel();
         btnMesRel = new javax.swing.JLabel();
         btnSemRel = new javax.swing.JLabel();
-        rbtnAssRel = new javax.swing.JRadioButton();
         sepDatCadEnt3 = new javax.swing.JSeparator();
         lblValDinRel = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -2062,7 +2264,7 @@ public final class main extends javax.swing.JFrame {
                 btnEntPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnEntPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, 40));
+        pnlPri.add(btnEntPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 210, -1, 40));
 
         btnCadEnt.setFont(fontmed(12));
         btnCadEnt.setForeground(corforeazul);
@@ -2139,7 +2341,7 @@ public final class main extends javax.swing.JFrame {
                 btnEstPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnEstPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, 40));
+        pnlPri.add(btnEstPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 210, -1, 40));
 
         btnCadEst.setFont(fontmed(12));
         btnCadEst.setForeground(corforeazul);
@@ -2216,7 +2418,7 @@ public final class main extends javax.swing.JFrame {
                 btnRelPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnRelPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 210, -1, 40));
+        pnlPri.add(btnRelPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 210, -1, 40));
 
         btnOrdSerPri.setFont(fontmed(14));
         btnOrdSerPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -2314,7 +2516,7 @@ public final class main extends javax.swing.JFrame {
                 btnOutPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnOutPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 210, 140, 40));
+        pnlPri.add(btnOutPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 210, 140, 40));
 
         btnMasPla.setFont(fontmed(12));
         btnMasPla.setForeground(corforeazul);
@@ -4707,6 +4909,18 @@ public final class main extends javax.swing.JFrame {
         pnlRel.setBackground(new java.awt.Color(246, 246, 246));
         pnlRel.setLayout(null);
 
+        cmbRel.setFont(fontmed(13));
+        cmbRel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtrar resultados" }));
+        cmbRel.setToolTipText("");
+        cmbRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(cmbRel);
+        cmbRel.setBounds(610, 80, 190, 30);
+
         scrRel.setBackground(new java.awt.Color(250, 250, 250));
         scrRel.setBorder(BorderFactory.createEmptyBorder());
 
@@ -4756,7 +4970,20 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlRel.add(rbtnSerRel);
-        rbtnSerRel.setBounds(240, 30, 90, 21);
+        rbtnSerRel.setBounds(150, 30, 90, 21);
+
+        btnGroup.add(rbtnVenRel1);
+        rbtnVenRel1.setFont(fontmed(12));
+        rbtnVenRel1.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnVenRel1.setText("Serviços e Vendas");
+        rbtnVenRel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnVenRel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnVenRel1ActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnVenRel1);
+        rbtnVenRel1.setBounds(410, 30, 150, 21);
 
         btnGroup.add(rbtnVenRel);
         rbtnVenRel.setFont(fontmed(12));
@@ -4769,7 +4996,20 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlRel.add(rbtnVenRel);
-        rbtnVenRel.setBounds(370, 30, 80, 21);
+        rbtnVenRel.setBounds(280, 30, 80, 21);
+
+        btnGroup.add(rbtnAssRel);
+        rbtnAssRel.setFont(fontmed(12));
+        rbtnAssRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnAssRel.setText("Assistência");
+        rbtnAssRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAssRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnAssRel);
+        rbtnAssRel.setBounds(600, 30, 100, 21);
 
         btnGroup.add(rbtnTodRel);
         rbtnTodRel.setFont(fontmed(12));
@@ -4782,7 +5022,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlRel.add(rbtnTodRel);
-        rbtnTodRel.setBounds(120, 30, 70, 21);
+        rbtnTodRel.setBounds(40, 30, 70, 21);
 
         lblDatIniRel.setFont(fontmed(12));
         lblDatIniRel.setForeground(new java.awt.Color(10, 60, 133));
@@ -4881,6 +5121,11 @@ public final class main extends javax.swing.JFrame {
                 txtDatFinRelFocusLost(evt);
             }
         });
+        txtDatFinRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDatFinRelActionPerformed(evt);
+            }
+        });
         txtDatFinRel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDatFinRelKeyPressed(evt);
@@ -4953,19 +5198,6 @@ public final class main extends javax.swing.JFrame {
         });
         pnlRel.add(btnSemRel);
         btnSemRel.setBounds(390, 90, 60, 20);
-
-        btnGroup.add(rbtnAssRel);
-        rbtnAssRel.setFont(fontmed(12));
-        rbtnAssRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnAssRel.setText("Assistência");
-        rbtnAssRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnAssRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnAssRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnAssRel);
-        rbtnAssRel.setBounds(500, 30, 100, 21);
 
         sepDatCadEnt3.setForeground(new java.awt.Color(10, 60, 133));
         pnlRel.add(sepDatCadEnt3);
@@ -5054,13 +5286,14 @@ public final class main extends javax.swing.JFrame {
         chkCus.setText("Custo");
         chkCus.setBorder(null);
         chkCus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkCus.setEnabled(false);
         chkCus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkCusActionPerformed(evt);
             }
         });
         pnlRel.add(chkCus);
-        chkCus.setBounds(660, 30, 60, 20);
+        chkCus.setBounds(750, 30, 60, 20);
 
         pnlPri.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -8908,9 +9141,12 @@ public final class main extends javax.swing.JFrame {
 
             rbtnSerRel.grabFocus();
 
+            chkCus.setSelected(false);
+            chkCus.setEnabled(false);
+
             if (btnTodRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
-            } else if (btnDiaRel.getFont().equals(fontbold(13))) {       
+            } else if (btnDiaRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 2, 2, null, null);
             } else if (btnSemRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 2, 3, null, null);
@@ -8918,11 +9154,14 @@ public final class main extends javax.swing.JFrame {
                 tabelarelatorio(tblRel, scrRel, 2, 4, null, null);
             } else if (btnAnoRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 2, 5, null, null);
-            }else if ("".equals(lblDatIniRel.getText()) && "".equals(lblDatFinRel.getText())) {
+            } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
                 tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2);
             }
+
+            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setEnabled(true);
 
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -8934,9 +9173,12 @@ public final class main extends javax.swing.JFrame {
 
             rbtnVenRel.grabFocus();
 
+            chkCus.setSelected(false);
+            chkCus.setEnabled(false);
+
             if (btnTodRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
-            } else if (btnDiaRel.getFont().equals(fontbold(13))) {       
+            } else if (btnDiaRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 3, 2, null, null);
             } else if (btnSemRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 3, 3, null, null);
@@ -8944,12 +9186,14 @@ public final class main extends javax.swing.JFrame {
                 tabelarelatorio(tblRel, scrRel, 3, 4, null, null);
             } else if (btnAnoRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 3, 5, null, null);
-            }else if ("".equals(lblDatIniRel.getText()) && "".equals(lblDatFinRel.getText())) {
+            } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
                 tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2);
             }
 
+            cmbrelatorio(tblRel, cmbRel, 2);
+            cmbRel.setEnabled(true);
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -8960,9 +9204,12 @@ public final class main extends javax.swing.JFrame {
 
             rbtnTodRel.grabFocus();
 
+            chkCus.setEnabled(false);
+            chkCus.setSelected(false);
+
             if (btnTodRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
-            } else if (btnDiaRel.getFont().equals(fontbold(13))) {       
+            } else if (btnDiaRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
             } else if (btnSemRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
@@ -8970,11 +9217,14 @@ public final class main extends javax.swing.JFrame {
                 tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
             } else if (btnAnoRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
-            }else if ("".equals(lblDatIniRel.getText()) && "".equals(lblDatFinRel.getText())) {
+            } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
                 tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2);
             }
+
+            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setEnabled(false);
 
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -9071,13 +9321,16 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDatFinRelKeyTyped
 
     private void rbtnAssRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAssRelActionPerformed
-       try {
+        try {
 
             rbtnAssRel.grabFocus();
 
+            chkCus.setEnabled(true);
+            chkCus.setSelected(false);
+
             if (btnTodRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
-            } else if (btnDiaRel.getFont().equals(fontbold(13))) {       
+            } else if (btnDiaRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 5, 2, null, null);
             } else if (btnSemRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 5, 3, null, null);
@@ -9085,11 +9338,14 @@ public final class main extends javax.swing.JFrame {
                 tabelarelatorio(tblRel, scrRel, 5, 4, null, null);
             } else if (btnAnoRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 5, 5, null, null);
-            }else if ("".equals(lblDatIniRel.getText()) && "".equals(lblDatFinRel.getText())) {
+            } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
                 tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2);
             }
+
+            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setEnabled(true);
 
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -9131,8 +9387,13 @@ public final class main extends javax.swing.JFrame {
             lblDatIniRel.setFont(fontmed(12));
             lblDatFinRel.setFont(fontmed(12));
 
+            chkCus.setEnabled(false);
+            chkCus.setSelected(false);
+
             tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
 
+            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setEnabled(false);
             pnlRel.setVisible(true);
             lblTitPri.setText("Relatórios");
             lblTitPri.setVisible(true);
@@ -9222,17 +9483,21 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
         } else if (rbtnVenRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
+        } else if (rbtnVenRel1.isSelected()) {
+            tabelarelatorio(tblRel, scrRel, 4, 1, null, null);
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
         }
 
-        if (txtDatIniRel.hasFocus()) {
+        lblDatFinRel.setLocation(430, 150);
+        lblDatIniRel.setLocation(290, 150);
 
-            lblDatFinRel.setLocation(430, 150);
-
+        if (rbtnVenRel.isSelected()) {
+            cmbrelatorio(tblRel, cmbRel, 2);
         } else {
-            lblDatIniRel.setLocation(290, 150);
+            cmbrelatorio(tblRel, cmbRel, 1);
         }
+
         btnTodRel.grabFocus();
     }//GEN-LAST:event_btnTodRelMouseReleased
 
@@ -9256,17 +9521,21 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 2, 2, null, null);
         } else if (rbtnVenRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 3, 2, null, null);
+        } else if (rbtnVenRel1.isSelected()) {
+            tabelarelatorio(tblRel, scrRel, 4, 2, null, null);
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 2, null, null);
         }
 
-        if (txtDatIniRel.hasFocus()) {
+        lblDatFinRel.setLocation(430, 150);
+        lblDatIniRel.setLocation(290, 150);
 
-            lblDatFinRel.setLocation(430, 150);
-
+        if (rbtnVenRel.isSelected()) {
+            cmbrelatorio(tblRel, cmbRel, 2);
         } else {
-            lblDatIniRel.setLocation(290, 150);
+            cmbrelatorio(tblRel, cmbRel, 1);
         }
+
         btnDiaRel.grabFocus();
     }//GEN-LAST:event_btnDiaRelMouseReleased
 
@@ -9288,17 +9557,21 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 2, 3, null, null);
         } else if (rbtnVenRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 3, 3, null, null);
+        } else if (rbtnVenRel1.isSelected()) {
+            tabelarelatorio(tblRel, scrRel, 4, 3, null, null);
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 3, null, null);
         }
 
-        if (txtDatIniRel.hasFocus()) {
+        lblDatFinRel.setLocation(430, 150);
+        lblDatIniRel.setLocation(290, 150);
 
-            lblDatFinRel.setLocation(430, 150);
-
+        if (rbtnVenRel.isSelected()) {
+            cmbrelatorio(tblRel, cmbRel, 2);
         } else {
-            lblDatIniRel.setLocation(290, 150);
+            cmbrelatorio(tblRel, cmbRel, 1);
         }
+
         btnSemRel.grabFocus();
     }//GEN-LAST:event_btnSemRelMouseReleased
 
@@ -9321,18 +9594,22 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 2, 4, null, null);
         } else if (rbtnVenRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 3, 4, null, null);
+        } else if (rbtnVenRel1.isSelected()) {
+            tabelarelatorio(tblRel, scrRel, 4, 4, null, null);
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 4, null, null);
         }
-        if (txtDatIniRel.hasFocus()) {
 
-            lblDatFinRel.setLocation(430, 150);
+        lblDatFinRel.setLocation(430, 150);
+        lblDatIniRel.setLocation(290, 150);
 
+        if (rbtnVenRel.isSelected()) {
+            cmbrelatorio(tblRel, cmbRel, 2);
         } else {
-            lblDatIniRel.setLocation(290, 150);
+            cmbrelatorio(tblRel, cmbRel, 1);
         }
-        btnMesRel.grabFocus();
 
+        btnMesRel.grabFocus();
     }//GEN-LAST:event_btnMesRelMouseReleased
 
     private void btnAnoRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnoRelMouseReleased
@@ -9353,16 +9630,19 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 2, 5, null, null);
         } else if (rbtnVenRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 3, 5, null, null);
+        } else if (rbtnVenRel1.isSelected()) {
+            tabelarelatorio(tblRel, scrRel, 4, 5, null, null);
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 5, null, null);
         }
 
-        if (txtDatIniRel.hasFocus()) {
+        lblDatFinRel.setLocation(430, 150);
+        lblDatIniRel.setLocation(290, 150);
 
-            lblDatFinRel.setLocation(430, 150);
-
+        if (rbtnVenRel.isSelected()) {
+            cmbrelatorio(tblRel, cmbRel, 2);
         } else {
-            lblDatIniRel.setLocation(290, 150);
+            cmbrelatorio(tblRel, cmbRel, 1);
         }
 
         btnAnoRel.grabFocus();
@@ -9382,6 +9662,8 @@ public final class main extends javax.swing.JFrame {
                     tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2);
                 } else if (rbtnVenRel.isSelected()) {
                     tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2);
+                } else if (rbtnVenRel1.isSelected()) {
+                    tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2);
                 } else {
                     tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2);
                 }
@@ -9393,6 +9675,11 @@ public final class main extends javax.swing.JFrame {
                 btnAnoRel.setFont(fontmed(12));
                 lblDatIniRel.setFont(fontbold(13));
                 lblDatFinRel.setFont(fontbold(13));
+
+                chkCus.setSelected(false);
+                cmbrelatorio(tblRel, cmbRel, 1);
+                cmbRel.setEnabled(true);
+                cmbRel.setSelectedItem("Filtrar resultados");
 
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(pnlRel, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -9415,6 +9702,8 @@ public final class main extends javax.swing.JFrame {
                     tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2);
                 } else if (rbtnVenRel.isSelected()) {
                     tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2);
+                } else if (rbtnVenRel1.isSelected()) {
+                    tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2);
                 } else {
                     tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2);
                 }
@@ -9424,6 +9713,13 @@ public final class main extends javax.swing.JFrame {
                 btnSemRel.setFont(fontmed(12));
                 btnMesRel.setFont(fontmed(12));
                 btnAnoRel.setFont(fontmed(12));
+                lblDatIniRel.setFont(fontbold(13));
+                lblDatFinRel.setFont(fontbold(13));
+
+                cmbrelatorio(tblRel, cmbRel, 1);
+                cmbRel.setEnabled(true);
+                chkCus.setSelected(false);
+                cmbRel.setSelectedItem("Filtrar resultados");
 
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(pnlRel, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -11952,21 +12248,7 @@ public final class main extends javax.swing.JFrame {
     private void chkCusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCusActionPerformed
         try {
 
-            if (btnTodRel.getFont().getSize() == 13) {
-                tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
-            } else if (btnDiaRel.getFont().getSize() == 13) {
-                tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
-            } else if (btnSemRel.getFont().getSize() == 13) {
-                tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
-            } else if (btnMesRel.getFont().getSize() == 13) {
-                tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
-            } else if (btnAnoRel.getFont().getSize() == 13) {
-                tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
-            } else if (lblDatIniRel.getFont().getSize() == 13) {
-                tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
-            }
-
-            if (rbtnTodRel.isSelected()) {
+            if (cmbRel.getSelectedItem().equals("Filtrar resultados")) {
 
                 if (btnTodRel.getFont().getSize() == 13) {
                     tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
@@ -11982,52 +12264,76 @@ public final class main extends javax.swing.JFrame {
                     tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
                 }
 
-            } else if (rbtnSerRel.isSelected()) {
+                if (rbtnTodRel.isSelected()) {
 
-                if (btnTodRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
-                } else if (btnDiaRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 2, 2, null, null);
-                } else if (btnSemRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 2, 3, null, null);
-                } else if (btnMesRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 2, 4, null, null);
-                } else if (btnAnoRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 2, 5, null, null);
-                } else if (lblDatIniRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 2, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
-                }
+                    if (btnTodRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
+                    } else if (btnDiaRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
+                    } else if (btnSemRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
+                    } else if (btnMesRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
+                    } else if (btnAnoRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
+                    } else if (lblDatIniRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                    }
 
-            } else if (rbtnVenRel.isSelected()) {
+                } else if (rbtnSerRel.isSelected()) {
 
-                if (btnTodRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
-                } else if (btnDiaRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 3, 2, null, null);
-                } else if (btnSemRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 3, 3, null, null);
-                } else if (btnMesRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 3, 4, null, null);
-                } else if (btnAnoRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 3, 5, null, null);
-                } else if (lblDatIniRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 3, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                    if (btnTodRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
+                    } else if (btnDiaRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 2, 2, null, null);
+                    } else if (btnSemRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 2, 3, null, null);
+                    } else if (btnMesRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 2, 4, null, null);
+                    } else if (btnAnoRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 2, 5, null, null);
+                    } else if (lblDatIniRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 2, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                    }
+
+                } else if (rbtnVenRel.isSelected()) {
+
+                    if (btnTodRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
+                    } else if (btnDiaRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 3, 2, null, null);
+                    } else if (btnSemRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 3, 3, null, null);
+                    } else if (btnMesRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 3, 4, null, null);
+                    } else if (btnAnoRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 3, 5, null, null);
+                    } else if (lblDatIniRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 3, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                    }
+
+                } else {
+
+                    if (btnTodRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
+                    } else if (btnDiaRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 5, 2, null, null);
+                    } else if (btnSemRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 5, 3, null, null);
+                    } else if (btnMesRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 5, 4, null, null);
+                    } else if (btnAnoRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 5, 5, null, null);
+                    } else if (lblDatIniRel.getFont().getSize() == 13) {
+                        tabelarelatorio(tblRel, scrRel, 5, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                    }
+
                 }
 
             } else {
 
-                if (btnTodRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
-                } else if (btnDiaRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 5, 2, null, null);
-                } else if (btnSemRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 5, 3, null, null);
-                } else if (btnMesRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 5, 4, null, null);
-                } else if (btnAnoRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 5, 5, null, null);
-                } else if (lblDatIniRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 5, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                if (cmbRel.getItemCount() >= 2) {
+                    tabelacmbrelatorio(tblRel, scrRel, cmbRel);
                 }
 
             }
@@ -12701,6 +13007,47 @@ public final class main extends javax.swing.JFrame {
 
         lblR$CadEst.setVisible(true);
     }//GEN-LAST:event_tblCadEstMouseClicked
+
+    private void rbtnVenRel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVenRel1ActionPerformed
+        try {
+
+            rbtnVenRel1.grabFocus();
+
+            chkCus.setSelected(false);
+            chkCus.setEnabled(false);
+
+            if (btnTodRel.getFont().equals(fontbold(13))) {
+                tabelarelatorio(tblRel, scrRel, 4, 1, null, null);
+            } else if (btnDiaRel.getFont().equals(fontbold(13))) {
+                tabelarelatorio(tblRel, scrRel, 4, 2, null, null);
+            } else if (btnSemRel.getFont().equals(fontbold(13))) {
+                tabelarelatorio(tblRel, scrRel, 4, 3, null, null);
+            } else if (btnMesRel.getFont().equals(fontbold(13))) {
+                tabelarelatorio(tblRel, scrRel, 4, 4, null, null);
+            } else if (btnAnoRel.getFont().equals(fontbold(13))) {
+                tabelarelatorio(tblRel, scrRel, 4, 5, null, null);
+            } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
+                String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
+                String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
+                tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2);
+            }
+
+            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setEnabled(false);
+        } catch (ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_rbtnVenRel1ActionPerformed
+
+    private void cmbRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRelActionPerformed
+        if (cmbRel.getItemCount() >= 2) {
+            tabelacmbrelatorio(tblRel, scrRel, cmbRel);
+        }
+    }//GEN-LAST:event_cmbRelActionPerformed
+
+    private void txtDatFinRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDatFinRelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDatFinRelActionPerformed
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -12786,6 +13133,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkCus;
     private javax.swing.JComboBox<String> cmbChiCadEst;
     private javax.swing.JComboBox<String> cmbChiGerEst;
+    private javax.swing.JComboBox<String> cmbRel;
     private javax.swing.JComboBox<String> cmbSerGerEnt;
     private javax.swing.JComboBox<String> cmbVezCar;
     private javax.swing.JLabel imgLogo;
@@ -12953,6 +13301,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnTodRel;
     private javax.swing.JRadioButton rbtnVenCadEnt;
     private javax.swing.JRadioButton rbtnVenRel;
+    private javax.swing.JRadioButton rbtnVenRel1;
     private javax.swing.JScrollPane scrCadEst;
     private javax.swing.JScrollPane scrConDes;
     private javax.swing.JScrollPane scrConEnt;
