@@ -106,6 +106,43 @@ public class estoqueDAO {
         return listaes;
     }
 
+      public List<estoque> buscarprodutoregistrado(estoque es) throws SQLException {
+
+        List<estoque> listaes = new ArrayList<>();
+
+        String SQL = "SELECT * FROM estoque WHERE modeloEst LIKE '%" + es.getModelo() + "%' AND marcaEst LIKE '%" + es.getMarca() + "%' AND tipoprodutoEst = '"+es.getTipoproduto()+"'";
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            estoque ess = new estoque();
+
+            ess.setId(rs.getInt("idEst"));
+            ess.setTipoproduto(rs.getString("tipoprodutoEst"));
+            ess.setModelo(rs.getString("modeloEst"));
+            ess.setMarca(rs.getString("marcaEst"));
+            ess.setCor(rs.getString("corEst"));
+            ess.setMaterial(rs.getString("materialEst"));
+            ess.setDetalhes(rs.getString("detalhesEst"));
+            ess.setLocalizacao(rs.getString("localizacaoEst"));
+            ess.setPreco(rs.getDouble("precoEst"));
+            ess.setQuantidade(rs.getInt("quantidadeEst"));
+            ess.setTipochip(rs.getString("tipochipEst"));
+
+            listaes.add(ess);
+
+        }
+
+        rs.close();
+        stmt.close();
+        connection.Close();
+
+        return listaes;
+    }
+
+    
     public boolean verifica(estoque es) throws SQLException {
 
         String SQL = "SELECT * FROM estoque";
