@@ -27,6 +27,27 @@ public class vencimentoDAO {
 
     }
 
+    public void alterar(vencimento ve) throws SQLException {
+
+        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ? WHERE clienteVen = ? AND dataVen = ? AND vencimentoVen = ?";
+
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        stmt.setString(1, ve.getCliente());
+        stmt.setString(2, ve.getTelefone());
+        stmt.setString(3, ve.getData());
+        stmt.setString(4, ve.getPlano());
+        stmt.setString(5, ve.getVencimento());
+        stmt.setString(6, ve.getClienteold());
+        stmt.setString(7, ve.getDataold());
+        stmt.setString(8, ve.getVencimentoold());
+
+        stmt.executeUpdate();
+        stmt.close();
+        connection.Close();
+
+    }
+
     public void excluir(vencimento ve) throws SQLException {
 
         String SQL = "DELETE FROM vencimento WHERE clienteVen = ? and dataVen = ? and vencimentoVen = ?";
@@ -79,12 +100,11 @@ public class vencimentoDAO {
 
         ResultSet rs = stmt.executeQuery();
 
-        if(rs.next()){
-        
-        return true;
-        
+        if (rs.next()) {
+
+            return true;
+
         }
-        
 
         rs.close();
         stmt.close();
