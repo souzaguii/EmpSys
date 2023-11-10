@@ -1824,6 +1824,7 @@ public final class main extends javax.swing.JFrame {
         pnlVen = new javax.swing.JPanel();
         scrVen = new javax.swing.JScrollPane();
         tblVen = new javax.swing.JTable();
+        btnAltVen = new javax.swing.JButton();
         btnWppVen = new javax.swing.JButton();
         btnVolVen = new javax.swing.JButton();
         btnExcVen = new javax.swing.JButton();
@@ -1995,6 +1996,9 @@ public final class main extends javax.swing.JFrame {
         lblDatCadVen = new javax.swing.JLabel();
         txtDatCadVen = new javax.swing.JTextField();
         sepDatCadVen = new javax.swing.JSeparator();
+        lblCli = new javax.swing.JLabel();
+        lblVen = new javax.swing.JLabel();
+        lblDat = new javax.swing.JLabel();
         pnlConEst = new javax.swing.JPanel();
         btnCanConEst = new javax.swing.JButton();
         btnBusConEst = new javax.swing.JButton();
@@ -2672,6 +2676,18 @@ public final class main extends javax.swing.JFrame {
 
         pnlVen.add(scrVen);
         scrVen.setBounds(270, 20, 760, 240);
+
+        btnAltVen.setFont(fontmed(12));
+        btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnAltVen.setText("Alterar");
+        btnAltVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltVenActionPerformed(evt);
+            }
+        });
+        pnlVen.add(btnAltVen);
+        btnAltVen.setBounds(690, 280, 100, 50);
 
         btnWppVen.setFont(fontmed(12));
         btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -4355,6 +4371,21 @@ public final class main extends javax.swing.JFrame {
         sepDatCadVen.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadVen.add(sepDatCadVen);
         sepDatCadVen.setBounds(700, 150, 190, 10);
+
+        lblCli.setText("jLabel1");
+        pnlCadVen.add(lblCli);
+        lblCli.setBounds(1150, 30, 37, 16);
+        lblCli.setVisible(false);
+
+        lblVen.setText("jLabel3");
+        pnlCadVen.add(lblVen);
+        lblVen.setBounds(1150, 90, 37, 16);
+        lblVen.setVisible(false);
+
+        lblDat.setText("jLabel5");
+        pnlCadVen.add(lblDat);
+        lblDat.setBounds(1150, 60, 37, 16);
+        lblDat.setVisible(false);
 
         pnlPri.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -12490,6 +12521,7 @@ public final class main extends javax.swing.JFrame {
 
                 btnExcVen.setEnabled(false);
                 btnWppVen.setEnabled(false);
+                btnAltVen.setEnabled(false);
 
             } else {
 
@@ -12502,18 +12534,39 @@ public final class main extends javax.swing.JFrame {
 
     private void btnSalCadVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadVenActionPerformed
         try {
+
             vencimento ve = new vencimento();
             vencimentoDAO vedao = new vencimentoDAO();
 
-            ve.setCliente(txtCliCadVen.getText());
-            ve.setPlano(txtPlaCadVen.getText());
-            ve.setTelefone(txtTelCadVen.getText());
-            ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
-            ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
+            if (lblTitPri.getText().equals("Cadastrar Venciment")) {
 
-            vedao.inserir(ve);
+                ve.setCliente(txtCliCadVen.getText());
+                ve.setPlano(txtPlaCadVen.getText());
+                ve.setTelefone(txtTelCadVen.getText());
+                ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
+                ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
 
-            JOptionPane.showMessageDialog(pnlCadVen, "Vencimento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                vedao.inserir(ve);
+
+                JOptionPane.showMessageDialog(pnlCadVen, "Vencimento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+
+                ve.setCliente(txtCliCadVen.getText());
+                ve.setPlano(txtPlaCadVen.getText());
+                ve.setTelefone(txtTelCadVen.getText());
+                ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
+                ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
+
+                ve.setClienteold(lblCli.getText());
+                ve.setDataold(formatterbanco.format(((formatter.parse(lblDat.getText())))));
+                ve.setVencimentoold(formatterbanco.format(((formatter.parse(lblVen.getText())))));
+
+                vedao.alterar(ve);
+
+                JOptionPane.showMessageDialog(pnlCadVen, "Vencimento alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            }
 
             pnlCadVen.setVisible(false);
             lblTitPri.setVisible(false);
@@ -12694,6 +12747,7 @@ public final class main extends javax.swing.JFrame {
     private void tblVenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVenMouseClicked
         btnExcVen.setEnabled(true);
         btnWppVen.setEnabled(true);
+        btnAltVen.setEnabled(true);
     }//GEN-LAST:event_tblVenMouseClicked
 
     private void btnVolVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolVenActionPerformed
@@ -12877,6 +12931,7 @@ public final class main extends javax.swing.JFrame {
 
                 btnExcVen.setEnabled(false);
                 btnWppVen.setEnabled(false);
+                btnAltVen.setEnabled(false);
 
             } else {
 
@@ -12979,9 +13034,11 @@ public final class main extends javax.swing.JFrame {
 
         }
 
+        String preco = String.valueOf(moedadoublereal(lista1.get(tblCadEst.getSelectedRow()).getPreco()));
+
         txtMarCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getMarca());
         txtModCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getModelo());
-        txtPreCadEst.setText(String.valueOf(lista1.get(tblCadEst.getSelectedRow()).getPreco()));
+        txtPreCadEst.setText(preco.substring(3, preco.length()));
         txtQuaCadEst.setText(String.valueOf(lista1.get(tblCadEst.getSelectedRow()).getQuantidade()));
         txtMatCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getMaterial());
         txtLocCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getLocalizacao());
@@ -13048,6 +13105,58 @@ public final class main extends javax.swing.JFrame {
     private void txtDatFinRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDatFinRelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDatFinRelActionPerformed
+
+    private void btnAltVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltVenActionPerformed
+        txtCliCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
+        txtTelCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString());
+        txtPlaCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString());
+        txtDatCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString());
+        txtVenCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString());
+
+        lblCli.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
+        lblDat.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString());
+        lblVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString());
+
+        pnlCadEst.setVisible(false);
+        pnlConEst.setVisible(false);
+        pnlGerEst.setVisible(false);
+        pnlGerDes.setVisible(false);
+
+        pnlCadEnt.setVisible(false);
+        pnlGerEnt.setVisible(false);
+        pnlRel.setVisible(false);
+        pnlIteCadEnt.setVisible(false);
+        pnlCadTipSer.setVisible(false);
+        pnlGerTipSer.setVisible(false);
+        pnlMas.setVisible(false);
+        pnlDes.setVisible(false);
+        pnlCadDes.setVisible(false);
+        pnlOs.setVisible(false);
+        pnlIteGerEnt.setVisible(false);
+        pnlConEnt.setVisible(false);
+        pnlCadVen.setVisible(true);
+        pnlVen.setVisible(false);
+
+        btnMasPla.setVisible(false);
+        btnDes.setVisible(false);
+        btnCadDes.setVisible(false);
+        btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
+
+        lblCliCadVen.setLocation(400, 60);
+        lblPlaCadVen.setLocation(400, 110);
+        lblTelCadVen.setLocation(700, 60);
+        lblDatCadVen.setLocation(700, 110);
+        lblVenCadVen.setLocation(700, 160);
+
+        txtCliCadVen.setSelectionStart(0);
+        txtCliCadVen.setSelectionEnd(0);
+        btnCanCadVen.grabFocus();
+
+        lblTitPri.setText("Alterar Vencimento");
+        lblTitPri.setVisible(true);
+    }//GEN-LAST:event_btnAltVenActionPerformed
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -13060,6 +13169,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnAltGerEnt;
     private javax.swing.JButton btnAltGerEst;
     private javax.swing.JButton btnAltGerTipSer;
+    private javax.swing.JButton btnAltVen;
     private javax.swing.JLabel btnAnoRel;
     private javax.swing.JButton btnBusConEnt;
     private javax.swing.JButton btnBusConEst;
@@ -13151,6 +13261,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblBusIteGerEnt;
     private javax.swing.JLabel lblChiCadEst;
     private javax.swing.JLabel lblChiGerEst;
+    private javax.swing.JLabel lblCli;
     private javax.swing.JLabel lblCliCadEnt;
     private javax.swing.JLabel lblCliCadVen;
     private javax.swing.JLabel lblCliGerEnt;
@@ -13161,6 +13272,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblCpfMas;
     private javax.swing.JLabel lblCusCadEnt;
     private javax.swing.JLabel lblCusGerEnt;
+    private javax.swing.JLabel lblDat;
     private javax.swing.JLabel lblDatBusGerEnt;
     private javax.swing.JLabel lblDatCadEnt;
     private javax.swing.JLabel lblDatCadVen;
@@ -13237,6 +13349,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblValMedRel;
     private javax.swing.JLabel lblValPixRel;
     private javax.swing.JLabel lblValTotRel;
+    private javax.swing.JLabel lblVen;
     private javax.swing.JLabel lblVenCadVen;
     private javax.swing.JLabel lblVenMas;
     private javax.swing.JPanel pnlCadDes;
