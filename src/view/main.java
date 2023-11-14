@@ -924,11 +924,19 @@ public final class main extends javax.swing.JFrame {
 
                     chkCus.setEnabled(true);
                 }
-
+                
+                lblResRel.setVisible(false);
+                
             } else {
 
                 tblRel.setVisible(false);
                 scrRel.setVisible(false);
+
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+
+                mol.setRowCount(0);
+
+                lblResRel.setVisible(true);
 
                 lblValTotRel.setText("R$0,00");
                 lblValMedRel.setText("R$0,00");
@@ -946,6 +954,7 @@ public final class main extends javax.swing.JFrame {
     }
 
     public void cmbrelatorio(JTable tabela, JComboBox<String> cmbrelatorio, int coluna) {
+
         Set<String> valoresUnicos = new HashSet<>();
 
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
@@ -968,6 +977,17 @@ public final class main extends javax.swing.JFrame {
         for (String valor : valoresUnicos) {
             cmbrelatorio.addItem(valor);
         }
+
+        if (cmbrelatorio.getItemCount() == 1) {
+
+            cmbrelatorio.setEnabled(false);
+
+        } else {
+
+            cmbrelatorio.setEnabled(true);
+
+        }
+
     }
 
     private boolean tabelagerenciarentrada(JTable tbl, JScrollPane scr, String data) {
@@ -2056,6 +2076,7 @@ public final class main extends javax.swing.JFrame {
         scrGerEst = new javax.swing.JScrollPane();
         tblGerEst = new javax.swing.JTable();
         pnlRel = new javax.swing.JPanel();
+        lblResRel = new javax.swing.JLabel();
         cmbRel = new javax.swing.JComboBox<>();
         scrRel = new javax.swing.JScrollPane();
         tblRel = new javax.swing.JTable();
@@ -4939,6 +4960,25 @@ public final class main extends javax.swing.JFrame {
 
         pnlRel.setBackground(new java.awt.Color(246, 246, 246));
         pnlRel.setLayout(null);
+
+        lblResRel.setFont(fontbold(14));
+        lblResRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblResRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblResRel.setText("Sem resultados para o período selecionado!");
+        lblResRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblResRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblResRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblResRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblResRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(lblResRel);
+        lblResRel.setBounds(240, 270, 340, 20);
 
         cmbRel.setFont(fontmed(13));
         cmbRel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtrar resultados" }));
@@ -13157,6 +13197,18 @@ public final class main extends javax.swing.JFrame {
         lblTitPri.setText("Alterar Vencimento");
         lblTitPri.setVisible(true);
     }//GEN-LAST:event_btnAltVenActionPerformed
+
+    private void lblResRelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResRelMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblResRelMouseEntered
+
+    private void lblResRelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResRelMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblResRelMouseExited
+
+    private void lblResRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResRelMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblResRelMouseReleased
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -13336,6 +13388,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblR$GerEnt;
     private javax.swing.JLabel lblR$GerEst;
     private javax.swing.JLabel lblR$Os;
+    private javax.swing.JLabel lblResRel;
     private javax.swing.JLabel lblSelIteCadEnt;
     private javax.swing.JLabel lblSelIteGerEnt;
     private javax.swing.JLabel lblSerCadEnt;
