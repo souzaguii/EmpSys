@@ -12578,7 +12578,7 @@ public final class main extends javax.swing.JFrame {
             vencimento ve = new vencimento();
             vencimentoDAO vedao = new vencimentoDAO();
 
-            if (lblTitPri.getText().equals("Cadastrar Venciment")) {
+            if (lblTitPri.getText().equals("Cadastrar Vencimento")) {
 
                 ve.setCliente(txtCliCadVen.getText());
                 ve.setPlano(txtPlaCadVen.getText());
