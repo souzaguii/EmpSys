@@ -924,9 +924,9 @@ public final class main extends javax.swing.JFrame {
 
                     chkCus.setEnabled(true);
                 }
-                
+
                 lblResRel.setVisible(false);
-                
+
             } else {
 
                 tblRel.setVisible(false);
@@ -5514,6 +5514,9 @@ public final class main extends javax.swing.JFrame {
             }
         });
         txtTelOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelOsKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelOsKeyTyped(evt);
             }
@@ -6016,6 +6019,9 @@ public final class main extends javax.swing.JFrame {
             }
         });
         txtNumConMas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumConMasKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNumConMasKeyTyped(evt);
             }
@@ -6046,6 +6052,12 @@ public final class main extends javax.swing.JFrame {
             }
         });
         txtCpfMas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCpfMasKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfMasKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCpfMasKeyTyped(evt);
             }
@@ -6076,6 +6088,9 @@ public final class main extends javax.swing.JFrame {
             }
         });
         txtNumAceMas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumAceMasKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNumAceMasKeyTyped(evt);
             }
@@ -6106,6 +6121,9 @@ public final class main extends javax.swing.JFrame {
             }
         });
         txtNumPorMas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumPorMasKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNumPorMasKeyTyped(evt);
             }
@@ -13209,6 +13227,84 @@ public final class main extends javax.swing.JFrame {
     private void lblResRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResRelMouseReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_lblResRelMouseReleased
+
+    private void txtCpfMasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfMasKeyPressed
+
+    }//GEN-LAST:event_txtCpfMasKeyPressed
+
+    private void txtCpfMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfMasKeyReleased
+        if (txtCpfMas.getText().length() == 11 && (!txtCpfMas.getText().contains(".") || !txtCpfMas.getText().contains("-"))) {
+
+            StringBuilder string = new StringBuilder(txtCpfMas.getText());
+
+            string.insert(3, ".");
+            string.insert(7, ".");
+            string.insert(11, "-");
+
+            txtCpfMas.setText(string.toString());
+
+        }
+    }//GEN-LAST:event_txtCpfMasKeyReleased
+
+    private void txtNumConMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumConMasKeyReleased
+        if (txtNumConMas.getText().length() == 11 && (!txtNumConMas.getText().contains("(") || !txtNumConMas.getText().contains(")") || !txtNumConMas.getText().contains("-") || !txtNumConMas.getText().contains(" "))) {
+
+            StringBuilder string = new StringBuilder(txtNumConMas.getText());
+
+            string.insert(0, "(");
+            string.insert(3, ")");
+            string.insert(4, " ");
+            string.insert(10, "-");
+
+            txtNumConMas.setText(string.toString());
+
+        }
+    }//GEN-LAST:event_txtNumConMasKeyReleased
+
+    private void txtNumAceMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumAceMasKeyReleased
+          if (txtNumAceMas.getText().length() == 11 && (!txtNumAceMas.getText().contains("(") || !txtNumAceMas.getText().contains(")") || !txtNumAceMas.getText().contains("-") || !txtNumAceMas.getText().contains(" "))) {
+
+            StringBuilder string = new StringBuilder(txtNumAceMas.getText());
+
+            string.insert(0, "(");
+            string.insert(3, ")");
+            string.insert(4, " ");
+            string.insert(10, "-");
+
+            txtNumAceMas.setText(string.toString());
+
+        }
+    }//GEN-LAST:event_txtNumAceMasKeyReleased
+
+    private void txtNumPorMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumPorMasKeyReleased
+         if (txtNumPorMas.getText().length() == 11 && (!txtNumPorMas.getText().contains("(") || !txtNumPorMas.getText().contains(")") || !txtNumPorMas.getText().contains("-") || !txtNumPorMas.getText().contains(" "))) {
+
+            StringBuilder string = new StringBuilder(txtNumPorMas.getText());
+
+            string.insert(0, "(");
+            string.insert(3, ")");
+            string.insert(4, " ");
+            string.insert(10, "-");
+
+            txtNumPorMas.setText(string.toString());
+
+        }
+    }//GEN-LAST:event_txtNumPorMasKeyReleased
+
+    private void txtTelOsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelOsKeyReleased
+        if (txtTelOs.getText().length() == 11 && (!txtTelOs.getText().contains("(") || !txtTelOs.getText().contains(")") || !txtTelOs.getText().contains("-") || !txtTelOs.getText().contains(" "))) {
+
+            StringBuilder string = new StringBuilder(txtTelOs.getText());
+
+            string.insert(0, "(");
+            string.insert(3, ")");
+            string.insert(4, " ");
+            string.insert(10, "-");
+
+            txtTelOs.setText(string.toString());
+
+        }
+    }//GEN-LAST:event_txtTelOsKeyReleased
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
