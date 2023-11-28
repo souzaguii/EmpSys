@@ -13233,7 +13233,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCpfMasKeyPressed
 
     private void txtCpfMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfMasKeyReleased
-        if (txtCpfMas.getText().length() == 11 && (!txtCpfMas.getText().contains(".") || !txtCpfMas.getText().contains("-"))) {
+        if (txtCpfMas.getText().length() == 11 && !txtCpfMas.getText().contains(".")) {
 
             StringBuilder string = new StringBuilder(txtCpfMas.getText());
 
@@ -13247,7 +13247,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCpfMasKeyReleased
 
     private void txtNumConMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumConMasKeyReleased
-        if (txtNumConMas.getText().length() == 11 && (!txtNumConMas.getText().contains("(") || !txtNumConMas.getText().contains(")") || !txtNumConMas.getText().contains("-") || !txtNumConMas.getText().contains(" "))) {
+        if (txtNumConMas.getText().length() == 11 && !txtNumConMas.getText().contains("(")) {
 
             StringBuilder string = new StringBuilder(txtNumConMas.getText());
 
@@ -13262,7 +13262,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumConMasKeyReleased
 
     private void txtNumAceMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumAceMasKeyReleased
-          if (txtNumAceMas.getText().length() == 11 && (!txtNumAceMas.getText().contains("(") || !txtNumAceMas.getText().contains(")") || !txtNumAceMas.getText().contains("-") || !txtNumAceMas.getText().contains(" "))) {
+          if (txtNumAceMas.getText().length() == 11 && !txtNumAceMas.getText().contains("(")) {
 
             StringBuilder string = new StringBuilder(txtNumAceMas.getText());
 
@@ -13277,7 +13277,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumAceMasKeyReleased
 
     private void txtNumPorMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumPorMasKeyReleased
-         if (txtNumPorMas.getText().length() == 11 && (!txtNumPorMas.getText().contains("(") || !txtNumPorMas.getText().contains(")") || !txtNumPorMas.getText().contains("-") || !txtNumPorMas.getText().contains(" "))) {
+         if (txtNumPorMas.getText().length() == 11 && !txtNumPorMas.getText().contains("(")) {
 
             StringBuilder string = new StringBuilder(txtNumPorMas.getText());
 
@@ -13292,7 +13292,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumPorMasKeyReleased
 
     private void txtTelOsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelOsKeyReleased
-        if (txtTelOs.getText().length() == 11 && (!txtTelOs.getText().contains("(") || !txtTelOs.getText().contains(")") || !txtTelOs.getText().contains("-") || !txtTelOs.getText().contains(" "))) {
+        if (txtTelOs.getText().length() == 11 && !txtTelOs.getText().contains("(")) {
 
             StringBuilder string = new StringBuilder(txtTelOs.getText());
 
