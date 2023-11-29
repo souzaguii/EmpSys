@@ -28,6 +28,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public final class main extends javax.swing.JFrame {
 
-    public main() {
+    public main() throws IOException, InterruptedException {
 
         initComponents();
         iniciasistema();
@@ -125,7 +126,7 @@ public final class main extends javax.swing.JFrame {
 
     }
 
-    public void iniciasistema() {
+    public void iniciasistema() throws InterruptedException, IOException {
 
         pnlCadEst.setVisible(false);
         pnlConEst.setVisible(false);
@@ -181,6 +182,8 @@ public final class main extends javax.swing.JFrame {
         connection.Connect();
 
         verificavencimento();
+
+        backupdatabase();
 
     }
 
@@ -278,6 +281,83 @@ public final class main extends javax.swing.JFrame {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    private void backupdatabase() throws InterruptedException, IOException {
+
+        lblBakPri.setText("Backup automático em andamento...");
+        btnTenPri.setVisible(false);
+        lblBakPri.setVisible(true);
+
+        LocalDateTime data = LocalDateTime.now();
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
+
+        String dataFormatada = data.format(formato);
+
+        String username = "root";
+        String password = "Empcell@4848ROOT";
+        String databaseName = "empsysdatabase";
+        String outputFile = "\\\\PC\\Arquivos\\BackupDatabase\\bkp-" + dataFormatada + ".sql";
+
+        String loginFilePath = System.getProperty("user.dir") + "\\login.cnf";
+        String loginFileContent = "[client]\nuser=" + username + "\npassword=" + password;
+        java.nio.file.Files.write(java.nio.file.Paths.get(loginFilePath), loginFileContent.getBytes());
+
+        String[] command = {
+            "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump",
+            "--defaults-extra-file=" + loginFilePath,
+            "--databases",
+            databaseName,
+            "--result-file=" + outputFile
+        };
+
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+        processBuilder.redirectErrorStream(true);
+
+        Process process = processBuilder.start();
+        int exitCode = process.waitFor();
+
+        Timer timer = new Timer(1000, new ActionListener() {
+
+            int n = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                n++;
+
+                if (n >= 5) {
+
+                    if (exitCode == 0) {
+
+                        lblBakPri.setText("Backup concluído com sucesso!");
+
+                        if (n >= 8) {
+                            lblBakPri.setVisible(false);
+                            ((Timer) e.getSource()).stop();
+                        }
+
+                    } else {
+
+                        ((Timer) e.getSource()).stop();
+
+                        lblBakPri.setVisible(true);
+                        btnTenPri.setVisible(true);
+                        lblBakPri.setText("Atenção, erro na conclusão do backup!");
+
+                    }
+
+                }
+
+            }
+
+        });
+        timer.start();
+
+        java.nio.file.Files.deleteIfExists(java.nio.file.Paths.get(loginFilePath));
+
     }
 
     private boolean tabelatiposervico() {
@@ -1819,6 +1899,8 @@ public final class main extends javax.swing.JFrame {
         btnGroup3 = new javax.swing.ButtonGroup();
         pnlPri = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
+        btnTenPri = new javax.swing.JLabel();
+        lblBakPri = new javax.swing.JLabel();
         btnVenPri = new javax.swing.JLabel();
         btnEntPri = new javax.swing.JLabel();
         btnCadEnt = new javax.swing.JLabel();
@@ -2251,6 +2333,45 @@ public final class main extends javax.swing.JFrame {
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoLoja580.png"))); // NOI18N
         imgLogo.setText("jLabel1");
         pnlPri.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 580, 190));
+
+        btnTenPri.setFont(fontbold(10));
+        btnTenPri.setForeground(corforeazul);
+        btnTenPri.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnTenPri.setText("Tentar novamente");
+        btnTenPri.setToolTipText("");
+        btnTenPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTenPri.setVisible(false);
+        btnTenPri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTenPriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTenPriMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnTenPriMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnTenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 100, 20));
+
+        lblBakPri.setFont(fontmed(12));
+        lblBakPri.setForeground(corforeazul);
+        lblBakPri.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblBakPri.setText("Backup automático em andamento...");
+        lblBakPri.setToolTipText("");
+        lblBakPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblBakPri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblBakPriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblBakPriMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblBakPriMouseReleased(evt);
+            }
+        });
+        pnlPri.add(lblBakPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 280, 20));
 
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(corforeazul);
@@ -13262,7 +13383,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumConMasKeyReleased
 
     private void txtNumAceMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumAceMasKeyReleased
-          if (txtNumAceMas.getText().length() == 11 && !txtNumAceMas.getText().contains("(")) {
+        if (txtNumAceMas.getText().length() == 11 && !txtNumAceMas.getText().contains("(")) {
 
             StringBuilder string = new StringBuilder(txtNumAceMas.getText());
 
@@ -13277,7 +13398,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumAceMasKeyReleased
 
     private void txtNumPorMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumPorMasKeyReleased
-         if (txtNumPorMas.getText().length() == 11 && !txtNumPorMas.getText().contains("(")) {
+        if (txtNumPorMas.getText().length() == 11 && !txtNumPorMas.getText().contains("(")) {
 
             StringBuilder string = new StringBuilder(txtNumPorMas.getText());
 
@@ -13305,11 +13426,50 @@ public final class main extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_txtTelOsKeyReleased
+
+    private void lblBakPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBakPriMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblBakPriMouseEntered
+
+    private void lblBakPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBakPriMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblBakPriMouseExited
+
+    private void lblBakPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBakPriMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblBakPriMouseReleased
+
+    private void btnTenPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTenPriMouseEntered
+        btnTenPri.setForeground(new Color(19, 84, 178));
+    }//GEN-LAST:event_btnTenPriMouseEntered
+
+    private void btnTenPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTenPriMouseExited
+         btnTenPri.setForeground(new Color(10, 60, 133));
+    }//GEN-LAST:event_btnTenPriMouseExited
+
+    private void btnTenPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTenPriMouseReleased
+
+        btnTenPri.setVisible(false);
+
+        try {
+            backupdatabase();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnTenPriMouseReleased
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
-            new main().setVisible(true);
+            try {
+                new main().setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -13376,6 +13536,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnSalDes;
     private javax.swing.JButton btnSalTipSer;
     private javax.swing.JLabel btnSemRel;
+    private javax.swing.JLabel btnTenPri;
     private javax.swing.JLabel btnTipSerPri;
     private javax.swing.JLabel btnTodRel;
     private javax.swing.JLabel btnVen;
@@ -13402,6 +13563,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBakPri;
     private javax.swing.JLabel lblBusConEnt;
     private javax.swing.JLabel lblBusConEst;
     private javax.swing.JLabel lblBusGerEst;
