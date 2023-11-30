@@ -18,10 +18,13 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
 import model.estoque;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -305,7 +308,7 @@ public final class main extends javax.swing.JFrame {
         java.nio.file.Files.write(java.nio.file.Paths.get(loginFilePath), loginFileContent.getBytes());
 
         String[] command = {
-            "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump",
+            System.getProperty("user.dir") + "\\bin\\mysqldump",
             "--defaults-extra-file=" + loginFilePath,
             "--databases",
             databaseName,
@@ -13444,7 +13447,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTenPriMouseEntered
 
     private void btnTenPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTenPriMouseExited
-         btnTenPri.setForeground(new Color(10, 60, 133));
+        btnTenPri.setForeground(new Color(10, 60, 133));
     }//GEN-LAST:event_btnTenPriMouseExited
 
     private void btnTenPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTenPriMouseReleased
