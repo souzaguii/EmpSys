@@ -303,7 +303,7 @@ public final class main extends javax.swing.JFrame {
         String databaseName = "empsysdatabase";
         String outputFile = "\\\\PC\\Arquivos\\BackupDatabase\\bkp-" + dataFormatada + ".sql";
 
-        String loginFilePath = System.getProperty("user.dir") + "\\login.cnf";
+        String loginFilePath = System.getProperty("user.dir") + "\\bin\\bkp.cnf";
         String loginFileContent = "[client]\nuser=" + username + "\npassword=" + password;
         java.nio.file.Files.write(java.nio.file.Paths.get(loginFilePath), loginFileContent.getBytes());
 
