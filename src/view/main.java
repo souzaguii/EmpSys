@@ -2,6 +2,7 @@ package view;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import dao.connection;
+import static dao.connection.status;
 import dao.despezasDAO;
 import dao.entradaDAO;
 import dao.estoqueDAO;
@@ -18,13 +19,10 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
 import model.estoque;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -54,6 +52,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -70,11 +69,11 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public final class main extends javax.swing.JFrame {
 
-    public main() throws IOException, InterruptedException {
+    public main() {
 
         initComponents();
-        iniciasistema();
         setLocationRelativeTo(null);
+        loading();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -129,7 +128,87 @@ public final class main extends javax.swing.JFrame {
 
     }
 
-    public void iniciasistema() throws InterruptedException, IOException {
+    public void loading() {
+
+        loading lo = new loading();
+        lo.setVisible(true);
+
+        SwingWorker<Void, String> worker = new SwingWorker<Void, String>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+
+                publish("Conectando ao banco de dados...");
+                connection.Connect();
+
+                if (connection.connection == null) {
+
+                    publish("Erro na conexão ao banco de dados!");
+
+                    Thread.sleep(3000);
+
+                    System.exit(0);
+
+                } else {
+
+                    publish("Verificando dados...");
+
+                    if (!verificavencimento()) {
+
+                        publish("Erro na verificação!");
+
+                        Thread.sleep(3000);
+
+                        System.exit(0);
+
+                    } else {
+
+                        publish("Fazendo backup automático...");
+                        if (backupdatabase()) {
+                            publish("Backup concluído com sucesso! Iniciando...");
+                            lblBakPri.setVisible(false);
+                        } else {
+
+                            publish("Atenção, erro na conclusão do backup!");
+
+                            lblBakPri.setVisible(true);
+                            btnTenPri.setVisible(true);
+                            lblBakPri.setText("Atenção, erro na conclusão do backup!");
+
+                        }
+
+                        Thread.sleep(3000);
+
+                        lo.dispose();
+
+                    }
+
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void process(java.util.List<String> chunks) {
+                // Atualize a UI com mensagens intermediárias
+                for (String mensagem : chunks) {
+                    lo.lblLoa.setText(mensagem);
+                }
+            }
+
+            @Override
+            protected void done() {
+
+                setVisible(true);
+                pnlPri.setVisible(true);
+                iniciasistema();
+
+            }
+        };
+
+        worker.execute();
+    }
+
+    public void iniciasistema() {
 
         pnlCadEst.setVisible(false);
         pnlConEst.setVisible(false);
@@ -181,12 +260,6 @@ public final class main extends javax.swing.JFrame {
         btnGerEnt.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
-
-        connection.Connect();
-
-        verificavencimento();
-
-        backupdatabase();
 
     }
 
@@ -286,81 +359,86 @@ public final class main extends javax.swing.JFrame {
         return null;
     }
 
-    private void backupdatabase() throws InterruptedException, IOException {
+    private boolean backupdatabase() {
 
-        lblBakPri.setText("Backup automático em andamento...");
-        btnTenPri.setVisible(false);
-        lblBakPri.setVisible(true);
+        try {
 
-        LocalDateTime data = LocalDateTime.now();
+            lblBakPri.setText("Backup automático em andamento...");
+            btnTenPri.setVisible(false);
+            lblBakPri.setVisible(true);
 
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
+            LocalDateTime data = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
+            String dataFormatada = data.format(formato);
 
-        String dataFormatada = data.format(formato);
+            String username = "root";
+            String password = "Empcell@4848ROOT";
+            String databaseName = "empsysdatabase";
+            String outputFile = "\\\\PC\\Arquivos\\BackupDatabase\\reg\\bkp-" + dataFormatada + ".sql"; // Corrigindo caminho do arquivo
 
-        String username = "root";
-        String password = "Empcell@4848ROOT";
-        String databaseName = "empsysdatabase";
-        String outputFile = "\\\\PC\\Arquivos\\BackupDatabase\\bkp-" + dataFormatada + ".sql";
+            String loginFilePath = System.getProperty("user.dir") + "\\bin\\bkp.cnf";
+            String loginFileContent = "[client]\nuser=" + username + "\npassword=" + password;
+            String host = "192.168.0.123";
 
-        String loginFilePath = System.getProperty("user.dir") + "\\bin\\bkp.cnf";
-        String loginFileContent = "[client]\nuser=" + username + "\npassword=" + password;
-        java.nio.file.Files.write(java.nio.file.Paths.get(loginFilePath), loginFileContent.getBytes());
+            java.nio.file.Files.write(java.nio.file.Paths.get(loginFilePath), loginFileContent.getBytes());
 
-        String[] command = {
-            System.getProperty("user.dir") + "\\bin\\mysqldump",
-            "--defaults-extra-file=" + loginFilePath,
-            "--databases",
-            databaseName,
-            "--result-file=" + outputFile
-        };
+            String[] command = {
+                "\\\\PC\\Arquivos\\BackupDatabase\\bin\\mysqldump",
+                "--defaults-extra-file=" + loginFilePath,
+                "--host=" + host,
+                "--databases",
+                databaseName,
+                "--result-file=" + outputFile
+            };
 
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            processBuilder.redirectErrorStream(true);
 
-        processBuilder.redirectErrorStream(true);
+            Process process = processBuilder.start();
 
-        Process process = processBuilder.start();
-        int exitCode = process.waitFor();
+            int exitCode = process.waitFor();
 
-        Timer timer = new Timer(1000, new ActionListener() {
+            Timer timer = new Timer(1000, new ActionListener() {
+                int n = 0;
 
-            int n = 0;
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    n++;
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
+                    if (n >= 5) {
 
-                n++;
+                        if (exitCode == 0) {
+                            lblBakPri.setText("Backup concluído com sucesso!");
 
-                if (n >= 5) {
+                            if (n >= 8) {
+                                lblBakPri.setVisible(false);
+                                ((Timer) e.getSource()).stop();
+                            }
 
-                    if (exitCode == 0) {
+                        } else {
 
-                        lblBakPri.setText("Backup concluído com sucesso!");
-
-                        if (n >= 8) {
-                            lblBakPri.setVisible(false);
                             ((Timer) e.getSource()).stop();
+
+                            lblBakPri.setVisible(true);
+                            btnTenPri.setVisible(true);
+                            lblBakPri.setText("Atenção, erro na conclusão do backup!");
+
                         }
-
-                    } else {
-
-                        ((Timer) e.getSource()).stop();
-
-                        lblBakPri.setVisible(true);
-                        btnTenPri.setVisible(true);
-                        lblBakPri.setText("Atenção, erro na conclusão do backup!");
-
                     }
-
                 }
+            });
 
+            timer.start();
+            java.nio.file.Files.deleteIfExists(java.nio.file.Paths.get(loginFilePath));
+
+            if (exitCode != 0) {
+                return false;
             }
 
-        });
-        timer.start();
-
-        java.nio.file.Files.deleteIfExists(java.nio.file.Paths.get(loginFilePath));
-
+        } catch (IOException | InterruptedException ex) {
+            return false;
+        }
+        return true;
     }
 
     private boolean tabelatiposervico() {
@@ -410,7 +488,7 @@ public final class main extends javax.swing.JFrame {
         return true;
     }
 
-    private void verificavencimento() {
+    private boolean verificavencimento() {
 
         try {
 
@@ -454,9 +532,9 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-
+        return true;
     }
 
     private boolean tabelaestoqueconsulta(estoque es, JTable tbl, JScrollPane scr) {
@@ -2329,6 +2407,7 @@ public final class main extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        pnlPri.setVisible(false);
         pnlPri.setBackground(new java.awt.Color(246, 246, 246));
         pnlPri.setPreferredSize(new java.awt.Dimension(1300, 760));
         pnlPri.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2363,17 +2442,6 @@ public final class main extends javax.swing.JFrame {
         lblBakPri.setText("Backup automático em andamento...");
         lblBakPri.setToolTipText("");
         lblBakPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblBakPri.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblBakPriMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblBakPriMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblBakPriMouseReleased(evt);
-            }
-        });
         pnlPri.add(lblBakPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 280, 20));
 
         btnVenPri.setFont(fontmed(12));
@@ -10346,13 +10414,9 @@ public final class main extends javax.swing.JFrame {
             pnlCadDes.setVisible(false);
             lblTitPri.setVisible(false);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
 
-        } catch (ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSalDesActionPerformed
 
@@ -13430,18 +13494,6 @@ public final class main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtTelOsKeyReleased
 
-    private void lblBakPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBakPriMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblBakPriMouseEntered
-
-    private void lblBakPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBakPriMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblBakPriMouseExited
-
-    private void lblBakPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBakPriMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblBakPriMouseReleased
-
     private void btnTenPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTenPriMouseEntered
         btnTenPri.setForeground(new Color(19, 84, 178));
     }//GEN-LAST:event_btnTenPriMouseEntered
@@ -13451,28 +13503,13 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTenPriMouseExited
 
     private void btnTenPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTenPriMouseReleased
-
         btnTenPri.setVisible(false);
-
-        try {
-            backupdatabase();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        backupdatabase();
     }//GEN-LAST:event_btnTenPriMouseReleased
     public static void main(String args[]) {
-
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
-            try {
-                new main().setVisible(true);
-            } catch (IOException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            new main().setVisible(false);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -13682,7 +13719,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JPanel pnlIteGerEnt;
     private javax.swing.JPanel pnlMas;
     private javax.swing.JPanel pnlOs;
-    private javax.swing.JPanel pnlPri;
+    public static javax.swing.JPanel pnlPri;
     private javax.swing.JPanel pnlRel;
     private javax.swing.JPanel pnlVen;
     private javax.swing.JRadioButton rbtnAceCadEst;

@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import view.loading;
+import view.main;
 
 public class connection {
 
     public static String status;
-    private static Connection connection;
+    public static Connection connection = null;
 
     public static java.sql.Connection Connect() {
         if (connection == null) {
@@ -18,8 +20,9 @@ public class connection {
     }
 
     private static void createConnection() {
-        
+
         try {
+
             String driverName = "com.mysql.cj.jdbc.Driver";
             Class.forName(driverName);
             String serverName = "192.168.0.123";
@@ -34,13 +37,20 @@ public class connection {
             if (connection != null) {
                 status = "Conectado com sucesso!";
             } else {
-                status = "Não foi possível realizar a conexão!";
+                status = "Erro na conexão com o banco de dados!";
             }
 
         } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "O driver especificado não foi encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+            if (main.pnlPri.isVisible()) {
+                JOptionPane.showMessageDialog(null, "O driver especificado não foi encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+            status = "Erro na conexão com o banco de dados!";
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar banco de dados. Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            if (main.pnlPri.isVisible()) {
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+            status = "Erro na conexão com o banco de dados!";
         }
     }
 
@@ -52,10 +62,10 @@ public class connection {
         if (connection != null) {
             connection.close();
             connection = null;
-            status = "Conexão fechada";
+            status = "Conexão fechada com sucesso!";
             return true;
         }
         return false;
     }
- 
+
 }
