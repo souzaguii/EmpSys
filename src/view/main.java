@@ -6235,7 +6235,7 @@ public final class main extends javax.swing.JFrame {
 
         lblValJur3.setFont(fontbold(16));
         lblValJur3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValJur3.setText("Valor");
+        lblValJur3.setText("Preço");
         lblValJur3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblValJur3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -6298,7 +6298,7 @@ public final class main extends javax.swing.JFrame {
 
         lblValFinJur1.setFont(fontbold(16));
         lblValFinJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValFinJur1.setText("Valor final");
+        lblValFinJur1.setText("Preço Final");
         lblValFinJur1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblValFinJur1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

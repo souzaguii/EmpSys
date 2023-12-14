@@ -7695,7 +7695,7 @@
                   <Connection code="fontbold(16)" type="code"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Valor"/>
+                <Property name="text" type="java.lang.String" value="Pre&#xe7;o"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Default Cursor"/>
                 </Property>
@@ -7786,7 +7786,7 @@
                   <Connection code="fontbold(16)" type="code"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Valor final"/>
+                <Property name="text" type="java.lang.String" value="Pre&#xe7;o Final"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Default Cursor"/>
                 </Property>
