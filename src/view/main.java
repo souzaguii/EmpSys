@@ -230,6 +230,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.setVisible(false);
         pnlCadVen.setVisible(false);
         pnlVen.setVisible(false);
+        pnlJur.setVisible(false);
 
         txtTipCadEst.setVisible(false);
         lblR$CadEst.setVisible(false);
@@ -262,6 +263,7 @@ public final class main extends javax.swing.JFrame {
         btnGerEnt.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
     }
 
@@ -1981,6 +1983,7 @@ public final class main extends javax.swing.JFrame {
         imgLogo = new javax.swing.JLabel();
         btnTenPri = new javax.swing.JLabel();
         lblBakPri = new javax.swing.JLabel();
+        btnJurPri = new javax.swing.JLabel();
         btnVenPri = new javax.swing.JLabel();
         btnEntPri = new javax.swing.JLabel();
         btnCadEnt = new javax.swing.JLabel();
@@ -2329,12 +2332,30 @@ public final class main extends javax.swing.JFrame {
         sepDesGerTipSer = new javax.swing.JSeparator();
         scrTipSer = new javax.swing.JScrollPane();
         tblTipSer = new javax.swing.JTable();
+        pnlJur = new javax.swing.JPanel();
+        btnVolJur = new javax.swing.JButton();
+        btnCalJur = new javax.swing.JButton();
+        lblR$Jur = new javax.swing.JLabel();
+        lblValJur = new javax.swing.JLabel();
+        txtValJur = new javax.swing.JTextField();
+        sepDesGerTipSer10 = new javax.swing.JSeparator();
+        sepDesGerTipSer11 = new javax.swing.JSeparator();
+        sepDesGerTipSer16 = new javax.swing.JSeparator();
+        lblValJur2 = new javax.swing.JLabel();
+        lblValJur3 = new javax.swing.JLabel();
+        lblParJur = new javax.swing.JLabel();
+        lblValFinJur = new javax.swing.JLabel();
+        lblValJurJur = new javax.swing.JLabel();
+        lblValFinJur1 = new javax.swing.JLabel();
+        lblJurJur = new javax.swing.JLabel();
+        spnParJur = new javax.swing.JSpinner();
         pnlMas = new javax.swing.JPanel();
         btnVenMas = new javax.swing.JButton();
         btnGerMas = new javax.swing.JButton();
         btnCanMas = new javax.swing.JButton();
         btnCopMas = new javax.swing.JLabel();
         lblNomMas = new javax.swing.JLabel();
+        chkDebMas = new javax.swing.JCheckBox();
         txtNomMas = new javax.swing.JTextField();
         sepDesGerTipSer1 = new javax.swing.JSeparator();
         sepDesGerTipSer2 = new javax.swing.JSeparator();
@@ -2442,6 +2463,25 @@ public final class main extends javax.swing.JFrame {
         lblBakPri.setToolTipText("");
         lblBakPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlPri.add(lblBakPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 280, 20));
+
+        btnJurPri.setFont(fontmed(12));
+        btnJurPri.setForeground(corforeazul);
+        btnJurPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnJurPri.setText("Calcular Juros");
+        btnJurPri.setToolTipText("");
+        btnJurPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnJurPri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnJurPriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnJurPriMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnJurPriMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnJurPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 300, 140, 20));
 
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(corforeazul);
@@ -6101,6 +6141,215 @@ public final class main extends javax.swing.JFrame {
 
         pnlPri.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
+        pnlJur.setBackground(new java.awt.Color(246, 246, 246));
+        pnlJur.setLayout(null);
+
+        btnVolJur.setFont(fontmed(12));
+        btnVolJur.setForeground(new java.awt.Color(10, 60, 133));
+        btnVolJur.setText("Voltar");
+        btnVolJur.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolJur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolJurActionPerformed(evt);
+            }
+        });
+        pnlJur.add(btnVolJur);
+        btnVolJur.setBounds(330, 180, 100, 40);
+
+        btnCalJur.setFont(fontmed(12));
+        btnCalJur.setForeground(new java.awt.Color(10, 60, 133));
+        btnCalJur.setText("Calcular");
+        btnCalJur.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCalJur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalJurActionPerformed(evt);
+            }
+        });
+        pnlJur.add(btnCalJur);
+        btnCalJur.setBounds(210, 180, 100, 40);
+
+        lblR$Jur.setFont(fontmed(13));
+        lblR$Jur.setText("R$");
+        lblR$Jur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlJur.add(lblR$Jur);
+        lblR$Jur.setBounds(200, 100, 20, 21);
+
+        lblValJur.setFont(fontmed(12));
+        lblValJur.setForeground(new java.awt.Color(10, 60, 133));
+        lblValJur.setText("Preço");
+        lblValJur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlJur.add(lblValJur);
+        lblValJur.setBounds(200, 100, 70, 20);
+
+        txtValJur.setBackground(new java.awt.Color(246, 246, 246));
+        txtValJur.setFont(fontmed(13));
+        txtValJur.setBorder(null);
+        txtValJur.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtValJurFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtValJurFocusLost(evt);
+            }
+        });
+        txtValJur.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValJurKeyTyped(evt);
+            }
+        });
+        pnlJur.add(txtValJur);
+        txtValJur.setBounds(220, 100, 60, 20);
+
+        sepDesGerTipSer10.setForeground(new java.awt.Color(10, 60, 133));
+        pnlJur.add(sepDesGerTipSer10);
+        sepDesGerTipSer10.setBounds(200, 120, 80, 10);
+
+        sepDesGerTipSer11.setForeground(new java.awt.Color(10, 60, 133));
+        pnlJur.add(sepDesGerTipSer11);
+        sepDesGerTipSer11.setBounds(200, 120, 80, 10);
+
+        sepDesGerTipSer16.setBackground(new java.awt.Color(10, 60, 133));
+        sepDesGerTipSer16.setForeground(new java.awt.Color(10, 60, 133));
+        sepDesGerTipSer16.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        pnlJur.add(sepDesGerTipSer16);
+        sepDesGerTipSer16.setBounds(640, 40, 30, 235);
+
+        lblValJur2.setFont(fontmed(16));
+        lblValJur2.setForeground(new java.awt.Color(10, 60, 133));
+        lblValJur2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValJur2.setText("R$ 0,00");
+        lblValJur2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblValJur2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblValJur2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblValJur2MouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblValJur2MouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblValJur2);
+        lblValJur2.setBounds(900, 120, 130, 20);
+
+        lblValJur3.setFont(fontbold(16));
+        lblValJur3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValJur3.setText("Valor");
+        lblValJur3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblValJur3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblValJur3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblValJur3MouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblValJur3MouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblValJur3);
+        lblValJur3.setBounds(900, 90, 130, 20);
+
+        lblParJur.setFont(fontmed(12));
+        lblParJur.setForeground(new java.awt.Color(10, 60, 133));
+        lblParJur.setText("parcela(s)");
+        lblParJur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlJur.add(lblParJur);
+        lblParJur.setBounds(384, 95, 70, 30);
+
+        lblValFinJur.setFont(fontmed(16));
+        lblValFinJur.setForeground(new java.awt.Color(10, 60, 133));
+        lblValFinJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValFinJur.setText("R$ 0,00");
+        lblValFinJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblValFinJur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblValFinJurMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblValFinJurMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblValFinJurMouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblValFinJur);
+        lblValFinJur.setBounds(830, 210, 130, 20);
+
+        lblValJurJur.setFont(fontmed(16));
+        lblValJurJur.setForeground(new java.awt.Color(10, 60, 133));
+        lblValJurJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValJurJur.setText("R$ 0,00");
+        lblValJurJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblValJurJur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblValJurJurMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblValJurJurMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblValJurJurMouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblValJurJur);
+        lblValJurJur.setBounds(960, 210, 140, 20);
+
+        lblValFinJur1.setFont(fontbold(16));
+        lblValFinJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValFinJur1.setText("Valor final");
+        lblValFinJur1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblValFinJur1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblValFinJur1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblValFinJur1MouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblValFinJur1MouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblValFinJur1);
+        lblValFinJur1.setBounds(820, 180, 150, 20);
+
+        lblJurJur.setFont(fontbold(16));
+        lblJurJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblJurJur.setText("Juros");
+        lblJurJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblJurJur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblJurJurMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblJurJurMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblJurJurMouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblJurJur);
+        lblJurJur.setBounds(970, 180, 120, 20);
+
+        spnParJur.setModel(new javax.swing.SpinnerNumberModel(1, 0, 12, 1));
+        spnParJur.setFont(fontmed(13));
+        spnParJur.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        spnParJur.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        spnParJur.setEditor(new javax.swing.JSpinner.NumberEditor(spnParJur, ""));
+        spnParJur.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                spnParJurKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                spnParJurKeyTyped(evt);
+            }
+        });
+        pnlJur.add(spnParJur);
+        spnParJur.setBounds(320, 93, 55, 30);
+
+        pnlPri.add(pnlJur, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+
         pnlMas.setBackground(new java.awt.Color(246, 246, 246));
         pnlMas.setLayout(null);
 
@@ -6164,6 +6413,12 @@ public final class main extends javax.swing.JFrame {
         lblNomMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlMas.add(lblNomMas);
         lblNomMas.setBounds(90, 50, 70, 20);
+
+        chkDebMas.setFont(fontmed(12));
+        chkDebMas.setForeground(new java.awt.Color(10, 60, 133));
+        chkDebMas.setText("Débito em conta");
+        pnlMas.add(chkDebMas);
+        chkDebMas.setBounds(610, 260, 130, 20);
 
         txtNomMas.setBackground(new java.awt.Color(246, 246, 246));
         txtNomMas.setFont(fontmed(13));
@@ -6328,7 +6583,7 @@ public final class main extends javax.swing.JFrame {
         rbtnMigTroMas.setText("Migração (Troca de Chip)");
         rbtnMigTroMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigTroMas);
-        rbtnMigTroMas.setBounds(600, 100, 190, 21);
+        rbtnMigTroMas.setBounds(610, 90, 190, 21);
 
         btnGroup.add(rbtnAtiMas);
         rbtnAtiMas.setFont(fontmed(12));
@@ -6336,7 +6591,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAtiMas.setText("Ativação");
         rbtnAtiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnAtiMas);
-        rbtnAtiMas.setBounds(600, 40, 90, 21);
+        rbtnAtiMas.setBounds(610, 30, 90, 21);
 
         btnGroup.add(rbtnMigMas);
         rbtnMigMas.setFont(fontmed(12));
@@ -6344,7 +6599,7 @@ public final class main extends javax.swing.JFrame {
         rbtnMigMas.setText("Migração");
         rbtnMigMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigMas);
-        rbtnMigMas.setBounds(600, 70, 90, 21);
+        rbtnMigMas.setBounds(610, 60, 90, 21);
 
         lblPlaMas.setFont(fontmed(12));
         lblPlaMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6378,7 +6633,7 @@ public final class main extends javax.swing.JFrame {
         rbtnSieMas.setText("Siebel Pós");
         rbtnSieMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnSieMas);
-        rbtnSieMas.setBounds(600, 160, 90, 21);
+        rbtnSieMas.setBounds(610, 170, 90, 21);
 
         btnGroup1.add(rbtnAppMas);
         rbtnAppMas.setFont(fontmed(12));
@@ -6386,13 +6641,13 @@ public final class main extends javax.swing.JFrame {
         rbtnAppMas.setText("App TIM Vendas");
         rbtnAppMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnAppMas);
-        rbtnAppMas.setBounds(600, 190, 160, 21);
+        rbtnAppMas.setBounds(610, 140, 160, 21);
 
         chkC6Mas.setFont(fontmed(12));
         chkC6Mas.setForeground(new java.awt.Color(10, 60, 133));
         chkC6Mas.setText("Conta C6 Bank");
         pnlMas.add(chkC6Mas);
-        chkC6Mas.setBounds(600, 240, 130, 20);
+        chkC6Mas.setBounds(610, 220, 130, 20);
 
         lblVenMas.setFont(fontmed(12));
         lblVenMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6881,7 +7136,7 @@ public final class main extends javax.swing.JFrame {
             btnCadEst.setVisible(true);
             btnConEst.setVisible(true);
             btnGerEst.setVisible(true);
-
+            btnJurPri.setVisible(false);
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
             btnConEnt.setVisible(false);
@@ -7118,6 +7373,7 @@ public final class main extends javax.swing.JFrame {
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Tipo de Serviço");
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
             btnCadTipSer.setVisible(false);
             btnGerTipSer.setVisible(false);
@@ -7169,6 +7425,7 @@ public final class main extends javax.swing.JFrame {
                 pnlConEnt.setVisible(false);
                 pnlCadVen.setVisible(false);
                 pnlVen.setVisible(false);
+                pnlJur.setVisible(false);
 
                 lblTitPri.setVisible(true);
                 lblTitPri.setText("Gerenciar Tipo de Serviço");
@@ -7200,6 +7457,7 @@ public final class main extends javax.swing.JFrame {
             btnCadEst.setVisible(false);
             btnConEst.setVisible(false);
             btnGerEst.setVisible(false);
+            btnJurPri.setVisible(false);
 
             btnVen.setVisible(false);
             btnCadVen.setVisible(false);
@@ -7297,6 +7555,7 @@ public final class main extends javax.swing.JFrame {
             pnlConEnt.setVisible(false);
             pnlVen.setVisible(false);
             pnlCadVen.setVisible(false);
+            pnlJur.setVisible(false);
 
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Estoque");
@@ -7345,6 +7604,7 @@ public final class main extends javax.swing.JFrame {
             pnlConEnt.setVisible(false);
             pnlCadVen.setVisible(false);
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
             scrConEst.setVisible(false);
             btnBusConEst.setEnabled(false);
@@ -7461,6 +7721,7 @@ public final class main extends javax.swing.JFrame {
             pnlConEnt.setVisible(false);
             pnlCadVen.setVisible(false);
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
             lblTitPri.setVisible(true);
             lblTitPri.setText("Gerenciar Estoque");
@@ -7492,6 +7753,7 @@ public final class main extends javax.swing.JFrame {
             btnGerDes.setVisible(false);
             btnVen.setVisible(false);
             btnCadVen.setVisible(false);
+            btnJurPri.setVisible(false);
 
         } else {
             btnMasPla.setVisible(true);
@@ -7500,6 +7762,7 @@ public final class main extends javax.swing.JFrame {
             btnGerDes.setVisible(true);
             btnVen.setVisible(true);
             btnCadVen.setVisible(true);
+            btnJurPri.setVisible(true);
 
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
@@ -7528,6 +7791,7 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
         if (!pnlMas.isVisible()) {
 
@@ -7574,6 +7838,7 @@ public final class main extends javax.swing.JFrame {
             btnCanMas.grabFocus();
             pnlCadVen.setVisible(false);
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
             btnCopMas.setVisible(false);
             pnlMas.setVisible(true);
@@ -7595,6 +7860,7 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
         if (!pnlCadDes.isVisible()) {
             txtDesDes.setText(null);
@@ -7630,6 +7896,7 @@ public final class main extends javax.swing.JFrame {
             pnlConEnt.setVisible(false);
             pnlCadVen.setVisible(false);
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
         }
     }//GEN-LAST:event_btnCadDesMouseReleased
@@ -7649,6 +7916,7 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
         if (!pnlDes.isVisible()) {
 
@@ -7675,6 +7943,7 @@ public final class main extends javax.swing.JFrame {
                 pnlConEnt.setVisible(false);
                 pnlCadVen.setVisible(false);
                 pnlVen.setVisible(false);
+                pnlJur.setVisible(false);
 
             } else {
 
@@ -9262,6 +9531,7 @@ public final class main extends javax.swing.JFrame {
             pnlConEnt.setVisible(false);
             pnlCadVen.setVisible(false);
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
         }
     }//GEN-LAST:event_btnCadEntMouseReleased
@@ -9364,6 +9634,7 @@ public final class main extends javax.swing.JFrame {
             btnGerDes.setVisible(false);
             btnVen.setVisible(false);
             btnCadVen.setVisible(false);
+            btnJurPri.setVisible(false);
         } else {
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
@@ -9648,6 +9919,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
         if (!pnlRel.isVisible()) {
 
@@ -9695,6 +9967,7 @@ public final class main extends javax.swing.JFrame {
             pnlConEnt.setVisible(false);
             pnlCadVen.setVisible(false);
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
             btnVolRel.grabFocus();
 
@@ -10020,6 +10293,7 @@ public final class main extends javax.swing.JFrame {
         String app;
         String c6;
         String port;
+        String deb;
 
         if (rbtnAtiMas.isSelected()) {
             ativacao = "(X) Ativação\n"
@@ -10062,9 +10336,19 @@ public final class main extends javax.swing.JFrame {
                     + "*Número Portado:* " + txtNumPorMas.getText() + "\n";
         }
 
+        if (chkDebMas.isSelected()) {
+
+            deb = "(X) Sim\n"
+                    + "(  ) Não\n";
+
+        } else {
+
+            deb = "(  ) Sim\n"
+                    + "(X) Não\n";
+        }
+
         txtAreMas.setText(
                 "*⚠️ Máscara para Input de Vendas ⚠*\n\n"
-                + "️*Nome do PDV:* Empório Cell - Frutal\n"
                 + "*Nome do Vendedor:* Guilherme\n"
                 + "*Nome do Cliente:* " + txtNomMas.getText() + "\n"
                 + "*CPF do Cliente:* " + txtCpfMas.getText() + "\n"
@@ -10087,6 +10371,7 @@ public final class main extends javax.swing.JFrame {
                 + c6
                 + "---------------------------------------\n"
                 + "*Dia do vencimento da fatura:* " + txtVenMas.getText()
+                + "\n*Débito em conta*\n" + deb
         );
 
         txtAreMas.setCaretPosition(0);
@@ -10709,6 +10994,7 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
         if (!pnlGerDes.isVisible()) {
 
@@ -10745,6 +11031,7 @@ public final class main extends javax.swing.JFrame {
                 txtPreGerDes.setText(null);
                 txtDatGerDes.setText(null);
                 pnlVen.setVisible(false);
+                pnlJur.setVisible(false);
 
                 lblDesGerDes.setLocation(870, 40);
                 lblPreGerDes.setLocation(870, 100);
@@ -11356,6 +11643,7 @@ public final class main extends javax.swing.JFrame {
             pnlConEnt.setVisible(false);
             pnlCadVen.setVisible(false);
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
             pnlGerEnt.setVisible(true);
         }
@@ -12098,6 +12386,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
         if (!pnlOs.isVisible()) {
 
@@ -12149,6 +12438,7 @@ public final class main extends javax.swing.JFrame {
             pnlConEnt.setVisible(false);
             pnlCadVen.setVisible(false);
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
             pnlOs.setVisible(true);
 
@@ -12515,6 +12805,7 @@ public final class main extends javax.swing.JFrame {
             pnlIteGerEnt.setVisible(false);
             pnlCadVen.setVisible(false);
             pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
 
             pnlGerEnt.setVisible(false);
             pnlConEnt.setVisible(true);
@@ -12681,49 +12972,54 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadVenMouseExited
 
     private void btnCadVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadVenMouseReleased
-        pnlCadEst.setVisible(false);
-        pnlConEst.setVisible(false);
-        pnlGerEst.setVisible(false);
-        pnlGerDes.setVisible(false);
-
-        pnlCadEnt.setVisible(false);
-        pnlGerEnt.setVisible(false);
-        pnlRel.setVisible(false);
-        pnlIteCadEnt.setVisible(false);
-        pnlCadTipSer.setVisible(false);
-        pnlGerTipSer.setVisible(false);
-        pnlMas.setVisible(false);
-        pnlDes.setVisible(false);
-        pnlCadDes.setVisible(false);
-        pnlOs.setVisible(false);
-        pnlIteGerEnt.setVisible(false);
-        pnlConEnt.setVisible(false);
-        pnlCadVen.setVisible(true);
-        pnlVen.setVisible(false);
-
         btnMasPla.setVisible(false);
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
         btnGerDes.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
-        lblCliCadVen.setLocation(400, 80);
-        lblPlaCadVen.setLocation(400, 130);
-        lblTelCadVen.setLocation(700, 80);
-        lblDatCadVen.setLocation(700, 130);
-        lblVenCadVen.setLocation(700, 180);
+        if (!pnlCadVen.isVisible()) {
 
-        txtCliCadVen.setText(null);
-        txtPlaCadVen.setText(null);
-        txtTelCadVen.setText(null);
-        txtVenCadVen.setText(null);
-        LocalDate dataAtual = LocalDate.now();
-        txtDatCadVen.setText(dataAtual.format(formatteratual));
-        anitxtin(lblDatCadVen);
+            pnlCadEst.setVisible(false);
+            pnlConEst.setVisible(false);
+            pnlGerEst.setVisible(false);
+            pnlGerDes.setVisible(false);
 
-        lblTitPri.setText("Cadastrar Vencimento");
-        lblTitPri.setVisible(true);
+            pnlCadEnt.setVisible(false);
+            pnlGerEnt.setVisible(false);
+            pnlRel.setVisible(false);
+            pnlIteCadEnt.setVisible(false);
+            pnlCadTipSer.setVisible(false);
+            pnlGerTipSer.setVisible(false);
+            pnlMas.setVisible(false);
+            pnlDes.setVisible(false);
+            pnlCadDes.setVisible(false);
+            pnlOs.setVisible(false);
+            pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
+            pnlCadVen.setVisible(true);
+            pnlVen.setVisible(false);
+            pnlJur.setVisible(false);
+            lblCliCadVen.setLocation(400, 80);
+            lblPlaCadVen.setLocation(400, 130);
+            lblTelCadVen.setLocation(700, 80);
+            lblDatCadVen.setLocation(700, 130);
+            lblVenCadVen.setLocation(700, 180);
+
+            txtCliCadVen.setText(null);
+            txtPlaCadVen.setText(null);
+            txtTelCadVen.setText(null);
+            txtVenCadVen.setText(null);
+            LocalDate dataAtual = LocalDate.now();
+            txtDatCadVen.setText(dataAtual.format(formatteratual));
+            anitxtin(lblDatCadVen);
+
+            lblTitPri.setText("Cadastrar Vencimento");
+            lblTitPri.setVisible(true);
+
+        }
     }//GEN-LAST:event_btnCadVenMouseReleased
 
     private void btnVenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenMouseEntered
@@ -12741,6 +13037,7 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
         if (!pnlVen.isVisible()) {
 
@@ -12763,6 +13060,7 @@ public final class main extends javax.swing.JFrame {
                 pnlConEnt.setVisible(false);
                 pnlCadVen.setVisible(false);
                 pnlDes.setVisible(false);
+                pnlJur.setVisible(false);
 
                 btnExcVen.setEnabled(false);
                 btnWppVen.setEnabled(false);
@@ -13194,24 +13492,7 @@ public final class main extends javax.swing.JFrame {
     private void txtModCadEstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModCadEstKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-            txtCorCadEst.setText(null);
-            txtMatCadEst.setText(null);
-            txtQuaCadEst.setText(null);
-            txtPreCadEst.setText(null);
-            cmbChiCadEst.setSelectedIndex(0);
-            txtLocCadEst.setText(null);
-            txtDetCadEst.setText(null);
-            lblR$CadEst.setVisible(false);
-
-            lblQuaCadEst.setLocation(410, 180);
-            lblPreCadEst.setLocation(410, 230);
-            lblCorCadEst.setLocation(700, 80);
-            lblMatCadEst.setLocation(700, 130);
-            lblLocCadEst.setLocation(700, 180);
-            lblDetCadEst.setLocation(700, 230);
-
             estoque es = new estoque();
-            estoqueDAO esdao = new estoqueDAO();
 
             es.setMarca(txtMarCadEst.getText());
             es.setModelo(txtModCadEst.getText());
@@ -13505,6 +13786,245 @@ public final class main extends javax.swing.JFrame {
         btnTenPri.setVisible(false);
         backupdatabase();
     }//GEN-LAST:event_btnTenPriMouseReleased
+
+    private void btnCalJurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalJurActionPerformed
+        double precoini = Double.parseDouble(txtValJur.getText().replace(".", "").replace(",", "."));
+        double preco = Double.parseDouble(txtValJur.getText().replace(".", "").replace(",", "."));
+
+        if ((int) spnParJur.getValue() == 1) {
+
+            preco = preco - (preco * 4.98 / 100);
+
+        } else if ((int) spnParJur.getValue() == 2) {
+
+            preco = preco - (preco * 9.90 / 100);
+
+        } else if ((int) spnParJur.getValue() == 3) {
+
+            preco = preco - (preco * 11.28 / 100);
+
+        } else if ((int) spnParJur.getValue() == 4) {
+
+            preco = preco - (preco * 12.64 / 100);
+
+        } else if ((int) spnParJur.getValue() == 5) {
+
+            preco = preco - (preco * 13.97 / 100);
+
+        } else if ((int) spnParJur.getValue() == 6) {
+
+            preco = preco - (preco * 15.27 / 100);
+
+        } else if ((int) spnParJur.getValue() == 7) {
+
+            preco = preco - (preco * 16.55 / 100);
+
+        } else if ((int) spnParJur.getValue() == 8) {
+            preco = preco - (preco * 17.81 / 100);
+
+        } else if ((int) spnParJur.getValue() == 9) {
+
+            preco = preco - (preco * 19.04 / 100);
+
+        } else if ((int) spnParJur.getValue() == 10) {
+
+            preco = preco - (preco * 20.24 / 100);
+
+        } else if ((int) spnParJur.getValue() == 11) {
+
+            preco = preco - (preco * 21.43 / 100);
+
+        } else if ((int) spnParJur.getValue() == 12) {
+
+            preco = preco - (preco * 22.59 / 100);
+
+        } else if ((int) spnParJur.getValue() == 0) {
+
+            preco = preco - (preco * 1.99 / 100);
+
+        }
+
+        lblValJurJur.setText(moedadoublereal(precoini - preco));
+        lblValFinJur.setText(moedadoublereal(preco));
+        lblValJur2.setText(moedadoublereal(precoini));
+
+    }//GEN-LAST:event_btnCalJurActionPerformed
+
+    private void txtValJurFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValJurFocusGained
+
+        if (txtValJur.getText().isEmpty()) {
+            lblR$Jur.setVisible(true);
+            anitxtin(lblValJur);
+        }
+    }//GEN-LAST:event_txtValJurFocusGained
+
+    private void txtValJurFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValJurFocusLost
+
+        if (txtValJur.getText().isEmpty()) {
+            lblR$Jur.setVisible(false);
+            anitxtout(lblValJur);
+        }
+    }//GEN-LAST:event_txtValJurFocusLost
+
+    private void lblValFinJurMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValFinJurMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValFinJurMouseEntered
+
+    private void lblValFinJurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValFinJurMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValFinJurMouseExited
+
+    private void lblValFinJurMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValFinJurMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValFinJurMouseReleased
+
+    private void lblValJurJurMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJurJurMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValJurJurMouseEntered
+
+    private void lblValJurJurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJurJurMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValJurJurMouseExited
+
+    private void lblValJurJurMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJurJurMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValJurJurMouseReleased
+
+    private void lblValFinJur1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValFinJur1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValFinJur1MouseEntered
+
+    private void lblValFinJur1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValFinJur1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValFinJur1MouseExited
+
+    private void lblValFinJur1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValFinJur1MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValFinJur1MouseReleased
+
+    private void lblJurJurMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblJurJurMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblJurJurMouseEntered
+
+    private void lblJurJurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblJurJurMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblJurJurMouseExited
+
+    private void lblJurJurMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblJurJurMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblJurJurMouseReleased
+
+    private void spnParJurKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParJurKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spnParJurKeyPressed
+
+    private void spnParJurKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParJurKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spnParJurKeyTyped
+
+    private void lblValJur2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJur2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValJur2MouseEntered
+
+    private void lblValJur2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJur2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValJur2MouseExited
+
+    private void lblValJur2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJur2MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValJur2MouseReleased
+
+    private void lblValJur3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJur3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValJur3MouseEntered
+
+    private void lblValJur3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJur3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValJur3MouseExited
+
+    private void lblValJur3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJur3MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValJur3MouseReleased
+
+    private void btnJurPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnJurPriMouseEntered
+
+    private void btnJurPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnJurPriMouseExited
+
+    private void btnJurPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseReleased
+        btnMasPla.setVisible(false);
+        btnDes.setVisible(false);
+        btnCadDes.setVisible(false);
+        btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
+
+        if (!pnlJur.isVisible()) {
+
+            txtValJur.setText(null);
+
+            lblValFinJur.setText("R$ 0,00");
+            lblValJur2.setText("R$ 0,00");
+            lblValJurJur.setText("R$ 0,00");
+            lblR$Jur.setVisible(false);
+            lblValJur.setLocation(200, 100);
+            spnParJur.setValue(1);
+
+            pnlCadEst.setVisible(false);
+            pnlConEst.setVisible(false);
+            pnlGerEst.setVisible(false);
+            pnlGerDes.setVisible(false);
+
+            pnlCadEnt.setVisible(false);
+            pnlGerEnt.setVisible(false);
+            pnlRel.setVisible(false);
+            pnlIteCadEnt.setVisible(false);
+            pnlCadTipSer.setVisible(false);
+            pnlGerTipSer.setVisible(false);
+            pnlMas.setVisible(false);
+            pnlDes.setVisible(false);
+            pnlCadDes.setVisible(false);
+            pnlOs.setVisible(false);
+            pnlIteGerEnt.setVisible(false);
+            pnlConEnt.setVisible(false);
+            pnlCadVen.setVisible(false);
+            pnlVen.setVisible(false);
+            btnJurPri.setVisible(false);
+            pnlJur.setVisible(true);
+
+            btnMasPla.setVisible(false);
+            btnDes.setVisible(false);
+            btnCadDes.setVisible(false);
+            btnGerDes.setVisible(false);
+            btnVen.setVisible(false);
+            btnCadVen.setVisible(false);
+            lblR$Jur.setVisible(false);
+
+            lblTitPri.setText("Calcular Juros");
+            lblTitPri.setVisible(true);
+        }
+
+    }//GEN-LAST:event_btnJurPriMouseReleased
+
+    private void txtValJurKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValJurKeyTyped
+        if (evt.getKeyChar() == 44) {
+            if (txtValJur.getText().contains(",")) {
+                evt.consume();
+            }
+
+        } else if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValJurKeyTyped
+
+    private void btnVolJurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolJurActionPerformed
+        pnlJur.setVisible(false);
+        lblTitPri.setVisible(false);
+    }//GEN-LAST:event_btnVolJurActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -13527,6 +14047,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel btnCadEst;
     private javax.swing.JLabel btnCadTipSer;
     private javax.swing.JLabel btnCadVen;
+    private javax.swing.JButton btnCalJur;
     private javax.swing.JButton btnCanCadEnt;
     private javax.swing.JButton btnCanCadEst;
     private javax.swing.JButton btnCanCadVen;
@@ -13564,6 +14085,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroup3;
     private javax.swing.JButton btnIteCadEnt;
     private javax.swing.JButton btnIteGerEnt;
+    private javax.swing.JLabel btnJurPri;
     private javax.swing.JLabel btnMasPla;
     private javax.swing.JLabel btnMesRel;
     private javax.swing.JLabel btnOrdSerPri;
@@ -13584,11 +14106,13 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnVolDes;
     private javax.swing.JButton btnVolIteCadEnt;
     private javax.swing.JButton btnVolIteGerEnt;
+    private javax.swing.JButton btnVolJur;
     private javax.swing.JButton btnVolRel;
     private javax.swing.JButton btnVolVen;
     private javax.swing.JButton btnWppVen;
     private javax.swing.JCheckBox chkC6Mas;
     private javax.swing.JCheckBox chkCus;
+    private javax.swing.JCheckBox chkDebMas;
     private javax.swing.JComboBox<String> cmbChiCadEst;
     private javax.swing.JComboBox<String> cmbChiGerEst;
     private javax.swing.JComboBox<String> cmbRel;
@@ -13649,6 +14173,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblForCadEnt;
     private javax.swing.JLabel lblForGerEnt;
     private javax.swing.JLabel lblHorOs;
+    private javax.swing.JLabel lblJurJur;
     private javax.swing.JLabel lblLocCadEst;
     private javax.swing.JLabel lblLocGerEst;
     private javax.swing.JLabel lblMarCadEst;
@@ -13664,6 +14189,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblNumConMas;
     private javax.swing.JLabel lblNumPorMas;
     private javax.swing.JLabel lblParCadEnt;
+    private javax.swing.JLabel lblParJur;
     private javax.swing.JLabel lblPlaCadVen;
     private javax.swing.JLabel lblPlaMas;
     private javax.swing.JLabel lblPreCadEnt;
@@ -13684,6 +14210,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblR$GerDes;
     private javax.swing.JLabel lblR$GerEnt;
     private javax.swing.JLabel lblR$GerEst;
+    private javax.swing.JLabel lblR$Jur;
     private javax.swing.JLabel lblR$Os;
     private javax.swing.JLabel lblResRel;
     private javax.swing.JLabel lblSelIteCadEnt;
@@ -13696,6 +14223,12 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblTotEntRel;
     private javax.swing.JLabel lblValCarRel;
     private javax.swing.JLabel lblValDinRel;
+    private javax.swing.JLabel lblValFinJur;
+    private javax.swing.JLabel lblValFinJur1;
+    private javax.swing.JLabel lblValJur;
+    private javax.swing.JLabel lblValJur2;
+    private javax.swing.JLabel lblValJur3;
+    private javax.swing.JLabel lblValJurJur;
     private javax.swing.JLabel lblValMedRel;
     private javax.swing.JLabel lblValPixRel;
     private javax.swing.JLabel lblValTotRel;
@@ -13716,6 +14249,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGerTipSer;
     private javax.swing.JPanel pnlIteCadEnt;
     private javax.swing.JPanel pnlIteGerEnt;
+    private javax.swing.JPanel pnlJur;
     private javax.swing.JPanel pnlMas;
     private javax.swing.JPanel pnlOs;
     public static javax.swing.JPanel pnlPri;
@@ -13807,6 +14341,9 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepDesGerDes;
     private javax.swing.JSeparator sepDesGerTipSer;
     private javax.swing.JSeparator sepDesGerTipSer1;
+    private javax.swing.JSeparator sepDesGerTipSer10;
+    private javax.swing.JSeparator sepDesGerTipSer11;
+    private javax.swing.JSeparator sepDesGerTipSer16;
     private javax.swing.JSeparator sepDesGerTipSer2;
     private javax.swing.JSeparator sepDesGerTipSer3;
     private javax.swing.JSeparator sepDesGerTipSer4;
@@ -13852,6 +14389,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepTelCadVen;
     private javax.swing.JSeparator sepVenCadVen;
     private javax.swing.JSpinner spnParCadEnt;
+    private javax.swing.JSpinner spnParJur;
     private javax.swing.JTable tblCadEst;
     private javax.swing.JTable tblConDes;
     private javax.swing.JTable tblConEnt;
@@ -13936,6 +14474,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtTipCadEst;
     private javax.swing.JTextField txtTipConEst;
     private javax.swing.JTextField txtTipGerEst;
+    private javax.swing.JTextField txtValJur;
     private javax.swing.JTextField txtVenCadVen;
     private javax.swing.JTextField txtVenMas;
     // End of variables declaration//GEN-END:variables
