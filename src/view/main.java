@@ -1972,6 +1972,48 @@ public final class main extends javax.swing.JFrame {
         return formatadorMoeda.format(valor);
     }
 
+    private void pnlbtn() {
+
+        btnCadEnt.setVisible(false);
+        btnGerEnt.setVisible(false);
+        btnConEnt.setVisible(false);
+
+        btnCadEst.setVisible(false);
+        btnConEst.setVisible(false);
+        btnGerEst.setVisible(false);
+
+        btnCadTipSer.setVisible(false);
+        btnGerTipSer.setVisible(false);
+
+        btnMasPla.setVisible(false);
+        btnDes.setVisible(false);
+        btnCadDes.setVisible(false);
+        btnGerDes.setVisible(false);
+        btnVen.setVisible(false);
+        btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
+
+        pnlCadEnt.setVisible(false);
+        pnlRel.setVisible(false);
+        pnlIteCadEnt.setVisible(false);
+        pnlCadTipSer.setVisible(false);
+        pnlCadEst.setVisible(false);
+        pnlConEst.setVisible(false);
+        pnlGerEst.setVisible(false);
+        pnlGerTipSer.setVisible(false);
+        pnlMas.setVisible(false);
+        pnlDes.setVisible(false);
+        pnlGerDes.setVisible(false);
+        pnlCadDes.setVisible(false);
+        pnlGerEnt.setVisible(false);
+        pnlOs.setVisible(false);
+        pnlIteGerEnt.setVisible(false);
+        pnlConEnt.setVisible(false);
+        pnlCadVen.setVisible(false);
+        pnlVen.setVisible(false);
+        pnlJur.setVisible(false);
+
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -7352,31 +7394,17 @@ public final class main extends javax.swing.JFrame {
             lblDesTipSer.setEnabled(false);
             sepDesTipSer.setForeground(Color.GRAY);
 
-            pnlGerTipSer.setVisible(false);
-            pnlCadTipSer.setVisible(true);
-
-            pnlCadEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Tipo de Serviço");
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
 
-            btnCadTipSer.setVisible(false);
-            btnGerTipSer.setVisible(false);
+            pnlbtn();
+            pnlCadTipSer.setVisible(true);
+
+        } else {
+
+            pnlbtn();
+            pnlCadTipSer.setVisible(true);
+
         }
     }//GEN-LAST:event_btnCadTipSerMouseReleased
 
@@ -7406,27 +7434,6 @@ public final class main extends javax.swing.JFrame {
                 btnAltGerTipSer.setEnabled(false);
                 lblDesGerTipSer.setLocation(510, 200);
 
-                pnlGerTipSer.setVisible(true);
-                pnlCadTipSer.setVisible(false);
-
-                pnlCadEnt.setVisible(false);
-                pnlRel.setVisible(false);
-                pnlIteCadEnt.setVisible(false);
-                pnlCadEst.setVisible(false);
-                pnlConEst.setVisible(false);
-                pnlGerEst.setVisible(false);
-                pnlMas.setVisible(false);
-                pnlDes.setVisible(false);
-                pnlGerDes.setVisible(false);
-                pnlCadDes.setVisible(false);
-                pnlGerEnt.setVisible(false);
-                pnlOs.setVisible(false);
-                pnlIteGerEnt.setVisible(false);
-                pnlConEnt.setVisible(false);
-                pnlCadVen.setVisible(false);
-                pnlVen.setVisible(false);
-                pnlJur.setVisible(false);
-
                 lblTitPri.setVisible(true);
                 lblTitPri.setText("Gerenciar Tipo de Serviço");
 
@@ -7434,14 +7441,19 @@ public final class main extends javax.swing.JFrame {
                 lblDesGerTipSer.setEnabled(false);
                 sepDesGerTipSer.setForeground(Color.GRAY);
 
-                btnCadTipSer.setVisible(false);
-                btnGerTipSer.setVisible(false);
+                pnlbtn();
+                pnlGerTipSer.setVisible(true);
 
             } else {
 
                 JOptionPane.showMessageDialog(pnlGerDes, "Sem tipo de serviço para gerenciar. Cadastre-o primeiro!", "Gerenciar Tipo de Serviço", JOptionPane.INFORMATION_MESSAGE);
 
             }
+
+        } else {
+
+            pnlbtn();
+            pnlGerTipSer.setVisible(true);
 
         }
     }//GEN-LAST:event_btnGerTipSerMouseReleased
@@ -7536,37 +7548,20 @@ public final class main extends javax.swing.JFrame {
 
             btnGroup.clearSelection();
 
-            pnlCadEst.setVisible(true);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlGerDes.setVisible(false);
-
-            pnlCadEnt.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlJur.setVisible(false);
-
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Estoque");
 
             btnSalCadEst.setEnabled(false);
 
-        }
+            pnlbtn();
+            pnlCadEst.setVisible(true);
 
-        btnCadEst.setVisible(false);
-        btnConEst.setVisible(false);
-        btnGerEst.setVisible(false);
+        } else {
+
+            pnlbtn();
+            pnlCadEst.setVisible(true);
+
+        }
     }//GEN-LAST:event_btnCadEstMouseReleased
 
     private void btnConEstMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEstMouseEntered
@@ -7580,31 +7575,9 @@ public final class main extends javax.swing.JFrame {
     private void btnConEstMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEstMouseReleased
         if (!pnlConEst.isVisible()) {
 
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(true);
-            pnlGerEst.setVisible(false);
-
             txtBusConEst.setText(null);
             lblBusConEst.setLocation(450, 110);
             btnGroup.clearSelection();
-
-            pnlCadEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlOs.setVisible(false);
-            btnConEnt.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
 
             scrConEst.setVisible(false);
             btnBusConEst.setEnabled(false);
@@ -7616,9 +7589,14 @@ public final class main extends javax.swing.JFrame {
             lblTitPri.setVisible(true);
             lblTitPri.setText("Consultar Estoque");
 
-            btnCadEst.setVisible(false);
-            btnConEst.setVisible(false);
-            btnGerEst.setVisible(false);
+            pnlbtn();
+            pnlConEst.setVisible(true);
+
+        } else {
+
+            pnlbtn();
+            pnlConEst.setVisible(true);
+
         }
     }//GEN-LAST:event_btnConEstMouseReleased
 
@@ -7706,33 +7684,16 @@ public final class main extends javax.swing.JFrame {
             lblDetGerEst.setLocation(1030, 210);
             lblBusGerEst.setLocation(180, 100);
 
-            btnCadEst.setVisible(false);
-            btnConEst.setVisible(false);
-            btnGerEst.setVisible(false);
-
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(true);
-            pnlDes.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
-
             lblTitPri.setVisible(true);
             lblTitPri.setText("Gerenciar Estoque");
 
-            pnlCadEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlGerEnt.setVisible(false);
+            pnlbtn();
+            pnlGerEst.setVisible(true);
+
+        } else {
+
+            pnlbtn();
+            pnlGerEst.setVisible(true);
 
         }
     }//GEN-LAST:event_btnGerEstMouseReleased
@@ -7785,14 +7746,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMasPlaMouseExited
 
     private void btnMasPlaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMasPlaMouseReleased
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-        btnJurPri.setVisible(false);
-
         if (!pnlMas.isVisible()) {
 
             lblTitPri.setText("Máscara de Plano");
@@ -7820,28 +7773,16 @@ public final class main extends javax.swing.JFrame {
             lblNumPorMas.setLocation(350, 170);
             lblPlaMas.setLocation(350, 230);
 
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlCadEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            btnCanMas.grabFocus();
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
-
             btnCopMas.setVisible(false);
+
+            pnlbtn();
             pnlMas.setVisible(true);
+
+        } else {
+
+            pnlbtn();
+            pnlMas.setVisible(true);
+
         }
     }//GEN-LAST:event_btnMasPlaMouseReleased
 
@@ -7854,15 +7795,8 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadDesMouseExited
 
     private void btnCadDesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadDesMouseReleased
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-        btnJurPri.setVisible(false);
-
         if (!pnlCadDes.isVisible()) {
+
             txtDesDes.setText(null);
             txtPreDes.setText(null);
             txtDatDes.setText(null);
@@ -7877,26 +7811,13 @@ public final class main extends javax.swing.JFrame {
 
             lblR$Des.setVisible(false);
 
+            pnlbtn();
             pnlCadDes.setVisible(true);
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
 
-            pnlCadEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
+        } else {
+
+            pnlbtn();
+            pnlCadDes.setVisible(true);
 
         }
     }//GEN-LAST:event_btnCadDesMouseReleased
@@ -7910,46 +7831,26 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDesMouseExited
 
     private void btnDesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesMouseReleased
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-        btnJurPri.setVisible(false);
-
         if (!pnlDes.isVisible()) {
 
             if (tabeladespezas(tblConDes, scrConDes)) {
 
-                pnlCadEst.setVisible(false);
-                pnlConEst.setVisible(false);
-                pnlGerEst.setVisible(false);
-
                 lblTitPri.setText("Afazeres");
                 lblTitPri.setVisible(true);
-                pnlCadEnt.setVisible(false);
-                pnlRel.setVisible(false);
-                pnlIteCadEnt.setVisible(false);
-                pnlCadTipSer.setVisible(false);
-                pnlGerTipSer.setVisible(false);
-                pnlMas.setVisible(false);
+
+                pnlbtn();
                 pnlDes.setVisible(true);
-                pnlGerDes.setVisible(false);
-                pnlCadDes.setVisible(false);
-                pnlGerEnt.setVisible(false);
-                pnlOs.setVisible(false);
-                pnlIteGerEnt.setVisible(false);
-                pnlConEnt.setVisible(false);
-                pnlCadVen.setVisible(false);
-                pnlVen.setVisible(false);
-                pnlJur.setVisible(false);
 
             } else {
 
                 JOptionPane.showMessageDialog(pnlDes, "Sem afazeres. Cadastre-as primeiro!", "Gerenciar Afazeres", JOptionPane.INFORMATION_MESSAGE);
 
             }
+
+        } else {
+
+            pnlbtn();
+            pnlDes.setVisible(true);
 
         }
     }//GEN-LAST:event_btnDesMouseReleased
@@ -9466,10 +9367,6 @@ public final class main extends javax.swing.JFrame {
             lblR$CadEnt.setVisible(false);
             lblR$CusCadEnt.setVisible(false);
 
-            btnCadEnt.setVisible(false);
-            btnGerEnt.setVisible(false);
-            btnConEnt.setVisible(false);
-
             btnGroup.clearSelection();
             btnGroup1.clearSelection();
             btnGroup2.clearSelection();
@@ -9513,25 +9410,13 @@ public final class main extends javax.swing.JFrame {
             btnSalCadEnt.setEnabled(false);
             cmbVezCar.setEnabled(false);
 
+            pnlbtn();
             pnlCadEnt.setVisible(true);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
+
+        } else {
+
+            pnlbtn();
+            pnlCadEnt.setVisible(true);
 
         }
     }//GEN-LAST:event_btnCadEntMouseReleased
@@ -9904,23 +9789,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnAssRelActionPerformed
 
     private void btnRelPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelPriMouseReleased
-        btnCadEnt.setVisible(false);
-        btnGerEnt.setVisible(false);
-        btnConEnt.setVisible(false);
-        btnCadEst.setVisible(false);
-        btnConEst.setVisible(false);
-        btnGerEst.setVisible(false);
-        btnCadTipSer.setVisible(false);
-        btnGerTipSer.setVisible(false);
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        pnlCadVen.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-        btnJurPri.setVisible(false);
-
         if (!pnlRel.isVisible()) {
 
             rbtnTodRel.setSelected(true);
@@ -9950,26 +9818,15 @@ public final class main extends javax.swing.JFrame {
             lblTitPri.setText("Relatórios");
             lblTitPri.setVisible(true);
 
-            pnlCadEnt.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
+            pnlbtn();
+            pnlRel.setVisible(true);
 
             btnVolRel.grabFocus();
+
+        } else {
+
+            pnlbtn();
+            pnlRel.setVisible(true);
 
         }
     }//GEN-LAST:event_btnRelPriMouseReleased
@@ -10988,45 +10845,16 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerDesMouseExited
 
     private void btnGerDesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerDesMouseReleased
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-        btnJurPri.setVisible(false);
-
         if (!pnlGerDes.isVisible()) {
 
             if (tabelagerenciardespezas(tblGerDes, scrGerDes)) {
 
-                pnlGerDes.setVisible(true);
                 lblTitPri.setText("Gerenciar Afazeres");
                 lblTitPri.setVisible(true);
 
-                pnlCadEst.setVisible(false);
-                pnlConEst.setVisible(false);
-                pnlGerEst.setVisible(false);
-                pnlIteGerEnt.setVisible(false);
-
-                pnlCadEnt.setVisible(false);
-                pnlRel.setVisible(false);
-                pnlIteCadEnt.setVisible(false);
-                pnlCadTipSer.setVisible(false);
-                pnlGerTipSer.setVisible(false);
-                pnlDes.setVisible(false);
-                pnlCadDes.setVisible(false);
-                pnlMas.setVisible(false);
-                pnlGerEnt.setVisible(false);
-                pnlOs.setVisible(false);
-                pnlConEnt.setVisible(false);
-                btnMasPla.setVisible(false);
-                btnDes.setVisible(false);
-                btnCadDes.setVisible(false);
-                btnGerDes.setVisible(false);
                 btnExcGerDes.setEnabled(false);
                 btnAltGerDes.setEnabled(false);
-                pnlCadVen.setVisible(false);
+
                 txtDesGerDes.setText(null);
                 txtPreGerDes.setText(null);
                 txtDatGerDes.setText(null);
@@ -11050,11 +10878,19 @@ public final class main extends javax.swing.JFrame {
 
                 lblR$GerDes.setVisible(false);
 
+                pnlbtn();
+                pnlGerDes.setVisible(true);
+
             } else {
 
                 JOptionPane.showMessageDialog(pnlGerDes, "Sem afazeres para gerenciar. Cadastre-as primeiro!", "Gerenciar afazeres", JOptionPane.INFORMATION_MESSAGE);
 
             }
+
+        } else {
+
+            pnlbtn();
+            pnlGerDes.setVisible(true);
 
         }
     }//GEN-LAST:event_btnGerDesMouseReleased
@@ -11556,10 +11392,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerEntMouseExited
 
     private void btnGerEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerEntMouseReleased
-        btnGerEnt.setVisible(false);
-        btnCadEnt.setVisible(false);
-        btnConEnt.setVisible(false);
-
         if (!pnlGerEnt.isVisible()) {
 
             txtDatBusGerEnt.setText(null);
@@ -11626,26 +11458,14 @@ public final class main extends javax.swing.JFrame {
             lblTitPri.setText("Gerenciar Entrada");
             lblTitPri.setVisible(true);
 
-            pnlCadEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
-
+            pnlbtn();
             pnlGerEnt.setVisible(true);
+
+        } else {
+
+            pnlbtn();
+            pnlGerEnt.setVisible(true);
+
         }
     }//GEN-LAST:event_btnGerEntMouseReleased
 
@@ -12371,23 +12191,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHorOsKeyTyped
 
     private void btnOrdSerPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOrdSerPriMouseReleased
-        btnCadEnt.setVisible(false);
-        btnGerEnt.setVisible(false);
-        btnConEnt.setVisible(false);
-        btnCadEst.setVisible(false);
-        btnConEst.setVisible(false);
-        btnGerEst.setVisible(false);
-        btnCadTipSer.setVisible(false);
-        btnGerTipSer.setVisible(false);
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        pnlCadVen.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-        btnJurPri.setVisible(false);
-
         if (!pnlOs.isVisible()) {
 
             DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
@@ -12421,25 +12224,12 @@ public final class main extends javax.swing.JFrame {
             lblTitPri.setText("Ordem de Serviço");
             lblTitPri.setVisible(true);
 
-            pnlCadEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
+            pnlbtn();
+            pnlOs.setVisible(true);
 
+        } else {
+
+            pnlbtn();
             pnlOs.setVisible(true);
 
         }
@@ -12771,10 +12561,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConEntMouseExited
 
     private void btnConEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEntMouseReleased
-        btnGerEnt.setVisible(false);
-        btnCadEnt.setVisible(false);
-        btnConEnt.setVisible(false);
-
         if (!pnlConEnt.isVisible()) {
 
             txtBusConEnt.setText(null);
@@ -12789,26 +12575,14 @@ public final class main extends javax.swing.JFrame {
             lblTitPri.setText("Consultar Entrada");
             lblTitPri.setVisible(true);
 
-            pnlCadEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlGerDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
-
-            pnlGerEnt.setVisible(false);
+            pnlbtn();
             pnlConEnt.setVisible(true);
+
+        } else {
+
+            pnlbtn();
+            pnlConEnt.setVisible(true);
+
         }
     }//GEN-LAST:event_btnConEntMouseReleased
 
@@ -12972,36 +12746,8 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadVenMouseExited
 
     private void btnCadVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadVenMouseReleased
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-        btnJurPri.setVisible(false);
-
         if (!pnlCadVen.isVisible()) {
 
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlGerDes.setVisible(false);
-
-            pnlCadEnt.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(true);
-            pnlVen.setVisible(false);
-            pnlJur.setVisible(false);
             lblCliCadVen.setLocation(400, 80);
             lblPlaCadVen.setLocation(400, 130);
             lblTelCadVen.setLocation(700, 80);
@@ -13019,6 +12765,14 @@ public final class main extends javax.swing.JFrame {
             lblTitPri.setText("Cadastrar Vencimento");
             lblTitPri.setVisible(true);
 
+            pnlbtn();
+            pnlCadVen.setVisible(true);
+
+        } else {
+
+            pnlbtn();
+            pnlCadVen.setVisible(true);
+
         }
     }//GEN-LAST:event_btnCadVenMouseReleased
 
@@ -13031,46 +12785,30 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVenMouseExited
 
     private void btnVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenMouseReleased
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-        btnJurPri.setVisible(false);
-
         if (!pnlVen.isVisible()) {
 
             if (tabelavencimento(tblVen, scrVen)) {
 
                 lblTitPri.setText("Vencimentos");
                 lblTitPri.setVisible(true);
-                pnlCadEnt.setVisible(false);
-                pnlRel.setVisible(false);
-                pnlIteCadEnt.setVisible(false);
-                pnlCadTipSer.setVisible(false);
-                pnlGerTipSer.setVisible(false);
-                pnlMas.setVisible(false);
-                pnlVen.setVisible(true);
-                pnlGerDes.setVisible(false);
-                pnlCadDes.setVisible(false);
-                pnlGerEnt.setVisible(false);
-                pnlOs.setVisible(false);
-                pnlIteGerEnt.setVisible(false);
-                pnlConEnt.setVisible(false);
-                pnlCadVen.setVisible(false);
-                pnlDes.setVisible(false);
-                pnlJur.setVisible(false);
 
                 btnExcVen.setEnabled(false);
                 btnWppVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
+
+                pnlbtn();
+                pnlVen.setVisible(true);
 
             } else {
 
                 JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
 
             }
+
+        } else {
+
+            pnlbtn();
+            pnlVen.setVisible(true);
 
         }
     }//GEN-LAST:event_btnVenMouseReleased
@@ -13955,14 +13693,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnJurPriMouseExited
 
     private void btnJurPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseReleased
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-        btnJurPri.setVisible(false);
-
         if (!pnlJur.isVisible()) {
 
             txtValJur.setText(null);
@@ -13974,40 +13704,20 @@ public final class main extends javax.swing.JFrame {
             lblValJur.setLocation(200, 100);
             spnParJur.setValue(1);
 
-            pnlCadEst.setVisible(false);
-            pnlConEst.setVisible(false);
-            pnlGerEst.setVisible(false);
-            pnlGerDes.setVisible(false);
-
-            pnlCadEnt.setVisible(false);
-            pnlGerEnt.setVisible(false);
-            pnlRel.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
-            pnlCadTipSer.setVisible(false);
-            pnlGerTipSer.setVisible(false);
-            pnlMas.setVisible(false);
-            pnlDes.setVisible(false);
-            pnlCadDes.setVisible(false);
-            pnlOs.setVisible(false);
-            pnlIteGerEnt.setVisible(false);
-            pnlConEnt.setVisible(false);
-            pnlCadVen.setVisible(false);
-            pnlVen.setVisible(false);
-            btnJurPri.setVisible(false);
-            pnlJur.setVisible(true);
-
-            btnMasPla.setVisible(false);
-            btnDes.setVisible(false);
-            btnCadDes.setVisible(false);
-            btnGerDes.setVisible(false);
-            btnVen.setVisible(false);
-            btnCadVen.setVisible(false);
             lblR$Jur.setVisible(false);
 
             lblTitPri.setText("Calcular Juros");
             lblTitPri.setVisible(true);
-        }
 
+            pnlbtn();
+            pnlJur.setVisible(true);
+
+        } else {
+
+            pnlbtn();
+            pnlJur.setVisible(true);
+
+        }
     }//GEN-LAST:event_btnJurPriMouseReleased
 
     private void txtValJurKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValJurKeyTyped
