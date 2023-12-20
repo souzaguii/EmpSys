@@ -1433,7 +1433,7 @@ public final class main extends javax.swing.JFrame {
 
                             int comparacao1 = dataatual.compareTo(vencimento);
 
-                            if (comparacao1 == 0) { // dataatual igual a data de vencimento
+                            if (comparacao1 >= 0) {
                                 component.setBackground(new Color(182, 222, 170)); // verde
                             } else {
                                 component.setBackground(new Color(246, 246, 246)); // vermelho
@@ -4625,6 +4625,9 @@ public final class main extends javax.swing.JFrame {
             }
         });
         txtTelCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelCadVenKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelCadVenKeyTyped(evt);
             }
@@ -13735,6 +13738,21 @@ public final class main extends javax.swing.JFrame {
         pnlJur.setVisible(false);
         lblTitPri.setVisible(false);
     }//GEN-LAST:event_btnVolJurActionPerformed
+
+    private void txtTelCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCadVenKeyReleased
+       if (txtTelCadVen.getText().length() == 11 && !txtTelCadVen.getText().contains("(")) {
+
+            StringBuilder string = new StringBuilder(txtTelCadVen.getText());
+
+            string.insert(0, "(");
+            string.insert(3, ")");
+            string.insert(4, " ");
+            string.insert(10, "-");
+
+            txtTelCadVen.setText(string.toString());
+
+        }
+    }//GEN-LAST:event_txtTelCadVenKeyReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
