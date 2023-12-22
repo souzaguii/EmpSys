@@ -2377,6 +2377,8 @@ public final class main extends javax.swing.JFrame {
         pnlJur = new javax.swing.JPanel();
         btnVolJur = new javax.swing.JButton();
         btnCalJur = new javax.swing.JButton();
+        lblValParJur = new javax.swing.JLabel();
+        lblValParJur1 = new javax.swing.JLabel();
         lblR$Jur = new javax.swing.JLabel();
         lblValJur = new javax.swing.JLabel();
         txtValJur = new javax.swing.JTextField();
@@ -6213,6 +6215,43 @@ public final class main extends javax.swing.JFrame {
         pnlJur.add(btnCalJur);
         btnCalJur.setBounds(210, 180, 100, 40);
 
+        lblValParJur.setFont(fontmed(16));
+        lblValParJur.setForeground(new java.awt.Color(10, 60, 133));
+        lblValParJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValParJur.setText("R$ 0,00");
+        lblValParJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblValParJur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblValParJurMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblValParJurMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblValParJurMouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblValParJur);
+        lblValParJur.setBounds(980, 210, 140, 20);
+
+        lblValParJur1.setFont(fontbold(16));
+        lblValParJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValParJur1.setText("Parcelas");
+        lblValParJur1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblValParJur1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblValParJur1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblValParJur1MouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblValParJur1MouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblValParJur1);
+        lblValParJur1.setBounds(980, 180, 140, 20);
+
         lblR$Jur.setFont(fontmed(13));
         lblR$Jur.setText("R$");
         lblR$Jur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -6276,7 +6315,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValJur2);
-        lblValJur2.setBounds(900, 120, 130, 20);
+        lblValJur2.setBounds(820, 120, 130, 20);
 
         lblValJur3.setFont(fontbold(16));
         lblValJur3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -6294,7 +6333,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValJur3);
-        lblValJur3.setBounds(900, 90, 130, 20);
+        lblValJur3.setBounds(820, 90, 130, 20);
 
         lblParJur.setFont(fontmed(12));
         lblParJur.setForeground(new java.awt.Color(10, 60, 133));
@@ -6320,7 +6359,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValFinJur);
-        lblValFinJur.setBounds(830, 210, 130, 20);
+        lblValFinJur.setBounds(985, 120, 130, 20);
 
         lblValJurJur.setFont(fontmed(16));
         lblValJurJur.setForeground(new java.awt.Color(10, 60, 133));
@@ -6339,7 +6378,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValJurJur);
-        lblValJurJur.setBounds(960, 210, 140, 20);
+        lblValJurJur.setBounds(810, 210, 150, 20);
 
         lblValFinJur1.setFont(fontbold(16));
         lblValFinJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -6357,7 +6396,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValFinJur1);
-        lblValFinJur1.setBounds(820, 180, 150, 20);
+        lblValFinJur1.setBounds(975, 90, 150, 20);
 
         lblJurJur.setFont(fontbold(16));
         lblJurJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -6375,7 +6414,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblJurJur);
-        lblJurJur.setBounds(970, 180, 120, 20);
+        lblJurJur.setBounds(820, 180, 130, 20);
 
         spnParJur.setModel(new javax.swing.SpinnerNumberModel(1, 0, 12, 1));
         spnParJur.setFont(fontmed(13));
@@ -13588,7 +13627,7 @@ public final class main extends javax.swing.JFrame {
         lblValJurJur.setText(moedadoublereal(precoini - preco));
         lblValFinJur.setText(moedadoublereal(preco));
         lblValJur2.setText(moedadoublereal(precoini));
-
+        lblValParJur.setText((int) spnParJur.getValue() + "x " + moedadoublereal(precoini/(int) spnParJur.getValue()));
     }//GEN-LAST:event_btnCalJurActionPerformed
 
     private void txtValJurFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValJurFocusGained
@@ -13703,6 +13742,7 @@ public final class main extends javax.swing.JFrame {
             lblValFinJur.setText("R$ 0,00");
             lblValJur2.setText("R$ 0,00");
             lblValJurJur.setText("R$ 0,00");
+              lblValParJur.setText("R$ 0,00");
             lblR$Jur.setVisible(false);
             lblValJur.setLocation(200, 100);
             spnParJur.setValue(1);
@@ -13753,6 +13793,30 @@ public final class main extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_txtTelCadVenKeyReleased
+
+    private void lblValParJurMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValParJurMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValParJurMouseEntered
+
+    private void lblValParJurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValParJurMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValParJurMouseExited
+
+    private void lblValParJurMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValParJurMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValParJurMouseReleased
+
+    private void lblValParJur1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValParJur1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValParJur1MouseEntered
+
+    private void lblValParJur1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValParJur1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValParJur1MouseExited
+
+    private void lblValParJur1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValParJur1MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValParJur1MouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -13958,6 +14022,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblValJur3;
     private javax.swing.JLabel lblValJurJur;
     private javax.swing.JLabel lblValMedRel;
+    private javax.swing.JLabel lblValParJur;
+    private javax.swing.JLabel lblValParJur1;
     private javax.swing.JLabel lblValPixRel;
     private javax.swing.JLabel lblValTotRel;
     private javax.swing.JLabel lblVen;
