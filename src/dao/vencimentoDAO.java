@@ -95,7 +95,7 @@ public class vencimentoDAO {
 
     public boolean verificar() throws SQLException {
 
-        String SQL = "SELECT * FROM vencimento WHERE vencimentoVen =  CURRENT_DATE() ";
+        String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <=  CURRENT_DATE()";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();

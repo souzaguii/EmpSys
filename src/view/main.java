@@ -2377,6 +2377,7 @@ public final class main extends javax.swing.JFrame {
         pnlJur = new javax.swing.JPanel();
         btnVolJur = new javax.swing.JButton();
         btnCalJur = new javax.swing.JButton();
+        lblValMesPreJur = new javax.swing.JLabel();
         lblValParJur = new javax.swing.JLabel();
         lblValParJur1 = new javax.swing.JLabel();
         lblR$Jur = new javax.swing.JLabel();
@@ -2391,6 +2392,7 @@ public final class main extends javax.swing.JFrame {
         lblValFinJur = new javax.swing.JLabel();
         lblValJurJur = new javax.swing.JLabel();
         lblValFinJur1 = new javax.swing.JLabel();
+        lblJurJur1 = new javax.swing.JLabel();
         lblJurJur = new javax.swing.JLabel();
         spnParJur = new javax.swing.JSpinner();
         pnlMas = new javax.swing.JPanel();
@@ -6215,6 +6217,25 @@ public final class main extends javax.swing.JFrame {
         pnlJur.add(btnCalJur);
         btnCalJur.setBounds(210, 180, 100, 40);
 
+        lblValMesPreJur.setFont(fontmed(16));
+        lblValMesPreJur.setForeground(new java.awt.Color(10, 60, 133));
+        lblValMesPreJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValMesPreJur.setText("R$ 0,00");
+        lblValMesPreJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblValMesPreJur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblValMesPreJurMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblValMesPreJurMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblValMesPreJurMouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblValMesPreJur);
+        lblValMesPreJur.setBounds(800, 260, 340, 20);
+
         lblValParJur.setFont(fontmed(16));
         lblValParJur.setForeground(new java.awt.Color(10, 60, 133));
         lblValParJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -6232,7 +6253,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValParJur);
-        lblValParJur.setBounds(980, 210, 140, 20);
+        lblValParJur.setBounds(980, 170, 140, 20);
 
         lblValParJur1.setFont(fontbold(16));
         lblValParJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -6250,7 +6271,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValParJur1);
-        lblValParJur1.setBounds(980, 180, 140, 20);
+        lblValParJur1.setBounds(980, 140, 140, 20);
 
         lblR$Jur.setFont(fontmed(13));
         lblR$Jur.setText("R$");
@@ -6315,7 +6336,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValJur2);
-        lblValJur2.setBounds(820, 120, 130, 20);
+        lblValJur2.setBounds(820, 80, 130, 20);
 
         lblValJur3.setFont(fontbold(16));
         lblValJur3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -6333,7 +6354,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValJur3);
-        lblValJur3.setBounds(820, 90, 130, 20);
+        lblValJur3.setBounds(820, 50, 130, 20);
 
         lblParJur.setFont(fontmed(12));
         lblParJur.setForeground(new java.awt.Color(10, 60, 133));
@@ -6359,7 +6380,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValFinJur);
-        lblValFinJur.setBounds(985, 120, 130, 20);
+        lblValFinJur.setBounds(970, 80, 150, 20);
 
         lblValJurJur.setFont(fontmed(16));
         lblValJurJur.setForeground(new java.awt.Color(10, 60, 133));
@@ -6378,7 +6399,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValJurJur);
-        lblValJurJur.setBounds(810, 210, 150, 20);
+        lblValJurJur.setBounds(810, 170, 150, 20);
 
         lblValFinJur1.setFont(fontbold(16));
         lblValFinJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -6396,7 +6417,25 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValFinJur1);
-        lblValFinJur1.setBounds(975, 90, 150, 20);
+        lblValFinJur1.setBounds(970, 50, 150, 20);
+
+        lblJurJur1.setFont(fontbold(16));
+        lblJurJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblJurJur1.setText("Para mesmo preço à vista");
+        lblJurJur1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblJurJur1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblJurJur1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblJurJur1MouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblJurJur1MouseReleased(evt);
+            }
+        });
+        pnlJur.add(lblJurJur1);
+        lblJurJur1.setBounds(840, 230, 260, 20);
 
         lblJurJur.setFont(fontbold(16));
         lblJurJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -6414,7 +6453,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblJurJur);
-        lblJurJur.setBounds(820, 180, 130, 20);
+        lblJurJur.setBounds(820, 140, 130, 20);
 
         spnParJur.setModel(new javax.swing.SpinnerNumberModel(1, 0, 12, 1));
         spnParJur.setFont(fontmed(13));
@@ -13570,64 +13609,72 @@ public final class main extends javax.swing.JFrame {
     private void btnCalJurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalJurActionPerformed
         double precoini = Double.parseDouble(txtValJur.getText().replace(".", "").replace(",", "."));
         double preco = Double.parseDouble(txtValJur.getText().replace(".", "").replace(",", "."));
+        double taxa = 0;
 
-        if ((int) spnParJur.getValue() == 1) {
-
-            preco = preco - (preco * 4.98 / 100);
-
-        } else if ((int) spnParJur.getValue() == 2) {
-
-            preco = preco - (preco * 9.90 / 100);
-
-        } else if ((int) spnParJur.getValue() == 3) {
-
-            preco = preco - (preco * 11.28 / 100);
-
-        } else if ((int) spnParJur.getValue() == 4) {
-
-            preco = preco - (preco * 12.64 / 100);
-
-        } else if ((int) spnParJur.getValue() == 5) {
-
-            preco = preco - (preco * 13.97 / 100);
-
-        } else if ((int) spnParJur.getValue() == 6) {
-
-            preco = preco - (preco * 15.27 / 100);
-
-        } else if ((int) spnParJur.getValue() == 7) {
-
-            preco = preco - (preco * 16.55 / 100);
-
-        } else if ((int) spnParJur.getValue() == 8) {
-            preco = preco - (preco * 17.81 / 100);
-
-        } else if ((int) spnParJur.getValue() == 9) {
-
-            preco = preco - (preco * 19.04 / 100);
-
-        } else if ((int) spnParJur.getValue() == 10) {
-
-            preco = preco - (preco * 20.24 / 100);
-
-        } else if ((int) spnParJur.getValue() == 11) {
-
-            preco = preco - (preco * 21.43 / 100);
-
-        } else if ((int) spnParJur.getValue() == 12) {
-
-            preco = preco - (preco * 22.59 / 100);
-
-        } else if ((int) spnParJur.getValue() == 0) {
-
-            preco = preco - (preco * 1.99 / 100);
-
+        switch ((int) spnParJur.getValue()) {
+            case 1:
+                preco = preco - (preco * 4.98 / 100);
+                taxa = (4.98 / 100) - 1;
+                break;
+            case 2:
+                preco = preco - (preco * 9.90 / 100);
+                taxa = (9.90 / 100) - 1;
+                break;
+            case 3:
+                preco = preco - (preco * 11.28 / 100);
+                taxa = (11.28 / 100) - 1;
+                break;
+            case 4:
+                preco = preco - (preco * 12.64 / 100);
+                taxa = (12.64 / 100) - 1;
+                break;
+            case 5:
+                preco = preco - (preco * 13.97 / 100);
+                taxa = (13.97 / 100) - 1;
+                break;
+            case 6:
+                preco = preco - (preco * 15.27 / 100);
+                taxa = (15.27 / 100) - 1;
+                break;
+            case 7:
+                preco = preco - (preco * 16.55 / 100);
+                taxa = (16.55 / 100) - 1;
+                break;
+            case 8:
+                preco = preco - (preco * 17.81 / 100);
+                taxa = (17.81 / 100) - 1;
+                break;
+            case 9:
+                preco = preco - (preco * 19.04 / 100);
+                taxa = (19.04 / 100) - 1;
+                break;
+            case 10:
+                preco = preco - (preco * 20.24 / 100);
+                taxa = (20.24 / 100) - 1;
+                break;
+            case 11:
+                preco = preco - (preco * 21.43 / 100);
+                taxa = (21.43 / 100) - 1;
+                break;
+            case 12:
+                preco = preco - (preco * 22.59 / 100);
+                taxa = (22.59 / 100) - 1;
+                break;
+            case 0:
+                preco = preco - (preco * 1.99 / 100);
+                taxa = (1.99 / 100) - 1;
+                break;
+            default:
+                break;
         }
 
         lblValJurJur.setText(moedadoublereal(precoini - preco));
         lblValFinJur.setText(moedadoublereal(preco));
         lblValJur2.setText(moedadoublereal(precoini));
-        lblValParJur.setText((int) spnParJur.getValue() + "x " + moedadoublereal(precoini/(int) spnParJur.getValue()));
+
+        lblValMesPreJur.setText((int) spnParJur.getValue() + "x de " + moedadoublereal((precoini /  Math.abs(taxa)) / (int) spnParJur.getValue()) + " = " + moedadoublereal(precoini / Math.abs(taxa)));
+
+        lblValParJur.setText((int) spnParJur.getValue() + "x " + moedadoublereal(precoini / (int) spnParJur.getValue()));
     }//GEN-LAST:event_btnCalJurActionPerformed
 
     private void txtValJurFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValJurFocusGained
@@ -13742,7 +13789,7 @@ public final class main extends javax.swing.JFrame {
             lblValFinJur.setText("R$ 0,00");
             lblValJur2.setText("R$ 0,00");
             lblValJurJur.setText("R$ 0,00");
-              lblValParJur.setText("R$ 0,00");
+            lblValParJur.setText("R$ 0,00");
             lblR$Jur.setVisible(false);
             lblValJur.setLocation(200, 100);
             spnParJur.setValue(1);
@@ -13780,7 +13827,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolJurActionPerformed
 
     private void txtTelCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCadVenKeyReleased
-       if (txtTelCadVen.getText().length() == 11 && !txtTelCadVen.getText().contains("(")) {
+        if (txtTelCadVen.getText().length() == 11 && !txtTelCadVen.getText().contains("(")) {
 
             StringBuilder string = new StringBuilder(txtTelCadVen.getText());
 
@@ -13817,6 +13864,30 @@ public final class main extends javax.swing.JFrame {
     private void lblValParJur1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValParJur1MouseReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_lblValParJur1MouseReleased
+
+    private void lblJurJur1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblJurJur1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblJurJur1MouseEntered
+
+    private void lblJurJur1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblJurJur1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblJurJur1MouseExited
+
+    private void lblJurJur1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblJurJur1MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblJurJur1MouseReleased
+
+    private void lblValMesPreJurMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValMesPreJurMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValMesPreJurMouseEntered
+
+    private void lblValMesPreJurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValMesPreJurMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValMesPreJurMouseExited
+
+    private void lblValMesPreJurMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValMesPreJurMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblValMesPreJurMouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -13966,6 +14037,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblForGerEnt;
     private javax.swing.JLabel lblHorOs;
     private javax.swing.JLabel lblJurJur;
+    private javax.swing.JLabel lblJurJur1;
     private javax.swing.JLabel lblLocCadEst;
     private javax.swing.JLabel lblLocGerEst;
     private javax.swing.JLabel lblMarCadEst;
@@ -14022,6 +14094,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblValJur3;
     private javax.swing.JLabel lblValJurJur;
     private javax.swing.JLabel lblValMedRel;
+    private javax.swing.JLabel lblValMesPreJur;
     private javax.swing.JLabel lblValParJur;
     private javax.swing.JLabel lblValParJur1;
     private javax.swing.JLabel lblValPixRel;
