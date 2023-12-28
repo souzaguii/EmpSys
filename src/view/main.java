@@ -13672,9 +13672,25 @@ public final class main extends javax.swing.JFrame {
         lblValFinJur.setText(moedadoublereal(preco));
         lblValJur2.setText(moedadoublereal(precoini));
 
-        lblValMesPreJur.setText((int) spnParJur.getValue() + "x de " + moedadoublereal((precoini /  Math.abs(taxa)) / (int) spnParJur.getValue()) + " = " + moedadoublereal(precoini / Math.abs(taxa)));
+        if ((int) spnParJur.getValue() != 0) {
 
-        lblValParJur.setText((int) spnParJur.getValue() + "x " + moedadoublereal(precoini / (int) spnParJur.getValue()));
+            lblValMesPreJur.setText((int) spnParJur.getValue() + "x de " + moedadoublereal((precoini / Math.abs(taxa)) / (int) spnParJur.getValue()) + " = " + moedadoublereal(precoini / Math.abs(taxa)));
+
+        } else {
+
+            lblValMesPreJur.setText(moedadoublereal(precoini / Math.abs(taxa)));
+
+        }
+
+        if ((int) spnParJur.getValue() != 0) {
+
+            lblValParJur.setText((int) spnParJur.getValue() + "x " + moedadoublereal(precoini / (int) spnParJur.getValue()));
+
+        } else {
+
+            lblValParJur.setText("R$ 0,00");
+
+        }
     }//GEN-LAST:event_btnCalJurActionPerformed
 
     private void txtValJurFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValJurFocusGained
@@ -13790,6 +13806,7 @@ public final class main extends javax.swing.JFrame {
             lblValJur2.setText("R$ 0,00");
             lblValJurJur.setText("R$ 0,00");
             lblValParJur.setText("R$ 0,00");
+            lblValMesPreJur.setText("R$ 0,00");
             lblR$Jur.setVisible(false);
             lblValJur.setLocation(200, 100);
             spnParJur.setValue(1);
