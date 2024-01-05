@@ -10288,6 +10288,7 @@ public final class main extends javax.swing.JFrame {
 
         txtAreMas.setText(
                 "*⚠️ Máscara para Input de Vendas ⚠*\n\n"
+                + "*Nome do PDV:* Empório Cell - Frutal\n"
                 + "*Nome do Vendedor:* Guilherme\n"
                 + "*Nome do Cliente:* " + txtNomMas.getText() + "\n"
                 + "*CPF do Cliente:* " + txtCpfMas.getText() + "\n"
