@@ -1393,23 +1393,25 @@ public final class main extends javax.swing.JFrame {
 
                 modelo.addColumn("Cliente");
                 modelo.addColumn("Telefone");
+                modelo.addColumn("CPF");
                 modelo.addColumn("Plano");
                 modelo.addColumn("Data");
                 modelo.addColumn("Vencimento");
 
                 for (String[] row : lista) {
 
-                    Object[] rowData = new Object[5];
+                    Object[] rowData = new Object[6];
 
-                    Date date = formatterbanco.parse(row[3]);
+                    Date date = formatterbanco.parse(row[4]);
 
-                    Date datecon = formatterbanco.parse(row[4]);
+                    Date datecon = formatterbanco.parse(row[5]);
 
                     rowData[0] = row[0];
                     rowData[1] = row[1];
                     rowData[2] = row[2];
-                    rowData[3] = formatter.format(date);
-                    rowData[4] = formatter.format(datecon);
+                    rowData[3] = row[3];
+                    rowData[4] = formatter.format(date);
+                    rowData[5] = formatter.format(datecon);
 
                     modelo.addRow(rowData);
 
@@ -1427,7 +1429,7 @@ public final class main extends javax.swing.JFrame {
                             String dataat = formatterbanco.format(dataatu);
                             Date dataatual = formatterbanco.parse(dataat);
 
-                            String vens = formatterbanco.format(((formatter.parse(table.getValueAt(row, 4).toString()))));
+                            String vens = formatterbanco.format(((formatter.parse(table.getValueAt(row, 5).toString()))));
 
                             Date vencimento = formatterbanco.parse(vens);
 
@@ -2420,6 +2422,7 @@ public final class main extends javax.swing.JFrame {
         pnlVen = new javax.swing.JPanel();
         scrVen = new javax.swing.JScrollPane();
         tblVen = new javax.swing.JTable();
+        btnCopVen = new javax.swing.JButton();
         btnAltVen = new javax.swing.JButton();
         btnWppVen = new javax.swing.JButton();
         btnVolVen = new javax.swing.JButton();
@@ -2445,6 +2448,9 @@ public final class main extends javax.swing.JFrame {
         lblCli = new javax.swing.JLabel();
         lblVen = new javax.swing.JLabel();
         lblDat = new javax.swing.JLabel();
+        lblCpfCadVen = new javax.swing.JLabel();
+        sepCadVen = new javax.swing.JSeparator();
+        txtCpfCadVen = new javax.swing.JTextField();
         pnlJur = new javax.swing.JPanel();
         btnVolJur = new javax.swing.JButton();
         btnCalJur = new javax.swing.JButton();
@@ -2917,7 +2923,7 @@ public final class main extends javax.swing.JFrame {
 
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(corforeazul);
-        btnVenPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnVenPri.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnVenPri.setText("Vencimento encontrado!");
         btnVenPri.setToolTipText("");
         btnVenPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -2932,7 +2938,7 @@ public final class main extends javax.swing.JFrame {
                 btnVenPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnVenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 20, 160, 20));
+        pnlPri.add(btnVenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, 170, 20));
 
         lblTitPri.setFont(fontmed(17));
         lblTitPri.setForeground(corforeazul);
@@ -6641,7 +6647,20 @@ public final class main extends javax.swing.JFrame {
         scrVen.setViewportView(tblVen);
 
         pnlVen.add(scrVen);
-        scrVen.setBounds(270, 20, 760, 240);
+        scrVen.setBounds(160, 20, 980, 240);
+
+        btnCopVen.setFont(fontmed(12));
+        btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnCopVen.setText("Copiar CPF");
+        btnCopVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCopVen.setEnabled(false);
+        btnCopVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCopVenActionPerformed(evt);
+            }
+        });
+        pnlVen.add(btnCopVen);
+        btnCopVen.setBounds(680, 280, 100, 50);
 
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6653,7 +6672,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnAltVen);
-        btnAltVen.setBounds(690, 280, 100, 50);
+        btnAltVen.setBounds(800, 280, 100, 50);
 
         btnWppVen.setFont(fontmed(12));
         btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6665,7 +6684,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnWppVen);
-        btnWppVen.setBounds(930, 280, 100, 50);
+        btnWppVen.setBounds(1040, 280, 100, 50);
 
         btnVolVen.setFont(fontmed(12));
         btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6677,7 +6696,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnVolVen);
-        btnVolVen.setBounds(270, 280, 100, 50);
+        btnVolVen.setBounds(160, 280, 100, 50);
 
         btnExcVen.setFont(fontmed(12));
         btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6689,7 +6708,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnExcVen);
-        btnExcVen.setBounds(810, 280, 100, 50);
+        btnExcVen.setBounds(920, 280, 100, 50);
 
         pnlPri.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -6755,7 +6774,7 @@ public final class main extends javax.swing.JFrame {
         lblPlaCadVen.setText("Plano");
         lblPlaCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadVen.add(lblPlaCadVen);
-        lblPlaCadVen.setBounds(400, 130, 50, 20);
+        lblPlaCadVen.setBounds(700, 80, 50, 20);
 
         txtPlaCadVen.setBackground(new java.awt.Color(246, 246, 246));
         txtPlaCadVen.setFont(fontmed(13));
@@ -6769,11 +6788,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadVen.add(txtPlaCadVen);
-        txtPlaCadVen.setBounds(400, 130, 190, 20);
+        txtPlaCadVen.setBounds(700, 80, 190, 20);
 
         sepPlaCadVen.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadVen.add(sepPlaCadVen);
-        sepPlaCadVen.setBounds(400, 150, 190, 10);
+        sepPlaCadVen.setBounds(700, 100, 190, 10);
 
         lblCliCadVen.setFont(fontmed(12));
         lblCliCadVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6805,7 +6824,7 @@ public final class main extends javax.swing.JFrame {
         lblTelCadVen.setText("Telefone");
         lblTelCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadVen.add(lblTelCadVen);
-        lblTelCadVen.setBounds(700, 80, 60, 20);
+        lblTelCadVen.setBounds(400, 180, 60, 20);
 
         txtTelCadVen.setBackground(new java.awt.Color(246, 246, 246));
         txtTelCadVen.setFont(fontmed(13));
@@ -6827,11 +6846,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadVen.add(txtTelCadVen);
-        txtTelCadVen.setBounds(700, 80, 190, 20);
+        txtTelCadVen.setBounds(400, 180, 190, 20);
 
         sepTelCadVen.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadVen.add(sepTelCadVen);
-        sepTelCadVen.setBounds(700, 100, 190, 10);
+        sepTelCadVen.setBounds(400, 200, 190, 10);
 
         lblDatCadVen.setFont(fontmed(12));
         lblDatCadVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6877,6 +6896,42 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(lblDat);
         lblDat.setBounds(1150, 60, 37, 16);
         lblDat.setVisible(false);
+
+        lblCpfCadVen.setFont(fontmed(12));
+        lblCpfCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblCpfCadVen.setText("CPF");
+        lblCpfCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblCpfCadVen);
+        lblCpfCadVen.setBounds(400, 130, 70, 20);
+
+        sepCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepCadVen);
+        sepCadVen.setBounds(400, 150, 190, 10);
+
+        txtCpfCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtCpfCadVen.setFont(fontmed(13));
+        txtCpfCadVen.setBorder(null);
+        txtCpfCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCpfCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCpfCadVenFocusLost(evt);
+            }
+        });
+        txtCpfCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCpfCadVenKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfCadVenKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCpfCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtCpfCadVen);
+        txtCpfCadVen.setBounds(400, 130, 190, 20);
 
         pnlPri.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -10311,7 +10366,7 @@ public final class main extends javax.swing.JFrame {
                 + c6
                 + "---------------------------------------\n"
                 + "*Dia do vencimento da fatura:* " + txtVenMas.getText()
-                + "\n*Débito em conta*\n" + deb
+                + "\n*Débito em Conta*\n" + deb
         );
 
         txtAreMas.setCaretPosition(0);
@@ -12832,13 +12887,15 @@ public final class main extends javax.swing.JFrame {
         if (!pnlCadVen.isVisible()) {
 
             lblCliCadVen.setLocation(400, 80);
-            lblPlaCadVen.setLocation(400, 130);
-            lblTelCadVen.setLocation(700, 80);
+            lblPlaCadVen.setLocation(700, 80);
+            lblTelCadVen.setLocation(400, 180);
+            lblCpfCadVen.setLocation(400, 130);
             lblDatCadVen.setLocation(700, 130);
             lblVenCadVen.setLocation(700, 180);
 
             txtCliCadVen.setText(null);
             txtPlaCadVen.setText(null);
+            txtCpfCadVen.setText(null);
             txtTelCadVen.setText(null);
             txtVenCadVen.setText(null);
             LocalDate dataAtual = LocalDate.now();
@@ -12878,6 +12935,7 @@ public final class main extends javax.swing.JFrame {
                 btnExcVen.setEnabled(false);
                 btnWppVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
+                btnCopVen.setEnabled(false);
 
                 pnlbtn();
                 pnlVen.setVisible(true);
@@ -12907,6 +12965,7 @@ public final class main extends javax.swing.JFrame {
                 ve.setCliente(txtCliCadVen.getText());
                 ve.setPlano(txtPlaCadVen.getText());
                 ve.setTelefone(txtTelCadVen.getText());
+                ve.setCpf(txtCpfCadVen.getText());
                 ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
                 ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
 
@@ -12918,6 +12977,7 @@ public final class main extends javax.swing.JFrame {
 
                 ve.setCliente(txtCliCadVen.getText());
                 ve.setPlano(txtPlaCadVen.getText());
+                ve.setCpf(txtCpfCadVen.getText());
                 ve.setTelefone(txtTelCadVen.getText());
                 ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
                 ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
@@ -13112,6 +13172,7 @@ public final class main extends javax.swing.JFrame {
         btnExcVen.setEnabled(true);
         btnWppVen.setEnabled(true);
         btnAltVen.setEnabled(true);
+        btnCopVen.setEnabled(true);
     }//GEN-LAST:event_tblVenMouseClicked
 
     private void btnVolVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolVenActionPerformed
@@ -13123,7 +13184,7 @@ public final class main extends javax.swing.JFrame {
         try {
             String texto = "*Empório Cell - TIM*\n\n"
                     + "Olá " + tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString() + ", tudo bem? Esperamos que sim!\n"
-                    + "Passando para te lembrar que o plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString() + "* que você fez com a gente no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString()
+                    + "Passando para te lembrar que o plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString() + "* que você fez com a gente no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString()
                     + "* vence *hoje*.\n"
                     + "O que está achando do seu novo plano TIM? Perfeito, né?!\n\n"
                     + "Você pode fazer o pagamento por PIX no aplicativo *Meu TIM*, ou ir até a lotérica mais próxima e informar o seu número."
@@ -13152,8 +13213,8 @@ public final class main extends javax.swing.JFrame {
                         vencimentoDAO vedao = new vencimentoDAO();
 
                         ve.setCliente(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
-                        ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString()))));
-                        ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString()))));
+                        ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString()))));
+                        ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()))));
 
                         vedao.excluir(ve);
 
@@ -13198,8 +13259,8 @@ public final class main extends javax.swing.JFrame {
                 vencimentoDAO vedao = new vencimentoDAO();
 
                 ve.setCliente(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
-                ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString()))));
-                ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString()))));
+                ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString()))));
+                ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()))));
 
                 vedao.excluir(ve);
 
@@ -13218,6 +13279,8 @@ public final class main extends javax.swing.JFrame {
 
                 btnWppVen.setEnabled(false);
                 btnExcVen.setEnabled(false);
+                btnAltVen.setEnabled(false);
+                btnCopVen.setEnabled(false);
             } catch (SQLException | ParseException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -13226,22 +13289,26 @@ public final class main extends javax.swing.JFrame {
 
     private void btnVenMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenMasActionPerformed
         if (txtNomMas.getText().isEmpty() || txtNumConMas.getText().isEmpty() || txtPlaMas.getText().isEmpty()) {
+
         } else {
+
             txtCliCadVen.setText(txtNomMas.getText());
             txtPlaCadVen.setText(txtPlaMas.getText());
             txtTelCadVen.setText(txtNumConMas.getText());
+            txtCpfCadVen.setText(txtCpfMas.getText());
 
             LocalDate dataAtual = LocalDate.now();
             txtDatCadVen.setText(dataAtual.format(formatteratual));
 
             lblCliCadVen.setLocation(400, 80);
-            lblPlaCadVen.setLocation(400, 130);
-            lblTelCadVen.setLocation(700, 80);
+            lblPlaCadVen.setLocation(700, 80);
+            lblTelCadVen.setLocation(400, 180);
+            lblCpfCadVen.setLocation(400, 130);
             lblDatCadVen.setLocation(700, 130);
             lblVenCadVen.setLocation(700, 180);
 
             txtVenCadVen.setText(null);
-
+            
             pnlMas.setVisible(false);
             pnlCadVen.setVisible(true);
             lblTitPri.setText("Cadastrar Vencimento");
@@ -13250,6 +13317,7 @@ public final class main extends javax.swing.JFrame {
             anitxtin(lblPlaCadVen);
             anitxtin(lblTelCadVen);
             anitxtin(lblDatCadVen);
+            anitxtin(lblCpfCadVen);
 
         }
     }//GEN-LAST:event_btnVenMasActionPerformed
@@ -13296,6 +13364,7 @@ public final class main extends javax.swing.JFrame {
                 btnExcVen.setEnabled(false);
                 btnWppVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
+                btnCopVen.setEnabled(false);
 
             } else {
 
@@ -13456,13 +13525,14 @@ public final class main extends javax.swing.JFrame {
     private void btnAltVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltVenActionPerformed
         txtCliCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
         txtTelCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString());
-        txtPlaCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString());
-        txtDatCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString());
-        txtVenCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString());
+        txtCpfCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString());
+        txtPlaCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString());
+        txtDatCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString());
+        txtVenCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString());
 
         lblCli.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
-        lblDat.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString());
-        lblVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString());
+        lblDat.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString());
+        lblVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString());
 
         pnlCadEst.setVisible(false);
         pnlConEst.setVisible(false);
@@ -13492,8 +13562,9 @@ public final class main extends javax.swing.JFrame {
         btnCadVen.setVisible(false);
 
         lblCliCadVen.setLocation(400, 60);
-        lblPlaCadVen.setLocation(400, 110);
-        lblTelCadVen.setLocation(700, 60);
+        lblPlaCadVen.setLocation(700, 60);
+        lblTelCadVen.setLocation(400, 160);
+        lblCpfCadVen.setLocation(400, 110);
         lblDatCadVen.setLocation(700, 110);
         lblVenCadVen.setLocation(700, 160);
 
@@ -13907,6 +13978,83 @@ public final class main extends javax.swing.JFrame {
     private void lblValMesPreJurMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValMesPreJurMouseReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_lblValMesPreJurMouseReleased
+
+    private void txtCpfCadVenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfCadVenFocusGained
+        if (txtCpfCadVen.getText().isEmpty()) {
+            anitxtin(lblCpfCadVen);
+        }
+    }//GEN-LAST:event_txtCpfCadVenFocusGained
+
+    private void txtCpfCadVenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfCadVenFocusLost
+        if (txtCpfCadVen.getText().isEmpty()) {
+            anitxtout(lblCpfCadVen);
+        }
+    }//GEN-LAST:event_txtCpfCadVenFocusLost
+
+    private void txtCpfCadVenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCadVenKeyPressed
+
+    }//GEN-LAST:event_txtCpfCadVenKeyPressed
+
+    private void txtCpfCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCadVenKeyReleased
+        if (txtCpfCadVen.getText().length() == 11 && !txtCpfCadVen.getText().contains(".")) {
+
+            StringBuilder string = new StringBuilder(txtCpfCadVen.getText());
+
+            string.insert(3, ".");
+            string.insert(7, ".");
+            string.insert(11, "-");
+
+            txtCpfCadVen.setText(string.toString());
+
+        }
+    }//GEN-LAST:event_txtCpfCadVenKeyReleased
+
+    private void txtCpfCadVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCadVenKeyTyped
+        if (txtCpfCadVen.getSelectedText() != null) {
+            if (!Character.isDigit(evt.getKeyChar())) {
+                evt.consume();
+            }
+        } else {
+
+            if (!Character.isDigit(evt.getKeyChar())) {
+
+                evt.consume();
+
+            } else {
+
+                if (txtCpfCadVen.getText().length() == 3) {
+
+                    txtCpfCadVen.setText(txtCpfCadVen.getText() + ".");
+                    txtCpfCadVen.setCaretPosition(4);
+
+                } else if (txtCpfCadVen.getText().length() == 7) {
+
+                    txtCpfCadVen.setText(txtCpfCadVen.getText() + ".");
+                    txtCpfCadVen.setCaretPosition(8);
+
+                } else if (txtCpfCadVen.getText().length() == 11) {
+
+                    txtCpfCadVen.setText(txtCpfCadVen.getText() + "-");
+                    txtCpfCadVen.setCaretPosition(12);
+
+                }
+
+            }
+            if (txtCpfCadVen.getText().length() > 13) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtCpfCadVenKeyTyped
+
+    private void btnCopVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopVenActionPerformed
+      Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+
+        String texto = (tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString().replaceAll("\\.", "")).replaceAll("-", "");
+
+        StringSelection selecao = new StringSelection(texto);
+
+        clipboard.setContents(selecao, null);
+    }//GEN-LAST:event_btnCopVenActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -13946,6 +14094,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel btnConEnt;
     private javax.swing.JLabel btnConEst;
     private javax.swing.JLabel btnCopMas;
+    private javax.swing.JButton btnCopVen;
     private javax.swing.JLabel btnDes;
     private javax.swing.JLabel btnDiaRel;
     private javax.swing.JLabel btnEntPri;
@@ -14024,6 +14173,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblConOs;
     private javax.swing.JLabel lblCorCadEst;
     private javax.swing.JLabel lblCorGerEst;
+    private javax.swing.JLabel lblCpfCadVen;
     private javax.swing.JLabel lblCpfMas;
     private javax.swing.JLabel lblCusCadEnt;
     private javax.swing.JLabel lblCusGerEnt;
@@ -14205,6 +14355,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepBusGerEst1;
     private javax.swing.JSeparator sepBusIteCadEnt;
     private javax.swing.JSeparator sepBusIteCadEnt1;
+    private javax.swing.JSeparator sepCadVen;
     private javax.swing.JSeparator sepCliCadEnt;
     private javax.swing.JSeparator sepCliCadVen;
     private javax.swing.JSeparator sepCliGerEnt;
@@ -14304,6 +14455,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtConOs;
     private javax.swing.JTextField txtCorCadEst;
     private javax.swing.JTextField txtCorGerEst;
+    private javax.swing.JTextField txtCpfCadVen;
     private javax.swing.JTextField txtCpfMas;
     private javax.swing.JTextField txtCusCadEnt;
     private javax.swing.JTextField txtCusGerEnt;
