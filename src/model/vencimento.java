@@ -6,6 +6,7 @@ public class vencimento {
     public String plano;
     public String data;
     public String telefone;
+    public String cpf;
     public String vencimento;
     public String clienteold;
     public String dataold;
@@ -41,6 +42,14 @@ public class vencimento {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getVencimento() {

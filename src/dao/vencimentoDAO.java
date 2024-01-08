@@ -11,15 +11,16 @@ public class vencimentoDAO {
 
     public void inserir(vencimento ve) throws SQLException {
 
-        String SQL = "INSERT INTO vencimento(clienteVen, telefoneVen, dataVen, planoVen, vencimentoVen) VALUES (?, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO vencimento(clienteVen, telefoneVen, cpfVen, dataVen, planoVen, vencimentoVen) VALUES (?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         stmt.setString(1, ve.getCliente());
         stmt.setString(2, ve.getTelefone());
-        stmt.setString(3, ve.getData());
-        stmt.setString(4, ve.getPlano());
-        stmt.setString(5, ve.getVencimento());
+        stmt.setString(3, ve.getCpf());
+        stmt.setString(4, ve.getData());
+        stmt.setString(5, ve.getPlano());
+        stmt.setString(6, ve.getVencimento());
 
         stmt.executeUpdate();
         stmt.close();
@@ -29,18 +30,19 @@ public class vencimentoDAO {
 
     public void alterar(vencimento ve) throws SQLException {
 
-        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ? WHERE clienteVen = ? AND dataVen = ? AND vencimentoVen = ?";
+        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, cpfVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ? WHERE clienteVen = ? AND dataVen = ? AND vencimentoVen = ?";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         stmt.setString(1, ve.getCliente());
         stmt.setString(2, ve.getTelefone());
-        stmt.setString(3, ve.getData());
-        stmt.setString(4, ve.getPlano());
-        stmt.setString(5, ve.getVencimento());
-        stmt.setString(6, ve.getClienteold());
-        stmt.setString(7, ve.getDataold());
-        stmt.setString(8, ve.getVencimentoold());
+          stmt.setString(3, ve.getCpf());
+        stmt.setString(4, ve.getData());
+        stmt.setString(5, ve.getPlano());
+        stmt.setString(6, ve.getVencimento());
+        stmt.setString(7, ve.getClienteold());
+        stmt.setString(8, ve.getDataold());
+        stmt.setString(9, ve.getVencimentoold());
 
         stmt.executeUpdate();
         stmt.close();
@@ -78,6 +80,7 @@ public class vencimentoDAO {
             String[] rowData = {
                 rs.getString("clienteVen"),
                 rs.getString("telefoneVen"),
+                rs.getString("cpfVen"),
                 rs.getString("planoVen"),
                 rs.getString("dataVen"),
                 rs.getString("vencimentoVen")};
