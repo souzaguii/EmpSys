@@ -6636,6 +6636,7 @@ public final class main extends javax.swing.JFrame {
             }
         ));
         tblVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblVen.setFocusable(false);
         tblVen.setGridColor(new java.awt.Color(192, 211, 250));
         tblVen.setSelectionBackground(new java.awt.Color(255, 51, 0));
         tblVen.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -13183,13 +13184,13 @@ public final class main extends javax.swing.JFrame {
     private void btnWppVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWppVenActionPerformed
         try {
             String texto = "*Empório Cell - TIM*\n\n"
-                    + "Olá " + tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString() + ", tudo bem? Esperamos que sim!\n"
-                    + "Passando para te lembrar que o plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString() + "* que você fez com a gente no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString()
-                    + "* vence *hoje*.\n"
-                    + "O que está achando do seu novo plano TIM? Perfeito, né?!\n\n"
-                    + "Você pode fazer o pagamento por PIX no aplicativo *Meu TIM*, ou ir até a lotérica mais próxima e informar o seu número."
-                    + " Ou se preferir, pode vir até à loja que tiramos a fatura também, ok?\n\n"
-                    + "Conte para todos a incrível experiência de usar a *rede móvel líder em cobertura no Brasil!*\n"
+                    + "Olá " + tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString() + ", tudo bem? Esperamos que sim!\n\n"
+                    + "Passando para lembrar que o plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString() + "* que você fez com a gente no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString()
+                    + "*, vence *hoje*.\n"
+                    + "Você pode fazer o pagamento por PIX no aplicativo *Meu TIM* ou ir até a lotérica mais próxima e informar o seu número. "
+                    + "Se preferir, pode vir até à loja que tiramos a fatura também, ok?\n\n"
+                    + "Esta mensagem não é uma cobrança, queremos saber de você o que está achando do seu novo plano TIM. "
+                    + "Conte para todos a incrível experiência de usar a *rede móvel líder em cobertura no Brasil!*\n\n"
                     + "Qualquer dúvida, estamos à disposição. Obrigado por confiar na gente!";
 
             String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
