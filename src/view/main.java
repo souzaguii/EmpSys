@@ -13242,6 +13242,8 @@ public final class main extends javax.swing.JFrame {
 
                 btnWppVen.setEnabled(false);
                 btnExcVen.setEnabled(false);
+                btnAltVen.setEnabled(false);
+                btnCopVen.setEnabled(false);
 
             }
 
