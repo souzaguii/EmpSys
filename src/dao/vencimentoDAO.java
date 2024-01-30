@@ -11,16 +11,17 @@ public class vencimentoDAO {
 
     public void inserir(vencimento ve) throws SQLException {
 
-        String SQL = "INSERT INTO vencimento(clienteVen, telefoneVen, cpfVen, dataVen, planoVen, vencimentoVen) VALUES (?, ?, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO vencimento(clienteVen, telefoneVen, acessoVen, cpfVen, dataVen, planoVen, vencimentoVen) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         stmt.setString(1, ve.getCliente());
         stmt.setString(2, ve.getTelefone());
-        stmt.setString(3, ve.getCpf());
-        stmt.setString(4, ve.getData());
-        stmt.setString(5, ve.getPlano());
-        stmt.setString(6, ve.getVencimento());
+        stmt.setString(3, ve.getAcesso());
+        stmt.setString(4, ve.getCpf());
+        stmt.setString(5, ve.getData());
+        stmt.setString(6, ve.getPlano());
+        stmt.setString(7, ve.getVencimento());
 
         stmt.executeUpdate();
         stmt.close();
@@ -30,19 +31,20 @@ public class vencimentoDAO {
 
     public void alterar(vencimento ve) throws SQLException {
 
-        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, cpfVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ? WHERE clienteVen = ? AND dataVen = ? AND vencimentoVen = ?";
+        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, acessoVen = ?, cpfVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ? WHERE clienteVen = ? AND dataVen = ? AND vencimentoVen = ?";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         stmt.setString(1, ve.getCliente());
         stmt.setString(2, ve.getTelefone());
-          stmt.setString(3, ve.getCpf());
-        stmt.setString(4, ve.getData());
-        stmt.setString(5, ve.getPlano());
-        stmt.setString(6, ve.getVencimento());
-        stmt.setString(7, ve.getClienteold());
-        stmt.setString(8, ve.getDataold());
-        stmt.setString(9, ve.getVencimentoold());
+        stmt.setString(3, ve.getAcesso());
+        stmt.setString(4, ve.getCpf());
+        stmt.setString(5, ve.getData());
+        stmt.setString(6, ve.getPlano());
+        stmt.setString(7, ve.getVencimento());
+        stmt.setString(8, ve.getClienteold());
+        stmt.setString(9, ve.getDataold());
+        stmt.setString(10, ve.getVencimentoold());
 
         stmt.executeUpdate();
         stmt.close();
@@ -53,6 +55,22 @@ public class vencimentoDAO {
     public void excluir(vencimento ve) throws SQLException {
 
         String SQL = "DELETE FROM vencimento WHERE clienteVen = ? and dataVen = ? and vencimentoVen = ?";
+
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        stmt.setString(1, ve.getCliente());
+        stmt.setString(2, ve.getData());
+        stmt.setString(3, ve.getVencimento());
+
+        stmt.executeUpdate();
+        stmt.close();
+        connection.Close();
+
+    }
+
+    public void marcarok(vencimento ve) throws SQLException {
+
+        String SQL = "UPDATE vencimento SET okVen = 1 WHERE clienteVen = ? and dataVen = ? and vencimentoVen = ?";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
@@ -81,9 +99,46 @@ public class vencimentoDAO {
                 rs.getString("clienteVen"),
                 rs.getString("telefoneVen"),
                 rs.getString("cpfVen"),
+                rs.getString("acessoVen"),
                 rs.getString("planoVen"),
                 rs.getString("dataVen"),
-                rs.getString("vencimentoVen")};
+                rs.getString("vencimentoVen"),
+                rs.getString("okVen")};
+
+            lista.add(rowData);
+
+        }
+
+        rs.close();
+        stmt.close();
+        connection.Close();
+
+        return lista;
+    }
+
+    public List<String[]> buscarpa(vencimento ve) throws SQLException {
+
+        List<String[]> lista = new ArrayList<>();
+
+        String SQL = "SELECT * FROM vencimento WHERE clienteVen LIKE '%" + ve.cliente + "%' "
+                + "OR telefoneVen LIKE '%" + ve.telefone + "%' OR cpfVen LIKE '%" + ve.cpf + "%' "
+                + "OR planoVen LIKE '%" + ve.plano + "%' OR dataVen LIKE '%" + ve.data + "%' "
+                + "OR vencimentoVen LIKE '%" + ve.vencimento + "%' OR acessoVen LIKE '%" + ve.acesso + "%'";
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            String[] rowData = {
+                rs.getString("clienteVen"),
+                rs.getString("telefoneVen"),
+                rs.getString("cpfVen"),
+                rs.getString("acessoVen"),
+                rs.getString("planoVen"),
+                rs.getString("dataVen"),
+                rs.getString("vencimentoVen"),
+                rs.getString("okVen")};
 
             lista.add(rowData);
 
@@ -98,7 +153,7 @@ public class vencimentoDAO {
 
     public boolean verificar() throws SQLException {
 
-        String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <=  CURRENT_DATE()";
+        String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <=  CURRENT_DATE() AND okVen = 0";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();

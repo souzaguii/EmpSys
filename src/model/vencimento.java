@@ -6,6 +6,7 @@ public class vencimento {
     public String plano;
     public String data;
     public String telefone;
+    public String acesso;
     public String cpf;
     public String vencimento;
     public String clienteold;
@@ -42,6 +43,14 @@ public class vencimento {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getAcesso() {
+        return acesso;
+    }
+
+    public void setAcesso(String acesso) {
+        this.acesso = acesso;
     }
 
     public String getCpf() {
@@ -83,5 +92,5 @@ public class vencimento {
     public void setVencimentoold(String vencimentoold) {
         this.vencimentoold = vencimentoold;
     }
-
+    
 }
