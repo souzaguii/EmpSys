@@ -2506,8 +2506,6 @@ public final class main extends javax.swing.JFrame {
         lblPlaMas = new javax.swing.JLabel();
         sepDesGerTipSer7 = new javax.swing.JSeparator();
         txtPlaMas = new javax.swing.JTextField();
-        rbtnSieMas = new javax.swing.JRadioButton();
-        rbtnAppMas = new javax.swing.JRadioButton();
         chkC6Mas = new javax.swing.JCheckBox();
         lblVenMas = new javax.swing.JLabel();
         sepDesGerTipSer8 = new javax.swing.JSeparator();
@@ -6122,7 +6120,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnCopMas);
-        btnCopMas.setBounds(980, 263, 50, 20);
+        btnCopMas.setBounds(980, 240, 50, 20);
 
         lblNomMas.setFont(fontmed(12));
         lblNomMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6135,7 +6133,7 @@ public final class main extends javax.swing.JFrame {
         chkDebMas.setForeground(new java.awt.Color(10, 60, 133));
         chkDebMas.setText("Débito em conta");
         pnlMas.add(chkDebMas);
-        chkDebMas.setBounds(610, 260, 150, 20);
+        chkDebMas.setBounds(610, 220, 150, 20);
 
         txtNomMas.setBackground(new java.awt.Color(246, 246, 246));
         txtNomMas.setFont(fontmed(13));
@@ -6297,10 +6295,10 @@ public final class main extends javax.swing.JFrame {
         btnGroup.add(rbtnMigTroMas);
         rbtnMigTroMas.setFont(fontmed(12));
         rbtnMigTroMas.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnMigTroMas.setText("Migração (Troca de Chip)");
+        rbtnMigTroMas.setText("Migração (Troca de Titularidade)");
         rbtnMigTroMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigTroMas);
-        rbtnMigTroMas.setBounds(610, 90, 190, 21);
+        rbtnMigTroMas.setBounds(610, 120, 250, 21);
 
         btnGroup.add(rbtnAtiMas);
         rbtnAtiMas.setFont(fontmed(12));
@@ -6308,7 +6306,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAtiMas.setText("Ativação");
         rbtnAtiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnAtiMas);
-        rbtnAtiMas.setBounds(610, 30, 90, 21);
+        rbtnAtiMas.setBounds(610, 60, 90, 21);
 
         btnGroup.add(rbtnMigMas);
         rbtnMigMas.setFont(fontmed(12));
@@ -6316,7 +6314,7 @@ public final class main extends javax.swing.JFrame {
         rbtnMigMas.setText("Migração");
         rbtnMigMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigMas);
-        rbtnMigMas.setBounds(610, 60, 90, 21);
+        rbtnMigMas.setBounds(610, 90, 90, 21);
 
         lblPlaMas.setFont(fontmed(12));
         lblPlaMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6328,7 +6326,7 @@ public final class main extends javax.swing.JFrame {
         sepDesGerTipSer7.setForeground(new java.awt.Color(10, 60, 133));
         sepDesGerTipSer7.setOrientation(javax.swing.SwingConstants.VERTICAL);
         pnlMas.add(sepDesGerTipSer7);
-        sepDesGerTipSer7.setBounds(860, 30, 30, 235);
+        sepDesGerTipSer7.setBounds(914, 30, 10, 235);
 
         txtPlaMas.setBackground(new java.awt.Color(246, 246, 246));
         txtPlaMas.setFont(fontmed(13));
@@ -6344,27 +6342,11 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(txtPlaMas);
         txtPlaMas.setBounds(350, 230, 170, 20);
 
-        btnGroup1.add(rbtnSieMas);
-        rbtnSieMas.setFont(fontmed(12));
-        rbtnSieMas.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnSieMas.setText("Siebel Pós");
-        rbtnSieMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlMas.add(rbtnSieMas);
-        rbtnSieMas.setBounds(610, 170, 90, 21);
-
-        btnGroup1.add(rbtnAppMas);
-        rbtnAppMas.setFont(fontmed(12));
-        rbtnAppMas.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnAppMas.setText("App TIM Vendas");
-        rbtnAppMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlMas.add(rbtnAppMas);
-        rbtnAppMas.setBounds(610, 140, 160, 21);
-
         chkC6Mas.setFont(fontmed(12));
         chkC6Mas.setForeground(new java.awt.Color(10, 60, 133));
         chkC6Mas.setText("Conta C6 Bank");
         pnlMas.add(chkC6Mas);
-        chkC6Mas.setBounds(610, 220, 130, 20);
+        chkC6Mas.setBounds(610, 180, 130, 20);
 
         lblVenMas.setFont(fontmed(12));
         lblVenMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6419,7 +6401,7 @@ public final class main extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtAreMas);
 
         pnlMas.add(jScrollPane1);
-        jScrollPane1.setBounds(980, 15, 220, 240);
+        jScrollPane1.setBounds(980, 40, 220, 190);
 
         pnlPri.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -14641,7 +14623,6 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnAceCadEst;
     private javax.swing.JRadioButton rbtnAceConEst;
     private javax.swing.JRadioButton rbtnAceGerEst;
-    private javax.swing.JRadioButton rbtnAppMas;
     private javax.swing.JRadioButton rbtnAssCadEnt;
     private javax.swing.JRadioButton rbtnAssIteCadEnt;
     private javax.swing.JRadioButton rbtnAssIteGerEnt;
@@ -14677,7 +14658,6 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnSerCadEnt;
     private javax.swing.JRadioButton rbtnSerRel;
     private javax.swing.JRadioButton rbtnSerTimTipSer;
-    private javax.swing.JRadioButton rbtnSieMas;
     private javax.swing.JRadioButton rbtnTodRel;
     private javax.swing.JRadioButton rbtnVenCadEnt;
     private javax.swing.JRadioButton rbtnVenRel;
