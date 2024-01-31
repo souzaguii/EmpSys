@@ -620,6 +620,11 @@ public final class main extends javax.swing.JFrame {
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
+
+                tbl.getColumnModel().getColumn(0).setMinWidth(0);
+                tbl.getColumnModel().getColumn(0).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(0).setWidth(0);
+
             } else {
                 return false;
             }
@@ -746,14 +751,16 @@ public final class main extends javax.swing.JFrame {
                     Date date = formatterbanco.parse(row[0]);
                     rowData[0] = formatter.format(date);
                     rowData[1] = row[1];
-                    rowData[2] = (row[2] != null) ? row[2] : "Nenhum Serviço";
-                    rowData[3] = (row[3] != null) ? row[3] : "Não Aplicável";
+                    rowData[2] = ((row[2] != null) ? row[2] : "Nenhum Serviço");
+                    rowData[3] = ("Assistência".equals(row[1]) && "".equals(row[3])) ? "Não Informado"
+                            : (!"Assistência".equals(row[1]) && row[3] == null) ? "Não Aplicável" : row[3];
                     rowData[4] = (!"null - null null - null".equals(row[4]) && row[4] != null) ? row[4] : "Nenhum Produto";
                     rowData[5] = moedadoublereal(Double.valueOf(row[5]));
                     rowData[6] = (row[6] != null) ? moedadoublereal(Double.valueOf(row[6])) : "Não Aplicável";
                     rowData[7] = ("1".equals(row[7])) ? "Dinheiro" : ("2".equals(row[7])) ? "Cartão" : ("3".equals(row[7])) ? "PIX" : null;
-                    rowData[8] = (!"0".equals(row[8]) && row[8] != null) ? row[8] : "Não Aplicável";
-                    rowData[9] = (row[9] != null) ? row[9] : "Não Aplicável";
+                    rowData[8] = ("Assistência".equals(row[1]) && "".equals(row[8])) ? "Não Informado"
+                            : (!"Assistência".equals(row[1]) && row[8] == null) ? "Não Aplicável" : row[8];
+                    rowData[9] = (row[9] == null || "0".equals(row[9])) ? "Não Aplicável" : row[9];
                     rowData[10] = (row[10] != null && !"".equals(row[10])) ? row[10] : "Sem Detalhes";
                     rowData[11] = row[11];
 
@@ -780,6 +787,10 @@ public final class main extends javax.swing.JFrame {
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
+
+                tbl.getColumnModel().getColumn(11).setMinWidth(0);
+                tbl.getColumnModel().getColumn(11).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(11).setWidth(0);
 
                 tbl.setVisible(true);
                 scr.setVisible(true);
@@ -1018,6 +1029,10 @@ public final class main extends javax.swing.JFrame {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
 
+                tbl.getColumnModel().getColumn(7).setMinWidth(0);
+                tbl.getColumnModel().getColumn(7).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(7).setWidth(0);
+
                 double somaValor = 0;
                 int somaentrada = 0;
                 String codigoAnterior = null;
@@ -1187,13 +1202,15 @@ public final class main extends javax.swing.JFrame {
                     rowData[0] = formatter.format(date);
                     rowData[1] = row[1];
                     rowData[2] = (row[2] != null) ? row[2] : "Nenhum Serviço";
-                    rowData[3] = (row[3] != null) ? row[3] : "Não Aplicável";
+                    rowData[3] = ("Assistência".equals(row[1]) && "".equals(row[3])) ? "Não Informado"
+                            : (!"Assistência".equals(row[1]) && row[3] == null) ? "Não Aplicável" : row[3];
                     rowData[4] = (!"null - null null - null".equals(row[4]) && row[4] != null) ? row[4] : "Nenhum Produto";
                     rowData[5] = moedadoublereal(Double.valueOf(row[5]));
                     rowData[6] = (row[6] != null) ? moedadoublereal(Double.valueOf(row[6])) : "Não Aplicável";
                     rowData[7] = ("1".equals(row[7])) ? "Dinheiro" : ("2".equals(row[7])) ? "Cartão" : ("3".equals(row[7])) ? "PIX" : null;
-                    rowData[8] = (!"0".equals(row[8]) && row[8] != null) ? row[8] : "Não Aplicável";
-                    rowData[9] = (row[9] != null) ? row[9] : "Não Aplicável";
+                    rowData[8] = ("Assistência".equals(row[1]) && "".equals(row[8])) ? "Não Informado"
+                            : (!"Assistência".equals(row[1]) && row[8] == null) ? "Não Aplicável" : row[8];
+                    rowData[9] = (row[9] == null || "0".equals(row[9])) ? "Não Aplicável" : row[9];
                     rowData[10] = (row[10] != null && !"".equals(row[10])) ? row[10] : "Sem Detalhes";
                     rowData[11] = row[11];
 
@@ -1220,6 +1237,10 @@ public final class main extends javax.swing.JFrame {
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
+
+                tbl.getColumnModel().getColumn(11).setMinWidth(0);
+                tbl.getColumnModel().getColumn(11).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(11).setWidth(0);
 
                 tbl.setVisible(true);
                 scr.setVisible(true);
@@ -1477,14 +1498,14 @@ public final class main extends javax.swing.JFrame {
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
 
-                 for (int i = 0; i < tbl.getColumnCount(); i++) {
+                for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
-        
+
                 tbl.getColumnModel().getColumn(7).setMinWidth(0);
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
-                
+
                 tbl.setVisible(true);
                 scr.setVisible(true);
 
@@ -1994,6 +2015,11 @@ public final class main extends javax.swing.JFrame {
                 for (int i = 0; i < tblGerEst.getColumnCount(); i++) {
                     tblGerEst.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
+
+                header.getColumnModel().getColumn(0).setMinWidth(0);
+                header.getColumnModel().getColumn(0).setMaxWidth(0);
+                header.getColumnModel().getColumn(0).setWidth(0);
+
             } else {
                 return false;
             }
@@ -9173,57 +9199,49 @@ public final class main extends javax.swing.JFrame {
 
                         if (rbtnDebCadEnt.isSelected()) {
 
-                            preco = preco - (preco * 1.99 / 100);
+                            preco = preco - (preco * 1.68 / 100);
 
                         } else if (rbtnCreCadEnt.isSelected()) {
 
-                            if ((int) spnParCadEnt.getValue() == 1) {
-
-                                preco = preco - (preco * 4.98 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 2) {
-
-                                preco = preco - (preco * 9.90 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 3) {
-
-                                preco = preco - (preco * 11.28 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 4) {
-
-                                preco = preco - (preco * 12.64 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 5) {
-
-                                preco = preco - (preco * 13.97 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 6) {
-
-                                preco = preco - (preco * 15.27 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 7) {
-
-                                preco = preco - (preco * 16.55 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 8) {
-                                preco = preco - (preco * 17.81 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 9) {
-
-                                preco = preco - (preco * 19.04 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 10) {
-
-                                preco = preco - (preco * 20.24 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 11) {
-
-                                preco = preco - (preco * 21.43 / 100);
-
-                            } else if ((int) spnParCadEnt.getValue() == 12) {
-
-                                preco = preco - (preco * 22.59 / 100);
-
+                            switch ((int) spnParCadEnt.getValue()) {
+                                case 1:
+                                    preco = preco - (preco * 3.48 / 100);
+                                    break;
+                                case 2:
+                                    preco = preco - (preco * 8.99 / 100);
+                                    break;
+                                case 3:
+                                    preco = preco - (preco * 10.99 / 100);
+                                    break;
+                                case 4:
+                                    preco = preco - (preco * 11.99 / 100);
+                                    break;
+                                case 5:
+                                    preco = preco - (preco * 12.99 / 100);
+                                    break;
+                                case 6:
+                                    preco = preco - (preco * 13.99 / 100);
+                                    break;
+                                case 7:
+                                    preco = preco - (preco * 14.99 / 100);
+                                    break;
+                                case 8:
+                                    preco = preco - (preco * 15.99 / 100);
+                                    break;
+                                case 9:
+                                    preco = preco - (preco * 16.99 / 100);
+                                    break;
+                                case 10:
+                                    preco = preco - (preco * 17.99 / 100);
+                                    break;
+                                case 11:
+                                    preco = preco - (preco * 17.99 / 100);
+                                    break;
+                                case 12:
+                                    preco = preco - (preco * 17.99 / 100);
+                                    break;
+                                default:
+                                    break;
                             }
 
                         }
@@ -13881,56 +13899,56 @@ public final class main extends javax.swing.JFrame {
 
         switch ((int) spnParJur.getValue()) {
             case 1:
-                preco = preco - (preco * 4.98 / 100);
-                taxa = (4.98 / 100) - 1;
+                preco = preco - (preco * 3.48 / 100);
+                taxa = (3.48 / 100) - 1;
                 break;
             case 2:
-                preco = preco - (preco * 9.90 / 100);
-                taxa = (9.90 / 100) - 1;
+                preco = preco - (preco * 8.99 / 100);
+                taxa = (8.99 / 100) - 1;
                 break;
             case 3:
-                preco = preco - (preco * 11.28 / 100);
-                taxa = (11.28 / 100) - 1;
+                preco = preco - (preco * 10.99 / 100);
+                taxa = (10.99 / 100) - 1;
                 break;
             case 4:
-                preco = preco - (preco * 12.64 / 100);
-                taxa = (12.64 / 100) - 1;
+                preco = preco - (preco * 11.99 / 100);
+                taxa = (11.99 / 100) - 1;
                 break;
             case 5:
-                preco = preco - (preco * 13.97 / 100);
-                taxa = (13.97 / 100) - 1;
+                preco = preco - (preco * 12.99 / 100);
+                taxa = (12.99 / 100) - 1;
                 break;
             case 6:
-                preco = preco - (preco * 15.27 / 100);
-                taxa = (15.27 / 100) - 1;
+                preco = preco - (preco * 13.99 / 100);
+                taxa = (13.99 / 100) - 1;
                 break;
             case 7:
-                preco = preco - (preco * 16.55 / 100);
-                taxa = (16.55 / 100) - 1;
+                preco = preco - (preco * 14.99 / 100);
+                taxa = (14.99 / 100) - 1;
                 break;
             case 8:
-                preco = preco - (preco * 17.81 / 100);
-                taxa = (17.81 / 100) - 1;
+                preco = preco - (preco * 15.99 / 100);
+                taxa = (15.99 / 100) - 1;
                 break;
             case 9:
-                preco = preco - (preco * 19.04 / 100);
-                taxa = (19.04 / 100) - 1;
+                preco = preco - (preco * 16.99 / 100);
+                taxa = (16.99 / 100) - 1;
                 break;
             case 10:
-                preco = preco - (preco * 20.24 / 100);
-                taxa = (20.24 / 100) - 1;
+                preco = preco - (preco * 17.99 / 100);
+                taxa = (17.99 / 100) - 1;
                 break;
             case 11:
-                preco = preco - (preco * 21.43 / 100);
-                taxa = (21.43 / 100) - 1;
+                preco = preco - (preco * 17.99 / 100);
+                taxa = (17.99 / 100) - 1;
                 break;
             case 12:
-                preco = preco - (preco * 22.59 / 100);
-                taxa = (22.59 / 100) - 1;
+                preco = preco - (preco * 17.99 / 100);
+                taxa = (17.99 / 100) - 1;
                 break;
             case 0:
-                preco = preco - (preco * 1.99 / 100);
-                taxa = (1.99 / 100) - 1;
+                preco = preco - (preco * 1.68 / 100);
+                taxa = (1.68 / 100) - 1;
                 break;
             default:
                 break;
@@ -14296,7 +14314,7 @@ public final class main extends javax.swing.JFrame {
             } else {
                 lblErrVen.setVisible(true);
             }
-            
+
         }
     }//GEN-LAST:event_txtBusVenKeyPressed
 
