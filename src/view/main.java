@@ -6146,7 +6146,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnCopMas);
-        btnCopMas.setBounds(980, 240, 50, 20);
+        btnCopMas.setBounds(980, 255, 50, 20);
 
         lblNomMas.setFont(fontmed(12));
         lblNomMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6427,7 +6427,7 @@ public final class main extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtAreMas);
 
         pnlMas.add(jScrollPane1);
-        jScrollPane1.setBounds(980, 40, 220, 190);
+        jScrollPane1.setBounds(980, 20, 220, 220);
 
         pnlPri.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
