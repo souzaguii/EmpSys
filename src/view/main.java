@@ -6100,13 +6100,13 @@ public final class main extends javax.swing.JFrame {
         chkAppMas.setForeground(new java.awt.Color(10, 60, 133));
         chkAppMas.setText("APP MEU TIM");
         pnlMas.add(chkAppMas);
-        chkAppMas.setBounds(610, 270, 150, 20);
+        chkAppMas.setBounds(610, 250, 150, 20);
 
         chkMelMas.setFont(fontmed(12));
         chkMelMas.setForeground(new java.awt.Color(10, 60, 133));
         chkMelMas.setText("Melhor data");
         pnlMas.add(chkMelMas);
-        chkMelMas.setBounds(610, 230, 150, 20);
+        chkMelMas.setBounds(610, 210, 150, 20);
 
         btnVenMas.setFont(fontmed(12));
         btnVenMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6118,7 +6118,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnVenMas);
-        btnVenMas.setBounds(190, 230, 90, 40);
+        btnVenMas.setBounds(200, 230, 100, 40);
 
         btnGerMas.setFont(fontmed(12));
         btnGerMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6130,7 +6130,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnGerMas);
-        btnGerMas.setBounds(90, 230, 90, 40);
+        btnGerMas.setBounds(90, 230, 100, 40);
 
         btnCanMas.setFont(fontmed(12));
         btnCanMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6142,7 +6142,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnCanMas);
-        btnCanMas.setBounds(90, 280, 90, 40);
+        btnCanMas.setBounds(90, 280, 100, 40);
 
         btnCopMas.setFont(fontmed(12));
         btnCopMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6167,13 +6167,13 @@ public final class main extends javax.swing.JFrame {
         lblNomMas.setText("Nome");
         lblNomMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlMas.add(lblNomMas);
-        lblNomMas.setBounds(90, 50, 70, 20);
+        lblNomMas.setBounds(90, 60, 70, 20);
 
         chkDebMas.setFont(fontmed(12));
         chkDebMas.setForeground(new java.awt.Color(10, 60, 133));
         chkDebMas.setText("Débito em conta");
         pnlMas.add(chkDebMas);
-        chkDebMas.setBounds(610, 190, 150, 20);
+        chkDebMas.setBounds(610, 170, 150, 20);
 
         txtNomMas.setBackground(new java.awt.Color(246, 246, 246));
         txtNomMas.setFont(fontmed(13));
@@ -6187,26 +6187,26 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(txtNomMas);
-        txtNomMas.setBounds(90, 50, 190, 20);
+        txtNomMas.setBounds(90, 60, 190, 20);
 
         sepDesGerTipSer1.setForeground(new java.awt.Color(10, 60, 133));
         pnlMas.add(sepDesGerTipSer1);
-        sepDesGerTipSer1.setBounds(90, 70, 190, 10);
+        sepDesGerTipSer1.setBounds(90, 80, 190, 10);
 
         sepDesGerTipSer2.setForeground(new java.awt.Color(10, 60, 133));
         pnlMas.add(sepDesGerTipSer2);
-        sepDesGerTipSer2.setBounds(90, 70, 190, 10);
+        sepDesGerTipSer2.setBounds(90, 80, 190, 10);
 
         lblNumConMas.setFont(fontmed(12));
         lblNumConMas.setForeground(new java.awt.Color(10, 60, 133));
         lblNumConMas.setText("Número de Contato");
         lblNumConMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlMas.add(lblNumConMas);
-        lblNumConMas.setBounds(350, 50, 140, 20);
+        lblNumConMas.setBounds(350, 60, 140, 20);
 
         sepDesGerTipSer3.setForeground(new java.awt.Color(10, 60, 133));
         pnlMas.add(sepDesGerTipSer3);
-        sepDesGerTipSer3.setBounds(350, 70, 170, 10);
+        sepDesGerTipSer3.setBounds(350, 80, 170, 10);
 
         txtNumConMas.setBackground(new java.awt.Color(246, 246, 246));
         txtNumConMas.setFont(fontmed(13));
@@ -6228,7 +6228,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(txtNumConMas);
-        txtNumConMas.setBounds(350, 50, 170, 20);
+        txtNumConMas.setBounds(350, 60, 170, 20);
 
         lblCpfMas.setFont(fontmed(12));
         lblCpfMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6239,7 +6239,7 @@ public final class main extends javax.swing.JFrame {
 
         sepDesGerTipSer4.setForeground(new java.awt.Color(10, 60, 133));
         pnlMas.add(sepDesGerTipSer4);
-        sepDesGerTipSer4.setBounds(90, 130, 140, 10);
+        sepDesGerTipSer4.setBounds(90, 130, 150, 10);
 
         txtCpfMas.setBackground(new java.awt.Color(246, 246, 246));
         txtCpfMas.setFont(fontmed(13));
@@ -6264,7 +6264,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(txtCpfMas);
-        txtCpfMas.setBounds(90, 110, 140, 20);
+        txtCpfMas.setBounds(90, 110, 150, 20);
 
         lblNumAceMas.setFont(fontmed(12));
         lblNumAceMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6304,11 +6304,11 @@ public final class main extends javax.swing.JFrame {
         lblNumPorMas.setText("Número Portado");
         lblNumPorMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlMas.add(lblNumPorMas);
-        lblNumPorMas.setBounds(350, 170, 140, 20);
+        lblNumPorMas.setBounds(350, 160, 140, 20);
 
         sepDesGerTipSer6.setForeground(new java.awt.Color(10, 60, 133));
         pnlMas.add(sepDesGerTipSer6);
-        sepDesGerTipSer6.setBounds(350, 190, 170, 10);
+        sepDesGerTipSer6.setBounds(350, 180, 170, 10);
 
         txtNumPorMas.setBackground(new java.awt.Color(246, 246, 246));
         txtNumPorMas.setFont(fontmed(13));
@@ -6330,7 +6330,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(txtNumPorMas);
-        txtNumPorMas.setBounds(350, 170, 170, 20);
+        txtNumPorMas.setBounds(350, 160, 170, 20);
 
         btnGroup.add(rbtnMigTroMas);
         rbtnMigTroMas.setFont(fontmed(12));
@@ -6338,7 +6338,7 @@ public final class main extends javax.swing.JFrame {
         rbtnMigTroMas.setText("Conversão");
         rbtnMigTroMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigTroMas);
-        rbtnMigTroMas.setBounds(610, 90, 250, 21);
+        rbtnMigTroMas.setBounds(610, 80, 250, 21);
 
         btnGroup.add(rbtnAtiMas);
         rbtnAtiMas.setFont(fontmed(12));
@@ -6346,7 +6346,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAtiMas.setText("Ativação");
         rbtnAtiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnAtiMas);
-        rbtnAtiMas.setBounds(610, 30, 90, 21);
+        rbtnAtiMas.setBounds(610, 20, 90, 21);
 
         btnGroup.add(rbtnMigMas);
         rbtnMigMas.setFont(fontmed(12));
@@ -6354,14 +6354,14 @@ public final class main extends javax.swing.JFrame {
         rbtnMigMas.setText("Migração");
         rbtnMigMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigMas);
-        rbtnMigMas.setBounds(610, 60, 90, 21);
+        rbtnMigMas.setBounds(610, 50, 90, 21);
 
         lblPlaMas.setFont(fontmed(12));
         lblPlaMas.setForeground(new java.awt.Color(10, 60, 133));
         lblPlaMas.setText("Plano");
         lblPlaMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlMas.add(lblPlaMas);
-        lblPlaMas.setBounds(350, 230, 100, 20);
+        lblPlaMas.setBounds(350, 210, 100, 20);
 
         sepDesGerTipSer7.setForeground(new java.awt.Color(10, 60, 133));
         sepDesGerTipSer7.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -6380,24 +6380,24 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(txtPlaMas);
-        txtPlaMas.setBounds(350, 230, 170, 20);
+        txtPlaMas.setBounds(350, 210, 170, 20);
 
         chkC6Mas.setFont(fontmed(12));
         chkC6Mas.setForeground(new java.awt.Color(10, 60, 133));
         chkC6Mas.setText("Conta C6 Bank");
         pnlMas.add(chkC6Mas);
-        chkC6Mas.setBounds(610, 150, 130, 20);
+        chkC6Mas.setBounds(610, 130, 130, 20);
 
         lblVenMas.setFont(fontmed(12));
         lblVenMas.setForeground(new java.awt.Color(10, 60, 133));
         lblVenMas.setText("Vencimento");
         lblVenMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlMas.add(lblVenMas);
-        lblVenMas.setBounds(90, 170, 90, 20);
+        lblVenMas.setBounds(90, 160, 110, 20);
 
         sepDesGerTipSer8.setForeground(new java.awt.Color(10, 60, 133));
         pnlMas.add(sepDesGerTipSer8);
-        sepDesGerTipSer8.setBounds(90, 190, 90, 10);
+        sepDesGerTipSer8.setBounds(90, 180, 110, 10);
 
         txtVenMas.setBackground(new java.awt.Color(246, 246, 246));
         txtVenMas.setFont(fontmed(13));
@@ -6419,11 +6419,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(txtVenMas);
-        txtVenMas.setBounds(90, 170, 90, 20);
+        txtVenMas.setBounds(90, 160, 110, 20);
 
         sepDesGerTipSer9.setForeground(new java.awt.Color(10, 60, 133));
         pnlMas.add(sepDesGerTipSer9);
-        sepDesGerTipSer9.setBounds(350, 250, 170, 10);
+        sepDesGerTipSer9.setBounds(350, 230, 170, 10);
 
         jScrollPane1.setBackground(new java.awt.Color(240, 240, 240));
         jScrollPane1.setBorder(null);
@@ -8161,13 +8161,13 @@ public final class main extends javax.swing.JFrame {
 
             txtAreMas.setText(null);
 
-            lblNomMas.setLocation(90, 50);
+            lblNomMas.setLocation(90, 60);
             lblCpfMas.setLocation(90, 110);
-            lblVenMas.setLocation(90, 170);
-            lblNumConMas.setLocation(350, 50);
+            lblVenMas.setLocation(90, 160);
+            lblNumConMas.setLocation(350, 60);
             lblNumAceMas.setLocation(350, 110);
-            lblNumPorMas.setLocation(350, 170);
-            lblPlaMas.setLocation(350, 230);
+            lblNumPorMas.setLocation(350, 160);
+            lblPlaMas.setLocation(350, 210);
 
             btnCopMas.setVisible(false);
 
@@ -13571,6 +13571,7 @@ public final class main extends javax.swing.JFrame {
             txtTelCadVen.setText(txtNumConMas.getText());
             txtCpfCadVen.setText(txtCpfMas.getText());
             txtAceCadVen.setText(txtNumAceMas.getText());
+            txtVenCadVen.setText(txtVenMas.getText());
 
             LocalDate dataAtual = LocalDate.now();
             txtDatCadVen.setText(dataAtual.format(formatteratual));
@@ -13583,8 +13584,6 @@ public final class main extends javax.swing.JFrame {
             lblDatCadVen.setLocation(700, 130);
             lblVenCadVen.setLocation(700, 180);
 
-            txtVenCadVen.setText(null);
-
             pnlMas.setVisible(false);
             pnlCadVen.setVisible(true);
             lblTitPri.setText("Cadastrar Vencimento");
@@ -13595,6 +13594,7 @@ public final class main extends javax.swing.JFrame {
             anitxtin(lblDatCadVen);
             anitxtin(lblCpfCadVen);
             anitxtin(lblAceCadVen);
+            anitxtin(lblVenCadVen);
 
         }
     }//GEN-LAST:event_btnVenMasActionPerformed
