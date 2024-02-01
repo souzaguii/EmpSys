@@ -2505,6 +2505,8 @@ public final class main extends javax.swing.JFrame {
         scrTipSer = new javax.swing.JScrollPane();
         tblTipSer = new javax.swing.JTable();
         pnlMas = new javax.swing.JPanel();
+        chkAppMas = new javax.swing.JCheckBox();
+        chkMelMas = new javax.swing.JCheckBox();
         btnVenMas = new javax.swing.JButton();
         btnGerMas = new javax.swing.JButton();
         btnCanMas = new javax.swing.JButton();
@@ -6094,6 +6096,18 @@ public final class main extends javax.swing.JFrame {
         pnlMas.setBackground(new java.awt.Color(246, 246, 246));
         pnlMas.setLayout(null);
 
+        chkAppMas.setFont(fontmed(12));
+        chkAppMas.setForeground(new java.awt.Color(10, 60, 133));
+        chkAppMas.setText("APP MEU TIM");
+        pnlMas.add(chkAppMas);
+        chkAppMas.setBounds(610, 300, 150, 20);
+
+        chkMelMas.setFont(fontmed(12));
+        chkMelMas.setForeground(new java.awt.Color(10, 60, 133));
+        chkMelMas.setText("Melhor data");
+        pnlMas.add(chkMelMas);
+        chkMelMas.setBounds(610, 260, 150, 20);
+
         btnVenMas.setFont(fontmed(12));
         btnVenMas.setForeground(new java.awt.Color(10, 60, 133));
         btnVenMas.setText("Cadastrar");
@@ -6321,7 +6335,7 @@ public final class main extends javax.swing.JFrame {
         btnGroup.add(rbtnMigTroMas);
         rbtnMigTroMas.setFont(fontmed(12));
         rbtnMigTroMas.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnMigTroMas.setText("Migração (Troca de Titularidade)");
+        rbtnMigTroMas.setText("Conversão");
         rbtnMigTroMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigTroMas);
         rbtnMigTroMas.setBounds(610, 120, 250, 21);
@@ -10516,49 +10530,67 @@ public final class main extends javax.swing.JFrame {
     private void btnGerMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerMasActionPerformed
         String nome = txtNomMas.getText();
         String cpf = txtCpfMas.getText();
-        String contato = txtNumConMas.getText();
+//        String contato = txtNumConMas.getText();
         String acesso = txtNumAceMas.getText();
-        String ativacao = "Ativação";
-        String titu = "Não";
-        String port = "Não";
-        String numport = txtNumPorMas.getText();
+        String servico = "( X ) Ativação\n(    ) Migração\n(    ) Conversão\n";;
+        String port = "(    ) Sim\n( X ) Não\n";
         String plano = txtPlaMas.getText();
-        String c6 = "Não";
-        String deb = "Não";
+        String c6 = "(    ) Sim\n( X ) Não\n";
+        String pago = "(    ) DACC (Débito em Conta)\n( X ) Boleto\n";
+        String melhor = "(    ) Sim | ( X ) Não\n";
+        String app = "(    ) Sim   ( X ) Não\n";
         String venc = txtVenMas.getText();
 
         if (rbtnMigMas.isSelected()) {
-            ativacao = "Migração\n*Migração com troca de titularidade:* Não";
+            servico = "(    ) Ativação\n( X ) Migração\n(    ) Conversão\n";
         } else if (rbtnMigTroMas.isSelected()) {
-            ativacao = "Migração\n*Migração com troca de titularidade:* Sim";
+            servico = "(    ) Ativação\n(    ) Migração\n( X ) Conversão\n";
         }
 
         if (chkC6Mas.isSelected()) {
-            c6 = "Sim";
+            c6 = "( X ) Sim\n(    ) Não\n";
         }
 
         if (!"".equals(txtNumPorMas.getText())) {
-            port = "Sim\n*N° Portado:* " + numport;
+            port = "( X ) Sim\n(    ) Não\n"
+                    + "\nNº Portado: " + txtNumPorMas.getText() + "\n";
         }
 
         if (chkDebMas.isSelected()) {
-            deb = "Sim";
+            pago = "( X ) DACC (Débito em Conta)\n(    ) Boleto\n";
+        }
+
+        if (chkMelMas.isSelected()) {
+            melhor = "( X ) Sim | (    ) Não\n";
+        }
+
+        if (chkAppMas.isSelected()) {
+            app = "( X ) Sim   (    ) Não\n";
         }
 
         txtAreMas.setText(
-                "🚨Nova máscara🚨\n"
-                + "*Nome do PDV:* Empório Cell - Frutal\n"
-                + "*Nome do Vendedor:* Guilherme\n"
-                + "*Nome do Cliente:* " + nome + "\n"
-                + "*CPF:* " + cpf + "\n"
-                + "*Telefone de Contato:* " + contato + "\n"
-                + "*Nº do Acesso:* " + acesso + "\n"
-                + "*Ativação ou Migração:* " + ativacao + "\n"
-                + "*Portabilidade:* " + port + "\n"
-                + "*Qual plano foi vendido?* " + plano + "\n"
-                + "*Conta C6 Bank:* " + c6 + "\n"
-                + "*Débito em Conta:* " + deb + " \n"
-                + "*Data de Vencimento:* " + venc
+                "Nome do PDV: EMPÓRIO CELL\n"
+                + "Nome do Vendedor: Guilherme\n"
+                + "Nome do Cliente: " + nome + "\n"
+                + "CPF: " + cpf + "\n"
+                //                + "*Telefone de Contato:* " + contato + "\n"
+                + "Nº do Acesso: " + acesso + "\n"
+                + "\nServiço Realizado\n"
+                + servico
+                + "\nPortabilidade\n"
+                + port
+                + "\nQual Plano Foi Vendido?\n"
+                + plano
+                + "\n\nForma de pagamento\n"
+                + pago
+                + "\nEscolheu Melhor Data de Compra\n"
+                + melhor
+                + "\nData de Vencimento\n"
+                + venc
+                + "\n\nHabilitado APP MEU TIM\n"
+                + app
+                + "\nConta C6 Bank\n"
+                + c6
         );
 
         txtAreMas.setCaretPosition(0);
@@ -10700,23 +10732,53 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCopMasMouseExited
 
     private void txtVenMasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVenMasKeyTyped
+//        if (txtVenMas.getSelectedText() != null) {
+//            if (!Character.isDigit(evt.getKeyChar())) {
+//                evt.consume();
+//            }
+//        } else {
+//            if (!Character.isDigit(evt.getKeyChar()) || txtVenMas.getText().length() > 1) {
+//                evt.consume();
+//            }
+//        }
+
         if (txtVenMas.getSelectedText() != null) {
             if (!Character.isDigit(evt.getKeyChar())) {
                 evt.consume();
             }
         } else {
-            if (!Character.isDigit(evt.getKeyChar()) || txtVenMas.getText().length() > 1) {
+
+            if (!Character.isDigit(evt.getKeyChar())) {
+
+                evt.consume();
+
+            } else {
+
+                if (txtVenMas.getText().length() == 2) {
+
+                    txtVenMas.setText(txtVenMas.getText() + "/");
+                    txtVenMas.setCaretPosition(3);
+
+                } else if (txtVenMas.getText().length() == 5) {
+
+                    txtVenMas.setText(txtVenMas.getText() + "/");
+                    txtVenMas.setCaretPosition(6);
+
+                }
+
+            }
+            if (txtVenMas.getText().length() > 9) {
                 evt.consume();
             }
         }
     }//GEN-LAST:event_txtVenMasKeyTyped
 
     private void txtVenMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVenMasKeyReleased
-        if (!"".equals(txtVenMas.getText())) {
-            if (Integer.parseInt(txtVenMas.getText()) > 31) {
-                txtVenMas.setText("31");
-            }
-        }
+//        if (!"".equals(txtVenMas.getText())) {
+//            if (Integer.parseInt(txtVenMas.getText()) > 31) {
+//                txtVenMas.setText("31");
+//            }
+//        }
     }//GEN-LAST:event_txtVenMasKeyReleased
 
     private void txtCpfMasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfMasKeyTyped
@@ -13396,7 +13458,7 @@ public final class main extends javax.swing.JFrame {
 
             String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
 
-            int resp = JOptionPane.showOptionDialog(pnlVen, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Mensagem", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Mensagem", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
 
@@ -13406,7 +13468,7 @@ public final class main extends javax.swing.JFrame {
 
                 Desktop.getDesktop().browse(link);
 
-                int resp1 = JOptionPane.showOptionDialog(pnlVen, "Navegador aberto para envio!\n\nMarcar como concluído?", "Vencimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+                int resp1 = JOptionPane.showOptionDialog(null, "Navegador aberto para envio!\n\nMarcar como concluído?", "Vencimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
                 if (resp1 == JOptionPane.YES_OPTION) {
 
@@ -13421,7 +13483,7 @@ public final class main extends javax.swing.JFrame {
 
                         vedao.marcarok(ve);
 
-                        JOptionPane.showMessageDialog(pnlVen, "Marcado com sucesso!", "Vencimento", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Vencimento", JOptionPane.INFORMATION_MESSAGE);
 
                     } catch (SQLException ex) {
                         Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -13435,7 +13497,7 @@ public final class main extends javax.swing.JFrame {
 
                 } else {
 
-                    JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
                     pnlVen.setVisible(false);
                     lblTitPri.setVisible(false);
                 }
@@ -13576,6 +13638,7 @@ public final class main extends javax.swing.JFrame {
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
+                lblErrVen.setEnabled(false);
 
             } else {
 
@@ -14485,9 +14548,11 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnVolRel;
     private javax.swing.JButton btnVolVen;
     private javax.swing.JButton btnWppVen;
+    private javax.swing.JCheckBox chkAppMas;
     private javax.swing.JCheckBox chkC6Mas;
     private javax.swing.JCheckBox chkCus;
     private javax.swing.JCheckBox chkDebMas;
+    private javax.swing.JCheckBox chkMelMas;
     private javax.swing.JComboBox<String> cmbChiCadEst;
     private javax.swing.JComboBox<String> cmbChiGerEst;
     private javax.swing.JComboBox<String> cmbRel;
