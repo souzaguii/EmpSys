@@ -6100,13 +6100,13 @@ public final class main extends javax.swing.JFrame {
         chkAppMas.setForeground(new java.awt.Color(10, 60, 133));
         chkAppMas.setText("APP MEU TIM");
         pnlMas.add(chkAppMas);
-        chkAppMas.setBounds(610, 300, 150, 20);
+        chkAppMas.setBounds(610, 270, 150, 20);
 
         chkMelMas.setFont(fontmed(12));
         chkMelMas.setForeground(new java.awt.Color(10, 60, 133));
         chkMelMas.setText("Melhor data");
         pnlMas.add(chkMelMas);
-        chkMelMas.setBounds(610, 260, 150, 20);
+        chkMelMas.setBounds(610, 230, 150, 20);
 
         btnVenMas.setFont(fontmed(12));
         btnVenMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6118,7 +6118,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnVenMas);
-        btnVenMas.setBounds(200, 230, 100, 40);
+        btnVenMas.setBounds(190, 230, 90, 40);
 
         btnGerMas.setFont(fontmed(12));
         btnGerMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6130,7 +6130,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnGerMas);
-        btnGerMas.setBounds(90, 230, 100, 40);
+        btnGerMas.setBounds(90, 230, 90, 40);
 
         btnCanMas.setFont(fontmed(12));
         btnCanMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6142,7 +6142,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnCanMas);
-        btnCanMas.setBounds(90, 280, 100, 40);
+        btnCanMas.setBounds(90, 280, 90, 40);
 
         btnCopMas.setFont(fontmed(12));
         btnCopMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6173,7 +6173,7 @@ public final class main extends javax.swing.JFrame {
         chkDebMas.setForeground(new java.awt.Color(10, 60, 133));
         chkDebMas.setText("Débito em conta");
         pnlMas.add(chkDebMas);
-        chkDebMas.setBounds(610, 220, 150, 20);
+        chkDebMas.setBounds(610, 190, 150, 20);
 
         txtNomMas.setBackground(new java.awt.Color(246, 246, 246));
         txtNomMas.setFont(fontmed(13));
@@ -6338,7 +6338,7 @@ public final class main extends javax.swing.JFrame {
         rbtnMigTroMas.setText("Conversão");
         rbtnMigTroMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigTroMas);
-        rbtnMigTroMas.setBounds(610, 120, 250, 21);
+        rbtnMigTroMas.setBounds(610, 90, 250, 21);
 
         btnGroup.add(rbtnAtiMas);
         rbtnAtiMas.setFont(fontmed(12));
@@ -6346,7 +6346,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAtiMas.setText("Ativação");
         rbtnAtiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnAtiMas);
-        rbtnAtiMas.setBounds(610, 60, 90, 21);
+        rbtnAtiMas.setBounds(610, 30, 90, 21);
 
         btnGroup.add(rbtnMigMas);
         rbtnMigMas.setFont(fontmed(12));
@@ -6354,7 +6354,7 @@ public final class main extends javax.swing.JFrame {
         rbtnMigMas.setText("Migração");
         rbtnMigMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigMas);
-        rbtnMigMas.setBounds(610, 90, 90, 21);
+        rbtnMigMas.setBounds(610, 60, 90, 21);
 
         lblPlaMas.setFont(fontmed(12));
         lblPlaMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6386,7 +6386,7 @@ public final class main extends javax.swing.JFrame {
         chkC6Mas.setForeground(new java.awt.Color(10, 60, 133));
         chkC6Mas.setText("Conta C6 Bank");
         pnlMas.add(chkC6Mas);
-        chkC6Mas.setBounds(610, 180, 130, 20);
+        chkC6Mas.setBounds(610, 150, 130, 20);
 
         lblVenMas.setFont(fontmed(12));
         lblVenMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -8156,6 +8156,8 @@ public final class main extends javax.swing.JFrame {
 
             chkC6Mas.setSelected(false);
             chkDebMas.setSelected(false);
+            chkMelMas.setSelected(false);
+            chkAppMas.setSelected(false);
 
             txtAreMas.setText(null);
 
@@ -10611,6 +10613,9 @@ public final class main extends javax.swing.JFrame {
         btnGroup1.clearSelection();
 
         chkC6Mas.setSelected(false);
+        chkMelMas.setSelected(false);
+        chkAppMas.setSelected(false);
+        chkDebMas.setSelected(false);
 
         txtAreMas.setText(null);
 
