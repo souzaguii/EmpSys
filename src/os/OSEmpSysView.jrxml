@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="21941461-8f02-456e-86bf-4f91f79731a3">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="Nome" class="java.lang.String"/>
@@ -65,7 +65,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Poppins Medium"/>
 				</textElement>
-				<text><![CDATA[emporiocellfrutal@gmail.com]]></text>
+				<text><![CDATA[emporiocelltimfrutal@gmail.com]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="440" y="13" width="100" height="50" uuid="c6765c6b-4c19-4f67-bf5b-7049a24f33fe">

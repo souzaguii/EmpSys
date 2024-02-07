@@ -967,7 +967,6 @@ public final class main extends javax.swing.JFrame {
     private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2) {
 
         try {
-
             entradaDAO endao = new entradaDAO();
             List<String[]> lista = endao.buscar(opc, opc1, data1, data2);
 
@@ -992,6 +991,7 @@ public final class main extends javax.swing.JFrame {
                 double somaDinheiro = 0;
                 double somaPix = 0;
                 double somaCusto = 0;
+                double somaTotal = 0;
 
                 for (String[] row : lista) {
 
@@ -1044,29 +1044,56 @@ public final class main extends javax.swing.JFrame {
                     if (codigoAnterior == null || !codigoAtual.equals(codigoAnterior)) {
 
                         if ("1".equals(row[5])) {
-                            somaDinheiro += Double.parseDouble(row[3]);
-                            if (row[4] != null && chkCus.isSelected()) {
-                                somaDinheiro -= Double.parseDouble(row[4]);
+                            if (!"Saída Caixa".equals(row[1])) {
+                                somaDinheiro += Double.parseDouble(row[3]);
+                                if (row[4] != null && chkCus.isSelected()) {
+                                    somaDinheiro -= Double.parseDouble(row[4]);
+                                }
+                            } else {
+                                somaDinheiro -= Double.parseDouble(row[3]);
+                                if (row[4] != null && chkCus.isSelected()) {
+                                    somaDinheiro -= Double.parseDouble(row[4]);
+                                }
                             }
                         } else if ("2".equals(row[5])) {
-                            somaCartao += Double.parseDouble(row[3]);
-                            if (row[4] != null && chkCus.isSelected()) {
-                                somaCartao -= Double.parseDouble(row[4]);
+                            if (!"Saída Caixa".equals(row[1])) {
+                                somaCartao += Double.parseDouble(row[3]);
+                                if (row[4] != null && chkCus.isSelected()) {
+                                    somaCartao -= Double.parseDouble(row[4]);
+                                }
+                            } else {
+                                somaCartao -= Double.parseDouble(row[3]);
+                                if (row[4] != null && chkCus.isSelected()) {
+                                    somaCartao -= Double.parseDouble(row[4]);
+                                }
                             }
                         } else if ("3".equals(row[5])) {
-                            somaPix += Double.parseDouble(row[3]);
-                            if (row[4] != null && chkCus.isSelected()) {
-                                somaPix -= Double.parseDouble(row[4]);
+                            if (!"Saída Caixa".equals(row[1])) {
+                                somaPix += Double.parseDouble(row[3]);
+                                if (row[4] != null && chkCus.isSelected()) {
+                                    somaPix -= Double.parseDouble(row[4]);
+                                }
+                            } else {
+                                somaPix -= Double.parseDouble(row[3]);
+                                if (row[4] != null && chkCus.isSelected()) {
+                                    somaPix -= Double.parseDouble(row[4]);
+                                }
                             }
                         }
 
                         if (row[4] != null) {
-
-                            somaCusto += Double.parseDouble(row[4]);
-
+                            if (!"Saída Caixa".equals(row[1])) {
+                                somaCusto += Double.parseDouble(row[4]);
+                            } else {
+                                somaCusto -= Double.parseDouble(row[4]);
+                            }
                         }
 
-                        somaValor += Double.parseDouble(row[3]);
+                        if (!"Saída Caixa".equals(row[1])) {
+                            somaValor += Double.parseDouble(row[3]);
+                        } else {
+                            somaValor -= Double.parseDouble(row[3]);
+                        }
 
                         somaentrada++;
                     }
@@ -1091,12 +1118,9 @@ public final class main extends javax.swing.JFrame {
                 lblValPixRel.setText(moedadoublereal(somaPix));
 
                 if (somaCusto == 0) {
-
                     chkCus.setEnabled(false);
                     chkCus.setSelected(false);
-
                 } else {
-
                     chkCus.setEnabled(true);
                 }
 
@@ -1108,7 +1132,6 @@ public final class main extends javax.swing.JFrame {
                 scrRel.setVisible(false);
 
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
-
                 mol.setRowCount(0);
 
                 lblResRel.setVisible(true);
@@ -1381,6 +1404,10 @@ public final class main extends javax.swing.JFrame {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
 
+                  tbl.getColumnModel().getColumn(0).setMinWidth(0);
+                tbl.getColumnModel().getColumn(0).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(0).setWidth(0);
+                
                 tbl.setVisible(true);
                 scr.setVisible(true);
 
@@ -2179,6 +2206,7 @@ public final class main extends javax.swing.JFrame {
         btnGroup1 = new javax.swing.ButtonGroup();
         btnGroup2 = new javax.swing.ButtonGroup();
         btnGroup3 = new javax.swing.ButtonGroup();
+        btnGroup4 = new javax.swing.ButtonGroup();
         pnlPri = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
         btnEntPri = new javax.swing.JLabel();
@@ -2505,6 +2533,7 @@ public final class main extends javax.swing.JFrame {
         scrTipSer = new javax.swing.JScrollPane();
         tblTipSer = new javax.swing.JTable();
         pnlMas = new javax.swing.JPanel();
+        chkCarMasa = new javax.swing.JCheckBox();
         chkAppMas = new javax.swing.JCheckBox();
         chkMelMas = new javax.swing.JCheckBox();
         btnVenMas = new javax.swing.JButton();
@@ -2512,7 +2541,7 @@ public final class main extends javax.swing.JFrame {
         btnCanMas = new javax.swing.JButton();
         btnCopMas = new javax.swing.JLabel();
         lblNomMas = new javax.swing.JLabel();
-        chkDebMas = new javax.swing.JCheckBox();
+        chkDebMasa = new javax.swing.JCheckBox();
         txtNomMas = new javax.swing.JTextField();
         sepDesGerTipSer1 = new javax.swing.JSeparator();
         sepDesGerTipSer2 = new javax.swing.JSeparator();
@@ -2541,6 +2570,9 @@ public final class main extends javax.swing.JFrame {
         sepDesGerTipSer9 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreMas = new javax.swing.JTextArea();
+        chkDebMas = new javax.swing.JRadioButton();
+        chkCarMas = new javax.swing.JRadioButton();
+        chkBolMas = new javax.swing.JRadioButton();
         pnlDes = new javax.swing.JPanel();
         scrConDes = new javax.swing.JScrollPane();
         tblConDes = new javax.swing.JTable();
@@ -6096,17 +6128,24 @@ public final class main extends javax.swing.JFrame {
         pnlMas.setBackground(new java.awt.Color(246, 246, 246));
         pnlMas.setLayout(null);
 
+        chkCarMasa.setFont(fontmed(12));
+        chkCarMasa.setForeground(new java.awt.Color(10, 60, 133));
+        chkCarMasa.setVisible(false);
+        chkCarMasa.setText("Cartão de Crédito");
+        pnlMas.add(chkCarMasa);
+        chkCarMasa.setBounds(370, 290, 150, 20);
+
         chkAppMas.setFont(fontmed(12));
         chkAppMas.setForeground(new java.awt.Color(10, 60, 133));
         chkAppMas.setText("APP MEU TIM");
         pnlMas.add(chkAppMas);
-        chkAppMas.setBounds(610, 250, 150, 20);
+        chkAppMas.setBounds(610, 290, 150, 20);
 
         chkMelMas.setFont(fontmed(12));
         chkMelMas.setForeground(new java.awt.Color(10, 60, 133));
-        chkMelMas.setText("Melhor data");
+        chkMelMas.setText("Melhor Data");
         pnlMas.add(chkMelMas);
-        chkMelMas.setBounds(610, 210, 150, 20);
+        chkMelMas.setBounds(610, 250, 150, 20);
 
         btnVenMas.setFont(fontmed(12));
         btnVenMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6169,11 +6208,12 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(lblNomMas);
         lblNomMas.setBounds(90, 60, 70, 20);
 
-        chkDebMas.setFont(fontmed(12));
-        chkDebMas.setForeground(new java.awt.Color(10, 60, 133));
-        chkDebMas.setText("Débito em conta");
-        pnlMas.add(chkDebMas);
-        chkDebMas.setBounds(610, 170, 150, 20);
+        chkDebMasa.setFont(fontmed(12));
+        chkDebMasa.setForeground(new java.awt.Color(10, 60, 133));
+        chkDebMasa.setVisible(false);
+        chkDebMasa.setText("Débito em conta");
+        pnlMas.add(chkDebMasa);
+        chkDebMasa.setBounds(370, 260, 150, 20);
 
         txtNomMas.setBackground(new java.awt.Color(246, 246, 246));
         txtNomMas.setFont(fontmed(13));
@@ -6338,15 +6378,16 @@ public final class main extends javax.swing.JFrame {
         rbtnMigTroMas.setText("Conversão");
         rbtnMigTroMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigTroMas);
-        rbtnMigTroMas.setBounds(610, 80, 250, 21);
+        rbtnMigTroMas.setBounds(610, 70, 250, 21);
 
         btnGroup.add(rbtnAtiMas);
         rbtnAtiMas.setFont(fontmed(12));
         rbtnAtiMas.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnAtiMas.setSelected(true);
         rbtnAtiMas.setText("Ativação");
         rbtnAtiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnAtiMas);
-        rbtnAtiMas.setBounds(610, 20, 90, 21);
+        rbtnAtiMas.setBounds(610, 10, 90, 21);
 
         btnGroup.add(rbtnMigMas);
         rbtnMigMas.setFont(fontmed(12));
@@ -6354,7 +6395,7 @@ public final class main extends javax.swing.JFrame {
         rbtnMigMas.setText("Migração");
         rbtnMigMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigMas);
-        rbtnMigMas.setBounds(610, 50, 90, 21);
+        rbtnMigMas.setBounds(610, 40, 90, 21);
 
         lblPlaMas.setFont(fontmed(12));
         lblPlaMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6379,6 +6420,11 @@ public final class main extends javax.swing.JFrame {
                 txtPlaMasFocusLost(evt);
             }
         });
+        txtPlaMas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPlaMasKeyReleased(evt);
+            }
+        });
         pnlMas.add(txtPlaMas);
         txtPlaMas.setBounds(350, 210, 170, 20);
 
@@ -6386,7 +6432,7 @@ public final class main extends javax.swing.JFrame {
         chkC6Mas.setForeground(new java.awt.Color(10, 60, 133));
         chkC6Mas.setText("Conta C6 Bank");
         pnlMas.add(chkC6Mas);
-        chkC6Mas.setBounds(610, 130, 130, 20);
+        chkC6Mas.setBounds(610, 210, 130, 20);
 
         lblVenMas.setFont(fontmed(12));
         lblVenMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6442,6 +6488,31 @@ public final class main extends javax.swing.JFrame {
 
         pnlMas.add(jScrollPane1);
         jScrollPane1.setBounds(980, 20, 220, 220);
+
+        btnGroup4.add(chkDebMas);
+        chkDebMas.setFont(fontmed(12));
+        chkDebMas.setForeground(new java.awt.Color(10, 60, 133));
+        chkDebMas.setText("Débito Automático");
+        chkDebMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlMas.add(chkDebMas);
+        chkDebMas.setBounds(610, 140, 170, 21);
+
+        btnGroup4.add(chkCarMas);
+        chkCarMas.setFont(fontmed(12));
+        chkCarMas.setForeground(new java.awt.Color(10, 60, 133));
+        chkCarMas.setText("Cartão de Crédito");
+        chkCarMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlMas.add(chkCarMas);
+        chkCarMas.setBounds(610, 170, 170, 21);
+
+        btnGroup4.add(chkBolMas);
+        chkBolMas.setFont(fontmed(12));
+        chkBolMas.setForeground(new java.awt.Color(10, 60, 133));
+        chkBolMas.setSelected(true);
+        chkBolMas.setText("Boleto");
+        chkBolMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlMas.add(chkBolMas);
+        chkBolMas.setBounds(610, 110, 130, 21);
 
         pnlPri.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -7042,6 +7113,11 @@ public final class main extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPlaCadVenFocusLost(evt);
+            }
+        });
+        txtPlaCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPlaCadVenKeyReleased(evt);
             }
         });
         pnlCadVen.add(txtPlaCadVen);
@@ -8155,9 +8231,12 @@ public final class main extends javax.swing.JFrame {
             btnGroup1.clearSelection();
 
             chkC6Mas.setSelected(false);
-            chkDebMas.setSelected(false);
             chkMelMas.setSelected(false);
             chkAppMas.setSelected(false);
+            chkBolMas.setSelected(true);
+            chkDebMas.setSelected(false);
+            chkCarMas.setSelected(false);
+            rbtnAtiMas.setSelected(true);
 
             txtAreMas.setText(null);
 
@@ -10532,21 +10611,21 @@ public final class main extends javax.swing.JFrame {
     private void btnGerMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerMasActionPerformed
         String nome = txtNomMas.getText();
         String cpf = txtCpfMas.getText();
-//        String contato = txtNumConMas.getText();
+        String contato = txtNumConMas.getText();
         String acesso = txtNumAceMas.getText();
-        String servico = "( X ) Ativação\n(    ) Migração\n(    ) Conversão\n";;
+        String servico = "( X ) Ativação\n(    ) Migração (Pré P/Ctrl)\n(    ) Conversão (Troca Pré P/Controle)\n";
         String port = "(    ) Sim\n( X ) Não\n";
         String plano = txtPlaMas.getText();
         String c6 = "(    ) Sim\n( X ) Não\n";
-        String pago = "(    ) DACC (Débito em Conta)\n( X ) Boleto\n";
-        String melhor = "(    ) Sim | ( X ) Não\n";
-        String app = "(    ) Sim   ( X ) Não\n";
+        String pago = "(    ) DACC (Débito em Conta)\n( X ) Boleto\n(    ) Cartão de Crédito\n";
+        String melhor = "(    ) Sim\n( X ) Não\n";
+        String app = "(    ) Sim\n( X ) Não\n";
         String venc = txtVenMas.getText();
 
         if (rbtnMigMas.isSelected()) {
-            servico = "(    ) Ativação\n( X ) Migração\n(    ) Conversão\n";
+            servico = "(    ) Ativação\n( X ) Migração (Pré P/Ctrl)\n(    ) Conversão (Troca Pré P/Controle)\n";
         } else if (rbtnMigTroMas.isSelected()) {
-            servico = "(    ) Ativação\n(    ) Migração\n( X ) Conversão\n";
+            servico = "(    ) Ativação\n(    ) Migração (Pré P/Ctrl)\n( X ) Conversão (Troca Pré P/Controle)\n";
         }
 
         if (chkC6Mas.isSelected()) {
@@ -10555,50 +10634,52 @@ public final class main extends javax.swing.JFrame {
 
         if (!"".equals(txtNumPorMas.getText())) {
             port = "( X ) Sim\n(    ) Não\n"
-                    + "\nNº Portado: " + txtNumPorMas.getText() + "\n";
+                    + "\n*Nº Portado:* " + txtNumPorMas.getText() + "\n";
         }
 
         if (chkDebMas.isSelected()) {
-            pago = "( X ) DACC (Débito em Conta)\n(    ) Boleto\n";
+            pago = "( X ) DACC (Débito em Conta)\n(    ) Boleto\n(    ) Cartão de Crédito\n";
+        } else if (chkCarMas.isSelected()) {
+            pago = "(    ) DACC (Débito em Conta)\n(    ) Boleto\n( X ) Cartão de Crédito\n";
         }
 
         if (chkMelMas.isSelected()) {
-            melhor = "( X ) Sim | (    ) Não\n";
+            melhor = "( X ) Sim\n(    ) Não\n";
         }
 
         if (chkAppMas.isSelected()) {
-            app = "( X ) Sim   (    ) Não\n";
+            app = "( X ) Sim\n(    ) Não\n";
         }
 
         txtAreMas.setText(
-                "Nome do PDV: EMPÓRIO CELL\n"
-                + "Nome do Vendedor: Guilherme\n"
-                + "Nome do Cliente: " + nome + "\n"
-                + "CPF: " + cpf + "\n"
-                //                + "*Telefone de Contato:* " + contato + "\n"
-                + "Nº do Acesso: " + acesso + "\n"
-                + "\nServiço Realizado\n"
+                "*Nome do PDV:* Empório Cell\n"
+                + "*Nome do Vendedor:* Guilherme\n"
+                + "*Nome do Cliente:* " + nome + "\n"
+                + "*CPF:* " + cpf + "\n"
+                + "*Telefone de Contato:* " + contato + "\n"
+                + "\n*Nº do Acesso:* " + acesso + "\n"
+                + "\n*Serviço Realizado*\n"
                 + servico
-                + "\nPortabilidade\n"
+                + "\n*Portabilidade*\n"
                 + port
-                + "\nQual Plano Foi Vendido?\n"
+                + "\n*Qual Plano Foi Vendido?*\n"
                 + plano
-                + "\n\nForma de pagamento\n"
+                + "\n\n*Forma de Pagamento*\n"
                 + pago
-                + "\nEscolheu Melhor Data de Compra\n"
+                + "\n*Escolheu Melhor Data de Vencimento no Sistema*\n"
                 + melhor
-                + "\nData de Vencimento\n"
-                + venc
-                + "\n\nHabilitado APP MEU TIM\n"
-                + app
-                + "\nConta C6 Bank\n"
+                + "\n*Data de Vencimento:* " + venc + "\n"
+                + "\n*Sistema Utilizado*\n"
+                + "( X ) App TIM Vendas\n"
+                + "\n*Conta C6 Bank*\n"
                 + c6
+                + "\n*Instalou e Acessou App Meu TIM no Celular do Cliente*\n"
+                + app
         );
 
         txtAreMas.setCaretPosition(0);
 
         btnCopMas.setVisible(true);
-
     }//GEN-LAST:event_btnGerMasActionPerformed
 
     private void btnCanMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanMasActionPerformed
@@ -10615,7 +10696,7 @@ public final class main extends javax.swing.JFrame {
         chkC6Mas.setSelected(false);
         chkMelMas.setSelected(false);
         chkAppMas.setSelected(false);
-        chkDebMas.setSelected(false);
+        chkDebMasa.setSelected(false);
 
         txtAreMas.setText(null);
 
@@ -13452,7 +13533,7 @@ public final class main extends javax.swing.JFrame {
     private void btnWppVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWppVenActionPerformed
         try {
             String texto = "*Empório Cell - TIM*\n\n"
-                    + "Olá " + tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString() + ", tudo bem? Esperamos que sim!\n\n"
+                    + "Olá, tudo bem? Esperamos que sim!\n\n"
                     + "Passando para lembrar que o plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "* que você fez com a gente no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
                     + "*, vence *hoje*.\n"
                     + "Você pode fazer o pagamento por PIX no aplicativo *Meu TIM* ou ir até a lotérica mais próxima e informar o seu número. "
@@ -14466,6 +14547,26 @@ public final class main extends javax.swing.JFrame {
             lblBusIteCadEnt.setLocation(60, 70);
         }
     }//GEN-LAST:event_pnlIteCadEntComponentShown
+
+    private void txtPlaMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaMasKeyReleased
+        if (evt.getKeyChar() == 'A' || evt.getKeyChar() == 'a') {
+            txtPlaMas.setText("TIM Controle A Plus 5.0");
+        } else if (evt.getKeyChar() == 'S' || evt.getKeyChar() == 's') {
+            txtPlaMas.setText("TIM Controle Smart 5.0");
+        } else if (evt.getKeyChar() == 'R' || evt.getKeyChar() == 'r') {
+            txtPlaMas.setText("TIM Controle Redes Sociais 5.0");
+        }
+    }//GEN-LAST:event_txtPlaMasKeyReleased
+
+    private void txtPlaCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaCadVenKeyReleased
+        if (evt.getKeyChar() == 'A' || evt.getKeyChar() == 'a') {
+            txtPlaCadVen.setText("TIM Controle A Plus 5.0");
+        } else if (evt.getKeyChar() == 'S' || evt.getKeyChar() == 's') {
+            txtPlaCadVen.setText("TIM Controle Smart 5.0");
+        } else if (evt.getKeyChar() == 'R' || evt.getKeyChar() == 'r') {
+            txtPlaCadVen.setText("TIM Controle Redes Sociais 5.0");
+        }
+    }//GEN-LAST:event_txtPlaCadVenKeyReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -14526,6 +14627,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroup1;
     private javax.swing.ButtonGroup btnGroup2;
     private javax.swing.ButtonGroup btnGroup3;
+    private javax.swing.ButtonGroup btnGroup4;
     private javax.swing.JButton btnIteCadEnt;
     private javax.swing.JButton btnIteGerEnt;
     private javax.swing.JLabel btnJurPri;
@@ -14554,9 +14656,13 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnVolVen;
     private javax.swing.JButton btnWppVen;
     private javax.swing.JCheckBox chkAppMas;
+    private javax.swing.JRadioButton chkBolMas;
     private javax.swing.JCheckBox chkC6Mas;
+    private javax.swing.JRadioButton chkCarMas;
+    private javax.swing.JCheckBox chkCarMasa;
     private javax.swing.JCheckBox chkCus;
-    private javax.swing.JCheckBox chkDebMas;
+    private javax.swing.JRadioButton chkDebMas;
+    private javax.swing.JCheckBox chkDebMasa;
     private javax.swing.JCheckBox chkMelMas;
     private javax.swing.JComboBox<String> cmbChiCadEst;
     private javax.swing.JComboBox<String> cmbChiGerEst;

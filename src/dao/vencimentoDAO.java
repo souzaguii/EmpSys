@@ -88,7 +88,7 @@ public class vencimentoDAO {
 
         List<String[]> lista = new ArrayList<>();
 
-        String SQL = "SELECT * FROM vencimento";
+        String SQL = "SELECT * FROM vencimento ORDER BY dataVen DESC";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -123,7 +123,7 @@ public class vencimentoDAO {
         String SQL = "SELECT * FROM vencimento WHERE clienteVen LIKE '%" + ve.cliente + "%' "
                 + "OR telefoneVen LIKE '%" + ve.telefone + "%' OR cpfVen LIKE '%" + ve.cpf + "%' "
                 + "OR planoVen LIKE '%" + ve.plano + "%' OR dataVen LIKE '%" + ve.data + "%' "
-                + "OR vencimentoVen LIKE '%" + ve.vencimento + "%' OR acessoVen LIKE '%" + ve.acesso + "%'";
+                + "OR vencimentoVen LIKE '%" + ve.vencimento + "%' OR acessoVen LIKE '%" + ve.acesso + "%' ORDER BY dataVen";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();

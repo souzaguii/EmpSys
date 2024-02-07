@@ -76,7 +76,7 @@ public class despezasDAO {
 
         List<String[]> lista = new ArrayList<>();
 
-        String SQL = "SELECT * FROM despezas";
+        String SQL = "SELECT * FROM despezas ORDER BY dataDes";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
