@@ -14225,11 +14225,11 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_lblValJur3MouseReleased
 
     private void btnJurPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseEntered
-        // TODO add your handling code here:
+      btnJurPri.setForeground(corforeazulenter);
     }//GEN-LAST:event_btnJurPriMouseEntered
 
     private void btnJurPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseExited
-        // TODO add your handling code here:
+       btnJurPri.setForeground(corforeazul);
     }//GEN-LAST:event_btnJurPriMouseExited
 
     private void btnJurPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseReleased
