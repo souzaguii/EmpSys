@@ -13724,7 +13724,7 @@ public final class main extends javax.swing.JFrame {
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
-                lblErrVen.setEnabled(false);
+                lblErrVen.setVisible(false);
 
             } else {
 
@@ -14549,22 +14549,88 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlIteCadEntComponentShown
 
     private void txtPlaMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaMasKeyReleased
-        if (evt.getKeyChar() == 'A' || evt.getKeyChar() == 'a') {
-            txtPlaMas.setText("TIM Controle A Plus 5.0");
-        } else if (evt.getKeyChar() == 'S' || evt.getKeyChar() == 's') {
-            txtPlaMas.setText("TIM Controle Smart 5.0");
-        } else if (evt.getKeyChar() == 'R' || evt.getKeyChar() == 'r') {
-            txtPlaMas.setText("TIM Controle Redes Sociais 5.0");
+        switch (evt.getKeyChar()) {
+            case '1':
+                txtPlaMas.setText("TIM Controle A Plus");
+                break;
+            case '2':
+                txtPlaMas.setText("TIM Controle Smart");
+                break;
+            case '3':
+                txtPlaMas.setText("TIM Controle Redes Sociais");
+                break;
+            case '4':
+                txtPlaMas.setText("TIM Controle B Express");
+                break;
+            case '5':
+                txtPlaMas.setText("TIM Controle C Express");
+                break;
+            case '6':
+                txtPlaMas.setText("TIM Black A");
+                break;
+            case '7':
+                txtPlaMas.setText("TIM Black B");
+                break;
+            case '8':
+                txtPlaMas.setText("TIM Black C Hero");
+                break;
+            case '9':
+                txtPlaMas.setText("TIM Black C Ultra");
+                break;
+            case '0':
+                txtPlaMas.setText("TIM Black A Express");
+                break;
+            case '-':
+                txtPlaMas.setText("TIM Black B Express");
+                break;
+            case '=':
+                txtPlaMas.setText("TIM Black C Express");
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_txtPlaMasKeyReleased
 
     private void txtPlaCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaCadVenKeyReleased
-        if (evt.getKeyChar() == 'A' || evt.getKeyChar() == 'a') {
-            txtPlaCadVen.setText("TIM Controle A Plus 5.0");
-        } else if (evt.getKeyChar() == 'S' || evt.getKeyChar() == 's') {
-            txtPlaCadVen.setText("TIM Controle Smart 5.0");
-        } else if (evt.getKeyChar() == 'R' || evt.getKeyChar() == 'r') {
-            txtPlaCadVen.setText("TIM Controle Redes Sociais 5.0");
+        switch (evt.getKeyChar()) {
+            case '1':
+                txtPlaCadVen.setText("TIM Controle A Plus");
+                break;
+            case '2':
+                txtPlaCadVen.setText("TIM Controle Smart");
+                break;
+            case '3':
+                txtPlaCadVen.setText("TIM Controle Redes Sociais");
+                break;
+            case '4':
+                txtPlaCadVen.setText("TIM Controle B Express");
+                break;
+            case '5':
+                txtPlaCadVen.setText("TIM Controle C Express");
+                break;
+            case '6':
+                txtPlaCadVen.setText("TIM Black A");
+                break;
+            case '7':
+                txtPlaCadVen.setText("TIM Black B");
+                break;
+            case '8':
+                txtPlaCadVen.setText("TIM Black C Hero");
+                break;
+            case '9':
+                txtPlaCadVen.setText("TIM Black C Ultra");
+                break;
+            case '0':
+                txtPlaCadVen.setText("TIM Black A Express");
+                break;
+            case '-':
+                txtPlaCadVen.setText("TIM Black B Express");
+                break;
+            case '=':
+                txtPlaCadVen.setText("TIM Black C Express");
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_txtPlaCadVenKeyReleased
     public static void main(String args[]) {
