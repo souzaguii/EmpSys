@@ -10619,7 +10619,7 @@ public final class main extends javax.swing.JFrame {
         String c6 = "(    ) Sim\n( X ) Não\n";
         String pago = "(    ) DACC (Débito em Conta)\n( X ) Boleto\n(    ) Cartão de Crédito\n";
         String melhor = "(    ) Sim\n( X ) Não\n";
-        String app = "(    ) Sim\n( X ) Não\n";
+        String app = "(    ) Sim\n( X ) Não";
         String venc = txtVenMas.getText();
 
         if (rbtnMigMas.isSelected()) {
@@ -10648,7 +10648,7 @@ public final class main extends javax.swing.JFrame {
         }
 
         if (chkAppMas.isSelected()) {
-            app = "( X ) Sim\n(    ) Não\n";
+            app = "( X ) Sim\n(    ) Não";
         }
 
         txtAreMas.setText(
