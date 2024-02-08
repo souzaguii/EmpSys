@@ -965,7 +965,6 @@ public final class main extends javax.swing.JFrame {
     }
 
     private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2) {
-
         try {
             entradaDAO endao = new entradaDAO();
             List<String[]> lista = endao.buscar(opc, opc1, data1, data2);
@@ -976,7 +975,6 @@ public final class main extends javax.swing.JFrame {
 
                 DefaultTableModel modelo = new DefaultTableModel();
                 JTableHeader header = tbl.getTableHeader();
-                DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
 
                 modelo.addColumn("Data");
                 modelo.addColumn("Serviço");
@@ -987,14 +985,31 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
 
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                        if ("Saída Caixa".equals(table.getValueAt(row, 1))) {
+                            c.setBackground(new Color(255, 246, 246));
+                        } else if ("Entrada Caixa".equals(table.getValueAt(row, 1))) {
+                            c.setBackground(new Color(246, 255, 246));
+                        } else {
+                            c.setBackground(table.getBackground());
+                        }
+                        return c;
+                    }
+                };
+
+                tbl.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
+                tbl.repaint();
+
                 double somaCartao = 0;
                 double somaDinheiro = 0;
                 double somaPix = 0;
                 double somaCusto = 0;
-                double somaTotal = 0;
 
                 for (String[] row : lista) {
-
                     Object[] rowData = new Object[8];
 
                     Date date = formatterbanco.parse(row[0]);
@@ -1008,12 +1023,11 @@ public final class main extends javax.swing.JFrame {
                     rowData[7] = row[7];
 
                     modelo.addRow(rowData);
-
                 }
 
-                deheader.setHorizontalAlignment(JLabel.CENTER);
-                deheader.setForeground(Color.BLACK);
-                deheader.setFont(fontmed(12));
+                cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+                cellRenderer.setForeground(Color.BLACK);
+                cellRenderer.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
@@ -1026,7 +1040,7 @@ public final class main extends javax.swing.JFrame {
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
-                    tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
+                    tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
 
                 tbl.getColumnModel().getColumn(7).setMinWidth(0);
@@ -1404,10 +1418,10 @@ public final class main extends javax.swing.JFrame {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
 
-                  tbl.getColumnModel().getColumn(0).setMinWidth(0);
+                tbl.getColumnModel().getColumn(0).setMinWidth(0);
                 tbl.getColumnModel().getColumn(0).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(0).setWidth(0);
-                
+
                 tbl.setVisible(true);
                 scr.setVisible(true);
 
@@ -13725,6 +13739,8 @@ public final class main extends javax.swing.JFrame {
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
                 lblErrVen.setVisible(false);
+                txtBusVen.setText(null);
+                lblBusVen.setLocation(310, 300);
 
             } else {
 
@@ -14225,11 +14241,11 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_lblValJur3MouseReleased
 
     private void btnJurPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseEntered
-      btnJurPri.setForeground(corforeazulenter);
+        btnJurPri.setForeground(corforeazulenter);
     }//GEN-LAST:event_btnJurPriMouseEntered
 
     private void btnJurPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseExited
-       btnJurPri.setForeground(corforeazul);
+        btnJurPri.setForeground(corforeazul);
     }//GEN-LAST:event_btnJurPriMouseExited
 
     private void btnJurPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseReleased
