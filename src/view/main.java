@@ -1503,15 +1503,15 @@ public final class main extends javax.swing.JFrame {
                             int comparacao1 = dataatual.compareTo(vencimento);
 
                             if (comparacao1 >= 0 && ok == 0) {
-                                component.setBackground(new Color(182, 222, 170)); // verde
+                                component.setBackground(new Color(182, 222, 170));
                             } else {
-                                component.setBackground(new Color(246, 246, 246)); // vermelho
+                                component.setBackground(new Color(246, 246, 246));
                             }
 
                             component.setFont(fontmed(12));
 
                             if (isSelected) {
-                                component.setBackground(new Color(211, 211, 211)); // Defina a cor de fundo da linha selecionada como vermelho
+                                component.setBackground(new Color(211, 211, 211));
                                 component.setForeground(Color.BLACK);
                             }
 
@@ -14562,6 +14562,9 @@ public final class main extends javax.swing.JFrame {
         if (!txtBusIteCadEnt.getText().isEmpty()) {
             lblBusIteCadEnt.setLocation(60, 70);
         }
+
+lblBusIteCadEnt.requestFocus();
+
     }//GEN-LAST:event_pnlIteCadEntComponentShown
 
     private void txtPlaMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaMasKeyReleased
