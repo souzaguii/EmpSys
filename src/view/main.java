@@ -13665,8 +13665,13 @@ public final class main extends javax.swing.JFrame {
             txtPlaCadVen.setText(txtPlaMas.getText());
             txtTelCadVen.setText(txtNumConMas.getText());
             txtCpfCadVen.setText(txtCpfMas.getText());
-            txtAceCadVen.setText(txtNumAceMas.getText());
             txtVenCadVen.setText(txtVenMas.getText());
+
+            if (txtNumPorMas.getText().isEmpty()) {
+                txtAceCadVen.setText(txtNumAceMas.getText());
+            } else {
+                txtAceCadVen.setText(txtNumPorMas.getText());
+            }
 
             LocalDate dataAtual = LocalDate.now();
             txtDatCadVen.setText(dataAtual.format(formatteratual));
@@ -14563,7 +14568,7 @@ public final class main extends javax.swing.JFrame {
             lblBusIteCadEnt.setLocation(60, 70);
         }
 
-lblBusIteCadEnt.requestFocus();
+        lblBusIteCadEnt.requestFocus();
 
     }//GEN-LAST:event_pnlIteCadEntComponentShown
 
