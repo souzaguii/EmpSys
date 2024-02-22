@@ -450,17 +450,38 @@ public final class main extends javax.swing.JFrame {
 
             if (!lista.isEmpty()) {
 
-                DefaultTableModel modelo = new DefaultTableModel();
+                DefaultTableModel modelo = new DefaultTableModel() {
+                    @Override
+                    public Class<?> getColumnClass(int columnIndex) {
+                        return getValueAt(0, columnIndex).getClass();
+                    }
+                };
 
-                DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                        Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, 0);
+                        int atvValue = (int) table.getValueAt(row, 1); // Assumindo que a coluna 1 contém o valor de getAtv
+
+                        if (atvValue == 0) {
+                            comp.setForeground(new Color(200, 200, 200));
+                        } else {
+                            comp.setForeground(table.getForeground());
+                        }
+
+                        return comp;
+                    }
+                };
 
                 centerRenderer.setHorizontalAlignment(JLabel.LEFT);
 
                 modelo.addColumn("Descrição");
+                modelo.addColumn("Ativo");
 
                 for (tiposervico ts : lista) {
                     Object[] rowData = {
-                        ts.getDescricao()
+                        ts.getDescricao(),
+                        ts.getAtv()
                     };
 
                     modelo.addRow(rowData);
@@ -468,9 +489,17 @@ public final class main extends javax.swing.JFrame {
 
                 tblTipSer.setModel(modelo);
 
+                tblTipSer.getColumnModel().getColumn(1).setCellRenderer(centerRenderer); // Aplicando o renderer à coluna 1
+
                 tblTipSer.setRowHeight(25);
 
+                tblTipSer.setDefaultRenderer(Object.class, centerRenderer);
+
                 tblTipSer.setDefaultEditor(Object.class, null);
+
+                tblTipSer.getColumnModel().getColumn(1).setMinWidth(0);
+                tblTipSer.getColumnModel().getColumn(1).setMaxWidth(0);
+                tblTipSer.getColumnModel().getColumn(1).setWidth(0);
 
                 scrTipSer.getVerticalScrollBar().setValue(0);
 
@@ -2538,6 +2567,7 @@ public final class main extends javax.swing.JFrame {
         sepDesTipSer = new javax.swing.JSeparator();
         pnlGerTipSer = new javax.swing.JPanel();
         btnExcGerTipSer = new javax.swing.JButton();
+        btnAtvGerTipSer = new javax.swing.JButton();
         btnAltGerTipSer = new javax.swing.JButton();
         btnCanGerTipSer = new javax.swing.JButton();
         lblDesTipSer2 = new javax.swing.JLabel();
@@ -6047,7 +6077,19 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(btnExcGerTipSer);
-        btnExcGerTipSer.setBounds(600, 250, 90, 40);
+        btnExcGerTipSer.setBounds(650, 260, 100, 40);
+
+        btnAtvGerTipSer.setFont(fontmed(12));
+        btnAtvGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnAtvGerTipSer.setText("Desativar");
+        btnAtvGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAtvGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtvGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(btnAtvGerTipSer);
+        btnAtvGerTipSer.setBounds(430, 260, 100, 40);
 
         btnAltGerTipSer.setFont(fontmed(12));
         btnAltGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
@@ -6059,7 +6101,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(btnAltGerTipSer);
-        btnAltGerTipSer.setBounds(500, 250, 90, 40);
+        btnAltGerTipSer.setBounds(540, 260, 100, 40);
 
         btnCanGerTipSer.setFont(fontmed(12));
         btnCanGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
@@ -6071,11 +6113,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(btnCanGerTipSer);
-        btnCanGerTipSer.setBounds(700, 250, 90, 40);
+        btnCanGerTipSer.setBounds(760, 260, 100, 40);
 
         lblDesTipSer2.setFont(fontmed(12));
         lblDesTipSer2.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesTipSer2.setText("Escolha um para alterar ou excluir");
+        lblDesTipSer2.setText("Escolha um para gerenciar");
         lblDesTipSer2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerTipSer.add(lblDesTipSer2);
         lblDesTipSer2.setBounds(510, 10, 260, 20);
@@ -6130,6 +6172,9 @@ public final class main extends javax.swing.JFrame {
         tblTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTipSerMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblTipSerMouseEntered(evt);
             }
         });
         scrTipSer.setViewportView(tblTipSer);
@@ -7915,6 +7960,8 @@ public final class main extends javax.swing.JFrame {
                 txtDesGerTipSer.setText(null);
                 btnExcGerTipSer.setEnabled(false);
                 btnAltGerTipSer.setEnabled(false);
+                btnAtvGerTipSer.setEnabled(false);
+                btnAtvGerTipSer.setText("Desativar");
                 lblDesGerTipSer.setLocation(510, 200);
 
                 lblTitPri.setVisible(true);
@@ -8392,15 +8439,11 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAltGerTipSerActionPerformed
 
     private void txtDesGerTipSerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDesGerTipSerFocusGained
-        if (txtDesGerTipSer.getText().isEmpty()) {
-            anitxtin(lblDesGerTipSer);
-        }
+     
     }//GEN-LAST:event_txtDesGerTipSerFocusGained
 
     private void txtDesGerTipSerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDesGerTipSerFocusLost
-        if (txtDesGerTipSer.getText().isEmpty()) {
-            anitxtout(lblDesGerTipSer);
-        }
+       
     }//GEN-LAST:event_txtDesGerTipSerFocusLost
 
     private void btnCanGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanGerTipSerActionPerformed
@@ -8409,19 +8452,45 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCanGerTipSerActionPerformed
 
     private void tblTipSerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipSerMouseClicked
-        lblDesGerTipSer.setLocation(510, 200);
+        if ("1".equals(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString())) {
 
-        anitxtin(lblDesGerTipSer);
+            lblDesGerTipSer.setLocation(510, 200);
 
-        String txt = tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString();
+            lblDesGerTipSer.setEnabled(true);
+            txtDesGerTipSer.setEnabled(true);
+            sepDesGerTipSer.setForeground(corforeazul);
 
-        txtDesGerTipSer.setEnabled(true);
-        lblDesGerTipSer.setEnabled(true);
-        sepDesGerTipSer.setForeground(corforeazul);
+            txtDesGerTipSer.setText(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString());
 
-        txtDesGerTipSer.setText(txt);
-        btnExcGerTipSer.setEnabled(true);
-        btnAltGerTipSer.setEnabled(true);
+            btnExcGerTipSer.setEnabled(true);
+            btnAltGerTipSer.setEnabled(true);
+            btnAtvGerTipSer.setEnabled(true);
+            btnAtvGerTipSer.setText("Desativar");
+
+            if (!txtDesGerTipSer.getText().isEmpty()) {
+                anitxtin(lblDesGerTipSer);
+            }
+
+        } else {
+
+            lblDesGerTipSer.setLocation(510, 200);
+
+            lblDesGerTipSer.setEnabled(false);
+            txtDesGerTipSer.setEnabled(false);
+            sepDesGerTipSer.setForeground(Color.GRAY);
+
+            txtDesGerTipSer.setText(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString());
+
+            btnExcGerTipSer.setEnabled(false);
+            btnAltGerTipSer.setEnabled(false);
+            btnAtvGerTipSer.setEnabled(true);
+            btnAtvGerTipSer.setText("Ativar");
+
+            if (!txtDesGerTipSer.getText().isEmpty()) {
+                anitxtin(lblDesGerTipSer);
+            }
+
+        }
     }//GEN-LAST:event_tblTipSerMouseClicked
 
     private void txtDesTipSerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDesTipSerKeyTyped
@@ -14657,6 +14726,47 @@ public final class main extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_txtPlaCadVenKeyReleased
+
+    private void btnAtvGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtvGerTipSerActionPerformed
+        try {
+
+            tiposervico ts = new tiposervico();
+            tiposervicoDAO tsdao = new tiposervicoDAO();
+
+            ts.setDescricao(txtDesGerTipSer.getText());
+
+            if (btnAtvGerTipSer.getText().equals("Ativar")) {
+                ts.setIdtiposervico(1);
+                tsdao.atvdes(ts);
+            } else {
+                ts.setIdtiposervico(0);
+                tsdao.atvdes(ts);
+            }
+
+            tabelatiposervico();
+
+            lblDesGerTipSer.setLocation(510, 200);
+            lblDesGerTipSer.setEnabled(false);
+            txtDesGerTipSer.setEnabled(false);
+            sepDesGerTipSer.setForeground(Color.GRAY);
+
+            txtDesGerTipSer.setText(null);
+
+            btnExcGerTipSer.setEnabled(false);
+            btnAltGerTipSer.setEnabled(false);
+            btnAtvGerTipSer.setEnabled(false);
+            btnAtvGerTipSer.setText("Desativar");
+
+            txtDesGerTipSer.requestFocus();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAtvGerTipSerActionPerformed
+
+    private void tblTipSerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipSerMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblTipSerMouseEntered
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -14670,6 +14780,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnAltGerTipSer;
     private javax.swing.JButton btnAltVen;
     private javax.swing.JLabel btnAnoRel;
+    private javax.swing.JButton btnAtvGerTipSer;
     private javax.swing.JButton btnBusConEnt;
     private javax.swing.JButton btnBusConEst;
     private javax.swing.JButton btnBusGerEnt;

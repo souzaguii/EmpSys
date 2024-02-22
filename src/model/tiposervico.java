@@ -5,6 +5,7 @@ public class tiposervico {
     public int idtiposervico;
     public String descricao;
     public String area;
+    public int atv;
 
     public int getIdtiposervico() {
         return idtiposervico;
@@ -29,5 +30,13 @@ public class tiposervico {
     public void setArea(String area) {
         this.area = area;
     }
+
+    public int getAtv() {
+        return atv;
+    }
+
+    public void setAtv(int atv) {
+        this.atv = atv;
+    }    
 
 }

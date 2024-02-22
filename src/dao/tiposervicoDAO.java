@@ -27,7 +27,7 @@ public class tiposervicoDAO {
 
         List<tiposervico> listats = new ArrayList<>();
 
-        String SQL = "SELECT * FROM tiposervico";
+        String SQL = "SELECT * FROM tiposervico ORDER BY atvTipSer DESC, areaTipSer, descricaoTipSer";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -38,7 +38,7 @@ public class tiposervicoDAO {
 
             tss.setDescricao(rs.getString("descricaoTipSer"));
             tss.setIdtiposervico(rs.getInt("idTipSer"));
-          //  tss.setArea(rs.getString("areaTipSer"));
+            tss.setAtv(rs.getInt("atvTipSer"));
 
             listats.add(tss);
 
@@ -55,7 +55,7 @@ public class tiposervicoDAO {
 
         List<tiposervico> listats = new ArrayList<>();
 
-        String SQL = "SELECT * FROM tiposervico WHERE areaTipSer = '3'";
+        String SQL = "SELECT * FROM tiposervico WHERE areaTipSer = '3' AND atvTipSer = '1' ORDER BY descricaoTipSer";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -83,7 +83,7 @@ public class tiposervicoDAO {
 
         List<tiposervico> listats = new ArrayList<>();
 
-        String SQL = "SELECT * FROM tiposervico WHERE areaTipSer != '3'";
+        String SQL = "SELECT * FROM tiposervico WHERE areaTipSer != '3' AND atvTipSer = '1' ORDER BY descricaoTipSer";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -126,6 +126,21 @@ public class tiposervicoDAO {
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         stmt.setString(1, ts.getArea());
+        stmt.setString(2, ts.getDescricao());
+
+        stmt.executeUpdate();
+        stmt.close();
+        connection.Close();
+
+    }
+    
+    public void atvdes(tiposervico ts) throws SQLException {
+
+        String SQL = "UPDATE tiposervico SET atvTipSer = ? WHERE descricaoTipSer = ?";
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        
+        stmt.setInt(1, ts.getIdtiposervico());
         stmt.setString(2, ts.getDescricao());
 
         stmt.executeUpdate();
