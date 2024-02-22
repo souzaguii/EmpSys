@@ -2140,8 +2140,7 @@ public final class main extends javax.swing.JFrame {
                 null;
         };
     }
-
-    @SuppressWarnings("unchecked")
+   
     public void comboboxentrada(JComboBox cmb, int op) {
 
         try {
@@ -5994,7 +5993,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadTipSer.add(btnSalTipSer);
-        btnSalTipSer.setBounds(550, 160, 90, 40);
+        btnSalTipSer.setBounds(545, 160, 90, 40);
 
         btnCanTipSer.setFont(fontmed(12));
         btnCanTipSer.setForeground(new java.awt.Color(10, 60, 133));
@@ -6006,7 +6005,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadTipSer.add(btnCanTipSer);
-        btnCanTipSer.setBounds(650, 160, 90, 40);
+        btnCanTipSer.setBounds(645, 160, 90, 40);
 
         btnGroup.add(rbtnOutTipSer);
         rbtnOutTipSer.setFont(fontmed(12));
@@ -6019,12 +6018,12 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadTipSer.add(rbtnOutTipSer);
-        rbtnOutTipSer.setBounds(780, 20, 80, 21);
+        rbtnOutTipSer.setBounds(750, 10, 80, 21);
 
         btnGroup.add(rbtnSerTimTipSer);
         rbtnSerTimTipSer.setFont(fontmed(12));
         rbtnSerTimTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnSerTimTipSer.setText("Serviços TIM");
+        rbtnSerTimTipSer.setText("TIM");
         rbtnSerTimTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rbtnSerTimTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6032,12 +6031,12 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadTipSer.add(rbtnSerTimTipSer);
-        rbtnSerTimTipSer.setBounds(440, 20, 110, 21);
+        rbtnSerTimTipSer.setBounds(480, 10, 70, 21);
 
         btnGroup.add(rbtnAssTipSer);
         rbtnAssTipSer.setFont(fontmed(12));
         rbtnAssTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnAssTipSer.setText("Serviços Assistência Técnica");
+        rbtnAssTipSer.setText("Assistência Técnica");
         rbtnAssTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rbtnAssTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6045,14 +6044,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadTipSer.add(rbtnAssTipSer);
-        rbtnAssTipSer.setBounds(562, 20, 210, 21);
+        rbtnAssTipSer.setBounds(561, 10, 170, 21);
 
         lblDesTipSer.setFont(fontmed(12));
         lblDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
         lblDesTipSer.setText("Descrição");
         lblDesTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadTipSer.add(lblDesTipSer);
-        lblDesTipSer.setBounds(510, 110, 70, 20);
+        lblDesTipSer.setBounds(505, 110, 70, 20);
 
         txtDesTipSer.setBackground(new java.awt.Color(246, 246, 246));
         txtDesTipSer.setFont(fontmed(13));
@@ -6071,11 +6070,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadTipSer.add(txtDesTipSer);
-        txtDesTipSer.setBounds(510, 110, 280, 20);
+        txtDesTipSer.setBounds(505, 110, 280, 20);
 
         sepDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadTipSer.add(sepDesTipSer);
-        sepDesTipSer.setBounds(510, 130, 280, 10);
+        sepDesTipSer.setBounds(505, 130, 280, 10);
 
         pnlPri.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -6092,7 +6091,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(btnExcGerTipSer);
-        btnExcGerTipSer.setBounds(650, 300, 100, 40);
+        btnExcGerTipSer.setBounds(650, 290, 100, 40);
 
         btnAtvGerTipSer.setFont(fontmed(12));
         btnAtvGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
@@ -6104,7 +6103,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(btnAtvGerTipSer);
-        btnAtvGerTipSer.setBounds(430, 300, 100, 40);
+        btnAtvGerTipSer.setBounds(430, 290, 100, 40);
 
         btnAltGerTipSer.setFont(fontmed(12));
         btnAltGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
@@ -6116,7 +6115,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(btnAltGerTipSer);
-        btnAltGerTipSer.setBounds(540, 300, 100, 40);
+        btnAltGerTipSer.setBounds(540, 290, 100, 40);
 
         btnCanGerTipSer.setFont(fontmed(12));
         btnCanGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
@@ -6128,7 +6127,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(btnCanGerTipSer);
-        btnCanGerTipSer.setBounds(760, 300, 100, 40);
+        btnCanGerTipSer.setBounds(760, 290, 100, 40);
 
         lblDesTipSer2.setFont(fontmed(12));
         lblDesTipSer2.setForeground(new java.awt.Color(10, 60, 133));
@@ -7970,7 +7969,7 @@ public final class main extends javax.swing.JFrame {
             btnGroup.clearSelection();
             btnSalTipSer.setEnabled(false);
             txtDesTipSer.setText(null);
-            lblDesTipSer.setLocation(510, 110);
+            lblDesTipSer.setLocation(505, 110);
 
             txtDesTipSer.setEnabled(false);
             lblDesTipSer.setEnabled(false);
