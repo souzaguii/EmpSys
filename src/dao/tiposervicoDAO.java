@@ -38,6 +38,7 @@ public class tiposervicoDAO {
 
             tss.setDescricao(rs.getString("descricaoTipSer"));
             tss.setIdtiposervico(rs.getInt("idTipSer"));
+            tss.setArea(rs.getString("areaTipSer"));
             tss.setAtv(rs.getInt("atvTipSer"));
 
             listats.add(tss);
@@ -109,10 +110,10 @@ public class tiposervicoDAO {
 
     public void excluir(tiposervico ts) throws SQLException {
 
-        String SQL = "DELETE FROM tiposervico WHERE descricaoTipSer = ?";
+        String SQL = "DELETE FROM tiposervico WHERE idTipSer = ?";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
-        stmt.setString(1, ts.getDescricao());
+        stmt.setInt(1, ts.getIdtiposervico());
 
         stmt.executeUpdate();
         stmt.close();
@@ -122,11 +123,12 @@ public class tiposervicoDAO {
 
     public void alterar(tiposervico ts) throws SQLException {
 
-        String SQL = "UPDATE tiposervico SET descricaoTipSer = ? WHERE descricaoTipSer = ?";
+        String SQL = "UPDATE tiposervico SET descricaoTipSer = ?, areaTipSer = ? WHERE idTipSer = ?";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
-        stmt.setString(1, ts.getArea());
-        stmt.setString(2, ts.getDescricao());
+        stmt.setString(1, ts.getDescricao());
+        stmt.setString(2, ts.getArea());
+        stmt.setInt(3, ts.getIdtiposervico());
 
         stmt.executeUpdate();
         stmt.close();
@@ -136,12 +138,12 @@ public class tiposervicoDAO {
     
     public void atvdes(tiposervico ts) throws SQLException {
 
-        String SQL = "UPDATE tiposervico SET atvTipSer = ? WHERE descricaoTipSer = ?";
+        String SQL = "UPDATE tiposervico SET atvTipSer = ? WHERE idTipSer = ?";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         
-        stmt.setInt(1, ts.getIdtiposervico());
-        stmt.setString(2, ts.getDescricao());
+        stmt.setInt(1, ts.getAtv());
+        stmt.setInt(2, ts.getIdtiposervico());
 
         stmt.executeUpdate();
         stmt.close();
