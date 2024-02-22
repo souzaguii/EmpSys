@@ -7899,17 +7899,11 @@ public final class main extends javax.swing.JFrame {
             ts.setDescricao(txtDesTipSer.getText());
 
             if (rbtnSerTimTipSer.isSelected()) {
-
                 ts.setArea("1");
-
             } else if (rbtnAssTipSer.isSelected()) {
-
-                ts.setArea("3");
-
-            } else {
-
                 ts.setArea("2");
-
+            } else {
+                ts.setArea("3");
             }
 
             tsdao.inserir(ts);
@@ -8486,9 +8480,9 @@ public final class main extends javax.swing.JFrame {
                 if (rbtnTimGerTipSer.isSelected()) {
                     ts.setArea("1");
                 } else if (rbtnAssGerTipSer.isSelected()) {
-                    ts.setArea("3");
-                } else {
                     ts.setArea("2");
+                } else {
+                    ts.setArea("3");
                 }
 
                 tsdao.alterar(ts);
@@ -8541,7 +8535,7 @@ public final class main extends javax.swing.JFrame {
 
             if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("1")) {
                 rbtnTimGerTipSer.setSelected(true);
-            } else if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("3")) {
+            } else if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("2")) {
                 rbtnAssGerTipSer.setSelected(true);
             } else {
                 rbtnOutGerTipSer.setSelected(true);
@@ -8575,7 +8569,7 @@ public final class main extends javax.swing.JFrame {
 
             if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("1")) {
                 rbtnTimGerTipSer.setSelected(true);
-            } else if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("3")) {
+            } else if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("2")) {
                 rbtnAssGerTipSer.setSelected(true);
             } else {
                 rbtnOutGerTipSer.setSelected(true);

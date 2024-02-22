@@ -84,7 +84,7 @@ public class tiposervicoDAO {
 
         List<tiposervico> listats = new ArrayList<>();
 
-        String SQL = "SELECT * FROM tiposervico WHERE areaTipSer != '3' AND atvTipSer = '1' ORDER BY descricaoTipSer";
+        String SQL = "SELECT * FROM tiposervico WHERE areaTipSer != '2' AND atvTipSer = '1' ORDER BY descricaoTipSer";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
