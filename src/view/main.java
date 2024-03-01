@@ -68,125 +68,125 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
 public final class main extends javax.swing.JFrame {
-
+    
     public main() {
-
+        
         initComponents();
         setLocationRelativeTo(null);
         loading();
-
+        
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-
+                
                 try {
-
+                    
                     entrada en = new entrada();
                     entradaDAO endao = new entradaDAO();
-
+                    
                     if (tblSelIteCadEnt.getRowCount() != 0) {
-
+                        
                         for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
-
+                            
                             en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
                             en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
-
+                            
                             endao.atualizarestoque(en, 1);
-
+                            
                         }
                     }
-
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 try {
                     entrada en = new entrada();
                     entradaDAO endao = new entradaDAO();
-
+                    
                     if (tblSelIteCadEnt.getRowCount() != 0) {
-
+                        
                         for (int i = 0; i <= tblSelIteCadEnt.getRowCount(); i++) {
-
+                            
                             en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i, 0).toString()));
                             en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i, 1).toString()));
-
+                            
                             endao.atualizarestoque(en, 1);
-
+                            
                         }
                     }
-
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
         });
-
+        
     }
-
+    
     public void loading() {
-
+        
         loading lo = new loading();
         lo.setVisible(true);
-
+        
         SwingWorker<Void, String> worker = new SwingWorker<Void, String>() {
             @Override
             protected Void doInBackground() throws Exception {
-
+                
                 publish("Conectando ao banco de dados...");
                 connection.Connect();
-
+                
                 if (connection.connection == null) {
-
+                    
                     publish("Erro na conexão ao banco de dados!");
-
+                    
                     Thread.sleep(3000);
-
+                    
                     System.exit(0);
-
+                    
                 } else {
-
+                    
                     publish("Verificando dados...");
-
+                    
                     if (!verificavencimento()) {
-
+                        
                         publish("Erro na verificação!");
-
+                        
                         Thread.sleep(3000);
-
+                        
                         System.exit(0);
-
+                        
                     } else {
-
+                        
                         publish("Fazendo backup automático...");
                         if (backupdatabase()) {
                             publish("Backup concluído com sucesso! Iniciando...");
                             lblBakPri.setVisible(false);
                         } else {
-
+                            
                             publish("Atenção, erro na conclusão do backup!");
-
+                            
                             lblBakPri.setVisible(true);
                             btnTenPri.setVisible(true);
                             lblBakPri.setText("Atenção, erro na conclusão do backup!");
-
+                            
                         }
-
+                        
                         Thread.sleep(3000);
-
+                        
                         lo.dispose();
-
+                        
                     }
-
+                    
                 }
-
+                
                 return null;
             }
-
+            
             @Override
             protected void process(java.util.List<String> chunks) {
                 // Atualize a UI com mensagens intermediárias
@@ -194,22 +194,22 @@ public final class main extends javax.swing.JFrame {
                     lo.lblLoa.setText(mensagem);
                 }
             }
-
+            
             @Override
             protected void done() {
-
+                
                 setVisible(true);
                 pnlPri.setVisible(true);
                 iniciasistema();
-
+                
             }
         };
-
+        
         worker.execute();
     }
-
+    
     public void iniciasistema() {
-
+        
         pnlCadEst.setVisible(false);
         pnlConEst.setVisible(false);
         pnlCadTipSer.setVisible(false);
@@ -229,24 +229,24 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.setVisible(false);
         pnlVen.setVisible(false);
         pnlJur.setVisible(false);
-
+        
         txtTipCadEst.setVisible(false);
         lblR$CadEst.setVisible(false);
         lblR$Des.setVisible(false);
         txtTipConEst.setVisible(false);
         lblTitPri.setVisible(false);
         txtCodCadEnt.setVisible(false);
-
+        
         lblProCadEst.setVisible(false);
         tblCadEst.setVisible(false);
         scrCadEst.setVisible(false);
-
+        
         DefaultTableModel model = (DefaultTableModel) tblSelIteGerEnt.getModel();
         model.setRowCount(0);
-
+        
         DefaultTableModel model1 = (DefaultTableModel) tblSelIteCadEnt.getModel();
         model1.setRowCount(0);
-
+        
         btnGerTipSer.setVisible(false);
         btnCadTipSer.setVisible(false);
         btnCadEst.setVisible(false);
@@ -262,85 +262,85 @@ public final class main extends javax.swing.JFrame {
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
         btnJurPri.setVisible(false);
-
+        
     }
-
+    
     ActionEvent timerven = null;
-
+    
     public Color corforeazul = new java.awt.Color(10, 60, 133);
-
+    
     public Color corforeazulenter = new Color(19, 84, 178);
-
+    
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
+    
     SimpleDateFormat formatterbanco = new SimpleDateFormat("yyyy-MM-dd");
-
+    
     DateTimeFormatter formatteratual = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+    
     public void anitxtin(JLabel lbl) {
-
+        
         Timer timer = new Timer(4, new ActionListener() {
-
+            
             int x = lbl.getX();
-
+            
             int y = lbl.getY();
-
+            
             int count = 0;
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                
                 y--;
                 count++;
-
+                
                 lbl.setLocation(x, y);
-
+                
                 if (count == 20) {
-
+                    
                     ((Timer) e.getSource()).stop();
-
+                    
                 }
-
+                
             }
-
+            
         });
         timer.start();
-
+        
     }
-
+    
     public void anitxtout(JLabel lbl) {
-
+        
         Timer timer = new Timer(4, new ActionListener() {
-
+            
             int x = lbl.getX();
-
+            
             int y = lbl.getY();
-
+            
             int count = 0;
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                
                 y++;
                 count++;
-
+                
                 lbl.setLocation(x, y);
-
+                
                 if (count == 20) {
-
+                    
                     ((Timer) e.getSource()).stop();
-
+                    
                 }
-
+                
             }
-
+            
         });
         timer.start();
-
+        
     }
-
+    
     public Font fontmed(int size) {
-
+        
         try {
             Font fonte = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("fonts/Poppins-Medium.ttf"));
             return fonte.deriveFont((float) size);
@@ -349,9 +349,9 @@ public final class main extends javax.swing.JFrame {
         }
         return null;
     }
-
+    
     public Font fontbold(int size) {
-
+        
         try {
             Font fonte = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("fonts/Poppins-SemiBold.ttf"));
             return fonte.deriveFont((float) size);
@@ -360,19 +360,19 @@ public final class main extends javax.swing.JFrame {
         }
         return null;
     }
-
+    
     private boolean backupdatabase() {
-
+        
         try {
-
+            
             lblBakPri.setText("Backup automático em andamento...");
             btnTenPri.setVisible(false);
             lblBakPri.setVisible(true);
-
+            
             LocalDateTime data = LocalDateTime.now();
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
             String dataFormatada = data.format(formato);
-
+            
             String username = "root";
             String password = "Empcell@4848ROOT";
             String databaseName = "empsysdatabase";
@@ -380,7 +380,7 @@ public final class main extends javax.swing.JFrame {
 
             String loginFilePath = System.getProperty("user.dir") + "\\bkp.cnf";
             String host = "192.168.0.123";
-
+            
             String[] command = {
                 "\\\\PC\\Arquivos\\BackupDatabase\\bin\\mysqldump",
                 "--defaults-extra-file=" + loginFilePath,
@@ -389,74 +389,74 @@ public final class main extends javax.swing.JFrame {
                 databaseName,
                 "--result-file=" + outputFile
             };
-
+            
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             processBuilder.redirectErrorStream(true);
-
+            
             Process process = processBuilder.start();
-
+            
             int exitCode = process.waitFor();
-
+            
             Timer timer = new Timer(1000, new ActionListener() {
                 int n = 0;
-
+                
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     n++;
-
+                    
                     if (n >= 5) {
-
+                        
                         if (exitCode == 0) {
                             lblBakPri.setText("Backup concluído com sucesso!");
-
+                            
                             if (n >= 8) {
                                 lblBakPri.setVisible(false);
                                 ((Timer) e.getSource()).stop();
                             }
-
+                            
                         } else {
-
+                            
                             ((Timer) e.getSource()).stop();
-
+                            
                             lblBakPri.setVisible(true);
                             btnTenPri.setVisible(true);
                             lblBakPri.setText("Atenção, erro na conclusão do backup!");
-
+                            
                         }
                     }
                 }
             });
-
+            
             timer.start();
-
+            
             if (exitCode != 0) {
-
+                
                 return false;
             }
-
+            
         } catch (IOException | InterruptedException ex) {
             return false;
         }
         return true;
     }
-
+    
     private boolean tabelatiposervico() {
-
+        
         try {
-
+            
             tiposervicoDAO tsdao = new tiposervicoDAO();
-
+            
             List<tiposervico> lista = tsdao.buscartodos();
-
+            
             if (!lista.isEmpty()) {
-
+                
                 DefaultTableModel modelo = new DefaultTableModel() {
                     @Override
                     public Class<?> getColumnClass(int columnIndex) {
                         return getValueAt(0, columnIndex).getClass();
                     }
                 };
-
+                
                 DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
                     @Override
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -468,18 +468,18 @@ public final class main extends javax.swing.JFrame {
                         } else {
                             comp.setForeground(table.getForeground());
                         }
-
+                        
                         return comp;
                     }
                 };
-
+                
                 centerRenderer.setHorizontalAlignment(JLabel.LEFT);
-
+                
                 modelo.addColumn("ID");
                 modelo.addColumn("Area");
                 modelo.addColumn("Descrição");
                 modelo.addColumn("Ativo");
-
+                
                 for (tiposervico ts : lista) {
                     Object[] rowData = {
                         ts.getIdtiposervico(),
@@ -487,107 +487,107 @@ public final class main extends javax.swing.JFrame {
                         ts.getDescricao(),
                         ts.getAtv()
                     };
-
+                    
                     modelo.addRow(rowData);
                 }
-
+                
                 tblTipSer.setModel(modelo);
-
+                
                 tblTipSer.getColumnModel().getColumn(2).setCellRenderer(centerRenderer); // Aplicando o renderer à coluna 1
 
                 tblTipSer.setRowHeight(25);
-
+                
                 tblTipSer.setDefaultRenderer(Object.class, centerRenderer);
-
+                
                 tblTipSer.setDefaultEditor(Object.class, null);
-
+                
                 tblTipSer.getColumnModel().getColumn(1).setMinWidth(0);
                 tblTipSer.getColumnModel().getColumn(1).setMaxWidth(0);
                 tblTipSer.getColumnModel().getColumn(1).setWidth(0);
-
+                
                 tblTipSer.getColumnModel().getColumn(0).setMinWidth(0);
                 tblTipSer.getColumnModel().getColumn(0).setMaxWidth(0);
                 tblTipSer.getColumnModel().getColumn(0).setWidth(0);
-
+                
                 tblTipSer.getColumnModel().getColumn(3).setMinWidth(0);
                 tblTipSer.getColumnModel().getColumn(3).setMaxWidth(0);
                 tblTipSer.getColumnModel().getColumn(3).setWidth(0);
-
+                
                 scrTipSer.getVerticalScrollBar().setValue(0);
-
+                
             } else {
-
+                
                 return false;
-
+                
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
     }
-
+    
     private boolean verificavencimento() {
-
+        
         try {
-
+            
             if (timerven != null) {
-
+                
                 ((Timer) timerven.getSource()).stop();
-
+                
             }
-
+            
             vencimentoDAO ve = new vencimentoDAO();
-
+            
             if (ve.verificar()) {
-
+                
                 Timer timer = new Timer(700, new ActionListener() {
-
+                    
                     int n = 0;
-
+                    
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
+                        
                         timerven = e;
-
+                        
                         n++;
-
+                        
                         if (n % 2 == 0) {
-
+                            
                             btnVenPri.setVisible(true);
                         } else {
-
+                            
                             btnVenPri.setVisible(false);
                         }
                     }
-
+                    
                 });
                 timer.start();
-
+                
             } else {
-
+                
                 btnVenPri.setVisible(false);
-
+                
             }
-
+            
         } catch (SQLException ex) {
             return false;
         }
         return true;
     }
-
+    
     private boolean tabelaestoqueconsulta(estoque es, JTable tbl, JScrollPane scr) {
         try {
             estoqueDAO esdao = new estoqueDAO();
             List<estoque> lista = esdao.buscar(es);
-
+            
             if (!lista.isEmpty()) {
                 JTableHeader header = tbl.getTableHeader();
                 DefaultTableModel modelo = new DefaultTableModel();
-
+                
                 DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
-
+                
                 String[] colunas = {
                     "ID",
                     "Produto",
@@ -601,10 +601,10 @@ public final class main extends javax.swing.JFrame {
                     "Material",
                     "Chip"
                 };
-
+                
                 for (String coluna : colunas) {
                     boolean colunaVazia = true;
-
+                    
                     for (estoque ess : lista) {
                         Object valorColuna = getColumnValue(ess, coluna);
                         if (valorColuna != null && !valorColuna.toString().isEmpty()) {
@@ -612,60 +612,60 @@ public final class main extends javax.swing.JFrame {
                             break;
                         }
                     }
-
+                    
                     if (!colunaVazia) {
                         modelo.addColumn(coluna);
                     }
                 }
-
+                
                 for (estoque ess : lista) {
                     Object[] rowData = new Object[modelo.getColumnCount()];
-
+                    
                     for (int i = 0; i < modelo.getColumnCount(); i++) {
                         String columnName = modelo.getColumnName(i);
                         Object columnValue = getColumnValue(ess, columnName);
-
+                        
                         if (columnName.equals("Preço") && columnValue instanceof Double) {
                             columnValue = moedadoublereal((Double) columnValue);
                         }
-
+                        
                         if (columnName.equals("Detalhes") && (columnValue == null || columnValue.toString().isEmpty())) {
                             columnValue = "Sem Detalhes";
                         }
-
+                        
                         if (columnName.equals("Cor") && (columnValue == null || columnValue.toString().isEmpty())) {
                             columnValue = "Não Aplicável";
                         }
-
+                        
                         rowData[i] = columnValue;
                     }
-
+                    
                     modelo.addRow(rowData);
                 }
-
+                
                 deheader.setHorizontalAlignment(JLabel.CENTER);
                 deheader.setForeground(Color.BLACK);
                 deheader.setFont(fontmed(14));
-
+                
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-
+                
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
-
+                
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
-
+                
                 tbl.getColumnModel().getColumn(0).setMinWidth(0);
                 tbl.getColumnModel().getColumn(0).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(0).setWidth(0);
-
+                
             } else {
                 return false;
             }
@@ -674,104 +674,104 @@ public final class main extends javax.swing.JFrame {
         }
         return true;
     }
-
+    
     List<estoque> lista1;
-
+    
     private boolean tabelaprodutoregistrado(estoque es, JTable tbl, JScrollPane scr) {
         try {
-
+            
             estoqueDAO esdao = new estoqueDAO();
             List<estoque> lista = esdao.buscarprodutoregistrado(es);
-
+            
             lista1 = esdao.buscarprodutoregistrado(es);
-
+            
             if (!lista.isEmpty()) {
-
+                
                 JTableHeader header = tbl.getTableHeader();
                 DefaultTableModel modelo = new DefaultTableModel();
-
+                
                 DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
-
+                
                 String[] colunas = {
                     "Modelo",
                     "Cor"
-
+                
                 };
-
+                
                 for (String coluna : colunas) {
-
+                    
                     modelo.addColumn(coluna);
-
+                    
                 }
-
+                
                 for (estoque ess : lista) {
-
+                    
                     Object[] rowData = new Object[modelo.getColumnCount()];
-
+                    
                     for (int i = 0; i < modelo.getColumnCount(); i++) {
-
+                        
                         String columnName = modelo.getColumnName(i);
                         Object columnValue = getColumnValue(ess, columnName);
-
+                        
                         if (columnName.equals("Cor") && (columnValue == null || columnValue.toString().isEmpty())) {
                             columnValue = "Não Aplicável";
                         }
                         rowData[i] = columnValue;
-
+                        
                     }
-
+                    
                     modelo.addRow(rowData);
                 }
-
+                
                 deheader.setHorizontalAlignment(JLabel.CENTER);
                 deheader.setForeground(Color.BLACK);
                 deheader.setFont(fontmed(11));
-
+                
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-
+                
                 header.setFont(fontbold(11));
                 header.setReorderingAllowed(false);
-
+                
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
-
+                    
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
-
+                    
                 }
-
+                
                 tbl.getColumnModel().getColumn(1).setWidth(5);
-
+                
             } else {
                 return false;
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }
-
+    
     private boolean tabelaconsultarentrada(JTable tbl, JScrollPane scr, String busca) {
-
+        
         try {
-
+            
             entradaDAO endao = new entradaDAO();
-
+            
             List<String[]> lista = endao.buscar(busca);
-
+            
             if (!lista.isEmpty()) {
-
+                
                 DefaultTableModel modelo = new DefaultTableModel();
-
+                
                 JTableHeader header = tbl.getTableHeader();
-
+                
                 DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
-
+                
                 modelo.addColumn("Data");
                 modelo.addColumn("Área");
                 modelo.addColumn("Serviço");
@@ -784,11 +784,11 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Quantidade");
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
-
+                
                 for (String[] row : lista) {
-
+                    
                     Object[] rowData = new Object[12];
-
+                    
                     Date date = formatterbanco.parse(row[0]);
                     rowData[0] = formatter.format(date);
                     rowData[1] = row[1];
@@ -796,67 +796,68 @@ public final class main extends javax.swing.JFrame {
                     rowData[3] = ("Assistência".equals(row[1]) && "".equals(row[3])) ? "Não Informado"
                             : (!"Assistência".equals(row[1]) && row[3] == null) ? "Não Aplicável" : row[3];
                     rowData[4] = (!"null - null null - null".equals(row[4]) && row[4] != null) ? row[4] : "Nenhum Produto";
-                    rowData[5] = (Double.parseDouble(row[5]) != 0) ? moedadoublereal(Double.valueOf(row[5])) : "Não Aplicável";
-                    rowData[6] = (row[6] != null) ? moedadoublereal(Double.parseDouble(row[6])) : "Não Aplicável";
+                    rowData[5] = moedadoublereal(Double.valueOf(row[5]));
+                    rowData[6] = (row[6] != null) ? moedadoublereal(Double.valueOf(row[6])) : "Não Aplicável";
                     rowData[7] = ("1".equals(row[7])) ? "Dinheiro" : ("2".equals(row[7])) ? "Cartão" : ("3".equals(row[7])) ? "PIX" : null;
                     rowData[8] = ("Assistência".equals(row[1]) && "".equals(row[8])) ? "Não Informado"
                             : (!"Assistência".equals(row[1]) && row[8] == null) ? "Não Aplicável" : row[8];
                     rowData[9] = (row[9] == null || "0".equals(row[9])) ? "Não Aplicável" : row[9];
                     rowData[10] = (row[10] != null && !"".equals(row[10])) ? row[10] : "Sem Detalhes";
                     rowData[11] = row[11];
-
+                    
                     modelo.addRow(rowData);
-
+                    
                 }
-
+                
                 deheader.setHorizontalAlignment(JLabel.CENTER);
-
+                
                 deheader.setForeground(Color.BLACK);
                 deheader.setFont(fontmed(12));
-
+                
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-
+                
                 header.setFont(fontbold(12));
                 header.setReorderingAllowed(false);
-
+                
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
-
+                
                 tbl.getColumnModel().getColumn(11).setMinWidth(0);
                 tbl.getColumnModel().getColumn(11).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(11).setWidth(0);
-
+                
                 tbl.setVisible(true);
                 scr.setVisible(true);
-
+                
             } else {
-
+                
                 return false;
             }
-
+            
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
     }
-
+    
     List<String[]> listacmb;
-
+    
     private void tabelacmbrelatorio(JTable tbl, JScrollPane scr, JComboBox cmb) {
-
+        
         try {
-
+            
             DefaultTableModel modelo = new DefaultTableModel();
             JTableHeader header = tbl.getTableHeader();
-
+            DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
+            
             modelo.addColumn("Data");
             modelo.addColumn("Serviço");
             modelo.addColumn("Produto");
@@ -865,104 +866,82 @@ public final class main extends javax.swing.JFrame {
             modelo.addColumn("Pagamento");
             modelo.addColumn("Detalhes");
             modelo.addColumn("Código Entrada");
-
-             DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
-                @Override
-                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                    Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                    if ("Saída Caixa".equals(table.getValueAt(row, 1))) {
-                        c.setBackground(new Color(255, 246, 246));
-                    } else if ("Entrada Caixa".equals(table.getValueAt(row, 1))) {
-                        c.setBackground(new Color(246, 255, 246));
-                    } else {
-                        c.setBackground(table.getBackground());
-                    }
-                    return c;
-                }
-            };
-             
-             tbl.repaint();
             
             double somaCartao = 0;
             double somaDinheiro = 0;
             double somaPix = 0;
             double somaCusto = 0;
-
+            
             List<String[]> listaa = new ArrayList<>();
-
+            
             for (String[] row : listacmb) {
-
+                
                 if (rbtnVenRel.isSelected()) {
-
+                    
                     if (cmb.getSelectedItem().equals(row[2]) || cmb.getSelectedItem().equals("Filtrar resultados")) {
-
+                        
                         listaa.add(row);
-
+                        
                     }
-
+                    
                 } else {
-
+                    
                     if (cmb.getSelectedItem().equals(row[1]) || cmb.getSelectedItem().equals("Filtrar resultados")) {
-
+                        
                         listaa.add(row);
-
+                        
                     }
-
+                    
                 }
-
+                
             }
-
+            
             for (String[] row : listaa) {
-
+                
                 Object[] rowData = new Object[8];
-
+                
                 Date date = formatterbanco.parse(row[0]);
                 rowData[0] = formatter.format(date);
                 rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
                 rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
-                rowData[3] = (Double.parseDouble(row[3]) != 0) ? moedadoublereal(Double.valueOf(row[3])) : "Não Aplicável";
+                rowData[3] = moedadoublereal(Double.valueOf(row[3]));
                 rowData[4] = (row[4] != null) ? moedadoublereal(Double.valueOf(row[4])) : "Não Aplicável";
                 rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
                 rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
                 rowData[7] = row[7];
-
+                
                 modelo.addRow(rowData);
-
+                
             }
-
-            cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-            cellRenderer.setForeground(Color.BLACK);
-            cellRenderer.setFont(fontmed(12));
-
+            
+            deheader.setHorizontalAlignment(JLabel.CENTER);
+            deheader.setForeground(Color.BLACK);
+            deheader.setFont(fontmed(12));
+            
             header.setForeground(corforeazul);
             header.setBackground(new Color(246, 246, 246));
             header.setFont(fontbold(13));
             header.setReorderingAllowed(false);
-
+            
             tbl.setModel(modelo);
             tbl.setRowHeight(25);
             tbl.setDefaultEditor(Object.class, null);
             scr.getVerticalScrollBar().setValue(0);
-
+            
             for (int i = 0; i < tbl.getColumnCount(); i++) {
-                tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+                tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
             }
-
-            tbl.getColumnModel().getColumn(7).setMinWidth(0);
-            tbl.getColumnModel().getColumn(7).setMaxWidth(0);
-            tbl.getColumnModel().getColumn(7).setWidth(0);                 
-
+            
             double somaValor = 0;
             int somaentrada = 0;
             String codigoAnterior = null;
-
+            
             for (String[] row : listaa) {
-
+                
                 String codigoAtual = row[7];
-
+                
                 if (codigoAnterior == null || !codigoAtual.equals(codigoAnterior)) {
-
+                    
                     if ("1".equals(row[5])) {
                         somaDinheiro += Double.parseDouble(row[3]);
                         if (row[4] != null && chkCus.isSelected()) {
@@ -979,65 +958,65 @@ public final class main extends javax.swing.JFrame {
                             somaPix -= Double.parseDouble(row[4]);
                         }
                     }
-
+                    
                     if (row[4] != null) {
-
+                        
                         somaCusto += Double.parseDouble(row[4]);
-
+                        
                     }
-
+                    
                     somaValor += Double.parseDouble(row[3]);
-
+                    
                     somaentrada++;
                 }
-
+                
                 codigoAnterior = codigoAtual;
             }
-
+            
             tblRel.setVisible(true);
             scrRel.setVisible(true);
-
+            
             if (chkCus.isSelected()) {
                 lblValTotRel.setText(moedadoublereal(somaValor - somaCusto));
             } else {
                 lblValTotRel.setText(moedadoublereal(somaValor));
             }
-
+            
             lblValMedRel.setText(moedadoublereal(somaCusto));
             lblTotEntRel.setText(String.valueOf(somaentrada));
-
+            
             lblValDinRel.setText(moedadoublereal(somaDinheiro));
             lblValCarRel.setText(moedadoublereal(somaCartao));
             lblValPixRel.setText(moedadoublereal(somaPix));
-
+            
             if (somaCusto == 0) {
-
+                
                 chkCus.setEnabled(false);
                 chkCus.setSelected(false);
-
+                
             } else {
-
+                
                 chkCus.setEnabled(true);
             }
-
+            
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2) {
         try {
             entradaDAO endao = new entradaDAO();
             List<String[]> lista = endao.buscar(opc, opc1, data1, data2);
-
+            
             if (!lista.isEmpty()) {
-
+                
                 listacmb = lista;
-
+                
                 DefaultTableModel modelo = new DefaultTableModel();
                 JTableHeader header = tbl.getTableHeader();
-
+                
                 modelo.addColumn("Data");
                 modelo.addColumn("Serviço");
                 modelo.addColumn("Produto");
@@ -1046,12 +1025,12 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Pagamento");
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
-
+                
                 DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
                     @Override
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
+                        
                         if ("Saída Caixa".equals(table.getValueAt(row, 1))) {
                             c.setBackground(new Color(255, 246, 246));
                         } else if ("Entrada Caixa".equals(table.getValueAt(row, 1))) {
@@ -1062,63 +1041,63 @@ public final class main extends javax.swing.JFrame {
                         return c;
                     }
                 };
-
+                
                 tbl.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
                 tbl.repaint();
-
+                
                 double somaCartao = 0;
                 double somaDinheiro = 0;
                 double somaPix = 0;
                 double somaCusto = 0;
-
+                
                 for (String[] row : lista) {
                     Object[] rowData = new Object[8];
-
+                    
                     Date date = formatterbanco.parse(row[0]);
                     rowData[0] = formatter.format(date);
                     rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
                     rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
-                    rowData[3] = (Double.parseDouble(row[3]) != 0) ? moedadoublereal(Double.valueOf(row[3])) : "Não Aplicável";
+                    rowData[3] = moedadoublereal(Double.valueOf(row[3]));
                     rowData[4] = (row[4] != null) ? moedadoublereal(Double.valueOf(row[4])) : "Não Aplicável";
                     rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
                     rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
                     rowData[7] = row[7];
-
+                    
                     modelo.addRow(rowData);
                 }
-
+                
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
                 cellRenderer.setFont(fontmed(12));
-
+                
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
-
+                
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
-
+                
                 tbl.getColumnModel().getColumn(7).setMinWidth(0);
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
-
+                
                 double somaValor = 0;
                 int somaentrada = 0;
                 String codigoAnterior = null;
-
+                
                 for (String[] row : lista) {
-
+                    
                     String codigoAtual = row[7];
-
+                    
                     if (codigoAnterior == null || !codigoAtual.equals(codigoAnterior)) {
-
+                        
                         if ("1".equals(row[5])) {
                             if (!"Saída Caixa".equals(row[1])) {
                                 somaDinheiro += Double.parseDouble(row[3]);
@@ -1156,7 +1135,7 @@ public final class main extends javax.swing.JFrame {
                                 }
                             }
                         }
-
+                        
                         if (row[4] != null) {
                             if (!"Saída Caixa".equals(row[1])) {
                                 somaCusto += Double.parseDouble(row[4]);
@@ -1164,58 +1143,58 @@ public final class main extends javax.swing.JFrame {
                                 somaCusto -= Double.parseDouble(row[4]);
                             }
                         }
-
+                        
                         if (!"Saída Caixa".equals(row[1])) {
                             somaValor += Double.parseDouble(row[3]);
                         } else {
                             somaValor -= Double.parseDouble(row[3]);
                         }
-
+                        
                         somaentrada++;
                     }
-
+                    
                     codigoAnterior = codigoAtual;
                 }
-
+                
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
-
+                
                 if (chkCus.isSelected()) {
                     lblValTotRel.setText(moedadoublereal(somaValor - somaCusto));
                 } else {
                     lblValTotRel.setText(moedadoublereal(somaValor));
                 }
-
+                
                 lblValMedRel.setText(moedadoublereal(somaCusto));
                 lblTotEntRel.setText(String.valueOf(somaentrada));
-
+                
                 lblValDinRel.setText(moedadoublereal(somaDinheiro));
                 lblValCarRel.setText(moedadoublereal(somaCartao));
                 lblValPixRel.setText(moedadoublereal(somaPix));
-
+                
                 if (somaCusto == 0) {
                     chkCus.setEnabled(false);
                     chkCus.setSelected(false);
                 } else {
                     chkCus.setEnabled(true);
                 }
-
+                
                 lblResRel.setVisible(false);
-
+                
             } else {
-
+                
                 tblRel.setVisible(false);
                 scrRel.setVisible(false);
-
+                
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
-
+                
                 lblResRel.setVisible(true);
-
+                
                 lblValTotRel.setText("R$0,00");
                 lblValMedRel.setText("R$0,00");
                 lblTotEntRel.setText("0");
-
+                
                 lblValDinRel.setText("R$0,00");
                 lblValCarRel.setText("R$0,00");
                 lblValPixRel.setText("R$0,00");
@@ -1223,63 +1202,63 @@ public final class main extends javax.swing.JFrame {
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
     }
-
+    
     public void cmbrelatorio(JTable tabela, JComboBox<String> cmbrelatorio, int coluna) {
-
+        
         Set<String> valoresUnicos = new HashSet<>();
-
+        
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         int rowCount = modelo.getRowCount();
-
+        
         cmbrelatorio.removeAllItems();
-
+        
         cmbrelatorio.addItem("Filtrar resultados");
-
+        
         for (int i = 0; i < rowCount; i++) {
             String valor = (String) modelo.getValueAt(i, coluna);
-
+            
             if ("Nenhum Serviço".equals(valor)) {
                 valor = "Venda";
             }
-
+            
             valoresUnicos.add(valor);
         }
-
+        
         for (String valor : valoresUnicos) {
             cmbrelatorio.addItem(valor);
         }
-
+        
         if (cmbrelatorio.getItemCount() == 1) {
-
+            
             cmbrelatorio.setEnabled(false);
-
+            
         } else {
-
+            
             cmbrelatorio.setEnabled(true);
-
+            
         }
-
+        
     }
-
+    
     private boolean tabelagerenciarentrada(JTable tbl, JScrollPane scr, String data) {
-
+        
         try {
-
+            
             entradaDAO endao = new entradaDAO();
-
+            
             List<String[]> lista = endao.buscargerenciar(data);
-
+            
             if (!lista.isEmpty()) {
-
+                
                 DefaultTableModel modelo = new DefaultTableModel();
-
+                
                 JTableHeader header = tbl.getTableHeader();
-
+                
                 DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
-
+                
                 modelo.addColumn("Data");
                 modelo.addColumn("Área");
                 modelo.addColumn("Serviço");
@@ -1292,11 +1271,11 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Quantidade");
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
-
+                
                 for (String[] row : lista) {
-
+                    
                     Object[] rowData = new Object[12];
-
+                    
                     Date date = formatterbanco.parse(row[0]);
                     rowData[0] = formatter.format(date);
                     rowData[1] = row[1];
@@ -1304,7 +1283,7 @@ public final class main extends javax.swing.JFrame {
                     rowData[3] = ("Assistência".equals(row[1]) && "".equals(row[3])) ? "Não Informado"
                             : (!"Assistência".equals(row[1]) && row[3] == null) ? "Não Aplicável" : row[3];
                     rowData[4] = (!"null - null null - null".equals(row[4]) && row[4] != null) ? row[4] : "Nenhum Produto";
-                    rowData[5] = (Double.parseDouble(row[5]) != 0) ? moedadoublereal(Double.valueOf(row[5])) : "Não Aplicável";
+                    rowData[5] = moedadoublereal(Double.valueOf(row[5]));
                     rowData[6] = (row[6] != null) ? moedadoublereal(Double.valueOf(row[6])) : "Não Aplicável";
                     rowData[7] = ("1".equals(row[7])) ? "Dinheiro" : ("2".equals(row[7])) ? "Cartão" : ("3".equals(row[7])) ? "PIX" : null;
                     rowData[8] = ("Assistência".equals(row[1]) && "".equals(row[8])) ? "Não Informado"
@@ -1312,207 +1291,207 @@ public final class main extends javax.swing.JFrame {
                     rowData[9] = (row[9] == null || "0".equals(row[9])) ? "Não Aplicável" : row[9];
                     rowData[10] = (row[10] != null && !"".equals(row[10])) ? row[10] : "Sem Detalhes";
                     rowData[11] = row[11];
-
+                    
                     modelo.addRow(rowData);
-
+                    
                 }
-
+                
                 deheader.setHorizontalAlignment(JLabel.CENTER);
-
+                
                 deheader.setForeground(Color.BLACK);
                 deheader.setFont(fontmed(12));
-
+                
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-
+                
                 header.setFont(fontbold(12));
                 header.setReorderingAllowed(false);
-
+                
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
-
+                
                 tbl.getColumnModel().getColumn(11).setMinWidth(0);
                 tbl.getColumnModel().getColumn(11).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(11).setWidth(0);
-
+                
                 tbl.setVisible(true);
                 scr.setVisible(true);
-
+                
             } else {
-
+                
                 return false;
             }
-
+            
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
     }
-
+    
     private boolean tabeladespezas(JTable tbl, JScrollPane scr) {
-
+        
         try {
-
+            
             despezasDAO desdao = new despezasDAO();
             List<String[]> lista = desdao.buscar();
-
+            
             if (!lista.isEmpty()) {
-
+                
                 JTableHeader header = tbl.getTableHeader();
-
+                
                 DefaultTableModel modelo = new DefaultTableModel();
-
+                
                 modelo.addColumn("ID");
                 modelo.addColumn("Descrição");
                 modelo.addColumn("Preço");
                 modelo.addColumn("Data");
                 modelo.addColumn("Data Conclusão");
-
+                
                 for (String[] row : lista) {
-
+                    
                     Object[] rowData = new Object[5];
-
+                    
                     Date date = formatterbanco.parse(row[3]);
-
+                    
                     Date datecon = null;
-
+                    
                     if (row[4] != null) {
-
+                        
                         datecon = formatterbanco.parse(row[4]);
-
+                        
                     }
-
+                    
                     rowData[0] = row[0];
                     rowData[1] = row[1];
-                    rowData[2] = (Double.parseDouble(row[2]) != 0) ? moedadoublereal(Double.parseDouble(row[2])) : "Não Aplicável";
+                    rowData[2] = moedadoublereal(Double.valueOf(row[2]));
                     rowData[3] = formatter.format(date);
                     rowData[4] = (row[4] != null) ? formatter.format(datecon) : "Não Concluído";
-
+                    
                     modelo.addRow(rowData);
-
+                    
                 }
-
+                
                 DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
                     @Override
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
+                        
                         try {
                             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
+                            
                             Date dataatual = new Date();
-
+                            
                             Date data = formatter.parse(table.getValueAt(row, 3).toString());
-
+                            
                             Object datacon = table.getValueAt(row, 4);
-
+                            
                             int comparacao1 = 0;
                             int comparacao2 = 0;
-
+                            
                             long diferencaMilissegundos = Math.abs(dataatual.getTime() - data.getTime());
-
+                            
                             long diferencaDias = TimeUnit.DAYS.convert(diferencaMilissegundos, TimeUnit.MILLISECONDS);
-
+                            
                             comparacao1 = dataatual.compareTo(data);
-
+                            
                             if (!datacon.equals("Não Concluído")) {
-
+                                
                                 comparacao2 = data.compareTo(formatter.parse(table.getValueAt(row, 4).toString()));
-
+                                
                                 if (comparacao1 < 0 && comparacao2 > 0 && diferencaDias > 10) { //dataatual menor data e data maior datacon
 
                                     component.setBackground(new Color(182, 222, 170));//verde
 
                                 } else {
-
+                                    
                                     component.setBackground(new Color(229, 190, 190));//vermelho
 
                                 }
-
+                                
                             } else {
-
+                                
                                 if (comparacao1 < 0 && diferencaDias > 10) {
-
+                                    
                                     component.setBackground(new Color(182, 222, 170));//verde
 
                                 } else {
-
+                                    
                                     component.setBackground(new Color(229, 190, 190));
                                 }
-
+                                
                             }
-
+                            
                             component.setFont(fontmed(12));
-
+                            
                             return component;
-
+                            
                         } catch (ParseException ex) {
                             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         return null;
                     }
-
+                    
                 };
-
+                
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-
+                
                 cellRenderer.setForeground(Color.BLACK);
                 cellRenderer.setFont(fontmed(12));
-
+                
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-
+                
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
-
+                
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
-
+                
                 tbl.getColumnModel().getColumn(0).setMinWidth(0);
                 tbl.getColumnModel().getColumn(0).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(0).setWidth(0);
-
+                
                 tbl.setVisible(true);
                 scr.setVisible(true);
-
+                
             } else {
-
+                
                 return false;
-
+                
             }
-
+            
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
     }
-
+    
     private boolean tabelavencimento(JTable tbl, JScrollPane scr) {
-
+        
         try {
-
+            
             vencimentoDAO vendao = new vencimentoDAO();
             List<String[]> lista = vendao.buscar();
-
+            
             if (!lista.isEmpty()) {
-
+                
                 JTableHeader header = tbl.getTableHeader();
-
+                
                 DefaultTableModel modelo = new DefaultTableModel();
-
+                
                 modelo.addColumn("Cliente");
                 modelo.addColumn("Telefone");
                 modelo.addColumn("CPF");
@@ -1521,15 +1500,15 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Data");
                 modelo.addColumn("Vencimento");
                 modelo.addColumn("Ok");
-
+                
                 for (String[] row : lista) {
-
+                    
                     Object[] rowData = new Object[8];
-
+                    
                     Date date = formatterbanco.parse(row[5]);
-
+                    
                     Date datecon = formatterbanco.parse(row[6]);
-
+                    
                     rowData[0] = row[0];
                     rowData[1] = row[1];
                     rowData[2] = row[2];
@@ -1538,104 +1517,104 @@ public final class main extends javax.swing.JFrame {
                     rowData[5] = formatter.format(date);
                     rowData[6] = formatter.format(datecon);
                     rowData[7] = row[7];
-
+                    
                     modelo.addRow(rowData);
-
+                    
                 }
-
+                
                 DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
                     @Override
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
+                        
                         try {
                             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
+                            
                             Date dataatu = new Date();
-
+                            
                             String dataat = formatterbanco.format(dataatu);
-
+                            
                             Date dataatual = formatterbanco.parse(dataat);
-
+                            
                             String vens = formatterbanco.format(((formatter.parse(table.getValueAt(row, 6).toString()))));
-
+                            
                             int ok = Integer.parseInt(table.getValueAt(row, 7).toString());
-
+                            
                             Date vencimento = formatterbanco.parse(vens);
-
+                            
                             int comparacao1 = dataatual.compareTo(vencimento);
-
+                            
                             if (comparacao1 >= 0 && ok == 0) {
                                 component.setBackground(new Color(182, 222, 170));
                             } else {
                                 component.setBackground(new Color(246, 246, 246));
                             }
-
+                            
                             component.setFont(fontmed(12));
-
+                            
                             if (isSelected) {
                                 component.setBackground(new Color(211, 211, 211));
                                 component.setForeground(Color.BLACK);
                             }
-
+                            
                             return component;
-
+                            
                         } catch (ParseException ex) {
                             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         return null;
                     }
                 };
-
+                
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
                 cellRenderer.setFont(fontmed(12));
-
+                
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-
+                
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
-
+                
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
-
+                
                 tbl.getColumnModel().getColumn(7).setMinWidth(0);
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
-
+                
                 tbl.setVisible(true);
                 scr.setVisible(true);
-
+                
             } else {
                 return false;
             }
-
+            
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
     }
-
+    
     private boolean tabelavencimentopa(JTable tbl, JScrollPane scr, vencimento ve) {
-
+        
         try {
-
+            
             vencimentoDAO vendao = new vencimentoDAO();
             List<String[]> lista = vendao.buscarpa(ve);
-
+            
             if (!lista.isEmpty()) {
-
+                
                 JTableHeader header = tbl.getTableHeader();
-
+                
                 DefaultTableModel modelo = new DefaultTableModel();
-
+                
                 modelo.addColumn("Cliente");
                 modelo.addColumn("Telefone");
                 modelo.addColumn("CPF");
@@ -1644,15 +1623,15 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Data");
                 modelo.addColumn("Vencimento");
                 modelo.addColumn("Ok");
-
+                
                 for (String[] row : lista) {
-
+                    
                     Object[] rowData = new Object[8];
-
+                    
                     Date date = formatterbanco.parse(row[5]);
-
+                    
                     Date datecon = formatterbanco.parse(row[6]);
-
+                    
                     rowData[0] = row[0];
                     rowData[1] = row[1];
                     rowData[2] = row[2];
@@ -1661,69 +1640,69 @@ public final class main extends javax.swing.JFrame {
                     rowData[5] = formatter.format(date);
                     rowData[6] = formatter.format(datecon);
                     rowData[7] = row[7];
-
+                    
                     modelo.addRow(rowData);
-
+                    
                 }
-
+                
                 DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
                     @Override
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
+                        
                         try {
                             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
+                            
                             Date dataatu = new Date();
-
+                            
                             String dataat = formatterbanco.format(dataatu);
-
+                            
                             Date dataatual = formatterbanco.parse(dataat);
-
+                            
                             String vens = formatterbanco.format(((formatter.parse(table.getValueAt(row, 6).toString()))));
-
+                            
                             int ok = Integer.parseInt(table.getValueAt(row, 7).toString());
-
+                            
                             Date vencimento = formatterbanco.parse(vens);
-
+                            
                             int comparacao1 = dataatual.compareTo(vencimento);
-
+                            
                             if (comparacao1 >= 0 && ok == 0) {
                                 component.setBackground(new Color(182, 222, 170)); // verde
                             } else {
                                 component.setBackground(new Color(246, 246, 246)); // vermelho
                             }
-
+                            
                             component.setFont(fontmed(12));
-
+                            
                             if (isSelected) {
                                 component.setBackground(new Color(211, 211, 211)); // Defina a cor de fundo da linha selecionada como vermelho
                                 component.setForeground(Color.BLACK);
                             }
-
+                            
                             return component;
-
+                            
                         } catch (ParseException ex) {
                             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         return null;
                     }
                 };
-
+                
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
                 cellRenderer.setFont(fontmed(12));
-
+                
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-
+                
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
-
+                
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
@@ -1732,326 +1711,322 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(7).setWidth(0);
                 tbl.setVisible(true);
                 scr.setVisible(true);
-
+                
             } else {
                 return false;
             }
-
+            
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
     }
-
+    
     private boolean tabelagerenciardespezas(JTable tbl, JScrollPane scr) {
-
+        
         try {
-
+            
             despezasDAO desdao = new despezasDAO();
             List<String[]> lista = desdao.buscar();
-
+            
             if (!lista.isEmpty()) {
-
+                
                 JTableHeader header = tbl.getTableHeader();
-
+                
                 DefaultTableModel modelo = new DefaultTableModel();
                 DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-
+                
                 modelo.addColumn("ID");
                 modelo.addColumn("Descrição");
                 modelo.addColumn("Preço");
                 modelo.addColumn("Data");
                 modelo.addColumn("Data Conclusão");
-
+                
                 for (String[] row : lista) {
-
+                    
                     Object[] rowData = new Object[5];
-
+                    
                     Date date = formatterbanco.parse(row[3]);
-
+                    
                     Date datecon = null;
-
+                    
                     if (row[4] != null) {
-
+                        
                         datecon = formatterbanco.parse(row[4]);
-
+                        
                     }
-
+                    
                     rowData[0] = row[0];
                     rowData[1] = row[1];
-                    rowData[2] = (Double.parseDouble(row[2]) != 0) ? moedadoublereal(Double.parseDouble(row[2])) : "Não Aplicável";
+                    rowData[2] = moedadoublereal(Double.valueOf(row[2]));
                     rowData[3] = formatter.format(date);
                     rowData[4] = (row[4] != null) ? formatter.format(datecon) : "Não Concluído";
-
+                    
                     modelo.addRow(rowData);
-
+                    
                 }
-
+                
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-
+                
                 cellRenderer.setForeground(Color.BLACK);
                 cellRenderer.setFont(fontmed(12));
-
+                
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-
+                
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
-
+                
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
-
-                tbl.getColumnModel().getColumn(0).setMinWidth(0);
-                tbl.getColumnModel().getColumn(0).setMaxWidth(0);
-                tbl.getColumnModel().getColumn(0).setWidth(0);
-
+                
                 tbl.setVisible(true);
                 scr.setVisible(true);
-
+                
             } else {
-
+                
                 return false;
-
+                
             }
-
+            
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
     }
-
+    
     private void tabelaitensselecionados() {
-
+        
         JTableHeader header = tblSelIteCadEnt.getTableHeader();
-
+        
         DefaultTableModel modelo = new DefaultTableModel();
-
+        
         DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
-
+        
         String[] colunas = {
             "Quantidade",
             "ID",
             "Produto",
             "Preço"
-
+        
         };
-
+        
         for (String coluna : colunas) {
-
+            
             modelo.addColumn(coluna);
-
+            
         }
-
+        
         deheader.setHorizontalAlignment(JLabel.CENTER);
-
+        
         deheader.setForeground(Color.BLACK);
         deheader.setFont(fontmed(11));
-
+        
         header.setForeground(corforeazul);
         header.setBackground(new Color(246, 246, 246));
-
+        
         header.setFont(fontbold(11));
         header.setReorderingAllowed(false);
-
+        
         tblSelIteCadEnt.setModel(modelo);
         tblSelIteCadEnt.setRowHeight(25);
         tblSelIteCadEnt
                 .setDefaultEditor(Object.class,
                         null);
         scrSelIteCadEnt.getVerticalScrollBar().setValue(0);
-
+        
         for (int i = 0; i < tblSelIteCadEnt.getColumnCount(); i++) {
             tblSelIteCadEnt.getColumnModel().getColumn(i).setCellRenderer(deheader);
         }
-
+        
         tblSelIteCadEnt.setModel(modelo);
-
+        
     }
-
+    
     private void tabelaitensselecionadosgerenciar(String codigo) {
-
+        
         try {
-
+            
             JTableHeader header = tblSelIteGerEnt.getTableHeader();
-
+            
             DefaultTableModel modelo = new DefaultTableModel();
-
+            
             DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
-
+            
             entradaDAO endao = new entradaDAO();
-
+            
             List<String[]> lista = endao.buscaritensselecionados(codigo);
-
+            
             boolean ex = false;
-
+            
             if (!lista.isEmpty()) {
-
+                
                 modelo.addColumn("Quantidade");
                 modelo.addColumn("ID");
                 modelo.addColumn("Produto");
                 modelo.addColumn("Preço");
-
+                
                 for (String[] row : lista) {
-
+                    
                     if (row[1] != null) {
-
+                        
                         ex = true;
                         Object[] rowData = new Object[5];
-
+                        
                         rowData[0] = row[0];
                         rowData[1] = row[1];
                         rowData[2] = row[2];
-                        rowData[3] = (row[3] != null) ? moedadoublereal(Double.parseDouble(row[3])) : null;
-
+                        rowData[3] = (row[3] != null) ? moedadoublereal(Double.valueOf(row[3])) : null;
+                        
                         modelo.addRow(rowData);
-
+                        
                     } else {
-
+                        
                         ex = false;
-
+                        
                     }
                 }
-
+                
                 if (ex) {
-
+                    
                     deheader.setHorizontalAlignment(JLabel.CENTER);
-
+                    
                     deheader.setForeground(Color.BLACK);
                     deheader.setFont(fontmed(11));
-
+                    
                     header.setForeground(corforeazul);
                     header.setBackground(new Color(246, 246, 246));
-
+                    
                     header.setFont(fontbold(11));
                     header.setReorderingAllowed(false);
-
+                    
                     tblSelIteGerEnt.setModel(modelo);
                     tblSelIteGerEnt.setRowHeight(25);
                     tblSelIteGerEnt.setDefaultEditor(Object.class, null);
-
+                    
                     scrSelIteGerEnt.getVerticalScrollBar().setValue(0);
-
+                    
                     for (int i = 0; i < tblSelIteGerEnt.getColumnCount(); i++) {
                         tblSelIteGerEnt.getColumnModel().getColumn(i).setCellRenderer(deheader);
                     }
-
+                    
                     tblSelIteGerEnt.setModel(modelo);
-
+                    
                     tblSelIteGerEnt.setVisible(true);
                     scrSelIteGerEnt.setVisible(true);
                     lblSelIteGerEnt.setVisible(true);
-
+                    
                 } else {
-
+                    
                     deheader.setHorizontalAlignment(JLabel.CENTER);
-
+                    
                     deheader.setForeground(Color.BLACK);
                     deheader.setFont(fontmed(11));
-
+                    
                     header.setForeground(corforeazul);
                     header.setBackground(new Color(246, 246, 246));
-
+                    
                     header.setFont(fontbold(11));
                     header.setReorderingAllowed(false);
-
+                    
                     tblSelIteGerEnt.setModel(modelo);
                     tblSelIteGerEnt.setRowHeight(25);
                     tblSelIteGerEnt.setDefaultEditor(Object.class, null);
-
+                    
                     scrSelIteGerEnt.getVerticalScrollBar().setValue(0);
-
+                    
                     for (int i = 0; i < tblSelIteGerEnt.getColumnCount(); i++) {
                         tblSelIteGerEnt.getColumnModel().getColumn(i).setCellRenderer(deheader);
                     }
-
+                    
                     tblSelIteGerEnt.setModel(modelo);
-
+                    
                     DefaultTableModel model = (DefaultTableModel) tblSelIteGerEnt.getModel();
                     model.setRowCount(0);
-
+                    
                     tblSelIteGerEnt.setVisible(false);
                     scrSelIteGerEnt.setVisible(false);
                     lblSelIteGerEnt.setVisible(false);
-
+                    
                 }
-
+                
             } else {
-
+                
                 tblSelIteGerEnt.setVisible(false);
                 scrSelIteGerEnt.setVisible(false);
                 lblSelIteGerEnt.setVisible(false);
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void adicionarprodutos(JTable tabelaOrigem, JTable tabelaDestino, String qua, JRadioButton rbtn) {
-
+        
         try {
             DefaultTableModel modelo = (DefaultTableModel) tabelaDestino.getModel();
-
+            
             String idt = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("ID"))).toString();
             String precot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Preço"))).toString();
             String produtot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Produto"))).toString();
             String marcat = null;
             String chipt = null;
             String modelot = null;
-
+            
             entrada en = new entrada();
             entradaDAO endao = new entradaDAO();
-
+            
             en.setIdestoque(Integer.parseInt(idt));
             en.setQuantidade(Integer.parseInt(qua));
-
+            
             endao.atualizarestoque(en, 0);
-
+            
             if (rbtn.isSelected()) {
-
+                
                 chipt = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Chip"))).toString();
-
+                
                 Object[] novaLinha = {qua, idt, produtot + " - " + chipt, precot};
-
+                
                 modelo.addRow(novaLinha);
-
+                
                 tabelaDestino.setModel(modelo);
-
+                
             } else {
-
+                
                 marcat = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Marca"))).toString();
                 modelot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Modelo"))).toString();
-
+                
                 Object[] novaLinha = {qua, idt, produtot + " - " + marcat + " " + modelot, precot};
-
+                
                 modelo.addRow(novaLinha);
-
+                
                 tabelaDestino.setModel(modelo);
             }
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     private boolean tabelaestoquegerenciar(estoque es) {
         try {
             estoqueDAO esdao = new estoqueDAO();
             List<estoque> lista = esdao.buscar(es);
-
+            
             if (!lista.isEmpty()) {
                 JTableHeader header = tblGerEst.getTableHeader();
                 DefaultTableModel modelo = new DefaultTableModel();
                 DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
-
+                
                 String[] colunas = {
                     "ID",
                     "Produto",
@@ -2065,10 +2040,10 @@ public final class main extends javax.swing.JFrame {
                     "Material",
                     "Chip"
                 };
-
+                
                 for (String coluna : colunas) {
                     boolean colunaVazia = true;
-
+                    
                     for (estoque ess : lista) {
                         Object valorColuna = getColumnValue(ess, coluna);
                         if (valorColuna != null && !valorColuna.toString().isEmpty()) {
@@ -2076,67 +2051,67 @@ public final class main extends javax.swing.JFrame {
                             break;
                         }
                     }
-
+                    
                     if (!colunaVazia) {
                         modelo.addColumn(coluna);
                     }
                 }
-
+                
                 for (estoque ess : lista) {
                     Object[] rowData = new Object[modelo.getColumnCount()];
-
+                    
                     for (int i = 0; i < modelo.getColumnCount(); i++) {
                         String columnName = modelo.getColumnName(i);
                         Object columnValue = getColumnValue(ess, columnName);
-
+                        
                         if (columnName.equals("Preço") && columnValue instanceof Double) {
                             columnValue = moedadoublereal((Double) columnValue);
                         }
-
+                        
                         if (columnName.equals("Cor") && (columnValue == null || columnValue.toString().isEmpty())) {
                             columnValue = "Não Aplicável";
                         }
-
+                        
                         if (columnName.equals("Detalhes") && (columnValue == null || columnValue.toString().isEmpty())) {
                             columnValue = "Sem Detalhes";
                         }
-
+                        
                         rowData[i] = columnValue;
                     }
-
+                    
                     modelo.addRow(rowData);
                 }
-
+                
                 deheader.setHorizontalAlignment(JLabel.CENTER);
-
+                
                 header.setBackground(new Color(246, 246, 246));
                 header.setFont(fontbold(11));
                 header.setForeground(corforeazul);
                 header.setReorderingAllowed(false);
-
+                
                 tblGerEst.setModel(modelo);
                 tblGerEst.setRowHeight(25);
                 tblGerEst.setDefaultEditor(Object.class, null);
                 scrGerEst.getVerticalScrollBar().setValue(0);
-
+                
                 for (int i = 0; i < tblGerEst.getColumnCount(); i++) {
                     tblGerEst.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
-
+                
                 header.getColumnModel().getColumn(0).setMinWidth(0);
                 header.getColumnModel().getColumn(0).setMaxWidth(0);
                 header.getColumnModel().getColumn(0).setWidth(0);
-
+                
             } else {
                 return false;
             }
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return true;
     }
-
+    
     private Object getColumnValue(estoque ess, String columnName) {
         return switch (columnName) {
             case "ID" ->
@@ -2165,90 +2140,90 @@ public final class main extends javax.swing.JFrame {
                 null;
         };
     }
-
+    
     public void comboboxentrada(JComboBox cmb, int op) {
-
+        
         try {
-
+            
             tiposervicoDAO tpdao = new tiposervicoDAO();
-
+            
             List<tiposervico> tplist = null;
-
+            
             switch (op) {
                 case 1 ->
                     tplist = tpdao.buscarvenser();
                 case 2 ->
                     tplist = tpdao.buscarass();
             }
-
+            
             List<itens> listaitens = new ArrayList<>();
-
+            
             for (tiposervico objeto : tplist) {
-
+                
                 listaitens.add(new itens(objeto.getIdtiposervico(), objeto.getDescricao()));
-
+                
             }
-
+            
             cmb.removeAllItems();
-
+            
             for (itens objeto : listaitens) {
                 cmb.addItem(objeto);
             }
-
+            
             cmb.insertItemAt("Selecione o serviço", 0);
             cmb.setSelectedIndex(0);
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-
+            
         }
-
+        
     }
-
+    
     static class itens {
-
+        
         private final int id;
-
+        
         private final String descricao;
-
+        
         public itens(int id, String descricao) {
             this.id = id;
             this.descricao = descricao;
         }
-
+        
         public int getId() {
             return id;
         }
-
+        
         public String getDescricao() {
             return descricao;
         }
-
+        
         @Override
         public String toString() {
             return descricao;
         }
-
+        
     }
-
+    
     private String moedadoublereal(Double valor) {
         NumberFormat formatadorMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         return formatadorMoeda.format(valor);
     }
-
+    
     private void pnlbtn() {
-
+        
         btnCadEnt.setVisible(false);
         btnGerEnt.setVisible(false);
         btnConEnt.setVisible(false);
-
+        
         btnCadEst.setVisible(false);
         btnConEst.setVisible(false);
         btnGerEst.setVisible(false);
-
+        
         btnCadTipSer.setVisible(false);
         btnGerTipSer.setVisible(false);
-
+        
         btnMasPla.setVisible(false);
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
@@ -2256,7 +2231,7 @@ public final class main extends javax.swing.JFrame {
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
         btnJurPri.setVisible(false);
-
+        
         pnlCadEnt.setVisible(false);
         pnlRel.setVisible(false);
         pnlIteCadEnt.setVisible(false);
@@ -2276,7 +2251,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.setVisible(false);
         pnlVen.setVisible(false);
         pnlJur.setVisible(false);
-
+        
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -6948,7 +6923,7 @@ public final class main extends javax.swing.JFrame {
 
         lblDesTipSer3.setFont(fontmed(12));
         lblDesTipSer3.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesTipSer3.setText("Escolha um para gerenciar");
+        lblDesTipSer3.setText("Escolha um para alterar ou excluir");
         lblDesTipSer3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerDes.add(lblDesTipSer3);
         lblDesTipSer3.setBounds(110, 50, 260, 20);
@@ -7695,10 +7670,10 @@ public final class main extends javax.swing.JFrame {
 
     private void btnSalCadEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadEstActionPerformed
         try {
-
+            
             estoque es = new estoque();
             estoqueDAO esdao = new estoqueDAO();
-
+            
             es.setTipoproduto(txtTipCadEst.getText());
             es.setModelo(txtModCadEst.getText());
             es.setMarca(txtMarCadEst.getText());
@@ -7706,39 +7681,39 @@ public final class main extends javax.swing.JFrame {
             es.setMaterial(txtMatCadEst.getText());
             es.setDetalhes(txtDetCadEst.getText());
             es.setLocalizacao(txtLocCadEst.getText());
-            es.setPreco(Double.parseDouble(txtPreCadEst.getText().replace(".", "").replace(",", ".")));
+            es.setPreco(Double.valueOf(txtPreCadEst.getText().replace(".", "").replace(",", ".")));
             es.setQuantidade(Integer.parseInt(txtQuaCadEst.getText()));
-
+            
             if (txtTipCadEst.getText().equals("Chip")) {
                 es.setTipochip((String) cmbChiCadEst.getSelectedItem());
             } else {
                 es.setTipochip(null);
             }
-
+            
             if (!esdao.verifica(es)) {
-
+                
                 esdao.inserir(es);
-
+                
                 JOptionPane.showMessageDialog(pnlCadEst, "Novo ítem inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
             } else {
-
+                
                 esdao.acrescentar(es);
-
+                
                 JOptionPane.showMessageDialog(pnlCadEst, "Inserido com sucesso! O ítem já existia no estoque e foi adicionado a nova quantidade!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
             pnlCadEst.setVisible(false);
             lblTitPri.setVisible(false);
         } catch (SQLException ex) {
-
+            
             JOptionPane.showMessageDialog(pnlCadEst, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-
+            
         } catch (NumberFormatException n) {
-
+            
             JOptionPane.showMessageDialog(pnlCadEst, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
-
+            
         }
     }//GEN-LAST:event_btnSalCadEstActionPerformed
 
@@ -7779,7 +7754,7 @@ public final class main extends javax.swing.JFrame {
             btnCadEst.setVisible(false);
             btnConEst.setVisible(false);
             btnGerEst.setVisible(false);
-
+            
         } else {
             btnCadEst.setVisible(true);
             btnConEst.setVisible(true);
@@ -7788,7 +7763,7 @@ public final class main extends javax.swing.JFrame {
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
             btnConEnt.setVisible(false);
-
+            
             btnCadTipSer.setVisible(false);
             btnGerTipSer.setVisible(false);
             btnMasPla.setVisible(false);
@@ -7892,27 +7867,27 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCanCadEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanCadEstActionPerformed
         if (btnSalCadEst.isEnabled()) {
-
+            
             int resp = JOptionPane.showOptionDialog(pnlCadEst, "Cancelar inserção? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+            
             if (resp == JOptionPane.YES_OPTION) {
-
+                
                 pnlCadEst.setVisible(false);
                 lblTitPri.setVisible(false);
                 lblProCadEst.setVisible(false);
                 tblCadEst.setVisible(false);
                 scrCadEst.setVisible(false);
-
+                
             }
-
+            
         } else {
-
+            
             pnlCadEst.setVisible(false);
             lblTitPri.setVisible(false);
             lblProCadEst.setVisible(false);
             tblCadEst.setVisible(false);
             scrCadEst.setVisible(false);
-
+            
         }
     }//GEN-LAST:event_btnCanCadEstActionPerformed
 
@@ -7920,9 +7895,9 @@ public final class main extends javax.swing.JFrame {
         try {
             tiposervico ts = new tiposervico();
             tiposervicoDAO tsdao = new tiposervicoDAO();
-
+            
             ts.setDescricao(txtDesTipSer.getText());
-
+            
             if (rbtnSerTimTipSer.isSelected()) {
                 ts.setArea("1");
             } else if (rbtnAssTipSer.isSelected()) {
@@ -7930,29 +7905,29 @@ public final class main extends javax.swing.JFrame {
             } else {
                 ts.setArea("3");
             }
-
+            
             tsdao.inserir(ts);
-
+            
             JOptionPane.showMessageDialog(pnlCadEst, "Inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+            
             pnlCadTipSer.setVisible(false);
             lblTitPri.setVisible(false);
-
+            
         } catch (SQLException ex) {
-
+            
             JOptionPane.showMessageDialog(pnlCadEst, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-
+            
         }
     }//GEN-LAST:event_btnSalTipSerActionPerformed
 
     private void btnCanTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanTipSerActionPerformed
         int resp = JOptionPane.showOptionDialog(pnlCadTipSer, "Cancelar inserção? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+        
         if (resp == JOptionPane.YES_OPTION) {
-
+            
             pnlCadTipSer.setVisible(false);
             lblTitPri.setVisible(false);
-
+            
         }
     }//GEN-LAST:event_btnCanTipSerActionPerformed
 
@@ -7984,27 +7959,27 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCadTipSerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadTipSerMouseReleased
         if (!pnlCadTipSer.isVisible()) {
-
+            
             btnGroup.clearSelection();
             btnSalTipSer.setEnabled(false);
             txtDesTipSer.setText(null);
             lblDesTipSer.setLocation(505, 110);
-
+            
             txtDesTipSer.setEnabled(false);
             lblDesTipSer.setEnabled(false);
             sepDesTipSer.setForeground(Color.GRAY);
-
+            
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Tipo de Serviço");
-
+            
             pnlbtn();
             pnlCadTipSer.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlCadTipSer.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnCadTipSerMouseReleased
 
@@ -8026,9 +8001,9 @@ public final class main extends javax.swing.JFrame {
 
     private void btnGerTipSerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerTipSerMouseReleased
         if (!pnlGerTipSer.isVisible()) {
-
+            
             if (tabelatiposervico()) {
-
+                
                 txtDesGerTipSer.setText(null);
                 btnExcGerTipSer.setEnabled(false);
                 btnAltGerTipSer.setEnabled(false);
@@ -8039,28 +8014,28 @@ public final class main extends javax.swing.JFrame {
                 rbtnTimGerTipSer.setEnabled(false);
                 btnGroup.clearSelection();
                 lblDesGerTipSer.setLocation(510, 240);
-
+                
                 lblTitPri.setVisible(true);
                 lblTitPri.setText("Gerenciar Tipo de Serviço");
-
+                
                 txtDesGerTipSer.setEnabled(false);
                 lblDesGerTipSer.setEnabled(false);
                 sepDesGerTipSer.setForeground(Color.GRAY);
-
+                
                 pnlbtn();
                 pnlGerTipSer.setVisible(true);
-
+                
             } else {
-
+                
                 JOptionPane.showMessageDialog(pnlGerDes, "Sem tipo de serviço para gerenciar. Cadastre-o primeiro!", "Gerenciar Tipo de Serviço", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         } else {
-
+            
             pnlbtn();
             pnlGerTipSer.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnGerTipSerMouseReleased
 
@@ -8068,7 +8043,7 @@ public final class main extends javax.swing.JFrame {
         if (!btnGerTipSer.isVisible()) {
             btnGerTipSer.setVisible(true);
             btnCadTipSer.setVisible(true);
-
+            
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
             btnConEnt.setVisible(false);
@@ -8076,10 +8051,10 @@ public final class main extends javax.swing.JFrame {
             btnConEst.setVisible(false);
             btnGerEst.setVisible(false);
             btnJurPri.setVisible(false);
-
+            
             btnVen.setVisible(false);
             btnCadVen.setVisible(false);
-
+            
             btnMasPla.setVisible(false);
             btnDes.setVisible(false);
             btnCadDes.setVisible(false);
@@ -8100,7 +8075,7 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCadEstMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadEstMouseReleased
         if (!pnlCadEst.isVisible()) {
-
+            
             txtModCadEst.setEnabled(false);
             lblModCadEst.setEnabled(false);
             txtMarCadEst.setEnabled(false);
@@ -8128,7 +8103,7 @@ public final class main extends javax.swing.JFrame {
             sepPreCadEst.setForeground(Color.GRAY);
             sepLocCadEst.setForeground(Color.GRAY);
             sepDetCadEst.setForeground(Color.GRAY);
-
+            
             txtModCadEst.setText(null);
             txtMarCadEst.setText(null);
             txtCorCadEst.setText(null);
@@ -8138,7 +8113,7 @@ public final class main extends javax.swing.JFrame {
             cmbChiCadEst.setSelectedIndex(0);
             txtLocCadEst.setText(null);
             txtDetCadEst.setText(null);
-
+            
             lblMarCadEst.setLocation(410, 80);
             lblModCadEst.setLocation(410, 130);
             lblQuaCadEst.setLocation(410, 180);
@@ -8147,26 +8122,26 @@ public final class main extends javax.swing.JFrame {
             lblMatCadEst.setLocation(700, 130);
             lblLocCadEst.setLocation(700, 180);
             lblDetCadEst.setLocation(700, 230);
-
+            
             lblProCadEst.setVisible(false);
             tblCadEst.setVisible(false);
             scrCadEst.setVisible(false);
-
+            
             btnGroup.clearSelection();
-
+            
             lblTitPri.setVisible(true);
             lblTitPri.setText("Cadastrar Estoque");
-
+            
             btnSalCadEst.setEnabled(false);
-
+            
             pnlbtn();
             pnlCadEst.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlCadEst.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnCadEstMouseReleased
 
@@ -8180,29 +8155,29 @@ public final class main extends javax.swing.JFrame {
 
     private void btnConEstMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEstMouseReleased
         if (!pnlConEst.isVisible()) {
-
+            
             txtBusConEst.setText(null);
             lblBusConEst.setLocation(450, 110);
             btnGroup.clearSelection();
-
+            
             scrConEst.setVisible(false);
             btnBusConEst.setEnabled(false);
-
+            
             txtBusConEst.setEnabled(false);
             lblBusConEst.setEnabled(false);
             sepBusConEst.setForeground(Color.GRAY);
-
+            
             lblTitPri.setVisible(true);
             lblTitPri.setText("Consultar Estoque");
-
+            
             pnlbtn();
             pnlConEst.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlConEst.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnConEstMouseReleased
 
@@ -8216,60 +8191,60 @@ public final class main extends javax.swing.JFrame {
 
     private void btnGerEstMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerEstMouseReleased
         if (!pnlGerEst.isVisible()) {
-
+            
             txtTipGerEst.setVisible(false);
-
+            
             txtBusGerEst.setEnabled(false);
             lblBusGerEst.setEnabled(false);
             sepBusGerEst.setForeground(Color.GRAY);
-
+            
             txtModGerEst.setEnabled(false);
             lblModGerEst.setEnabled(false);
             sepModGerEst.setForeground(Color.GRAY);
-
+            
             txtMarGerEst.setEnabled(false);
             lblMarGerEst.setEnabled(false);
             sepMarGerEst.setForeground(Color.GRAY);
-
+            
             txtCorGerEst.setEnabled(false);
             lblCorGerEst.setEnabled(false);
             sepCorGerEst.setForeground(Color.GRAY);
-
+            
             txtMatGerEst.setEnabled(false);
             lblMatGerEst.setEnabled(false);
             sepMatGerEst.setForeground(Color.GRAY);
-
+            
             txtQuaGerEst.setEnabled(false);
             lblQuaGerEst.setEnabled(false);
             sepQuaGerEst.setForeground(Color.GRAY);
-
+            
             txtPreGerEst.setEnabled(false);
             lblPreGerEst.setEnabled(false);
             sepPreGerEst.setForeground(Color.GRAY);
-
+            
             txtLocGerEst.setEnabled(false);
             lblLocGerEst.setEnabled(false);
             sepLocGerEst.setForeground(Color.GRAY);
-
+            
             txtDetGerEst.setEnabled(false);
             lblDetGerEst.setEnabled(false);
             sepDetGerEst.setForeground(Color.GRAY);
-
+            
             lblChiGerEst.setEnabled(false);
             cmbChiGerEst.setEnabled(false);
-
+            
             btnAltGerEst.setEnabled(false);
             btnExcGerEst.setEnabled(false);
             btnBusGerEst.setEnabled(false);
-
+            
             btnGroup.clearSelection();
             cmbChiGerEst.setSelectedIndex(0);
-
+            
             lblR$GerEst.setVisible(false);
-
+            
             tblGerEst.setVisible(false);
             scrGerEst.setVisible(false);
-
+            
             txtMarGerEst.setText(null);
             txtModGerEst.setText(null);
             txtQuaGerEst.setText(null);
@@ -8279,7 +8254,7 @@ public final class main extends javax.swing.JFrame {
             txtLocGerEst.setText(null);
             txtDetGerEst.setText(null);
             txtBusGerEst.setText(null);
-
+            
             lblMarGerEst.setLocation(730, 60);
             lblModGerEst.setLocation(730, 110);
             lblQuaGerEst.setLocation(730, 160);
@@ -8289,18 +8264,18 @@ public final class main extends javax.swing.JFrame {
             lblLocGerEst.setLocation(1030, 160);
             lblDetGerEst.setLocation(1030, 210);
             lblBusGerEst.setLocation(180, 100);
-
+            
             lblTitPri.setVisible(true);
             lblTitPri.setText("Gerenciar Estoque");
-
+            
             pnlbtn();
             pnlGerEst.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlGerEst.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnGerEstMouseReleased
 
@@ -8321,7 +8296,7 @@ public final class main extends javax.swing.JFrame {
             btnVen.setVisible(false);
             btnCadVen.setVisible(false);
             btnJurPri.setVisible(false);
-
+            
         } else {
             btnMasPla.setVisible(true);
             btnDes.setVisible(true);
@@ -8330,7 +8305,7 @@ public final class main extends javax.swing.JFrame {
             btnVen.setVisible(true);
             btnCadVen.setVisible(true);
             btnJurPri.setVisible(true);
-
+            
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
             btnConEnt.setVisible(false);
@@ -8339,7 +8314,7 @@ public final class main extends javax.swing.JFrame {
             btnGerEst.setVisible(false);
             btnCadTipSer.setVisible(false);
             btnGerTipSer.setVisible(false);
-
+            
         }
     }//GEN-LAST:event_btnOutPriMouseReleased
 
@@ -8353,10 +8328,10 @@ public final class main extends javax.swing.JFrame {
 
     private void btnMasPlaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMasPlaMouseReleased
         if (!pnlMas.isVisible()) {
-
+            
             lblTitPri.setText("Máscara de Plano");
             lblTitPri.setVisible(true);
-
+            
             txtNomMas.setText(null);
             txtCpfMas.setText(null);
             txtVenMas.setText(null);
@@ -8366,7 +8341,7 @@ public final class main extends javax.swing.JFrame {
             txtPlaMas.setText(null);
             btnGroup.clearSelection();
             btnGroup1.clearSelection();
-
+            
             chkC6Mas.setSelected(false);
             chkMelMas.setSelected(false);
             chkAppMas.setSelected(false);
@@ -8374,9 +8349,9 @@ public final class main extends javax.swing.JFrame {
             chkDebMas.setSelected(false);
             chkCarMas.setSelected(false);
             rbtnAtiMas.setSelected(true);
-
+            
             txtAreMas.setText(null);
-
+            
             lblNomMas.setLocation(90, 60);
             lblCpfMas.setLocation(90, 110);
             lblVenMas.setLocation(90, 160);
@@ -8384,17 +8359,17 @@ public final class main extends javax.swing.JFrame {
             lblNumAceMas.setLocation(350, 110);
             lblNumPorMas.setLocation(350, 160);
             lblPlaMas.setLocation(350, 210);
-
+            
             btnCopMas.setVisible(false);
-
+            
             pnlbtn();
             pnlMas.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlMas.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnMasPlaMouseReleased
 
@@ -8408,29 +8383,29 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCadDesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadDesMouseReleased
         if (!pnlCadDes.isVisible()) {
-
+            
             txtDesDes.setText(null);
             txtPreDes.setText(null);
             txtDatDes.setText(null);
             btnSalDes.setEnabled(false);
-
+            
             lblTitPri.setText("Cadastrar Afazeres");
             lblTitPri.setVisible(true);
-
+            
             lblDesDes.setLocation(540, 60);
             lblPreDes.setLocation(540, 120);
             lblDatDes.setLocation(540, 180);
-
+            
             lblR$Des.setVisible(false);
-
+            
             pnlbtn();
             pnlCadDes.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlCadDes.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnCadDesMouseReleased
 
@@ -8444,62 +8419,62 @@ public final class main extends javax.swing.JFrame {
 
     private void btnDesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesMouseReleased
         if (!pnlDes.isVisible()) {
-
+            
             if (tabeladespezas(tblConDes, scrConDes)) {
-
+                
                 lblTitPri.setText("Afazeres");
                 lblTitPri.setVisible(true);
-
+                
                 pnlbtn();
                 pnlDes.setVisible(true);
-
+                
             } else {
-
+                
                 JOptionPane.showMessageDialog(pnlDes, "Sem afazeres. Cadastre-as primeiro!", "Gerenciar Afazeres", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         } else {
-
+            
             pnlbtn();
             pnlDes.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnDesMouseReleased
 
     private void btnExcGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerTipSerActionPerformed
         int resp = JOptionPane.showOptionDialog(pnlGerTipSer, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+        
         if (resp == JOptionPane.YES_OPTION) {
             try {
                 tiposervico ts = new tiposervico();
                 tiposervicoDAO tsdao = new tiposervicoDAO();
-
+                
                 ts.setIdtiposervico(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
-
+                
                 tsdao.excluir(ts);
-
+                
                 JOptionPane.showMessageDialog(pnlGerTipSer, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 pnlGerTipSer.setVisible(false);
                 lblTitPri.setVisible(false);
             } catch (SQLException ex) {
-
+                
                 JOptionPane.showMessageDialog(pnlGerTipSer, "Erro ao excluir! Erro: " + ex.getMessage(), "Erro", JOptionPane.OK_OPTION);
-
+                
             }
         }
     }//GEN-LAST:event_btnExcGerTipSerActionPerformed
 
     private void btnAltGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerTipSerActionPerformed
         int resp = JOptionPane.showOptionDialog(pnlGerTipSer, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+        
         if (resp == JOptionPane.YES_OPTION) {
-
+            
             try {
-
+                
                 tiposervico ts = new tiposervico();
                 tiposervicoDAO tsdao = new tiposervicoDAO();
-
+                
                 ts.setDescricao(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 2).toString());
                 ts.setIdtiposervico(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
                 if (rbtnTimGerTipSer.isSelected()) {
@@ -8509,18 +8484,18 @@ public final class main extends javax.swing.JFrame {
                 } else {
                     ts.setArea("3");
                 }
-
+                
                 tsdao.alterar(ts);
-
+                
                 JOptionPane.showMessageDialog(pnlGerTipSer, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
                 pnlGerTipSer.setVisible(false);
                 lblTitPri.setVisible(false);
-
+                
             } catch (SQLException ex) {
-
+                
                 JOptionPane.showMessageDialog(pnlGerTipSer, "Erro ao alterar! Erro: " + ex.getMessage(), "Erro", JOptionPane.OK_OPTION);
-
+                
             }
         }
     }//GEN-LAST:event_btnAltGerTipSerActionPerformed
@@ -8540,24 +8515,24 @@ public final class main extends javax.swing.JFrame {
 
     private void tblTipSerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipSerMouseClicked
         if ("1".equals(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 3).toString())) {
-
+            
             lblDesGerTipSer.setLocation(510, 240);
-
+            
             lblDesGerTipSer.setEnabled(true);
             txtDesGerTipSer.setEnabled(true);
             sepDesGerTipSer.setForeground(corforeazul);
-
+            
             txtDesGerTipSer.setText(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 2).toString());
-
+            
             btnExcGerTipSer.setEnabled(true);
             btnAltGerTipSer.setEnabled(true);
             btnAtvGerTipSer.setEnabled(true);
-
+            
             rbtnTimGerTipSer.setEnabled(true);
             rbtnAssGerTipSer.setEnabled(true);
             rbtnOutGerTipSer.setEnabled(true);
             btnGroup.clearSelection();
-
+            
             if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("1")) {
                 rbtnTimGerTipSer.setSelected(true);
             } else if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("2")) {
@@ -8565,33 +8540,33 @@ public final class main extends javax.swing.JFrame {
             } else {
                 rbtnOutGerTipSer.setSelected(true);
             }
-
+            
             btnAtvGerTipSer.setText("Desativar");
-
+            
             if (!txtDesGerTipSer.getText().isEmpty()) {
                 anitxtin(lblDesGerTipSer);
             }
-
+            
         } else {
-
+            
             lblDesGerTipSer.setLocation(510, 240);
-
+            
             lblDesGerTipSer.setEnabled(false);
             txtDesGerTipSer.setEnabled(false);
             sepDesGerTipSer.setForeground(Color.GRAY);
-
+            
             txtDesGerTipSer.setText(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 2).toString());
-
+            
             btnExcGerTipSer.setEnabled(false);
             btnAltGerTipSer.setEnabled(false);
             btnAtvGerTipSer.setEnabled(true);
             btnAtvGerTipSer.setText("Ativar");
-
+            
             rbtnTimGerTipSer.setEnabled(false);
             rbtnAssGerTipSer.setEnabled(false);
             rbtnOutGerTipSer.setEnabled(false);
             btnGroup.clearSelection();
-
+            
             if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("1")) {
                 rbtnTimGerTipSer.setSelected(true);
             } else if (tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 1).toString().equals("2")) {
@@ -8599,11 +8574,11 @@ public final class main extends javax.swing.JFrame {
             } else {
                 rbtnOutGerTipSer.setSelected(true);
             }
-
+            
             if (!txtDesGerTipSer.getText().isEmpty()) {
                 anitxtin(lblDesGerTipSer);
             }
-
+            
         }
     }//GEN-LAST:event_tblTipSerMouseClicked
 
@@ -8659,22 +8634,22 @@ public final class main extends javax.swing.JFrame {
 
     private void btnBusConEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusConEstActionPerformed
         estoque es = new estoque();
-
+        
         es.setModelo(txtBusConEst.getText());
         es.setTipoproduto(txtTipConEst.getText());
-
+        
         if (tabelaestoqueconsulta(es, tblConEst, scrConEst)) {
-
+            
             scrConEst.setVisible(true);
             tblConEst.setVisible(true);
-
+            
         } else {
-
+            
             scrConEst.setVisible(false);
             tblConEst.setVisible(false);
-
+            
             JOptionPane.showMessageDialog(pnlConEst, "Ítem não cadastrado no sistema!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
-
+            
         }
     }//GEN-LAST:event_btnBusConEstActionPerformed
 
@@ -8689,15 +8664,15 @@ public final class main extends javax.swing.JFrame {
 
     private void btnAltGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerEstActionPerformed
         int resp = JOptionPane.showOptionDialog(pnlGerEst, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+        
         if (resp == JOptionPane.YES_OPTION) {
-
+            
             if (tblGerEst.getSelectedRow() != -1) {
-
+                
                 try {
                     estoque es = new estoque();
                     estoqueDAO esdao = new estoqueDAO();
-
+                    
                     es.setId(Integer.parseInt(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 0).toString()));
                     es.setModelo(txtModGerEst.getText());
                     es.setMarca(txtMarGerEst.getText());
@@ -8707,104 +8682,104 @@ public final class main extends javax.swing.JFrame {
                     es.setLocalizacao(txtLocGerEst.getText());
                     es.setPreco(Double.valueOf(txtPreGerEst.getText().replace(".", "").replace(",", ".")));
                     es.setQuantidade(Integer.parseInt(txtQuaGerEst.getText()));
-
+                    
                     if (txtTipGerEst.getText().equals("Chip")) {
                         es.setTipochip((String) cmbChiGerEst.getSelectedItem());
                     } else {
                         es.setTipochip(null);
                     }
-
+                    
                     esdao.alterar(es);
-
+                    
                     JOptionPane.showMessageDialog(pnlGerEst, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                    
                     pnlGerEst.setVisible(false);
                     lblTitPri.setVisible(false);
                 } catch (SQLException ex) {
-
+                    
                     JOptionPane.showMessageDialog(pnlGerEst, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-
+                    
                 } catch (NumberFormatException n) {
-
+                    
                     JOptionPane.showMessageDialog(pnlCadEst, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
-
+                    
                 }
-
+                
             } else {
-
+                
                 JOptionPane.showMessageDialog(pnlGerEst, "Selecione uma linha na tabela para alterar!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-
+            
         }
     }//GEN-LAST:event_btnAltGerEstActionPerformed
 
     private void btnCanGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanGerEstActionPerformed
         int resp = JOptionPane.showOptionDialog(pnlGerEst, "Cancelar alterações?", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+        
         if (resp == JOptionPane.YES_OPTION) {
-
+            
             pnlGerEst.setVisible(false);
             lblTitPri.setVisible(false);
-
+            
         }
     }//GEN-LAST:event_btnCanGerEstActionPerformed
 
     private void rbtnCapGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCapGerEstActionPerformed
         if (txtBusGerEst.getText().equals("")) {
-
+            
             btnBusGerEst.setEnabled(false);
         } else {
             btnBusGerEst.setEnabled(true);
         }
-
+        
         txtBusGerEst.setEnabled(false);
         lblBusGerEst.setEnabled(false);
         sepBusGerEst.setForeground(Color.GRAY);
-
+        
         txtModGerEst.setEnabled(false);
         lblModGerEst.setEnabled(false);
         sepModGerEst.setForeground(Color.GRAY);
-
+        
         txtMarGerEst.setEnabled(false);
         lblMarGerEst.setEnabled(false);
         sepMarGerEst.setForeground(Color.GRAY);
-
+        
         txtCorGerEst.setEnabled(false);
         lblCorGerEst.setEnabled(false);
         sepCorGerEst.setForeground(Color.GRAY);
-
+        
         txtMatGerEst.setEnabled(false);
         lblMatGerEst.setEnabled(false);
         sepMatGerEst.setForeground(Color.GRAY);
-
+        
         txtQuaGerEst.setEnabled(false);
         lblQuaGerEst.setEnabled(false);
         sepQuaGerEst.setForeground(Color.GRAY);
-
+        
         txtPreGerEst.setEnabled(false);
         lblPreGerEst.setEnabled(false);
         sepPreGerEst.setForeground(Color.GRAY);
-
+        
         txtLocGerEst.setEnabled(false);
         lblLocGerEst.setEnabled(false);
         sepLocGerEst.setForeground(Color.GRAY);
-
+        
         txtDetGerEst.setEnabled(false);
         lblDetGerEst.setEnabled(false);
         sepDetGerEst.setForeground(Color.GRAY);
-
+        
         lblChiGerEst.setEnabled(false);
         cmbChiGerEst.setEnabled(false);
         cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
-
+        
         btnAltGerEst.setEnabled(false);
         btnExcGerEst.setEnabled(false);
-
+        
         lblR$GerEst.setVisible(false);
-
+        
         tblGerEst.setVisible(false);
         scrGerEst.setVisible(false);
-
+        
         txtMarGerEst.setText(null);
         txtModGerEst.setText(null);
         txtQuaGerEst.setText(null);
@@ -8813,7 +8788,7 @@ public final class main extends javax.swing.JFrame {
         txtMatGerEst.setText(null);
         txtLocGerEst.setText(null);
         txtDetGerEst.setText(null);
-
+        
         lblMarGerEst.setLocation(730, 60);
         lblModGerEst.setLocation(730, 110);
         lblQuaGerEst.setLocation(730, 160);
@@ -8822,7 +8797,7 @@ public final class main extends javax.swing.JFrame {
         lblMatGerEst.setLocation(1030, 110);
         lblLocGerEst.setLocation(1030, 160);
         lblDetGerEst.setLocation(1030, 210);
-
+        
         txtTipGerEst.setText(rbtnCapGerEst.getText());
         txtBusGerEst.setEnabled(true);
         lblBusGerEst.setEnabled(true);
@@ -8831,60 +8806,60 @@ public final class main extends javax.swing.JFrame {
 
     private void rbtnPelGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPelGerEstActionPerformed
         if (txtBusGerEst.getText().equals("")) {
-
+            
             btnBusGerEst.setEnabled(false);
         } else {
             btnBusGerEst.setEnabled(true);
         }
-
+        
         txtBusGerEst.setEnabled(false);
         lblBusGerEst.setEnabled(false);
         sepBusGerEst.setForeground(Color.GRAY);
-
+        
         txtModGerEst.setEnabled(false);
         lblModGerEst.setEnabled(false);
         sepModGerEst.setForeground(Color.GRAY);
-
+        
         txtMarGerEst.setEnabled(false);
         lblMarGerEst.setEnabled(false);
         sepMarGerEst.setForeground(Color.GRAY);
-
+        
         txtCorGerEst.setEnabled(false);
         lblCorGerEst.setEnabled(false);
         sepCorGerEst.setForeground(Color.GRAY);
-
+        
         txtMatGerEst.setEnabled(false);
         lblMatGerEst.setEnabled(false);
         sepMatGerEst.setForeground(Color.GRAY);
-
+        
         txtQuaGerEst.setEnabled(false);
         lblQuaGerEst.setEnabled(false);
         sepQuaGerEst.setForeground(Color.GRAY);
-
+        
         txtPreGerEst.setEnabled(false);
         lblPreGerEst.setEnabled(false);
         sepPreGerEst.setForeground(Color.GRAY);
-
+        
         txtLocGerEst.setEnabled(false);
         lblLocGerEst.setEnabled(false);
         sepLocGerEst.setForeground(Color.GRAY);
-
+        
         txtDetGerEst.setEnabled(false);
         lblDetGerEst.setEnabled(false);
         sepDetGerEst.setForeground(Color.GRAY);
-
+        
         lblChiGerEst.setEnabled(false);
         cmbChiGerEst.setEnabled(false);
         cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
-
+        
         btnAltGerEst.setEnabled(false);
         btnExcGerEst.setEnabled(false);
-
+        
         lblR$GerEst.setVisible(false);
-
+        
         tblGerEst.setVisible(false);
         scrGerEst.setVisible(false);
-
+        
         txtMarGerEst.setText(null);
         txtModGerEst.setText(null);
         txtQuaGerEst.setText(null);
@@ -8893,7 +8868,7 @@ public final class main extends javax.swing.JFrame {
         txtMatGerEst.setText(null);
         txtLocGerEst.setText(null);
         txtDetGerEst.setText(null);
-
+        
         lblMarGerEst.setLocation(730, 60);
         lblModGerEst.setLocation(730, 110);
         lblQuaGerEst.setLocation(730, 160);
@@ -8902,7 +8877,7 @@ public final class main extends javax.swing.JFrame {
         lblMatGerEst.setLocation(1030, 110);
         lblLocGerEst.setLocation(1030, 160);
         lblDetGerEst.setLocation(1030, 210);
-
+        
         txtTipGerEst.setText(rbtnPelGerEst.getText());
         txtBusGerEst.setEnabled(true);
         lblBusGerEst.setEnabled(true);
@@ -8911,60 +8886,60 @@ public final class main extends javax.swing.JFrame {
 
     private void rbtnChiGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnChiGerEstActionPerformed
         if (txtBusGerEst.getText().equals("")) {
-
+            
             btnBusGerEst.setEnabled(false);
         } else {
             btnBusGerEst.setEnabled(true);
         }
-
+        
         txtBusGerEst.setEnabled(false);
         lblBusGerEst.setEnabled(false);
         sepBusGerEst.setForeground(Color.GRAY);
-
+        
         txtModGerEst.setEnabled(false);
         lblModGerEst.setEnabled(false);
         sepModGerEst.setForeground(Color.GRAY);
-
+        
         txtMarGerEst.setEnabled(false);
         lblMarGerEst.setEnabled(false);
         sepMarGerEst.setForeground(Color.GRAY);
-
+        
         txtCorGerEst.setEnabled(false);
         lblCorGerEst.setEnabled(false);
         sepCorGerEst.setForeground(Color.GRAY);
-
+        
         txtMatGerEst.setEnabled(false);
         lblMatGerEst.setEnabled(false);
         sepMatGerEst.setForeground(Color.GRAY);
-
+        
         txtQuaGerEst.setEnabled(false);
         lblQuaGerEst.setEnabled(false);
         sepQuaGerEst.setForeground(Color.GRAY);
-
+        
         txtPreGerEst.setEnabled(false);
         lblPreGerEst.setEnabled(false);
         sepPreGerEst.setForeground(Color.GRAY);
-
+        
         txtLocGerEst.setEnabled(false);
         lblLocGerEst.setEnabled(false);
         sepLocGerEst.setForeground(Color.GRAY);
-
+        
         txtDetGerEst.setEnabled(false);
         lblDetGerEst.setEnabled(false);
         sepDetGerEst.setForeground(Color.GRAY);
-
+        
         lblChiGerEst.setEnabled(false);
         cmbChiGerEst.setEnabled(false);
         cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
-
+        
         btnAltGerEst.setEnabled(false);
         btnExcGerEst.setEnabled(false);
-
+        
         lblR$GerEst.setVisible(false);
-
+        
         tblGerEst.setVisible(false);
         scrGerEst.setVisible(false);
-
+        
         txtMarGerEst.setText(null);
         txtModGerEst.setText(null);
         txtQuaGerEst.setText(null);
@@ -8973,7 +8948,7 @@ public final class main extends javax.swing.JFrame {
         txtMatGerEst.setText(null);
         txtLocGerEst.setText(null);
         txtDetGerEst.setText(null);
-
+        
         lblMarGerEst.setLocation(730, 60);
         lblModGerEst.setLocation(730, 110);
         lblQuaGerEst.setLocation(730, 160);
@@ -8982,7 +8957,7 @@ public final class main extends javax.swing.JFrame {
         lblMatGerEst.setLocation(1030, 110);
         lblLocGerEst.setLocation(1030, 160);
         lblDetGerEst.setLocation(1030, 210);
-
+        
         txtTipGerEst.setText(rbtnChiGerEst.getText());
         txtBusGerEst.setEnabled(true);
         lblBusGerEst.setEnabled(true);
@@ -8991,60 +8966,60 @@ public final class main extends javax.swing.JFrame {
 
     private void rbtnAceGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAceGerEstActionPerformed
         if (txtBusGerEst.getText().equals("")) {
-
+            
             btnBusGerEst.setEnabled(false);
         } else {
             btnBusGerEst.setEnabled(true);
         }
-
+        
         txtBusGerEst.setEnabled(false);
         lblBusGerEst.setEnabled(false);
         sepBusGerEst.setForeground(Color.GRAY);
-
+        
         txtModGerEst.setEnabled(false);
         lblModGerEst.setEnabled(false);
         sepModGerEst.setForeground(Color.GRAY);
-
+        
         txtMarGerEst.setEnabled(false);
         lblMarGerEst.setEnabled(false);
         sepMarGerEst.setForeground(Color.GRAY);
-
+        
         txtCorGerEst.setEnabled(false);
         lblCorGerEst.setEnabled(false);
         sepCorGerEst.setForeground(Color.GRAY);
-
+        
         txtMatGerEst.setEnabled(false);
         lblMatGerEst.setEnabled(false);
         sepMatGerEst.setForeground(Color.GRAY);
-
+        
         txtQuaGerEst.setEnabled(false);
         lblQuaGerEst.setEnabled(false);
         sepQuaGerEst.setForeground(Color.GRAY);
-
+        
         txtPreGerEst.setEnabled(false);
         lblPreGerEst.setEnabled(false);
         sepPreGerEst.setForeground(Color.GRAY);
-
+        
         txtLocGerEst.setEnabled(false);
         lblLocGerEst.setEnabled(false);
         sepLocGerEst.setForeground(Color.GRAY);
-
+        
         txtDetGerEst.setEnabled(false);
         lblDetGerEst.setEnabled(false);
         sepDetGerEst.setForeground(Color.GRAY);
-
+        
         lblChiGerEst.setEnabled(false);
         cmbChiGerEst.setEnabled(false);
         cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
-
+        
         btnAltGerEst.setEnabled(false);
         btnExcGerEst.setEnabled(false);
-
+        
         lblR$GerEst.setVisible(false);
-
+        
         tblGerEst.setVisible(false);
         scrGerEst.setVisible(false);
-
+        
         txtMarGerEst.setText(null);
         txtModGerEst.setText(null);
         txtQuaGerEst.setText(null);
@@ -9053,7 +9028,7 @@ public final class main extends javax.swing.JFrame {
         txtMatGerEst.setText(null);
         txtLocGerEst.setText(null);
         txtDetGerEst.setText(null);
-
+        
         lblMarGerEst.setLocation(730, 60);
         lblModGerEst.setLocation(730, 110);
         lblQuaGerEst.setLocation(730, 160);
@@ -9062,7 +9037,7 @@ public final class main extends javax.swing.JFrame {
         lblMatGerEst.setLocation(1030, 110);
         lblLocGerEst.setLocation(1030, 160);
         lblDetGerEst.setLocation(1030, 210);
-
+        
         txtTipGerEst.setText(rbtnAceGerEst.getText());
         txtBusGerEst.setEnabled(true);
         lblBusGerEst.setEnabled(true);
@@ -9154,7 +9129,7 @@ public final class main extends javax.swing.JFrame {
             if (txtPreGerEst.getText().contains(",")) {
                 evt.consume();
             }
-
+            
         } else if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
@@ -9198,49 +9173,49 @@ public final class main extends javax.swing.JFrame {
 
     private void btnBusGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusGerEstActionPerformed
         estoque es = new estoque();
-
+        
         es.setModelo(txtBusGerEst.getText());
         es.setTipoproduto(txtTipGerEst.getText());
-
+        
         if (tabelaestoquegerenciar(es)) {
-
+            
             scrGerEst.setVisible(true);
             tblGerEst.setVisible(true);
-
+            
         } else {
-
+            
             scrGerEst.setVisible(false);
             tblGerEst.setVisible(false);
-
+            
             JOptionPane.showMessageDialog(pnlGerEst, "Nenhum dado encontrado!", "Gerenciar", JOptionPane.INFORMATION_MESSAGE);
-
+            
         }
     }//GEN-LAST:event_btnBusGerEstActionPerformed
 
     private void btnExcGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerEstActionPerformed
         int resp = JOptionPane.showOptionDialog(pnlGerEst, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+        
         if (resp == JOptionPane.YES_OPTION) {
-
+            
             try {
-
+                
                 estoque es = new estoque();
                 estoqueDAO esdao = new estoqueDAO();
-
+                
                 es.setId(Integer.parseInt(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 0).toString()));
-
+                
                 esdao.excluir(es);
-
+                
                 JOptionPane.showMessageDialog(pnlGerEst, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
                 pnlGerEst.setVisible(false);
                 lblTitPri.setVisible(false);
-
+                
             } catch (SQLException ex) {
                 Logger.getLogger(main.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         }
     }//GEN-LAST:event_btnExcGerEstActionPerformed
 
@@ -9257,47 +9232,47 @@ public final class main extends javax.swing.JFrame {
         lblMatGerEst.setLocation(1030, 110);
         lblLocGerEst.setLocation(1030, 160);
         lblDetGerEst.setLocation(1030, 210);
-
+        
         txtModGerEst.setEnabled(false);
         lblModGerEst.setEnabled(false);
         sepModGerEst.setForeground(Color.GRAY);
-
+        
         txtMarGerEst.setEnabled(false);
         lblMarGerEst.setEnabled(false);
         sepMarGerEst.setForeground(Color.GRAY);
-
+        
         txtCorGerEst.setEnabled(false);
         lblCorGerEst.setEnabled(false);
         sepCorGerEst.setForeground(Color.GRAY);
-
+        
         txtMatGerEst.setEnabled(false);
         lblMatGerEst.setEnabled(false);
         sepMatGerEst.setForeground(Color.GRAY);
-
+        
         txtQuaGerEst.setEnabled(false);
         lblQuaGerEst.setEnabled(false);
         sepQuaGerEst.setForeground(Color.GRAY);
-
+        
         txtPreGerEst.setEnabled(false);
         lblPreGerEst.setEnabled(false);
         sepPreGerEst.setForeground(Color.GRAY);
-
+        
         txtLocGerEst.setEnabled(false);
         lblLocGerEst.setEnabled(false);
         sepLocGerEst.setForeground(Color.GRAY);
-
+        
         txtDetGerEst.setEnabled(false);
         lblDetGerEst.setEnabled(false);
         sepDetGerEst.setForeground(Color.GRAY);
-
+        
         lblChiGerEst.setEnabled(false);
         cmbChiGerEst.setEnabled(false);
-
+        
         btnAltGerEst.setEnabled(false);
         btnExcGerEst.setEnabled(false);
-
+        
         lblR$GerEst.setVisible(true);
-
+        
         txtMarGerEst.setText(null);
         txtModGerEst.setText(null);
         txtQuaGerEst.setText(null);
@@ -9306,39 +9281,39 @@ public final class main extends javax.swing.JFrame {
         txtMatGerEst.setText(null);
         txtLocGerEst.setText(null);
         txtDetGerEst.setText(null);
-
+        
         if (txtTipGerEst.getText().equals("Capinha")) {
-
+            
             txtModGerEst.setEnabled(true);
             lblModGerEst.setEnabled(true);
             sepModGerEst.setForeground(corforeazul);
-
+            
             txtMarGerEst.setEnabled(true);
             lblMarGerEst.setEnabled(true);
             sepMarGerEst.setForeground(corforeazul);
-
+            
             txtCorGerEst.setEnabled(true);
             lblCorGerEst.setEnabled(true);
             sepCorGerEst.setForeground(corforeazul);
-
+            
             txtQuaGerEst.setEnabled(true);
             lblQuaGerEst.setEnabled(true);
             sepQuaGerEst.setForeground(corforeazul);
-
+            
             txtPreGerEst.setEnabled(true);
             lblPreGerEst.setEnabled(true);
             sepPreGerEst.setForeground(corforeazul);
-
+            
             txtLocGerEst.setEnabled(true);
             lblLocGerEst.setEnabled(true);
             sepLocGerEst.setForeground(corforeazul);
-
+            
             txtDetGerEst.setEnabled(true);
             lblDetGerEst.setEnabled(true);
             sepDetGerEst.setForeground(corforeazul);
-
+            
             if (tblGerEst.getColumnCount() == 9) {
-
+                
                 txtMarGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString());
                 txtModGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 3).toString());
                 txtPreGerEst.setText((tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString()).substring(3, tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().length()));
@@ -9346,84 +9321,84 @@ public final class main extends javax.swing.JFrame {
                 txtLocGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 6).toString());
                 txtDetGerEst.setText((!"Sem Detalhes".equals(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString())) ? tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString() : "");
                 txtCorGerEst.setText((!"Não Aplicável".equals(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 8).toString())) ? tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 8).toString() : "");
-
+                
             } else {
-
+                
                 txtMarGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString());
                 txtModGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 3).toString());
                 txtPreGerEst.setText((tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString()).substring(3, tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().length()));
                 txtQuaGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 5).toString());
                 txtLocGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 6).toString());
                 txtCorGerEst.setText((!"Não Aplicável".equals(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString())) ? tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString() : "");
-
+                
             }
-
+            
         } else if (txtTipGerEst.getText().equals("Chip")) {
-
+            
             txtPreGerEst.setEnabled(true);
             lblPreGerEst.setEnabled(true);
             sepPreGerEst.setForeground(corforeazul);
-
+            
             txtQuaGerEst.setEnabled(true);
             lblQuaGerEst.setEnabled(true);
             sepQuaGerEst.setForeground(corforeazul);
-
+            
             cmbChiGerEst.setEnabled(true);
             lblChiGerEst.setEnabled(true);
-
+            
             txtPreGerEst.setText((tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString()).substring(3, tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString().length()));
             txtQuaGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 3).toString());
-
+            
             if (tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().equals("Triplo 4G HLR 230")) {
-
+                
                 cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
-
+                
             } else if (tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().equals("eSIM")) {
-
+                
                 cmbChiGerEst.setSelectedItem("eSIM");
-
+                
             } else {
-
+                
                 cmbChiGerEst.setSelectedItem("Naked");
-
+                
             }
-
+            
         } else {
-
+            
             txtModGerEst.setEnabled(true);
             lblModGerEst.setEnabled(true);
             sepModGerEst.setForeground(corforeazul);
-
+            
             txtMarGerEst.setEnabled(true);
             lblMarGerEst.setEnabled(true);
             sepMarGerEst.setForeground(corforeazul);
-
+            
             txtCorGerEst.setEnabled(true);
             lblCorGerEst.setEnabled(true);
             sepCorGerEst.setForeground(corforeazul);
-
+            
             txtQuaGerEst.setEnabled(true);
             lblQuaGerEst.setEnabled(true);
             sepQuaGerEst.setForeground(corforeazul);
-
+            
             txtPreGerEst.setEnabled(true);
             lblPreGerEst.setEnabled(true);
             sepPreGerEst.setForeground(corforeazul);
-
+            
             txtLocGerEst.setEnabled(true);
             lblLocGerEst.setEnabled(true);
             sepLocGerEst.setForeground(corforeazul);
-
+            
             txtDetGerEst.setEnabled(true);
             lblDetGerEst.setEnabled(true);
             sepDetGerEst.setForeground(corforeazul);
-
+            
             txtMatGerEst.setEnabled(true);
             lblMatGerEst.setEnabled(true);
             sepMatGerEst.setForeground(corforeazul);
-
+            
             if (tblGerEst.getColumnCount() == 10) {
-
+                
                 txtMarGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString());
                 txtModGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 3).toString());
                 txtPreGerEst.setText((tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString()).substring(3, tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().length()));
@@ -9432,9 +9407,9 @@ public final class main extends javax.swing.JFrame {
                 txtDetGerEst.setText((!"Sem Detalhes".equals(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString())) ? tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString() : "");
                 txtCorGerEst.setText((!"Não Aplicável".equals(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 8).toString())) ? tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 8).toString() : "");
                 txtMatGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 9).toString());
-
+                
             } else {
-
+                
                 txtMarGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString());
                 txtModGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 3).toString());
                 txtPreGerEst.setText((tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString()).substring(3, tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().length()));
@@ -9442,11 +9417,11 @@ public final class main extends javax.swing.JFrame {
                 txtLocGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 6).toString());
                 txtCorGerEst.setText((!"Não Aplicável".equals(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString())) ? tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString() : "");
                 txtMatGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 8).toString());
-
+                
             }
-
+            
         }
-
+        
         if (!txtModGerEst.getText().isEmpty()) {
             anitxtin(lblModGerEst);
         }
@@ -9471,30 +9446,30 @@ public final class main extends javax.swing.JFrame {
         if (!txtMatGerEst.getText().isEmpty()) {
             anitxtin(lblMatGerEst);
         }
-
+        
         btnExcGerEst.setEnabled(true);
         btnAltGerEst.setEnabled(true);
     }//GEN-LAST:event_tblGerEstMouseClicked
 
     private void btnSalCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadEntActionPerformed
         if (!(rbtnVenCadEnt.isSelected() && tblSelIteCadEnt.getRowCount() == 0)) {
-
+            
             if (!(cmbVezCar.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
-
+                
                 try {
-
+                    
                     int idser = 0;
                     int idpagamento = 1;
                     double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
-
+                    
                     if (rbtnCarCadEnt.isSelected()) {
-
+                        
                         if (rbtnDebCadEnt.isSelected()) {
-
+                            
                             preco = preco - (preco * 1.68 / 100);
-
+                            
                         } else if (rbtnCreCadEnt.isSelected()) {
-
+                            
                             switch ((int) spnParCadEnt.getValue()) {
                                 case 1:
                                     preco = preco - (preco * 3.48 / 100);
@@ -9535,58 +9510,58 @@ public final class main extends javax.swing.JFrame {
                                 default:
                                     break;
                             }
-
+                            
                         }
-
+                        
                     }
-
+                    
                     if (rbtnCarCadEnt.isSelected()) {
                         idpagamento = 2;
                     } else if (rbtnPixCadEnt.isSelected()) {
                         idpagamento = 3;
                     }
-
+                    
                     if (cmbVezCar.getSelectedIndex() != 0) {
                         itens selectedItem = (itens) cmbVezCar.getSelectedItem();
                         idser = selectedItem.getId();
                     }
-
+                    
                     if (tblSelIteCadEnt.getRowCount() != 0) {
-
+                        
                         for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
-
+                            
                             entrada en = new entrada();
                             entradaDAO endao = new entradaDAO();
-
+                            
                             en.setCodigo(txtCodCadEnt.getText());
                             en.setData(formatterbanco.format(((formatter.parse(txtDatCadEnt.getText())))));
                             en.setPreco(preco);
                             en.setDetalhes(txtDetCadEnt.getText());
                             en.setFormapagamento(idpagamento);
-
+                            
                             if (rbtnSerCadEnt.isSelected()) {
-
+                                
                                 en.setIdtiposervico(idser);
                                 en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
                                 en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
-
+                                
                                 endao.inserir(en, 1);
-
+                                
                             } else if (rbtnVenCadEnt.isSelected()) {
-
+                                
                                 en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
                                 en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
-
+                                
                                 endao.inserir(en, 2);
                             }
-
+                            
                         }
-
+                        
                     } else {
-
+                        
                         entrada en = new entrada();
                         entradaDAO endao = new entradaDAO();
-
+                        
                         en.setCodigo(txtCodCadEnt.getText());
                         en.setData(formatterbanco.format((formatter.parse(txtDatCadEnt.getText()))));
                         en.setPreco(preco);
@@ -9594,84 +9569,84 @@ public final class main extends javax.swing.JFrame {
                         en.setIdtiposervico(idser);
                         en.setIdestoque(1);
                         en.setFormapagamento(idpagamento);
-
+                        
                         if (rbtnSerCadEnt.isSelected()) {
-
+                            
                             endao.inserir(en, 1);
-
+                            
                         } else if (rbtnAssCadEnt.isSelected()) {
-
+                            
                             en.setCliente(txtCliCadEnt.getText());
-                            en.setCusto((!txtCusCadEnt.getText().isEmpty()) ? Double.parseDouble(txtCusCadEnt.getText().replace(".", "").replace(",", ".")) : null);
+                            en.setCusto((!txtCusCadEnt.getText().isEmpty()) ? Double.valueOf(txtCusCadEnt.getText().replace(".", "").replace(",", ".")) : null);
                             en.setFornecedor(txtForCadEnt.getText());
-
+                            
                             endao.inserir(en, 3);
-
+                            
                         }
-
+                        
                     }
-
+                    
                     JOptionPane.showMessageDialog(pnlCadEnt, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                    
                     pnlCadEnt.setVisible(false);
-
+                    
                 } catch (SQLException | ParseException ex) {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else {
                 JOptionPane.showMessageDialog(pnlCadEnt, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
-
+            
             lblTitPri.setVisible(false);
-
+            
         } else {
-
+            
             JOptionPane.showMessageDialog(pnlCadEnt, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
-
+            
         }
     }//GEN-LAST:event_btnSalCadEntActionPerformed
 
     private void btnCanCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanCadEntActionPerformed
         if (btnSalCadEnt.isEnabled()) {
-
+            
             int resp = JOptionPane.showOptionDialog(pnlCadEnt, "Cancelar entrada? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+            
             if (resp == JOptionPane.YES_OPTION) {
-
+                
                 try {
-
+                    
                     entrada en = new entrada();
                     entradaDAO endao = new entradaDAO();
-
+                    
                     if (tblSelIteCadEnt.getRowCount() != 0) {
-
+                        
                         for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
-
+                            
                             en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
                             en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
-
+                            
                             endao.atualizarestoque(en, 1);
-
+                            
                         }
                     }
-
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
                 pnlCadEnt.setVisible(false);
                 pnlIteCadEnt.setVisible(false);
                 lblTitPri.setVisible(false);
-
+                
             }
-
+            
         } else {
-
+            
             pnlCadEnt.setVisible(false);
             pnlIteCadEnt.setVisible(false);
             lblTitPri.setVisible(false);
-
+            
         }
     }//GEN-LAST:event_btnCanCadEntActionPerformed
 
@@ -9679,17 +9654,17 @@ public final class main extends javax.swing.JFrame {
         lblDatCadEnt.setEnabled(true);
         txtDatCadEnt.setEnabled(true);
         sepDatCadEnt.setForeground(corforeazul);
-
+        
         lblPreCadEnt.setEnabled(true);
         txtPreCadEnt.setEnabled(true);
         sepPreCadEnt.setForeground(corforeazul);
-
+        
         lblDetCadEnt.setEnabled(true);
         txtDetCadEnt.setEnabled(true);
         sepDetCadEnt.setForeground(corforeazul);
-
+        
         lblSerCadEnt.setEnabled(true);
-
+        
         txtCliCadEnt.setEnabled(false);
         txtCliCadEnt.setText(null);
         sepCliCadEnt.setForeground(Color.GRAY);
@@ -9698,12 +9673,12 @@ public final class main extends javax.swing.JFrame {
         lblCliCadEnt.setLocation(630, 130);
         lblCusCadEnt.setLocation(630, 180);
         lblForCadEnt.setLocation(630, 230);
-
+        
         txtCusCadEnt.setEnabled(false);
         txtCusCadEnt.setText(null);
         sepCusCadEnt.setForeground(Color.GRAY);
         lblCusCadEnt.setEnabled(false);
-
+        
         txtForCadEnt.setEnabled(false);
         txtForCadEnt.setText(null);
         sepForCadEnt.setForeground(Color.GRAY);
@@ -9714,12 +9689,12 @@ public final class main extends javax.swing.JFrame {
         rbtnDinCadEnt.setEnabled(true);
         rbtnCarCadEnt.setEnabled(true);
         rbtnPixCadEnt.setEnabled(true);
-
+        
         comboboxentrada(cmbVezCar, 1);
-
+        
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
-
+        
         lblDatCadEnt.setLocation(390, 110);
     }//GEN-LAST:event_rbtnSerCadEntActionPerformed
 
@@ -9742,12 +9717,12 @@ public final class main extends javax.swing.JFrame {
         lblCliCadEnt.setLocation(630, 130);
         lblCusCadEnt.setLocation(630, 180);
         lblForCadEnt.setLocation(630, 230);
-
+        
         txtCusCadEnt.setEnabled(false);
         txtCusCadEnt.setText(null);
         sepCusCadEnt.setForeground(Color.GRAY);
         lblCusCadEnt.setEnabled(false);
-
+        
         txtForCadEnt.setEnabled(false);
         txtForCadEnt.setText(null);
         sepForCadEnt.setForeground(Color.GRAY);
@@ -9758,12 +9733,12 @@ public final class main extends javax.swing.JFrame {
         rbtnDinCadEnt.setEnabled(true);
         rbtnCarCadEnt.setEnabled(true);
         rbtnPixCadEnt.setEnabled(true);
-
+        
         comboboxentrada(cmbVezCar, 1);
-
+        
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
-
+        
         lblDatCadEnt.setLocation(390, 110);
     }//GEN-LAST:event_rbtnVenCadEntActionPerformed
 
@@ -9781,11 +9756,11 @@ public final class main extends javax.swing.JFrame {
         txtCliCadEnt.setEnabled(true);
         sepCliCadEnt.setForeground(corforeazul);
         lblCliCadEnt.setEnabled(true);
-
+        
         txtCusCadEnt.setEnabled(true);
         sepCusCadEnt.setForeground(corforeazul);
         lblCusCadEnt.setEnabled(true);
-
+        
         txtForCadEnt.setEnabled(true);
         sepForCadEnt.setForeground(corforeazul);
         lblForCadEnt.setEnabled(true);
@@ -9795,9 +9770,9 @@ public final class main extends javax.swing.JFrame {
         rbtnDinCadEnt.setEnabled(true);
         rbtnCarCadEnt.setEnabled(true);
         rbtnPixCadEnt.setEnabled(true);
-
+        
         comboboxentrada(cmbVezCar, 2);
-
+        
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
         lblDatCadEnt.setLocation(390, 110);
@@ -9826,7 +9801,7 @@ public final class main extends javax.swing.JFrame {
         if (txtPreCadEnt.getText().isEmpty()) {
             anitxtout(lblPreCadEnt);
             lblR$CadEnt.setVisible(false);
-
+            
         }
     }//GEN-LAST:event_txtPreCadEntFocusLost
 
@@ -9835,7 +9810,7 @@ public final class main extends javax.swing.JFrame {
             if (txtPreCadEnt.getText().contains(",")) {
                 evt.consume();
             }
-
+            
         } else if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
@@ -9857,24 +9832,24 @@ public final class main extends javax.swing.JFrame {
         try {
             String idt = (tblSelIteCadEnt.getValueAt(tblSelIteCadEnt.getSelectedRow(), 1).toString());
             String qua = (tblSelIteCadEnt.getValueAt(tblSelIteCadEnt.getSelectedRow(), 0).toString());
-
+            
             entrada en = new entrada();
             entradaDAO endao = new entradaDAO();
-
+            
             en.setIdestoque(Integer.parseInt(idt));
             en.setQuantidade(Integer.parseInt(qua));
-
+            
             endao.atualizarestoque(en, 1);
-
+            
             DefaultTableModel modelo = (DefaultTableModel) tblSelIteCadEnt.getModel();
             modelo.removeRow(tblSelIteCadEnt.getSelectedRow());
-
+            
             if (tblSelIteCadEnt.getRowCount() == 0) {
-
+                
                 tblSelIteCadEnt.setVisible(false);
                 scrSelIteCadEnt.setVisible(false);
                 lblSelIteCadEnt.setForeground(new Color(246, 246, 246));
-
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(main.class
@@ -9884,77 +9859,77 @@ public final class main extends javax.swing.JFrame {
 
     private void tblEstIteCadEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstIteCadEntMouseClicked
         boolean existe = false;
-
+        
         int sel = Integer.parseInt(tblEstIteCadEnt.getValueAt(tblEstIteCadEnt.getSelectedRow(), 0).toString());
-
+        
         for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
-
+            
             if (sel == Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString())) {
-
+                
                 existe = true;
-
+                
             }
-
+            
         }
-
+        
         if (existe) {
-
+            
             JOptionPane.showMessageDialog(pnlIteCadEnt, "Ítem já adicionado!", "Entrada", JOptionPane.ERROR_MESSAGE);
-
+            
         } else {
-
+            
             String opc = JOptionPane.showInputDialog(null, "Informe a quantidade deste ítem", "Entrada", JOptionPane.QUESTION_MESSAGE);
-
+            
             if (opc != null) {
-
+                
                 try {
-
+                    
                     int i = Integer.parseInt(opc);
-
+                    
                     if (rbtnChiIteCadEnt.isSelected()) {
-
+                        
                         if (Integer.parseInt(tblEstIteCadEnt.getValueAt(tblEstIteCadEnt.getSelectedRow(), 3).toString()) < i) {
-
+                            
                             JOptionPane.showMessageDialog(pnlIteCadEnt, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
-
+                            
                         } else {
-
+                            
                             adicionarprodutos(tblEstIteCadEnt, tblSelIteCadEnt, opc, rbtnChiIteCadEnt);
-
+                            
                             lblSelIteCadEnt.setForeground(corforeazul);
                             scrSelIteCadEnt.setVisible(true);
                             tblSelIteCadEnt.setVisible(true);
-
+                            
                         }
-
+                        
                     } else {
-
+                        
                         if (Integer.parseInt(tblEstIteCadEnt.getValueAt(tblEstIteCadEnt.getSelectedRow(), 5).toString()) < i) {
-
+                            
                             JOptionPane.showMessageDialog(pnlIteCadEnt, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
-
+                            
                         } else {
-
+                            
                             adicionarprodutos(tblEstIteCadEnt, tblSelIteCadEnt, opc, rbtnChiIteCadEnt);
-
+                            
                             lblSelIteCadEnt.setForeground(corforeazul);
                             scrSelIteCadEnt.setVisible(true);
                             tblSelIteCadEnt.setVisible(true);
-
+                            
                         }
-
+                        
                     }
-
+                    
                 } catch (NumberFormatException e) {
-
+                    
                     JOptionPane.showMessageDialog(pnlIteCadEnt, "Digite apenas número!", "Erro", JOptionPane.ERROR_MESSAGE);
-
+                    
                 }
-
+                
             }
-
+            
         }
-
+        
         tblEstIteCadEnt.clearSelection();
     }//GEN-LAST:event_tblEstIteCadEntMouseClicked
 
@@ -9968,80 +9943,80 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCadEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadEntMouseReleased
         if (!(pnlCadEnt.isVisible() || pnlIteCadEnt.isVisible())) {
-
+            
             lblTitPri.setText("Nova Entrada");
             lblTitPri.setVisible(true);
-
+            
             StringBuilder sb = new StringBuilder();
-
+            
             for (int i = 0; i < 3; i++) {
                 char letra = (char) (Math.random() * 26 + 'A');
                 sb.append(letra);
             }
-
+            
             for (int i = 0; i < 3; i++) {
                 int numero = (int) (Math.random() * 10);
                 sb.append(numero);
             }
-
+            
             txtCodCadEnt.setText(sb.toString());
-
+            
             lblDatCadEnt.setLocation(390, 130);
             lblPreCadEnt.setLocation(390, 180);
             lblDetCadEnt.setLocation(390, 230);
-
+            
             lblCliCadEnt.setLocation(630, 130);
             lblCusCadEnt.setLocation(630, 180);
             lblForCadEnt.setLocation(630, 230);
-
+            
             lblDatCadEnt.setEnabled(false);
             txtDatCadEnt.setEnabled(false);
             txtDatCadEnt.setText(null);
             sepDatCadEnt.setForeground(Color.GRAY);
             lblPreCadEnt.setEnabled(false);
-
+            
             txtPreCadEnt.setEnabled(false);
             txtPreCadEnt.setText(null);
-
+            
             sepPreCadEnt.setForeground(Color.GRAY);
             lblDetCadEnt.setEnabled(false);
-
+            
             txtDetCadEnt.setEnabled(false);
             txtDetCadEnt.setText(null);
-
+            
             txtCliCadEnt.setEnabled(false);
             txtCliCadEnt.setText(null);
             sepCliCadEnt.setForeground(Color.GRAY);
             lblCliCadEnt.setEnabled(false);
-
+            
             txtCusCadEnt.setEnabled(false);
             txtCusCadEnt.setText(null);
             sepCusCadEnt.setForeground(Color.GRAY);
             lblCusCadEnt.setEnabled(false);
-
+            
             txtForCadEnt.setEnabled(false);
             txtForCadEnt.setText(null);
             sepForCadEnt.setForeground(Color.GRAY);
             lblForCadEnt.setEnabled(false);
-
+            
             sepDetCadEnt.setForeground(Color.GRAY);
             lblSerCadEnt.setEnabled(false);
             cmbVezCar.setEnabled(false);
             cmbVezCar.setSelectedIndex(0);
             lblR$CadEnt.setVisible(false);
             lblR$CusCadEnt.setVisible(false);
-
+            
             btnGroup.clearSelection();
             btnGroup1.clearSelection();
             btnGroup2.clearSelection();
             btnGroup3.clearSelection();
-
+            
             spnParCadEnt.setVisible(false);
             lblParCadEnt.setVisible(false);
-
+            
             JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) spnParCadEnt.getEditor();
             editor.getTextField().setEditable(false);
-
+            
             spnParCadEnt.setValue(0);
             spnParCadEnt.setEnabled(false);
             lblParCadEnt.setEnabled(false);
@@ -10049,11 +10024,11 @@ public final class main extends javax.swing.JFrame {
             rbtnDebCadEnt.setEnabled(false);
             rbtnCreCadEnt.setVisible(false);
             rbtnDebCadEnt.setVisible(false);
-
+            
             rbtnDinCadEnt.setEnabled(false);
             rbtnCarCadEnt.setEnabled(false);
             rbtnPixCadEnt.setEnabled(false);
-
+            
             lblEstIteCadEnt.setForeground(new Color(246, 246, 246));
             lblSelIteCadEnt.setForeground(new Color(246, 246, 246));
             tblEstIteCadEnt.setVisible(false);
@@ -10064,24 +10039,24 @@ public final class main extends javax.swing.JFrame {
             model1.setRowCount(0);
             scrEstIteCadEnt.setVisible(false);
             scrSelIteCadEnt.setVisible(false);
-
+            
             txtBusIteCadEnt.setEnabled(false);
             txtBusIteCadEnt.setText(null);
             lblBusIteCadEnt.setEnabled(false);
             sepBusIteCadEnt.setForeground(Color.GRAY);
-
+            
             btnIteCadEnt.setEnabled(false);
             btnSalCadEnt.setEnabled(false);
             cmbVezCar.setEnabled(false);
-
+            
             pnlbtn();
             pnlCadEnt.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlCadEnt.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnCadEntMouseReleased
 
@@ -10137,25 +10112,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtDatCadEnt.getText().length() == 2) {
-
+                    
                     txtDatCadEnt.setText(txtDatCadEnt.getText() + "/");
                     txtDatCadEnt.setCaretPosition(3);
-
+                    
                 } else if (txtDatCadEnt.getText().length() == 5) {
-
+                    
                     txtDatCadEnt.setText(txtDatCadEnt.getText() + "/");
                     txtDatCadEnt.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtDatCadEnt.getText().length() > 9) {
                 evt.consume();
@@ -10195,9 +10170,9 @@ public final class main extends javax.swing.JFrame {
 
     private void txtBusIteCadEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusIteCadEntKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             estoque es = new estoque();
-
+            
             if (rbtnCapIteCadEnt.isSelected()) {
                 es.setTipoproduto("Capinha");
             } else if (rbtnPelIteCadEnt.isSelected()) {
@@ -10207,23 +10182,23 @@ public final class main extends javax.swing.JFrame {
             } else {
                 es.setTipoproduto("Acessório");
             }
-
+            
             es.setModelo(txtBusIteCadEnt.getText());
-
+            
             if (tabelaestoqueconsulta(es, tblEstIteCadEnt, scrEstIteCadEnt)) {
-
+                
                 tblEstIteCadEnt.setVisible(true);
                 scrEstIteCadEnt.setVisible(true);
                 lblEstIteCadEnt.setForeground(corforeazul);
-
+                
             } else {
-
+                
                 JOptionPane.showMessageDialog(pnlIteCadEnt, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
             tblEstIteCadEnt.getTableHeader().setFont(fontbold(11));
-
+            
         }
     }//GEN-LAST:event_txtBusIteCadEntKeyPressed
 
@@ -10234,12 +10209,12 @@ public final class main extends javax.swing.JFrame {
 
     private void rbtnSerRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSerRelActionPerformed
         try {
-
+            
             rbtnSerRel.grabFocus();
-
+            
             chkCus.setSelected(false);
             chkCus.setEnabled(false);
-
+            
             if (btnTodRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
@@ -10255,10 +10230,10 @@ public final class main extends javax.swing.JFrame {
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
                 tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2);
             }
-
+            
             cmbrelatorio(tblRel, cmbRel, 1);
             cmbRel.setEnabled(true);
-
+            
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -10266,12 +10241,12 @@ public final class main extends javax.swing.JFrame {
 
     private void rbtnVenRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVenRelActionPerformed
         try {
-
+            
             rbtnVenRel.grabFocus();
-
+            
             chkCus.setSelected(false);
             chkCus.setEnabled(false);
-
+            
             if (btnTodRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
@@ -10287,7 +10262,7 @@ public final class main extends javax.swing.JFrame {
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
                 tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2);
             }
-
+            
             cmbrelatorio(tblRel, cmbRel, 2);
             cmbRel.setEnabled(true);
         } catch (ParseException ex) {
@@ -10297,12 +10272,12 @@ public final class main extends javax.swing.JFrame {
 
     private void rbtnTodRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTodRelActionPerformed
         try {
-
+            
             rbtnTodRel.grabFocus();
-
+            
             chkCus.setEnabled(false);
             chkCus.setSelected(false);
-
+            
             if (btnTodRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
@@ -10318,10 +10293,10 @@ public final class main extends javax.swing.JFrame {
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
                 tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2);
             }
-
+            
             cmbrelatorio(tblRel, cmbRel, 1);
             cmbRel.setEnabled(false);
-
+            
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -10345,25 +10320,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtDatIniRel.getText().length() == 2) {
-
+                    
                     txtDatIniRel.setText(txtDatIniRel.getText() + "/");
                     txtDatIniRel.setCaretPosition(3);
-
+                    
                 } else if (txtDatIniRel.getText().length() == 5) {
-
+                    
                     txtDatIniRel.setText(txtDatIniRel.getText() + "/");
                     txtDatIniRel.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtDatIniRel.getText().length() > 9) {
                 evt.consume();
@@ -10390,25 +10365,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtDatFinRel.getText().length() == 2) {
-
+                    
                     txtDatFinRel.setText(txtDatFinRel.getText() + "/");
                     txtDatFinRel.setCaretPosition(3);
-
+                    
                 } else if (txtDatFinRel.getText().length() == 5) {
-
+                    
                     txtDatFinRel.setText(txtDatFinRel.getText() + "/");
                     txtDatFinRel.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtDatFinRel.getText().length() > 9) {
                 evt.consume();
@@ -10418,12 +10393,12 @@ public final class main extends javax.swing.JFrame {
 
     private void rbtnAssRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAssRelActionPerformed
         try {
-
+            
             rbtnAssRel.grabFocus();
-
+            
             chkCus.setEnabled(true);
             chkCus.setSelected(false);
-
+            
             if (btnTodRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
@@ -10439,10 +10414,10 @@ public final class main extends javax.swing.JFrame {
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
                 tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2);
             }
-
+            
             cmbrelatorio(tblRel, cmbRel, 1);
             cmbRel.setEnabled(true);
-
+            
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -10450,15 +10425,15 @@ public final class main extends javax.swing.JFrame {
 
     private void btnRelPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelPriMouseReleased
         if (!pnlRel.isVisible()) {
-
+            
             rbtnTodRel.setSelected(true);
-
+            
             lblDatIniRel.setLocation(290, 150);
             lblDatFinRel.setLocation(430, 150);
-
+            
             txtDatIniRel.setText(null);
             txtDatFinRel.setText(null);
-
+            
             btnTodRel.setFont(fontbold(13));
             btnDiaRel.setFont(fontmed(12));
             btnSemRel.setFont(fontmed(12));
@@ -10466,28 +10441,28 @@ public final class main extends javax.swing.JFrame {
             btnAnoRel.setFont(fontmed(12));
             lblDatIniRel.setFont(fontmed(12));
             lblDatFinRel.setFont(fontmed(12));
-
+            
             chkCus.setEnabled(false);
             chkCus.setSelected(false);
-
+            
             tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
-
+            
             cmbrelatorio(tblRel, cmbRel, 1);
             cmbRel.setEnabled(false);
             pnlRel.setVisible(true);
             lblTitPri.setText("Relatórios");
             lblTitPri.setVisible(true);
-
+            
             pnlbtn();
             pnlRel.setVisible(true);
-
+            
             btnVolRel.grabFocus();
-
+            
         } else {
-
+            
             pnlbtn();
             pnlRel.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnRelPriMouseReleased
 
@@ -10538,7 +10513,7 @@ public final class main extends javax.swing.JFrame {
     private void btnTodRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTodRelMouseReleased
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
-
+        
         btnTodRel.setFont(fontbold(13));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
@@ -10546,7 +10521,7 @@ public final class main extends javax.swing.JFrame {
         btnAnoRel.setFont(fontmed(12));
         lblDatIniRel.setFont(fontmed(12));
         lblDatFinRel.setFont(fontmed(12));
-
+        
         if (rbtnTodRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
         } else if (rbtnSerRel.isSelected()) {
@@ -10558,25 +10533,25 @@ public final class main extends javax.swing.JFrame {
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
         }
-
+        
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
-
+        
         if (rbtnVenRel.isSelected()) {
             cmbrelatorio(tblRel, cmbRel, 2);
         } else {
             cmbrelatorio(tblRel, cmbRel, 1);
         }
-
+        
         btnTodRel.grabFocus();
     }//GEN-LAST:event_btnTodRelMouseReleased
 
     private void btnDiaRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDiaRelMouseReleased
         btnDiaRel.grabFocus();
-
+        
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
-
+        
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontbold(13));
         btnSemRel.setFont(fontmed(12));
@@ -10584,7 +10559,7 @@ public final class main extends javax.swing.JFrame {
         btnAnoRel.setFont(fontmed(12));
         lblDatIniRel.setFont(fontmed(12));
         lblDatFinRel.setFont(fontmed(12));
-
+        
         if (rbtnTodRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
         } else if (rbtnSerRel.isSelected()) {
@@ -10596,23 +10571,23 @@ public final class main extends javax.swing.JFrame {
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 2, null, null);
         }
-
+        
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
-
+        
         if (rbtnVenRel.isSelected()) {
             cmbrelatorio(tblRel, cmbRel, 2);
         } else {
             cmbrelatorio(tblRel, cmbRel, 1);
         }
-
+        
         btnDiaRel.grabFocus();
     }//GEN-LAST:event_btnDiaRelMouseReleased
 
     private void btnSemRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSemRelMouseReleased
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
-
+        
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontbold(13));
@@ -10620,7 +10595,7 @@ public final class main extends javax.swing.JFrame {
         btnAnoRel.setFont(fontmed(12));
         lblDatIniRel.setFont(fontmed(12));
         lblDatFinRel.setFont(fontmed(12));
-
+        
         if (rbtnTodRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
         } else if (rbtnSerRel.isSelected()) {
@@ -10632,24 +10607,24 @@ public final class main extends javax.swing.JFrame {
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 3, null, null);
         }
-
+        
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
-
+        
         if (rbtnVenRel.isSelected()) {
             cmbrelatorio(tblRel, cmbRel, 2);
         } else {
             cmbrelatorio(tblRel, cmbRel, 1);
         }
-
+        
         btnSemRel.grabFocus();
     }//GEN-LAST:event_btnSemRelMouseReleased
 
     private void btnMesRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesRelMouseReleased
-
+        
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
-
+        
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
@@ -10657,7 +10632,7 @@ public final class main extends javax.swing.JFrame {
         btnAnoRel.setFont(fontmed(12));
         lblDatIniRel.setFont(fontmed(12));
         lblDatFinRel.setFont(fontmed(12));
-
+        
         if (rbtnTodRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
         } else if (rbtnSerRel.isSelected()) {
@@ -10669,23 +10644,23 @@ public final class main extends javax.swing.JFrame {
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 4, null, null);
         }
-
+        
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
-
+        
         if (rbtnVenRel.isSelected()) {
             cmbrelatorio(tblRel, cmbRel, 2);
         } else {
             cmbrelatorio(tblRel, cmbRel, 1);
         }
-
+        
         btnMesRel.grabFocus();
     }//GEN-LAST:event_btnMesRelMouseReleased
 
     private void btnAnoRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnoRelMouseReleased
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
-
+        
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
@@ -10693,7 +10668,7 @@ public final class main extends javax.swing.JFrame {
         btnAnoRel.setFont(fontbold(13));
         lblDatIniRel.setFont(fontmed(12));
         lblDatFinRel.setFont(fontmed(12));
-
+        
         if (rbtnTodRel.isSelected()) {
             tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
         } else if (rbtnSerRel.isSelected()) {
@@ -10705,27 +10680,27 @@ public final class main extends javax.swing.JFrame {
         } else {
             tabelarelatorio(tblRel, scrRel, 5, 5, null, null);
         }
-
+        
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
-
+        
         if (rbtnVenRel.isSelected()) {
             cmbrelatorio(tblRel, cmbRel, 2);
         } else {
             cmbrelatorio(tblRel, cmbRel, 1);
         }
-
+        
         btnAnoRel.grabFocus();
     }//GEN-LAST:event_btnAnoRelMouseReleased
 
     private void txtDatFinRelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatFinRelKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             try {
-
+                
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
-
+                
                 if (rbtnTodRel.isSelected()) {
                     tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2);
                 } else if (rbtnSerRel.isSelected()) {
@@ -10737,7 +10712,7 @@ public final class main extends javax.swing.JFrame {
                 } else {
                     tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2);
                 }
-
+                
                 btnTodRel.setFont(fontmed(12));
                 btnDiaRel.setFont(fontmed(12));
                 btnSemRel.setFont(fontmed(12));
@@ -10745,27 +10720,27 @@ public final class main extends javax.swing.JFrame {
                 btnAnoRel.setFont(fontmed(12));
                 lblDatIniRel.setFont(fontbold(13));
                 lblDatFinRel.setFont(fontbold(13));
-
+                
                 chkCus.setSelected(false);
                 cmbrelatorio(tblRel, cmbRel, 1);
                 cmbRel.setEnabled(true);
                 cmbRel.setSelectedItem("Filtrar resultados");
-
+                
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(pnlRel, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-
+            
         }
     }//GEN-LAST:event_txtDatFinRelKeyPressed
 
     private void txtDatIniRelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatIniRelKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             try {
-
+                
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
-
+                
                 if (rbtnTodRel.isSelected()) {
                     tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2);
                 } else if (rbtnSerRel.isSelected()) {
@@ -10777,7 +10752,7 @@ public final class main extends javax.swing.JFrame {
                 } else {
                     tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2);
                 }
-
+                
                 btnTodRel.setFont(fontmed(12));
                 btnDiaRel.setFont(fontmed(12));
                 btnSemRel.setFont(fontmed(12));
@@ -10785,16 +10760,16 @@ public final class main extends javax.swing.JFrame {
                 btnAnoRel.setFont(fontmed(12));
                 lblDatIniRel.setFont(fontbold(13));
                 lblDatFinRel.setFont(fontbold(13));
-
+                
                 cmbrelatorio(tblRel, cmbRel, 1);
                 cmbRel.setEnabled(true);
                 chkCus.setSelected(false);
                 cmbRel.setSelectedItem("Filtrar resultados");
-
+                
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(pnlRel, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-
+            
         }
     }//GEN-LAST:event_txtDatIniRelKeyPressed
 
@@ -10818,36 +10793,36 @@ public final class main extends javax.swing.JFrame {
         String melhor = "(    ) Sim\n( X ) Não\n";
         String app = "(    ) Sim\n( X ) Não";
         String venc = txtVenMas.getText();
-
+        
         if (rbtnMigMas.isSelected()) {
             servico = "(    ) Ativação\n( X ) Migração (Pré P/Ctrl)\n(    ) Conversão (Troca Pré P/Controle)\n";
         } else if (rbtnMigTroMas.isSelected()) {
             servico = "(    ) Ativação\n(    ) Migração (Pré P/Ctrl)\n( X ) Conversão (Troca Pré P/Controle)\n";
         }
-
+        
         if (chkC6Mas.isSelected()) {
             c6 = "( X ) Sim\n(    ) Não\n";
         }
-
+        
         if (!"".equals(txtNumPorMas.getText())) {
             port = "( X ) Sim\n(    ) Não\n"
                     + "\n*Nº Portado:* " + txtNumPorMas.getText() + "\n";
         }
-
+        
         if (chkDebMas.isSelected()) {
             pago = "( X ) DACC (Débito em Conta)\n(    ) Boleto\n(    ) Cartão de Crédito\n";
         } else if (chkCarMas.isSelected()) {
             pago = "(    ) DACC (Débito em Conta)\n(    ) Boleto\n( X ) Cartão de Crédito\n";
         }
-
+        
         if (chkMelMas.isSelected()) {
             melhor = "( X ) Sim\n(    ) Não\n";
         }
-
+        
         if (chkAppMas.isSelected()) {
             app = "( X ) Sim\n(    ) Não";
         }
-
+        
         txtAreMas.setText(
                 "*Nome do PDV:* Empório Cell\n"
                 + "*Nome do Vendedor:* Guilherme\n"
@@ -10873,9 +10848,9 @@ public final class main extends javax.swing.JFrame {
                 + "\n*Instalou e Acessou App Meu TIM no Celular do Cliente*\n"
                 + app
         );
-
+        
         txtAreMas.setCaretPosition(0);
-
+        
         btnCopMas.setVisible(true);
     }//GEN-LAST:event_btnGerMasActionPerformed
 
@@ -10889,14 +10864,14 @@ public final class main extends javax.swing.JFrame {
         txtPlaMas.setText(null);
         btnGroup.clearSelection();
         btnGroup1.clearSelection();
-
+        
         chkC6Mas.setSelected(false);
         chkMelMas.setSelected(false);
         chkAppMas.setSelected(false);
         chkDebMasa.setSelected(false);
-
+        
         txtAreMas.setText(null);
-
+        
         lblNomMas.setLocation(90, 50);
         lblCpfMas.setLocation(90, 110);
         lblVenMas.setLocation(90, 170);
@@ -10904,9 +10879,9 @@ public final class main extends javax.swing.JFrame {
         lblNumAceMas.setLocation(350, 110);
         lblNumPorMas.setLocation(350, 170);
         lblPlaMas.setLocation(350, 230);
-
+        
         btnCanMas.grabFocus();
-
+        
         lblTitPri.setVisible(false);
         btnCopMas.setVisible(false);
         pnlMas.setVisible(false);
@@ -10998,11 +10973,11 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCopMasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCopMasMouseReleased
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-
+        
         String texto = txtAreMas.getText();
-
+        
         StringSelection selecao = new StringSelection(texto);
-
+        
         clipboard.setContents(selecao, null);
     }//GEN-LAST:event_btnCopMasMouseReleased
 
@@ -11030,25 +11005,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtVenMas.getText().length() == 2) {
-
+                    
                     txtVenMas.setText(txtVenMas.getText() + "/");
                     txtVenMas.setCaretPosition(3);
-
+                    
                 } else if (txtVenMas.getText().length() == 5) {
-
+                    
                     txtVenMas.setText(txtVenMas.getText() + "/");
                     txtVenMas.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtVenMas.getText().length() > 9) {
                 evt.consume();
@@ -11070,30 +11045,30 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtCpfMas.getText().length() == 3) {
-
+                    
                     txtCpfMas.setText(txtCpfMas.getText() + ".");
                     txtCpfMas.setCaretPosition(4);
-
+                    
                 } else if (txtCpfMas.getText().length() == 7) {
-
+                    
                     txtCpfMas.setText(txtCpfMas.getText() + ".");
                     txtCpfMas.setCaretPosition(8);
-
+                    
                 } else if (txtCpfMas.getText().length() == 11) {
-
+                    
                     txtCpfMas.setText(txtCpfMas.getText() + "-");
                     txtCpfMas.setCaretPosition(12);
-
+                    
                 }
-
+                
             }
             if (txtCpfMas.getText().length() > 13) {
                 evt.consume();
@@ -11107,30 +11082,30 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtNumConMas.getText().length() == 0) {
-
+                    
                     txtNumConMas.setText(txtNumConMas.getText() + "(");
                     txtNumConMas.setCaretPosition(1);
-
+                    
                 } else if (txtNumConMas.getText().length() == 3) {
-
+                    
                     txtNumConMas.setText(txtNumConMas.getText() + ") ");
                     txtNumConMas.setCaretPosition(5);
-
+                    
                 } else if (txtNumConMas.getText().length() == 10) {
-
+                    
                     txtNumConMas.setText(txtNumConMas.getText() + "-");
                     txtNumConMas.setCaretPosition(11);
-
+                    
                 }
-
+                
             }
             if (txtNumConMas.getText().length() > 14) {
                 evt.consume();
@@ -11144,30 +11119,30 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtNumAceMas.getText().length() == 0) {
-
+                    
                     txtNumAceMas.setText(txtNumAceMas.getText() + "(");
                     txtNumAceMas.setCaretPosition(1);
-
+                    
                 } else if (txtNumAceMas.getText().length() == 3) {
-
+                    
                     txtNumAceMas.setText(txtNumAceMas.getText() + ") ");
                     txtNumAceMas.setCaretPosition(5);
-
+                    
                 } else if (txtNumAceMas.getText().length() == 10) {
-
+                    
                     txtNumAceMas.setText(txtNumAceMas.getText() + "-");
                     txtNumAceMas.setCaretPosition(11);
-
+                    
                 }
-
+                
             }
             if (txtNumAceMas.getText().length() > 14) {
                 evt.consume();
@@ -11181,13 +11156,13 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 switch (txtNumPorMas.getText().length()) {
                     case 0:
                         txtNumPorMas.setText(txtNumPorMas.getText() + "(");
@@ -11204,7 +11179,7 @@ public final class main extends javax.swing.JFrame {
                     default:
                         break;
                 }
-
+                
             }
             if (txtNumPorMas.getText().length() > 14) {
                 evt.consume();
@@ -11214,25 +11189,25 @@ public final class main extends javax.swing.JFrame {
 
     private void btnSalDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalDesActionPerformed
         try {
-
+            
             despezas de = new despezas();
             despezasDAO dedao = new despezasDAO();
-
+            
             de.setDescricao(txtDesDes.getText());
-            de.setValor(Double.parseDouble(txtPreDes.getText().replaceAll(",", ".")));
+            de.setValor(Double.valueOf(txtPreDes.getText().replaceAll(",", ".")));
             de.setData(formatterbanco.format(formatter.parse(txtDatDes.getText())));
             de.setStatus(0);
-
+            
             dedao.inserir(de);
-
+            
             JOptionPane.showMessageDialog(pnlCadDes, "Afazer inserida com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+            
             pnlCadDes.setVisible(false);
             lblTitPri.setVisible(false);
-
+            
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-
+            
         }
     }//GEN-LAST:event_btnSalDesActionPerformed
 
@@ -11268,7 +11243,7 @@ public final class main extends javax.swing.JFrame {
             if (txtPreDes.getText().contains(",")) {
                 evt.consume();
             }
-
+            
         } else if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
@@ -11276,29 +11251,29 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCanDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanDesActionPerformed
         lblTitPri.setVisible(false);
-
+        
         pnlCadDes.setVisible(false);
     }//GEN-LAST:event_btnCanDesActionPerformed
 
     private void tblConDesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConDesMouseClicked
         try {
-
+            
             int resp = JOptionPane.showOptionDialog(pnlCadEst, "Ao confirmar a conclusão, a data será definida para o próximo mês e será considerado a data de hoje como a conclusão. Atualize somente se tiver feito o acerto! Deseja prosseguir?", "Conclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+            
             if (resp == JOptionPane.YES_OPTION) {
-
+                
                 despezas de = new despezas();
                 despezasDAO dedao = new despezasDAO();
-
+                
                 de.setId(Integer.parseInt(tblConDes.getValueAt(tblConDes.getSelectedRow(), 0).toString()));
                 de.setDataconclusao(formatterbanco.format(new Date()));
-
+                
                 dedao.conclusao(de);
-
+                
                 tabeladespezas(tblConDes, scrConDes);
-
+                
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(main.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -11328,52 +11303,52 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtDatDes.getText().length() == 2) {
-
+                    
                     txtDatDes.setText(txtDatDes.getText() + "/");
                     txtDatDes.setCaretPosition(3);
-
+                    
                 } else if (txtDatDes.getText().length() == 5) {
-
+                    
                     txtDatDes.setText(txtDatDes.getText() + "/");
                     txtDatDes.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtDatDes.getText().length() > 9) {
                 evt.consume();
             }
         }
-
+        
         btnSalDes.setEnabled(true);
     }//GEN-LAST:event_txtDatDesKeyTyped
 
     private void btnExcGerDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerDesActionPerformed
         try {
-
+            
             int resp = JOptionPane.showOptionDialog(pnlGerDes, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+            
             if (resp == JOptionPane.YES_OPTION) {
                 despezas de = new despezas();
                 despezasDAO dedao = new despezasDAO();
-
+                
                 de.setId(Integer.parseInt(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 0).toString()));
-
+                
                 dedao.excluir(de);
-
+                
                 JOptionPane.showMessageDialog(pnlGerDes, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
                 pnlGerDes.setVisible(false);
                 lblTitPri.setVisible(false);
-
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(main.class
@@ -11383,25 +11358,25 @@ public final class main extends javax.swing.JFrame {
 
     private void btnAltGerDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerDesActionPerformed
         try {
-
+            
             int resp = JOptionPane.showOptionDialog(pnlGerDes, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+            
             if (resp == JOptionPane.YES_OPTION) {
                 despezas de = new despezas();
                 despezasDAO dedao = new despezasDAO();
-
+                
                 de.setId(Integer.parseInt(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 0).toString()));
                 de.setDescricao(txtDesGerDes.getText());
-                de.setValor(Double.parseDouble(txtPreGerDes.getText().replace(".", "").replace(",", ".")));
+                de.setValor(Double.valueOf(txtPreGerDes.getText().replace(".", "").replace(",", ".")));
                 de.setData(formatterbanco.format(formatter.parse(txtDatGerDes.getText())));
-
+                
                 dedao.alterar(de);
-
+                
                 JOptionPane.showMessageDialog(pnlGerDes, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
                 pnlGerDes.setVisible(false);
                 lblTitPri.setVisible(false);
-
+                
             }
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class
@@ -11418,24 +11393,24 @@ public final class main extends javax.swing.JFrame {
         txtDesGerDes.setText(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 1).toString());
         txtPreGerDes.setText((tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString()).substring(3, tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString().length()));
         txtDatGerDes.setText(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 3).toString());
-
+        
         lblDesGerDes.setLocation(870, 20);
         lblPreGerDes.setLocation(870, 80);
         lblDatGerDes.setLocation(870, 140);
-
+        
         sepDesGerDes.setForeground(corforeazul);
         sepPreGerDes.setForeground(corforeazul);
         sepDatGerDes.setForeground(corforeazul);
-
+        
         lblDesGerDes.setEnabled(true);
         txtDesGerDes.setEnabled(true);
         lblPreGerDes.setEnabled(true);
         txtPreGerDes.setEnabled(true);
         lblDatGerDes.setEnabled(true);
         txtDatGerDes.setEnabled(true);
-
+        
         lblR$GerDes.setVisible(true);
-
+        
         btnExcGerDes.setEnabled(true);
         btnAltGerDes.setEnabled(true);
 
@@ -11459,25 +11434,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtDatGerDes.getText().length() == 2) {
-
+                    
                     txtDatGerDes.setText(txtDatGerDes.getText() + "/");
                     txtDatGerDes.setCaretPosition(3);
-
+                    
                 } else if (txtDatGerDes.getText().length() == 5) {
-
+                    
                     txtDatGerDes.setText(txtDatGerDes.getText() + "/");
                     txtDatGerDes.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtDatGerDes.getText().length() > 9) {
                 evt.consume();
@@ -11521,102 +11496,102 @@ public final class main extends javax.swing.JFrame {
 
     private void btnGerDesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerDesMouseReleased
         if (!pnlGerDes.isVisible()) {
-
+            
             if (tabelagerenciardespezas(tblGerDes, scrGerDes)) {
-
+                
                 lblTitPri.setText("Gerenciar Afazeres");
                 lblTitPri.setVisible(true);
-
+                
                 btnExcGerDes.setEnabled(false);
                 btnAltGerDes.setEnabled(false);
-
+                
                 txtDesGerDes.setText(null);
                 txtPreGerDes.setText(null);
                 txtDatGerDes.setText(null);
                 pnlVen.setVisible(false);
                 pnlJur.setVisible(false);
-
+                
                 lblDesGerDes.setLocation(870, 40);
                 lblPreGerDes.setLocation(870, 100);
                 lblDatGerDes.setLocation(870, 160);
-
+                
                 sepDesGerDes.setForeground(Color.GRAY);
                 sepPreGerDes.setForeground(Color.GRAY);
                 sepDatGerDes.setForeground(Color.GRAY);
-
+                
                 lblDesGerDes.setEnabled(false);
                 txtDesGerDes.setEnabled(false);
                 lblPreGerDes.setEnabled(false);
                 txtPreGerDes.setEnabled(false);
                 lblDatGerDes.setEnabled(false);
                 txtDatGerDes.setEnabled(false);
-
+                
                 lblR$GerDes.setVisible(false);
-
+                
                 pnlbtn();
                 pnlGerDes.setVisible(true);
-
+                
             } else {
-
+                
                 JOptionPane.showMessageDialog(pnlGerDes, "Sem afazeres para gerenciar. Cadastre-as primeiro!", "Gerenciar afazeres", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         } else {
-
+            
             pnlbtn();
             pnlGerDes.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnGerDesMouseReleased
 
     private void btnExcGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerEntActionPerformed
         try {
-
+            
             int resp = JOptionPane.showOptionDialog(pnlGerEnt, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+            
             if (resp == JOptionPane.YES_OPTION) {
-
+                
                 if (tblSelIteGerEnt.getRowCount() != 0) {
-
+                    
                     int resp1 = JOptionPane.showOptionDialog(pnlGerEnt, "Por favor, devolva os ítens para o estoque. Se prosseguir, todos os produtos serão excluídos!\n\nDevolver ítens?", "Entrada", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+                    
                     if (resp1 == JOptionPane.YES_OPTION) {
-
+                        
                         btnIteGerEnt.doClick();
-
+                        
                     } else if (resp1 == JOptionPane.NO_OPTION) {
-
+                        
                         entrada en = new entrada();
                         entradaDAO endao = new entradaDAO();
-
+                        
                         en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
-
+                        
                         endao.excluir(en);
-
+                        
                         JOptionPane.showMessageDialog(pnlIteGerEnt, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
-
+                        
                         pnlGerEnt.setVisible(false);
                         lblTitPri.setVisible(false);
-
+                        
                     }
-
+                    
                 } else {
-
+                    
                     entrada en = new entrada();
                     entradaDAO endao = new entradaDAO();
                     en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
                     endao.excluir(en);
-
+                    
                     JOptionPane.showMessageDialog(pnlIteGerEnt, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
-
+                    
                     pnlGerEnt.setVisible(false);
                     lblTitPri.setVisible(false);
-
+                    
                 }
-
+                
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(main.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -11625,23 +11600,23 @@ public final class main extends javax.swing.JFrame {
 
     private void btnBusGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusGerEntActionPerformed
         try {
-
+            
             String data = formatterbanco.format(formatter.parse(txtDatBusGerEnt.getText()));
-
+            
             if (tabelagerenciarentrada(tblGerEnt, scrGerEnt, data)) {
-
+                
                 tblGerEnt.setVisible(true);
                 scrGerEnt.setVisible(true);
-
+                
             } else {
-
+                
                 tblGerEnt.setVisible(false);
                 scrGerEnt.setVisible(false);
-
+                
                 JOptionPane.showMessageDialog(pnlGerEnt, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         } catch (ParseException ex) {
             Logger.getLogger(main.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -11656,7 +11631,7 @@ public final class main extends javax.swing.JFrame {
         tblEstIteGerEnt.getTableHeader().setFont(fontbold(11));
         pnlIteGerEnt.setVisible(true);
         pnlGerEnt.setVisible(false);
-
+        
         if (!txtBusIteGerEnt.getText().isEmpty()) {
             anitxtin(lblBusIteGerEnt);
         }
@@ -11664,19 +11639,19 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCanGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanGerEntActionPerformed
         if (btnAltGerEnt.isEnabled()) {
-
+            
             int resp = JOptionPane.showOptionDialog(pnlCadEst, "Antes de cancelar, verifique a tabela de produtos selecionados e remova aqueles que não fazem parte da entrada! Deseja continuar?", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+            
             if (resp == JOptionPane.YES_OPTION) {
                 pnlGerEnt.setVisible(false);
                 lblTitPri.setVisible(false);
             }
-
+            
         } else {
-
+            
             pnlGerEnt.setVisible(false);
             lblTitPri.setVisible(false);
-
+            
         }
     }//GEN-LAST:event_btnCanGerEntActionPerformed
 
@@ -11736,25 +11711,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtDatBusGerEnt.getText().length() == 2) {
-
+                    
                     txtDatBusGerEnt.setText(txtDatBusGerEnt.getText() + "/");
                     txtDatBusGerEnt.setCaretPosition(3);
-
+                    
                 } else if (txtDatBusGerEnt.getText().length() == 5) {
-
+                    
                     txtDatBusGerEnt.setText(txtDatBusGerEnt.getText() + "/");
                     txtDatBusGerEnt.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtDatBusGerEnt.getText().length() > 9) {
                 evt.consume();
@@ -11771,166 +11746,166 @@ public final class main extends javax.swing.JFrame {
         lblCusGerEnt.setLocation(1020, 130);
         lblForGerEnt.setLocation(1020, 180);
         lblR$CusGerEnt.setVisible(false);
-
+        
         txtDatGerEnt.setText(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 0).toString());
         txtPreGerEnt.setText((tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString().length()));
         txtDetGerEnt.setText((!"Sem Detalhes".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString() : null);
-
+        
         txtCliGerEnt.setEnabled(false);
         sepCliGerEnt.setForeground(Color.GRAY);
         lblCliGerEnt.setEnabled(false);
-
+        
         txtCusGerEnt.setEnabled(false);
         sepCusGerEnt.setForeground(Color.GRAY);
         lblCusGerEnt.setEnabled(false);
-
+        
         txtForGerEnt.setEnabled(false);
         sepForGerEnt.setForeground(Color.GRAY);
         lblForGerEnt.setEnabled(false);
-
+        
         txtCliGerEnt.setText(null);
         txtCusGerEnt.setText(null);
         txtForGerEnt.setText(null);
-
+        
         estoque es = new estoque();
-
+        
         es.setTipoproduto("Capinha");
-
+        
         es.setModelo("");
-
+        
         tabelaestoqueconsulta(es, tblEstIteGerEnt, scrEstIteGerEnt);
-
+        
         tabelaitensselecionadosgerenciar(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
-
+        
         if ("Dinheiro".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString())) {
-
+            
             rbtnDinGerEnt.setSelected(true);
-
+            
         } else if ("Cartão".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString())) {
-
+            
             rbtnCarGerEnt.setSelected(true);
-
+            
         } else {
-
+            
             rbtnPixGerEnt.setSelected(true);
-
+            
         }
-
+        
         if ("Venda".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
-
+            
             cmbSerGerEnt.setEnabled(false);
             lblSerGerEnt.setEnabled(false);
             cmbSerGerEnt.setSelectedIndex(0);
             btnIteGerEnt.setEnabled(true);
-
+            
         } else if ("Assistência".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
-
+            
             btnIteGerEnt.setEnabled(false);
-
+            
             cmbSerGerEnt.setEnabled(true);
-
+            
             lblSerGerEnt.setEnabled(true);
-
+            
             comboboxentrada(cmbSerGerEnt, 2);
-
+            
             txtCliGerEnt.setEnabled(true);
             sepCliGerEnt.setForeground(corforeazul);
             lblCliGerEnt.setEnabled(true);
-
+            
             txtCusGerEnt.setEnabled(true);
             sepCusGerEnt.setForeground(corforeazul);
             lblCusGerEnt.setEnabled(true);
-
+            
             txtForGerEnt.setEnabled(true);
             sepForGerEnt.setForeground(corforeazul);
             lblForGerEnt.setEnabled(true);
-
+            
             txtCliGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString() : null);
             txtCusGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString())) ? (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString().length()) : null);
             txtForGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString() : null);
-
+            
             for (int i = 1; i <= cmbSerGerEnt.getItemCount(); i++) {
-
+                
                 cmbSerGerEnt.setSelectedIndex(i);
-
+                
                 itens selectedItem = (itens) cmbSerGerEnt.getSelectedItem();
-
+                
                 String textoSelecionado = selectedItem.getDescricao();
-
+                
                 if (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 2).toString().equals(textoSelecionado)) {
-
+                    
                     break;
-
+                    
                 }
-
+                
             }
-
+            
         } else {
-
+            
             btnIteGerEnt.setEnabled(false);
-
+            
             cmbSerGerEnt.setEnabled(true);
-
+            
             lblSerGerEnt.setEnabled(true);
-
+            
             comboboxentrada(cmbSerGerEnt, 1);
-
+            
             try {
-
+                
                 for (int i = 1; i <= cmbSerGerEnt.getItemCount(); i++) {
-
+                    
                     cmbSerGerEnt.setSelectedIndex(i);
-
+                    
                     itens selectedItem = (itens) cmbSerGerEnt.getSelectedItem();
-
+                    
                     String textoSelecionado = selectedItem.getDescricao();
-
+                    
                     if (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 2).toString().equals(textoSelecionado)) {
-
+                        
                         break;
-
+                        
                     }
-
+                    
                 }
-
+                
             } catch (Exception e) {
-
+                
                 cmbSerGerEnt.setSelectedIndex(0);
-
+                
             }
-
+            
             btnIteGerEnt.setEnabled(true);
-
+            
         }
-
+        
         txtDatGerEnt.setEnabled(true);
         txtPreGerEnt.setEnabled(true);
         lblR$GerEnt.setVisible(true);
         txtDetGerEnt.setEnabled(true);
-
+        
         lblDatGerEnt.setEnabled(true);
         lblPreGerEnt.setEnabled(true);
         lblDetGerEnt.setEnabled(true);
-
+        
         rbtnDinGerEnt.setEnabled(true);
         rbtnCarGerEnt.setEnabled(true);
         rbtnPixGerEnt.setEnabled(true);
-
+        
         sepDatGerEnt.setForeground(corforeazul);
         sepPreGerEnt.setForeground(corforeazul);
         sepDetGerEnt.setForeground(corforeazul);
-
+        
         btnAltGerEnt.setEnabled(true);
         btnExcGerEnt.setEnabled(true);
-
+        
         if (!txtDatGerEnt.getText().isEmpty()) {
             anitxtin(lblDatGerEnt);
         }
-
+        
         if (!txtPreGerEnt.getText().isEmpty()) {
             anitxtin(lblPreGerEnt);
         }
-
+        
         if (!txtDetGerEnt.getText().isEmpty()) {
             anitxtin(lblDetGerEnt);
         }
@@ -11950,116 +11925,116 @@ public final class main extends javax.swing.JFrame {
 
     private void btnAltGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerEntActionPerformed
         try {
-
+            
             int resp = JOptionPane.showOptionDialog(pnlGerEnt, "Tem certeza que deseja alterar?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+            
             if (resp == JOptionPane.YES_OPTION) {
-
+                
                 entrada en = new entrada();
                 entradaDAO endao = new entradaDAO();
-
+                
                 en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
-
+                
                 endao.excluir(en);
-
+                
                 if (!("Venda".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString()) && tblSelIteGerEnt.getRowCount() == 0)) {
-
+                    
                     if (!(cmbSerGerEnt.getSelectedIndex() == 0 && ("Assistência".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString()) || "Serviço".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())))) {
-
+                        
                         try {
-
+                            
                             int idser = 0;
-
+                            
                             int idpagamento = 1;
-
+                            
                             if (rbtnCarGerEnt.isSelected()) {
                                 idpagamento = 2;
                             } else if (rbtnPixGerEnt.isSelected()) {
                                 idpagamento = 3;
                             }
-
+                            
                             if (cmbSerGerEnt.getSelectedIndex() != 0) {
                                 itens selectedItem = (itens) cmbSerGerEnt.getSelectedItem();
                                 idser = selectedItem.getId();
                             }
-
+                            
                             if (tblSelIteGerEnt.getRowCount() != 0) {
-
+                                
                                 for (int i = 1; i <= tblSelIteGerEnt.getRowCount(); i++) {
-
+                                    
                                     en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
                                     en.setData(formatterbanco.format(((formatter.parse(txtDatGerEnt.getText())))));
-                                    en.setPreco(Double.parseDouble(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
+                                    en.setPreco(Double.valueOf(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
                                     en.setDetalhes(txtDetGerEnt.getText());
                                     en.setFormapagamento(idpagamento);
-
+                                    
                                     if ("Serviço".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
-
+                                        
                                         en.setIdtiposervico(idser);
                                         en.setIdestoque(Integer.parseInt(tblSelIteGerEnt.getValueAt(i - 1, 1).toString()));
                                         en.setQuantidade(Integer.parseInt(tblSelIteGerEnt.getValueAt(i - 1, 0).toString()));
-
+                                        
                                         endao.inserir(en, 1);
-
+                                        
                                     } else if ("Venda".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
-
+                                        
                                         en.setIdestoque(Integer.parseInt(tblSelIteGerEnt.getValueAt(i - 1, 1).toString()));
                                         en.setQuantidade(Integer.parseInt(tblSelIteGerEnt.getValueAt(i - 1, 0).toString()));
-
+                                        
                                         endao.inserir(en, 2);
                                     }
-
+                                    
                                 }
-
+                                
                             } else {
-
+                                
                                 en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
                                 en.setData(formatterbanco.format((formatter.parse(txtDatGerEnt.getText()))));
-                                en.setPreco(Double.parseDouble(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
+                                en.setPreco(Double.valueOf(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
                                 en.setDetalhes(txtDetGerEnt.getText());
                                 en.setIdtiposervico(idser);
                                 en.setIdestoque(1);
                                 en.setFormapagamento(idpagamento);
-
+                                
                                 if ("Serviço".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
-
+                                    
                                     endao.inserir(en, 1);
-
+                                    
                                 } else if ("Assistência".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
-
+                                    
                                     en.setCliente(txtCliGerEnt.getText());
-                                    en.setCusto((!txtCusGerEnt.getText().isEmpty()) ? Double.parseDouble(txtCusGerEnt.getText().replace(".", "").replace(",", ".")) : null);
+                                    en.setCusto((!txtCusGerEnt.getText().isEmpty()) ? Double.valueOf(txtCusGerEnt.getText().replace(".", "").replace(",", ".")) : null);
                                     en.setFornecedor(txtForGerEnt.getText());
-
+                                    
                                     endao.inserir(en, 3);
-
+                                    
                                 }
-
+                                
                             }
-
+                            
                             JOptionPane.showMessageDialog(pnlGerEnt, "Entrada alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                            
                             pnlGerEnt.setVisible(false);
-
+                            
                         } catch (SQLException | ParseException ex) {
                             Logger.getLogger(main.class
                                     .getName()).log(Level.SEVERE, null, ex);
                         }
-
+                        
                     } else {
                         JOptionPane.showMessageDialog(pnlGerEnt, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
                     }
-
+                    
                     lblTitPri.setVisible(false);
-
+                    
                 } else {
-
+                    
                     JOptionPane.showMessageDialog(pnlGerEnt, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
-
+                    
                 }
-
+                
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(main.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -12076,79 +12051,79 @@ public final class main extends javax.swing.JFrame {
 
     private void btnGerEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerEntMouseReleased
         if (!pnlGerEnt.isVisible()) {
-
+            
             txtDatBusGerEnt.setText(null);
             txtDatGerEnt.setText(null);
             txtPreGerEnt.setText(null);
             txtDetGerEnt.setText(null);
-
+            
             btnGroup.clearSelection();
-
+            
             cmbSerGerEnt.setSelectedIndex(0);
-
+            
             rbtnCarGerEnt.setEnabled(false);
             rbtnDinGerEnt.setEnabled(false);
             rbtnPixGerEnt.setEnabled(false);
-
+            
             tblGerEnt.setVisible(false);
             scrGerEnt.setVisible(false);
-
+            
             txtCliGerEnt.setEnabled(false);
             txtCliGerEnt.setText(null);
             sepCliGerEnt.setForeground(Color.GRAY);
             lblCliGerEnt.setEnabled(false);
-
+            
             txtCusGerEnt.setEnabled(false);
             txtCusGerEnt.setText(null);
             sepCusGerEnt.setForeground(Color.GRAY);
             lblCusGerEnt.setEnabled(false);
-
+            
             txtForGerEnt.setEnabled(false);
             txtForGerEnt.setText(null);
             sepForGerEnt.setForeground(Color.GRAY);
             lblForGerEnt.setEnabled(false);
-
+            
             lblDatGerEnt.setEnabled(false);
             txtDatGerEnt.setEnabled(false);
             lblPreGerEnt.setEnabled(false);
             lblR$GerEnt.setVisible(false);
             lblR$CusGerEnt.setVisible(false);
-
+            
             txtPreGerEnt.setEnabled(false);
             lblDetGerEnt.setEnabled(false);
             txtDetGerEnt.setEnabled(false);
             lblSerGerEnt.setEnabled(false);
             cmbSerGerEnt.setEnabled(false);
-
+            
             sepDatGerEnt.setForeground(Color.GRAY);
             sepPreGerEnt.setForeground(Color.GRAY);
             sepDetGerEnt.setForeground(Color.GRAY);
-
+            
             btnAltGerEnt.setEnabled(false);
             btnExcGerEnt.setEnabled(false);
             btnIteGerEnt.setEnabled(false);
             btnBusGerEnt.setEnabled(false);
-
+            
             lblDatBusGerEnt.setLocation(70, 50);
             lblDatGerEnt.setLocation(780, 80);
             lblPreGerEnt.setLocation(780, 130);
             lblDetGerEnt.setLocation(780, 180);
-
+            
             lblCliGerEnt.setLocation(1020, 80);
             lblCusGerEnt.setLocation(1020, 130);
             lblForGerEnt.setLocation(1020, 180);
-
+            
             lblTitPri.setText("Gerenciar Entrada");
             lblTitPri.setVisible(true);
-
+            
             pnlbtn();
             pnlGerEnt.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlGerEnt.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnGerEntMouseReleased
 
@@ -12159,77 +12134,77 @@ public final class main extends javax.swing.JFrame {
 
     private void tblEstIteGerEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstIteGerEntMouseClicked
         boolean existe = false;
-
+        
         int sel = Integer.parseInt(tblEstIteGerEnt.getValueAt(tblEstIteGerEnt.getSelectedRow(), 0).toString());
-
+        
         for (int i = 1; i <= tblSelIteGerEnt.getRowCount(); i++) {
-
+            
             if (sel == Integer.parseInt(tblSelIteGerEnt.getValueAt(i - 1, 1).toString())) {
-
+                
                 existe = true;
-
+                
             }
-
+            
         }
-
+        
         if (existe) {
-
+            
             JOptionPane.showMessageDialog(pnlIteGerEnt, "Ítem já adicionado!", "Entrada", JOptionPane.ERROR_MESSAGE);
-
+            
         } else {
-
+            
             String opc = JOptionPane.showInputDialog(null, "Informe a quantidade deste ítem", "Entrada", JOptionPane.QUESTION_MESSAGE);
-
+            
             if (opc != null) {
-
+                
                 try {
-
+                    
                     int i = Integer.parseInt(opc);
-
+                    
                     if (rbtnChiIteGerEnt.isSelected()) {
-
+                        
                         if (Integer.parseInt(tblEstIteGerEnt.getValueAt(tblEstIteGerEnt.getSelectedRow(), 3).toString()) < i) {
-
+                            
                             JOptionPane.showMessageDialog(pnlIteGerEnt, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
-
+                            
                         } else {
-
+                            
                             adicionarprodutos(tblEstIteGerEnt, tblSelIteGerEnt, opc, rbtnChiIteGerEnt);
-
+                            
                             lblSelIteGerEnt.setForeground(corforeazul);
                             scrSelIteGerEnt.setVisible(true);
                             tblSelIteGerEnt.setVisible(true);
-
+                            
                         }
-
+                        
                     } else {
-
+                        
                         if (Integer.parseInt(tblEstIteGerEnt.getValueAt(tblEstIteGerEnt.getSelectedRow(), 5).toString()) < i) {
-
+                            
                             JOptionPane.showMessageDialog(pnlIteGerEnt, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
-
+                            
                         } else {
-
+                            
                             adicionarprodutos(tblEstIteGerEnt, tblSelIteGerEnt, opc, rbtnChiIteGerEnt);
-
+                            
                             lblSelIteGerEnt.setForeground(corforeazul);
                             scrSelIteGerEnt.setVisible(true);
                             tblSelIteGerEnt.setVisible(true);
-
+                            
                         }
-
+                        
                     }
-
+                    
                 } catch (NumberFormatException e) {
-
+                    
                     JOptionPane.showMessageDialog(pnlIteGerEnt, "Digite apenas número!", "Erro", JOptionPane.ERROR_MESSAGE);
-
+                    
                 }
-
+                
             }
-
+            
         }
-
+        
         tblEstIteGerEnt.clearSelection();
     }//GEN-LAST:event_tblEstIteGerEntMouseClicked
 
@@ -12247,9 +12222,9 @@ public final class main extends javax.swing.JFrame {
 
     private void txtBusIteGerEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusIteGerEntKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             estoque es = new estoque();
-
+            
             if (rbtnCapIteGerEnt.isSelected()) {
                 es.setTipoproduto("Capinha");
             } else if (rbtnPelIteGerEnt.isSelected()) {
@@ -12259,23 +12234,23 @@ public final class main extends javax.swing.JFrame {
             } else {
                 es.setTipoproduto("Acessório");
             }
-
+            
             es.setModelo(txtBusIteGerEnt.getText());
-
+            
             if (tabelaestoqueconsulta(es, tblEstIteGerEnt, scrEstIteGerEnt)) {
-
+                
                 tblEstIteGerEnt.setVisible(true);
                 scrEstIteGerEnt.setVisible(true);
                 lblEstIteGerEnt.setForeground(corforeazul);
-
+                
             } else {
-
+                
                 JOptionPane.showMessageDialog(pnlIteGerEnt, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
             tblEstIteGerEnt.getTableHeader().setFont(fontbold(11));
-
+            
         }
     }//GEN-LAST:event_txtBusIteGerEntKeyPressed
 
@@ -12283,24 +12258,24 @@ public final class main extends javax.swing.JFrame {
         try {
             String idt = (tblSelIteGerEnt.getValueAt(tblSelIteGerEnt.getSelectedRow(), 1).toString());
             String qua = (tblSelIteGerEnt.getValueAt(tblSelIteGerEnt.getSelectedRow(), 0).toString());
-
+            
             entrada en = new entrada();
             entradaDAO endao = new entradaDAO();
-
+            
             en.setIdestoque(Integer.parseInt(idt));
             en.setQuantidade(Integer.parseInt(qua));
-
+            
             endao.atualizarestoque(en, 1);
-
+            
             DefaultTableModel modelo = (DefaultTableModel) tblSelIteGerEnt.getModel();
             modelo.removeRow(tblSelIteGerEnt.getSelectedRow());
-
+            
             if (tblSelIteGerEnt.getRowCount() == 0) {
-
+                
                 tblSelIteGerEnt.setVisible(false);
                 scrSelIteGerEnt.setVisible(false);
                 lblSelIteGerEnt.setForeground(new Color(246, 246, 246));
-
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(main.class
@@ -12310,9 +12285,9 @@ public final class main extends javax.swing.JFrame {
 
     private void txtDetGerEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDetGerEntMouseClicked
         if ("Sem Detalhes".equals(txtDetGerEnt.getText())) {
-
+            
             txtDetGerEnt.setText(null);
-
+            
         }
     }//GEN-LAST:event_txtDetGerEntMouseClicked
 
@@ -12322,25 +12297,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtDatGerEnt.getText().length() == 2) {
-
+                    
                     txtDatGerEnt.setText(txtDatGerEnt.getText() + "/");
                     txtDatGerEnt.setCaretPosition(3);
-
+                    
                 } else if (txtDatGerEnt.getText().length() == 5) {
-
+                    
                     txtDatGerEnt.setText(txtDatGerEnt.getText() + "/");
                     txtDatGerEnt.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtDatGerEnt.getText().length() > 9) {
                 evt.consume();
@@ -12367,11 +12342,11 @@ public final class main extends javax.swing.JFrame {
         lblLocCadEst.setEnabled(true);
         txtDetCadEst.setEnabled(true);
         lblDetCadEst.setEnabled(true);
-
+        
         lblProCadEst.setVisible(false);
         tblCadEst.setVisible(false);
         scrCadEst.setVisible(false);
-
+        
         sepModCadEst.setForeground(corforeazul);
         sepMarCadEst.setForeground(corforeazul);
         sepCorCadEst.setForeground(corforeazul);
@@ -12380,7 +12355,7 @@ public final class main extends javax.swing.JFrame {
         sepPreCadEst.setForeground(corforeazul);
         sepLocCadEst.setForeground(corforeazul);
         sepDetCadEst.setForeground(corforeazul);
-
+        
         txtMarCadEst.setText(null);
         txtModCadEst.setText(null);
         txtQuaCadEst.setText(null);
@@ -12391,7 +12366,7 @@ public final class main extends javax.swing.JFrame {
         txtDetCadEst.setText(null);
         lblR$CadEst.setVisible(false);
         cmbChiCadEst.setSelectedIndex(0);
-
+        
         lblMarCadEst.setLocation(410, 80);
         lblModCadEst.setLocation(410, 130);
         lblQuaCadEst.setLocation(410, 180);
@@ -12400,7 +12375,7 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setLocation(700, 130);
         lblLocCadEst.setLocation(700, 180);
         lblDetCadEst.setLocation(700, 230);
-
+        
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
         txtTipCadEst.setText("Acessório");
@@ -12425,11 +12400,11 @@ public final class main extends javax.swing.JFrame {
         lblLocCadEst.setEnabled(false);
         txtDetCadEst.setEnabled(false);
         lblDetCadEst.setEnabled(false);
-
+        
         lblProCadEst.setVisible(false);
         tblCadEst.setVisible(false);
         scrCadEst.setVisible(false);
-
+        
         sepModCadEst.setForeground(Color.GRAY);
         sepMarCadEst.setForeground(Color.GRAY);
         sepCorCadEst.setForeground(Color.GRAY);
@@ -12438,7 +12413,7 @@ public final class main extends javax.swing.JFrame {
         sepPreCadEst.setForeground(corforeazul);
         sepLocCadEst.setForeground(Color.GRAY);
         sepDetCadEst.setForeground(Color.GRAY);
-
+        
         txtMarCadEst.setText(null);
         txtModCadEst.setText(null);
         txtQuaCadEst.setText(null);
@@ -12449,7 +12424,7 @@ public final class main extends javax.swing.JFrame {
         txtDetCadEst.setText(null);
         lblR$CadEst.setVisible(false);
         cmbChiCadEst.setSelectedIndex(0);
-
+        
         lblMarCadEst.setLocation(410, 80);
         lblModCadEst.setLocation(410, 130);
         lblQuaCadEst.setLocation(410, 180);
@@ -12458,10 +12433,10 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setLocation(700, 130);
         lblLocCadEst.setLocation(700, 180);
         lblDetCadEst.setLocation(700, 230);
-
+        
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
-
+        
         txtTipCadEst.setText("Chip");
     }//GEN-LAST:event_rbtnChiCadEstActionPerformed
 
@@ -12484,11 +12459,11 @@ public final class main extends javax.swing.JFrame {
         lblLocCadEst.setEnabled(true);
         txtDetCadEst.setEnabled(true);
         lblDetCadEst.setEnabled(true);
-
+        
         lblProCadEst.setVisible(false);
         tblCadEst.setVisible(false);
         scrCadEst.setVisible(false);
-
+        
         sepModCadEst.setForeground(corforeazul);
         sepMarCadEst.setForeground(corforeazul);
         sepCorCadEst.setForeground(corforeazul);
@@ -12497,7 +12472,7 @@ public final class main extends javax.swing.JFrame {
         sepPreCadEst.setForeground(corforeazul);
         sepLocCadEst.setForeground(corforeazul);
         sepDetCadEst.setForeground(corforeazul);
-
+        
         txtMarCadEst.setText(null);
         txtModCadEst.setText(null);
         txtQuaCadEst.setText(null);
@@ -12508,7 +12483,7 @@ public final class main extends javax.swing.JFrame {
         txtDetCadEst.setText(null);
         lblR$CadEst.setVisible(false);
         cmbChiCadEst.setSelectedIndex(0);
-
+        
         lblMarCadEst.setLocation(410, 80);
         lblModCadEst.setLocation(410, 130);
         lblQuaCadEst.setLocation(410, 180);
@@ -12517,10 +12492,10 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setLocation(700, 130);
         lblLocCadEst.setLocation(700, 180);
         lblDetCadEst.setLocation(700, 230);
-
+        
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
-
+        
         txtTipCadEst.setText("Película");
     }//GEN-LAST:event_rbtnPelCadEstActionPerformed
 
@@ -12543,11 +12518,11 @@ public final class main extends javax.swing.JFrame {
         lblLocCadEst.setEnabled(true);
         txtDetCadEst.setEnabled(true);
         lblDetCadEst.setEnabled(true);
-
+        
         lblProCadEst.setVisible(false);
         tblCadEst.setVisible(false);
         scrCadEst.setVisible(false);
-
+        
         sepModCadEst.setForeground(corforeazul);
         sepMarCadEst.setForeground(corforeazul);
         sepCorCadEst.setForeground(corforeazul);
@@ -12556,10 +12531,10 @@ public final class main extends javax.swing.JFrame {
         sepPreCadEst.setForeground(corforeazul);
         sepLocCadEst.setForeground(corforeazul);
         sepDetCadEst.setForeground(corforeazul);
-
+        
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
-
+        
         txtMarCadEst.setText(null);
         txtModCadEst.setText(null);
         txtQuaCadEst.setText(null);
@@ -12570,7 +12545,7 @@ public final class main extends javax.swing.JFrame {
         txtDetCadEst.setText(null);
         lblR$CadEst.setVisible(false);
         cmbChiCadEst.setSelectedIndex(0);
-
+        
         lblMarCadEst.setLocation(410, 80);
         lblModCadEst.setLocation(410, 130);
         lblQuaCadEst.setLocation(410, 180);
@@ -12579,7 +12554,7 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setLocation(700, 130);
         lblLocCadEst.setLocation(700, 180);
         lblDetCadEst.setLocation(700, 230);
-
+        
         txtTipCadEst.setText("Capinha");
     }//GEN-LAST:event_rbtnCapCadEstActionPerformed
 
@@ -12588,7 +12563,7 @@ public final class main extends javax.swing.JFrame {
             if (txtPreCadEst.getText().contains(",")) {
                 evt.consume();
             }
-
+            
         } else if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
@@ -12610,19 +12585,19 @@ public final class main extends javax.swing.JFrame {
 
     private void btnGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerOsActionPerformed
         if (txtCliOs.getText().isEmpty() || txtEndOs.getText().isEmpty() || txtTelOs.getText().isEmpty() || txtEquOs.getText().isEmpty() || txtMarOs.getText().isEmpty() || txtModOs.getText().isEmpty() || txtConOs.getText().isEmpty() || txtDatOs.getText().isEmpty() || txtHorOs.getText().isEmpty() || txtDefOs.getText().isEmpty()) {
-
+            
             JOptionPane.showMessageDialog(pnlOs, "Preencha todos os dados!", "Atenção", JOptionPane.WARNING_MESSAGE);
-
+            
         } else {
-
+            
             try {
-
+                
                 String datahora = txtDatOs.getText() + " - " + txtHorOs.getText();
-
+                
                 Map<String, Object> parameters = new HashMap<>();
-
+                
                 parameters.clear();
-
+                
                 parameters.put("LogoTim", getClass().getResourceAsStream("/images/LOGOTIM.png"));
                 parameters.put("LogoLoja", getClass().getResourceAsStream("/images/LOGOLOJA.png"));
                 parameters.put("Nome", txtCliOs.getText());
@@ -12634,19 +12609,19 @@ public final class main extends javax.swing.JFrame {
                 parameters.put("Condicoes", txtConOs.getText());
                 parameters.put("Defeito", txtDefOs.getText());
                 parameters.put("DataEntrada", datahora);
-                parameters.put("Preco", moedadoublereal(Double.parseDouble(txtPreOs.getText().replace(".", "").replace(",", "."))));
-
+                parameters.put("Preco", moedadoublereal(Double.valueOf(txtPreOs.getText().replace(".", "").replace(",", "."))));
+                
                 InputStream inputStream = getClass().getClassLoader().getResourceAsStream("os/OSEmpSysView.jasper");
-
+                
                 JasperPrint print = JasperFillManager.fillReport(inputStream, parameters, new JREmptyDataSource(1));
-
+                
                 JasperViewer jc = new JasperViewer(print, false);
                 jc.setVisible(true);
                 jc.toFront();
-
+                
                 pnlOs.setVisible(false);
                 lblTitPri.setVisible(false);
-
+                
             } catch (JRException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -12724,13 +12699,13 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 switch (txtTelOs.getText().length()) {
                     case 0:
                         txtTelOs.setText(txtTelOs.getText() + "(");
@@ -12747,7 +12722,7 @@ public final class main extends javax.swing.JFrame {
                     default:
                         break;
                 }
-
+                
             }
             if (txtTelOs.getText().length() > 14) {
                 evt.consume();
@@ -12809,25 +12784,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtDatOs.getText().length() == 2) {
-
+                    
                     txtDatOs.setText(txtDatOs.getText() + "/");
                     txtDatOs.setCaretPosition(3);
-
+                    
                 } else if (txtDatOs.getText().length() == 5) {
-
+                    
                     txtDatOs.setText(txtDatOs.getText() + "/");
                     txtDatOs.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtDatOs.getText().length() > 9) {
                 evt.consume();
@@ -12853,18 +12828,18 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtHorOs.getText().length() == 2) {
-
+                    
                     txtHorOs.setText(txtHorOs.getText() + ":");
                     txtHorOs.setCaretPosition(3);
-
+                    
                 }
                 if (txtHorOs.getText().length() > 4) {
                     evt.consume();
@@ -12875,9 +12850,9 @@ public final class main extends javax.swing.JFrame {
 
     private void btnOrdSerPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOrdSerPriMouseReleased
         if (!pnlOs.isVisible()) {
-
+            
             DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
-
+            
             txtCliOs.setText(null);
             txtEndOs.setText(null);
             txtTelOs.setText(null);
@@ -12889,7 +12864,7 @@ public final class main extends javax.swing.JFrame {
             txtPreOs.setText(null);
             txtHorOs.setText(LocalTime.now().format(formatoHora));
             txtDatOs.setText(LocalDate.now().format(formatteratual));
-
+            
             lblCliOs.setLocation(370, 30);
             lblTelOs.setLocation(370, 80);
             lblEndOs.setLocation(370, 130);
@@ -12901,96 +12876,96 @@ public final class main extends javax.swing.JFrame {
             lblConOs.setLocation(700, 180);
             lblDefOs.setLocation(700, 230);
             lblPreOs.setLocation(370, 280);
-
+            
             lblR$Os.setVisible(false);
-
+            
             lblTitPri.setText("Ordem de Serviço");
             lblTitPri.setVisible(true);
-
+            
             pnlbtn();
             pnlOs.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlOs.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnOrdSerPriMouseReleased
 
     private void txtDatBusGerEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatBusGerEntKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             try {
-
+                
                 String data = formatterbanco.format(formatter.parse(txtDatBusGerEnt.getText()));
-
+                
                 if (tabelagerenciarentrada(tblGerEnt, scrGerEnt, data)) {
-
+                    
                     tblGerEnt.setVisible(true);
                     scrGerEnt.setVisible(true);
-
+                    
                 } else {
-
+                    
                     JOptionPane.showMessageDialog(pnlGerEnt, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
-
+                    
                 }
-
+                
             } catch (ParseException ex) {
                 Logger.getLogger(main.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         }
     }//GEN-LAST:event_txtDatBusGerEntKeyPressed
 
     private void txtBusConEstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusConEstKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             estoque es = new estoque();
-
+            
             es.setModelo(txtBusConEst.getText());
             es.setTipoproduto(txtTipConEst.getText());
-
+            
             if (tabelaestoqueconsulta(es, tblConEst, scrConEst)) {
-
+                
                 scrConEst.setVisible(true);
                 tblConEst.setVisible(true);
-
+                
             } else {
-
+                
                 scrConEst.setVisible(false);
                 tblConEst.setVisible(false);
-
+                
                 JOptionPane.showMessageDialog(pnlConEst, "Ítem não cadastrado no sistema!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         }
     }//GEN-LAST:event_txtBusConEstKeyPressed
 
     private void txtBusGerEstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusGerEstKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             estoque es = new estoque();
-
+            
             es.setModelo(txtBusGerEst.getText());
             es.setTipoproduto(txtTipGerEst.getText());
-
+            
             if (tabelaestoquegerenciar(es)) {
-
+                
                 scrGerEst.setVisible(true);
                 tblGerEst.setVisible(true);
-
+                
             } else {
-
+                
                 scrGerEst.setVisible(false);
                 tblGerEst.setVisible(false);
-
+                
                 JOptionPane.showMessageDialog(pnlGerEst, "Nenhum dado encontrado!", "Gerenciar", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         }
     }//GEN-LAST:event_txtBusGerEstKeyPressed
 
@@ -13013,7 +12988,7 @@ public final class main extends javax.swing.JFrame {
         spnParCadEnt.setValue(0);
         spnParCadEnt.setEnabled(false);
         lblParCadEnt.setEnabled(false);
-
+        
         btnGroup3.clearSelection();
     }//GEN-LAST:event_rbtnCarCadEntActionPerformed
 
@@ -13057,7 +13032,7 @@ public final class main extends javax.swing.JFrame {
             if (txtCusCadEnt.getText().contains(",")) {
                 evt.consume();
             }
-
+            
         } else if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
@@ -13110,7 +13085,7 @@ public final class main extends javax.swing.JFrame {
             if (txtPreGerEnt.getText().contains(",")) {
                 evt.consume();
             }
-
+            
         } else if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
@@ -13147,37 +13122,37 @@ public final class main extends javax.swing.JFrame {
 
     private void btnBusConEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusConEntActionPerformed
         try {
-
+            
             if (tabelaconsultarentrada(tblConEnt, scrConEnt, formatterbanco.format(formatter.parse(txtBusConEnt.getText())))) {
-
+                
                 scrConEnt.setVisible(true);
                 tblConEnt.setVisible(true);
-
+                
             } else {
-
+                
                 scrConEnt.setVisible(false);
                 tblConEnt.setVisible(false);
-
+                
                 JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         } catch (ParseException ex) {
-
+            
             if (tabelaconsultarentrada(tblConEnt, scrConEnt, txtBusConEnt.getText())) {
-
+                
                 scrConEnt.setVisible(true);
                 tblConEnt.setVisible(true);
-
+                
             } else {
-
+                
                 scrConEnt.setVisible(false);
                 tblConEnt.setVisible(false);
-
+                
                 JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         }
     }//GEN-LAST:event_btnBusConEntActionPerformed
 
@@ -13196,37 +13171,37 @@ public final class main extends javax.swing.JFrame {
     private void txtBusConEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusConEntKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-
+                
                 if (tabelaconsultarentrada(tblConEnt, scrConEnt, formatterbanco.format(formatter.parse(txtBusConEnt.getText())))) {
-
+                    
                     scrConEnt.setVisible(true);
                     tblConEnt.setVisible(true);
-
+                    
                 } else {
-
+                    
                     scrConEnt.setVisible(false);
                     tblConEnt.setVisible(false);
-
+                    
                     JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
-
+                    
                 }
-
+                
             } catch (ParseException ex) {
-
+                
                 if (tabelaconsultarentrada(tblConEnt, scrConEnt, txtBusConEnt.getText())) {
-
+                    
                     scrConEnt.setVisible(true);
                     tblConEnt.setVisible(true);
-
+                    
                 } else {
-
+                    
                     scrConEnt.setVisible(false);
                     tblConEnt.setVisible(false);
-
+                    
                     JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
-
+                    
                 }
-
+                
             }
         }
     }//GEN-LAST:event_txtBusConEntKeyPressed
@@ -13245,35 +13220,35 @@ public final class main extends javax.swing.JFrame {
 
     private void btnConEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEntMouseReleased
         if (!pnlConEnt.isVisible()) {
-
+            
             txtBusConEnt.setText(null);
-
+            
             tblConEnt.setVisible(false);
             scrConEnt.setVisible(false);
-
+            
             btnBusConEnt.setEnabled(false);
-
+            
             lblBusConEnt.setLocation(450, 30);
-
+            
             lblTitPri.setText("Consultar Entrada");
             lblTitPri.setVisible(true);
-
+            
             pnlbtn();
             pnlConEnt.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlConEnt.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnConEntMouseReleased
 
     private void chkCusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCusActionPerformed
         try {
-
+            
             if (cmbRel.getSelectedItem().equals("Filtrar resultados")) {
-
+                
                 if (btnTodRel.getFont().getSize() == 13) {
                     tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
                 } else if (btnDiaRel.getFont().getSize() == 13) {
@@ -13287,9 +13262,9 @@ public final class main extends javax.swing.JFrame {
                 } else if (lblDatIniRel.getFont().getSize() == 13) {
                     tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
                 }
-
+                
                 if (rbtnTodRel.isSelected()) {
-
+                    
                     if (btnTodRel.getFont().getSize() == 13) {
                         tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
                     } else if (btnDiaRel.getFont().getSize() == 13) {
@@ -13303,9 +13278,9 @@ public final class main extends javax.swing.JFrame {
                     } else if (lblDatIniRel.getFont().getSize() == 13) {
                         tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
                     }
-
+                    
                 } else if (rbtnSerRel.isSelected()) {
-
+                    
                     if (btnTodRel.getFont().getSize() == 13) {
                         tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
                     } else if (btnDiaRel.getFont().getSize() == 13) {
@@ -13319,9 +13294,9 @@ public final class main extends javax.swing.JFrame {
                     } else if (lblDatIniRel.getFont().getSize() == 13) {
                         tabelarelatorio(tblRel, scrRel, 2, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
                     }
-
+                    
                 } else if (rbtnVenRel.isSelected()) {
-
+                    
                     if (btnTodRel.getFont().getSize() == 13) {
                         tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
                     } else if (btnDiaRel.getFont().getSize() == 13) {
@@ -13335,9 +13310,9 @@ public final class main extends javax.swing.JFrame {
                     } else if (lblDatIniRel.getFont().getSize() == 13) {
                         tabelarelatorio(tblRel, scrRel, 3, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
                     }
-
+                    
                 } else {
-
+                    
                     if (btnTodRel.getFont().getSize() == 13) {
                         tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
                     } else if (btnDiaRel.getFont().getSize() == 13) {
@@ -13351,17 +13326,17 @@ public final class main extends javax.swing.JFrame {
                     } else if (lblDatIniRel.getFont().getSize() == 13) {
                         tabelarelatorio(tblRel, scrRel, 5, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
                     }
-
+                    
                 }
-
+                
             } else {
-
+                
                 if (cmbRel.getItemCount() >= 2) {
                     tabelacmbrelatorio(tblRel, scrRel, cmbRel);
                 }
-
+                
             }
-
+            
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -13390,7 +13365,7 @@ public final class main extends javax.swing.JFrame {
             if (txtPreOs.getText().contains(",")) {
                 evt.consume();
             }
-
+            
         } else if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
@@ -13430,7 +13405,7 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCadVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadVenMouseReleased
         if (!pnlCadVen.isVisible()) {
-
+            
             lblCliCadVen.setLocation(400, 80);
             lblPlaCadVen.setLocation(700, 80);
             lblTelCadVen.setLocation(400, 180);
@@ -13438,7 +13413,7 @@ public final class main extends javax.swing.JFrame {
             lblCpfCadVen.setLocation(400, 130);
             lblDatCadVen.setLocation(700, 130);
             lblVenCadVen.setLocation(700, 180);
-
+            
             txtCliCadVen.setText(null);
             txtPlaCadVen.setText(null);
             txtCpfCadVen.setText(null);
@@ -13448,18 +13423,18 @@ public final class main extends javax.swing.JFrame {
             LocalDate dataAtual = LocalDate.now();
             txtDatCadVen.setText(dataAtual.format(formatteratual));
             anitxtin(lblDatCadVen);
-
+            
             lblTitPri.setText("Cadastrar Vencimento");
             lblTitPri.setVisible(true);
-
+            
             pnlbtn();
             pnlCadVen.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlCadVen.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnCadVenMouseReleased
 
@@ -13473,47 +13448,47 @@ public final class main extends javax.swing.JFrame {
 
     private void btnVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenMouseReleased
         if (!pnlVen.isVisible()) {
-
+            
             if (tabelavencimento(tblVen, scrVen)) {
-
+                
                 lblTitPri.setText("Vencimentos");
                 lblTitPri.setVisible(true);
-
+                
                 btnExcVen.setEnabled(false);
                 btnWppVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
-
+                
                 lblBusVen.setLocation(310, 300);
                 txtBusVen.setText(null);
                 lblErrVen.setVisible(false);
-
+                
                 pnlbtn();
                 pnlVen.setVisible(true);
-
+                
             } else {
-
+                
                 JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         } else {
-
+            
             pnlbtn();
             pnlVen.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnVenMouseReleased
 
     private void btnSalCadVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadVenActionPerformed
         try {
-
+            
             vencimento ve = new vencimento();
             vencimentoDAO vedao = new vencimentoDAO();
-
+            
             if (lblTitPri.getText().equals("Cadastrar Vencimento")) {
-
+                
                 ve.setCliente(txtCliCadVen.getText());
                 ve.setPlano(txtPlaCadVen.getText());
                 ve.setTelefone(txtTelCadVen.getText());
@@ -13521,13 +13496,13 @@ public final class main extends javax.swing.JFrame {
                 ve.setCpf(txtCpfCadVen.getText());
                 ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
                 ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
-
+                
                 vedao.inserir(ve);
-
+                
                 JOptionPane.showMessageDialog(pnlCadVen, "Vencimento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
             } else {
-
+                
                 ve.setCliente(txtCliCadVen.getText());
                 ve.setPlano(txtPlaCadVen.getText());
                 ve.setCpf(txtCpfCadVen.getText());
@@ -13535,22 +13510,22 @@ public final class main extends javax.swing.JFrame {
                 ve.setAcesso(txtAceCadVen.getText());
                 ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
                 ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
-
+                
                 ve.setClienteold(lblCli.getText());
                 ve.setDataold(formatterbanco.format(((formatter.parse(lblDat.getText())))));
                 ve.setVencimentoold(formatterbanco.format(((formatter.parse(lblVen.getText())))));
-
+                
                 vedao.alterar(ve);
-
+                
                 JOptionPane.showMessageDialog(pnlCadVen, "Vencimento alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
             pnlCadVen.setVisible(false);
             lblTitPri.setVisible(false);
-
+            
             verificavencimento();
-
+            
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -13615,25 +13590,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtDatCadVen.getText().length() == 2) {
-
+                    
                     txtDatCadVen.setText(txtDatCadVen.getText() + "/");
                     txtDatCadVen.setCaretPosition(3);
-
+                    
                 } else if (txtDatCadVen.getText().length() == 5) {
-
+                    
                     txtDatCadVen.setText(txtDatCadVen.getText() + "/");
                     txtDatCadVen.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtDatCadVen.getText().length() > 9) {
                 evt.consume();
@@ -13647,30 +13622,30 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtTelCadVen.getText().length() == 0) {
-
+                    
                     txtTelCadVen.setText(txtTelCadVen.getText() + "(");
                     txtTelCadVen.setCaretPosition(1);
-
+                    
                 } else if (txtTelCadVen.getText().length() == 3) {
-
+                    
                     txtTelCadVen.setText(txtTelCadVen.getText() + ") ");
                     txtTelCadVen.setCaretPosition(5);
-
+                    
                 } else if (txtTelCadVen.getText().length() == 10) {
-
+                    
                     txtTelCadVen.setText(txtTelCadVen.getText() + "-");
                     txtTelCadVen.setCaretPosition(11);
-
+                    
                 }
-
+                
             }
             if (txtTelCadVen.getText().length() > 14) {
                 evt.consume();
@@ -13696,25 +13671,25 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtVenCadVen.getText().length() == 2) {
-
+                    
                     txtVenCadVen.setText(txtVenCadVen.getText() + "/");
                     txtVenCadVen.setCaretPosition(3);
-
+                    
                 } else if (txtVenCadVen.getText().length() == 5) {
-
+                    
                     txtVenCadVen.setText(txtVenCadVen.getText() + "/");
                     txtVenCadVen.setCaretPosition(6);
-
+                    
                 }
-
+                
             }
             if (txtVenCadVen.getText().length() > 9) {
                 evt.consume();
@@ -13746,63 +13721,63 @@ public final class main extends javax.swing.JFrame {
                     + "Esta mensagem não é uma cobrança, queremos saber de você o que está achando do seu novo plano TIM. "
                     + "Conte para todos a incrível experiência de usar a *rede móvel líder em cobertura no Brasil!*\n\n"
                     + "Qualquer dúvida, estamos à disposição. Obrigado por confiar na gente!";
-
+            
             String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
-
+            
             int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Mensagem", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+            
             if (resp == JOptionPane.YES_OPTION) {
-
+                
                 String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "") + "&text=" + msg + "&app_absent=0";
-
+                
                 URI link = new URI(l);
-
+                
                 Desktop.getDesktop().browse(link);
-
+                
                 int resp1 = JOptionPane.showOptionDialog(null, "Navegador aberto para envio!\n\nMarcar como concluído?", "Vencimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+                
                 if (resp1 == JOptionPane.YES_OPTION) {
-
+                    
                     try {
-
+                        
                         vencimento ve = new vencimento();
                         vencimentoDAO vedao = new vencimentoDAO();
-
+                        
                         ve.setCliente(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
                         ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()))));
                         ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 6).toString()))));
-
+                        
                         vedao.marcarok(ve);
-
+                        
                         JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Vencimento", JOptionPane.INFORMATION_MESSAGE);
-
+                        
                     } catch (SQLException ex) {
                         Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ParseException ex) {
                         Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
+                    
                 }
-
+                
                 if (tabelavencimento(tblVen, scrVen)) {
-
+                    
                 } else {
-
+                    
                     JOptionPane.showMessageDialog(null, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
                     pnlVen.setVisible(false);
                     lblTitPri.setVisible(false);
                 }
-
+                
                 verificavencimento();
-
+                
                 btnWppVen.setEnabled(false);
                 btnExcVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
-
+                
             }
-
+            
         } catch (URISyntaxException | IOException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -13810,32 +13785,32 @@ public final class main extends javax.swing.JFrame {
 
     private void btnExcVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcVenActionPerformed
         int resp = JOptionPane.showOptionDialog(pnlVen, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
+        
         if (resp == JOptionPane.YES_OPTION) {
-
+            
             try {
                 vencimento ve = new vencimento();
                 vencimentoDAO vedao = new vencimentoDAO();
-
+                
                 ve.setCliente(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
                 ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()))));
                 ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 6).toString()))));
-
+                
                 vedao.excluir(ve);
-
+                
                 JOptionPane.showMessageDialog(pnlVen, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
-
+                
                 if (tabelavencimento(tblVen, scrVen)) {
-
+                    
                 } else {
-
+                    
                     JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
                     pnlVen.setVisible(false);
                     lblTitPri.setVisible(false);
                 }
-
+                
                 verificavencimento();
-
+                
                 btnWppVen.setEnabled(false);
                 btnExcVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
@@ -13849,24 +13824,24 @@ public final class main extends javax.swing.JFrame {
 
     private void btnVenMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenMasActionPerformed
         if (txtNomMas.getText().isEmpty() || txtNumConMas.getText().isEmpty() || txtPlaMas.getText().isEmpty()) {
-
+            
         } else {
-
+            
             txtCliCadVen.setText(txtNomMas.getText());
             txtPlaCadVen.setText(txtPlaMas.getText());
             txtTelCadVen.setText(txtNumConMas.getText());
             txtCpfCadVen.setText(txtCpfMas.getText());
             txtVenCadVen.setText(txtVenMas.getText());
-
+            
             if (txtNumPorMas.getText().isEmpty()) {
                 txtAceCadVen.setText(txtNumAceMas.getText());
             } else {
                 txtAceCadVen.setText(txtNumPorMas.getText());
             }
-
+            
             LocalDate dataAtual = LocalDate.now();
             txtDatCadVen.setText(dataAtual.format(formatteratual));
-
+            
             lblCliCadVen.setLocation(400, 80);
             lblPlaCadVen.setLocation(700, 80);
             lblTelCadVen.setLocation(400, 180);
@@ -13874,7 +13849,7 @@ public final class main extends javax.swing.JFrame {
             lblCpfCadVen.setLocation(400, 130);
             lblDatCadVen.setLocation(700, 130);
             lblVenCadVen.setLocation(700, 180);
-
+            
             pnlMas.setVisible(false);
             pnlCadVen.setVisible(true);
             lblTitPri.setText("Cadastrar Vencimento");
@@ -13886,7 +13861,7 @@ public final class main extends javax.swing.JFrame {
             anitxtin(lblCpfCadVen);
             anitxtin(lblAceCadVen);
             anitxtin(lblVenCadVen);
-
+            
         }
     }//GEN-LAST:event_btnVenMasActionPerformed
 
@@ -13906,11 +13881,11 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
-
+        
         if (!pnlVen.isVisible()) {
-
+            
             if (tabelavencimento(tblVen, scrVen)) {
-
+                
                 lblTitPri.setText("Vencimentos");
                 lblTitPri.setVisible(true);
                 pnlCadEnt.setVisible(false);
@@ -13928,7 +13903,7 @@ public final class main extends javax.swing.JFrame {
                 pnlConEnt.setVisible(false);
                 pnlCadVen.setVisible(false);
                 pnlDes.setVisible(false);
-
+                
                 btnExcVen.setEnabled(false);
                 btnWppVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
@@ -13937,13 +13912,13 @@ public final class main extends javax.swing.JFrame {
                 lblErrVen.setVisible(false);
                 txtBusVen.setText(null);
                 lblBusVen.setLocation(310, 300);
-
+                
             } else {
-
+                
                 JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
-
+                
             }
-
+            
         }
     }//GEN-LAST:event_btnVenPriMouseReleased
 
@@ -13953,25 +13928,25 @@ public final class main extends javax.swing.JFrame {
 
     private void txtModCadEstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModCadEstKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             estoque es = new estoque();
-
+            
             es.setMarca(txtMarCadEst.getText());
             es.setModelo(txtModCadEst.getText());
             es.setTipoproduto(txtTipCadEst.getText());
-
+            
             if (tabelaprodutoregistrado(es, tblCadEst, scrCadEst)) {
-
+                
                 lblProCadEst.setVisible(true);
                 tblCadEst.setVisible(true);
                 scrCadEst.setVisible(true);
-
+                
             } else {
-
+                
                 lblProCadEst.setVisible(false);
                 tblCadEst.setVisible(false);
                 scrCadEst.setVisible(false);
-
+                
             }
         }
     }//GEN-LAST:event_txtModCadEstKeyPressed
@@ -13987,19 +13962,19 @@ public final class main extends javax.swing.JFrame {
         txtDetCadEst.setText(null);
         lblR$CadEst.setVisible(false);
         cmbChiCadEst.setSelectedIndex(0);
-
+        
         if ("Capinha".equals(txtTipCadEst.getText())) {
-
+            
             lblMarCadEst.setLocation(410, 60);
             lblModCadEst.setLocation(410, 110);
             lblQuaCadEst.setLocation(410, 160);
             lblPreCadEst.setLocation(410, 210);
-
+            
             lblMatCadEst.setLocation(700, 130);
             lblLocCadEst.setLocation(700, 160);
-
+            
         } else if ("Chip".equals(txtTipCadEst.getText())) {
-
+            
             lblMarCadEst.setLocation(410, 80);
             lblModCadEst.setLocation(410, 130);
             lblQuaCadEst.setLocation(410, 160);
@@ -14008,9 +13983,9 @@ public final class main extends javax.swing.JFrame {
             lblMatCadEst.setLocation(700, 130);
             lblLocCadEst.setLocation(700, 180);
             lblDetCadEst.setLocation(700, 230);
-
+            
         } else {
-
+            
             lblMarCadEst.setLocation(410, 60);
             lblModCadEst.setLocation(410, 110);
             lblQuaCadEst.setLocation(410, 160);
@@ -14019,48 +13994,48 @@ public final class main extends javax.swing.JFrame {
             lblMatCadEst.setLocation(700, 110);
             lblLocCadEst.setLocation(700, 160);
             lblDetCadEst.setLocation(700, 210);
-
+            
         }
-
+        
         String preco = String.valueOf(moedadoublereal(lista1.get(tblCadEst.getSelectedRow()).getPreco()));
-
+        
         txtMarCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getMarca());
         txtModCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getModelo());
         txtPreCadEst.setText(preco.substring(3, preco.length()));
         txtQuaCadEst.setText(String.valueOf(lista1.get(tblCadEst.getSelectedRow()).getQuantidade()));
         txtMatCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getMaterial());
         txtLocCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getLocalizacao());
-
+        
         if (!lista1.get(tblCadEst.getSelectedRow()).getCor().isEmpty()) {
-
+            
             txtCorCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getCor());
             lblCorCadEst.setLocation(700, 60);
-
+            
         } else {
             lblCorCadEst.setLocation(700, 80);
         }
-
+        
         if (!lista1.get(tblCadEst.getSelectedRow()).getDetalhes().isEmpty()) {
-
+            
             lblDetCadEst.setLocation(700, 210);
             txtDetCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getDetalhes());
-
+            
         } else {
-
+            
             lblDetCadEst.setLocation(700, 230);
         }
-
+        
         lblR$CadEst.setVisible(true);
     }//GEN-LAST:event_tblCadEstMouseClicked
 
     private void rbtnVenRel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVenRel1ActionPerformed
         try {
-
+            
             rbtnVenRel1.grabFocus();
-
+            
             chkCus.setSelected(false);
             chkCus.setEnabled(false);
-
+            
             if (btnTodRel.getFont().equals(fontbold(13))) {
                 tabelarelatorio(tblRel, scrRel, 4, 1, null, null);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
@@ -14076,7 +14051,7 @@ public final class main extends javax.swing.JFrame {
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
                 tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2);
             }
-
+            
             cmbrelatorio(tblRel, cmbRel, 1);
             cmbRel.setEnabled(false);
         } catch (ParseException ex) {
@@ -14102,16 +14077,16 @@ public final class main extends javax.swing.JFrame {
         txtPlaCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString());
         txtDatCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString());
         txtVenCadVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 6).toString());
-
+        
         lblCli.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
         lblDat.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString());
         lblVen.setText(tblVen.getValueAt(tblVen.getSelectedRow(), 6).toString());
-
+        
         pnlCadEst.setVisible(false);
         pnlConEst.setVisible(false);
         pnlGerEst.setVisible(false);
         pnlGerDes.setVisible(false);
-
+        
         pnlCadEnt.setVisible(false);
         pnlGerEnt.setVisible(false);
         pnlRel.setVisible(false);
@@ -14126,14 +14101,14 @@ public final class main extends javax.swing.JFrame {
         pnlConEnt.setVisible(false);
         pnlCadVen.setVisible(true);
         pnlVen.setVisible(false);
-
+        
         btnMasPla.setVisible(false);
         btnDes.setVisible(false);
         btnCadDes.setVisible(false);
         btnGerDes.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
-
+        
         lblCliCadVen.setLocation(400, 60);
         lblPlaCadVen.setLocation(700, 60);
         lblTelCadVen.setLocation(400, 160);
@@ -14141,11 +14116,11 @@ public final class main extends javax.swing.JFrame {
         lblCpfCadVen.setLocation(400, 110);
         lblDatCadVen.setLocation(700, 110);
         lblVenCadVen.setLocation(700, 160);
-
+        
         txtCliCadVen.setSelectionStart(0);
         txtCliCadVen.setSelectionEnd(0);
         btnCanCadVen.grabFocus();
-
+        
         lblTitPri.setText("Alterar Vencimento");
         lblTitPri.setVisible(true);
     }//GEN-LAST:event_btnAltVenActionPerformed
@@ -14168,75 +14143,75 @@ public final class main extends javax.swing.JFrame {
 
     private void txtCpfMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfMasKeyReleased
         if (txtCpfMas.getText().length() == 11 && !txtCpfMas.getText().contains(".")) {
-
+            
             StringBuilder string = new StringBuilder(txtCpfMas.getText());
-
+            
             string.insert(3, ".");
             string.insert(7, ".");
             string.insert(11, "-");
-
+            
             txtCpfMas.setText(string.toString());
-
+            
         }
     }//GEN-LAST:event_txtCpfMasKeyReleased
 
     private void txtNumConMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumConMasKeyReleased
         if (txtNumConMas.getText().length() == 11 && !txtNumConMas.getText().contains("(")) {
-
+            
             StringBuilder string = new StringBuilder(txtNumConMas.getText());
-
+            
             string.insert(0, "(");
             string.insert(3, ")");
             string.insert(4, " ");
             string.insert(10, "-");
-
+            
             txtNumConMas.setText(string.toString());
-
+            
         }
     }//GEN-LAST:event_txtNumConMasKeyReleased
 
     private void txtNumAceMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumAceMasKeyReleased
         if (txtNumAceMas.getText().length() == 11 && !txtNumAceMas.getText().contains("(")) {
-
+            
             StringBuilder string = new StringBuilder(txtNumAceMas.getText());
-
+            
             string.insert(0, "(");
             string.insert(3, ")");
             string.insert(4, " ");
             string.insert(10, "-");
-
+            
             txtNumAceMas.setText(string.toString());
-
+            
         }
     }//GEN-LAST:event_txtNumAceMasKeyReleased
 
     private void txtNumPorMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumPorMasKeyReleased
         if (txtNumPorMas.getText().length() == 11 && !txtNumPorMas.getText().contains("(")) {
-
+            
             StringBuilder string = new StringBuilder(txtNumPorMas.getText());
-
+            
             string.insert(0, "(");
             string.insert(3, ")");
             string.insert(4, " ");
             string.insert(10, "-");
-
+            
             txtNumPorMas.setText(string.toString());
-
+            
         }
     }//GEN-LAST:event_txtNumPorMasKeyReleased
 
     private void txtTelOsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelOsKeyReleased
         if (txtTelOs.getText().length() == 11 && !txtTelOs.getText().contains("(")) {
-
+            
             StringBuilder string = new StringBuilder(txtTelOs.getText());
-
+            
             string.insert(0, "(");
             string.insert(3, ")");
             string.insert(4, " ");
             string.insert(10, "-");
-
+            
             txtTelOs.setText(string.toString());
-
+            
         }
     }//GEN-LAST:event_txtTelOsKeyReleased
 
@@ -14257,7 +14232,7 @@ public final class main extends javax.swing.JFrame {
         double precoini = Double.parseDouble(txtValJur.getText().replace(".", "").replace(",", "."));
         double preco = Double.parseDouble(txtValJur.getText().replace(".", "").replace(",", "."));
         double taxa = 0;
-
+        
         switch ((int) spnParJur.getValue()) {
             case 1:
                 preco = preco - (preco * 3.48 / 100);
@@ -14314,34 +14289,34 @@ public final class main extends javax.swing.JFrame {
             default:
                 break;
         }
-
+        
         lblValJurJur.setText(moedadoublereal(precoini - preco));
         lblValFinJur.setText(moedadoublereal(preco));
         lblValJur2.setText(moedadoublereal(precoini));
-
+        
         if ((int) spnParJur.getValue() != 0) {
-
+            
             lblValMesPreJur.setText((int) spnParJur.getValue() + "x de " + moedadoublereal((precoini / Math.abs(taxa)) / (int) spnParJur.getValue()) + " = " + moedadoublereal(precoini / Math.abs(taxa)));
-
+            
         } else {
-
+            
             lblValMesPreJur.setText(moedadoublereal(precoini / Math.abs(taxa)));
-
+            
         }
-
+        
         if ((int) spnParJur.getValue() != 0) {
-
+            
             lblValParJur.setText((int) spnParJur.getValue() + "x " + moedadoublereal(precoini / (int) spnParJur.getValue()));
-
+            
         } else {
-
+            
             lblValParJur.setText("R$ 0,00");
-
+            
         }
     }//GEN-LAST:event_btnCalJurActionPerformed
 
     private void txtValJurFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValJurFocusGained
-
+        
         if (txtValJur.getText().isEmpty()) {
             lblR$Jur.setVisible(true);
             anitxtin(lblValJur);
@@ -14349,7 +14324,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValJurFocusGained
 
     private void txtValJurFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValJurFocusLost
-
+        
         if (txtValJur.getText().isEmpty()) {
             lblR$Jur.setVisible(false);
             anitxtout(lblValJur);
@@ -14446,9 +14421,9 @@ public final class main extends javax.swing.JFrame {
 
     private void btnJurPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJurPriMouseReleased
         if (!pnlJur.isVisible()) {
-
+            
             txtValJur.setText(null);
-
+            
             lblValFinJur.setText("R$ 0,00");
             lblValJur2.setText("R$ 0,00");
             lblValJurJur.setText("R$ 0,00");
@@ -14457,20 +14432,20 @@ public final class main extends javax.swing.JFrame {
             lblR$Jur.setVisible(false);
             lblValJur.setLocation(200, 100);
             spnParJur.setValue(1);
-
+            
             lblR$Jur.setVisible(false);
-
+            
             lblTitPri.setText("Calcular Juros");
             lblTitPri.setVisible(true);
-
+            
             pnlbtn();
             pnlJur.setVisible(true);
-
+            
         } else {
-
+            
             pnlbtn();
             pnlJur.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_btnJurPriMouseReleased
 
@@ -14479,7 +14454,7 @@ public final class main extends javax.swing.JFrame {
             if (txtValJur.getText().contains(",")) {
                 evt.consume();
             }
-
+            
         } else if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
@@ -14492,16 +14467,16 @@ public final class main extends javax.swing.JFrame {
 
     private void txtTelCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCadVenKeyReleased
         if (txtTelCadVen.getText().length() == 11 && !txtTelCadVen.getText().contains("(")) {
-
+            
             StringBuilder string = new StringBuilder(txtTelCadVen.getText());
-
+            
             string.insert(0, "(");
             string.insert(3, ")");
             string.insert(4, " ");
             string.insert(10, "-");
-
+            
             txtTelCadVen.setText(string.toString());
-
+            
         }
     }//GEN-LAST:event_txtTelCadVenKeyReleased
 
@@ -14571,15 +14546,15 @@ public final class main extends javax.swing.JFrame {
 
     private void txtCpfCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfCadVenKeyReleased
         if (txtCpfCadVen.getText().length() == 11 && !txtCpfCadVen.getText().contains(".")) {
-
+            
             StringBuilder string = new StringBuilder(txtCpfCadVen.getText());
-
+            
             string.insert(3, ".");
             string.insert(7, ".");
             string.insert(11, "-");
-
+            
             txtCpfCadVen.setText(string.toString());
-
+            
         }
     }//GEN-LAST:event_txtCpfCadVenKeyReleased
 
@@ -14589,30 +14564,30 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 if (txtCpfCadVen.getText().length() == 3) {
-
+                    
                     txtCpfCadVen.setText(txtCpfCadVen.getText() + ".");
                     txtCpfCadVen.setCaretPosition(4);
-
+                    
                 } else if (txtCpfCadVen.getText().length() == 7) {
-
+                    
                     txtCpfCadVen.setText(txtCpfCadVen.getText() + ".");
                     txtCpfCadVen.setCaretPosition(8);
-
+                    
                 } else if (txtCpfCadVen.getText().length() == 11) {
-
+                    
                     txtCpfCadVen.setText(txtCpfCadVen.getText() + "-");
                     txtCpfCadVen.setCaretPosition(12);
-
+                    
                 }
-
+                
             }
             if (txtCpfCadVen.getText().length() > 13) {
                 evt.consume();
@@ -14622,11 +14597,11 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCopVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopVenActionPerformed
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-
+        
         String texto = (tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString().replaceAll("\\.", "")).replaceAll("-", "");
-
+        
         StringSelection selecao = new StringSelection(texto);
-
+        
         clipboard.setContents(selecao, null);
     }//GEN-LAST:event_btnCopVenActionPerformed
 
@@ -14648,34 +14623,34 @@ public final class main extends javax.swing.JFrame {
 
     private void txtBusVenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusVenKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+            
             vencimento ve = new vencimento();
-
+            
             ve.setCliente(txtBusVen.getText());
             ve.setTelefone(txtBusVen.getText());
             ve.setAcesso(txtBusVen.getText());
             ve.setCpf(txtBusVen.getText());
             ve.setPlano(txtBusVen.getText());
-
+            
             if (txtBusVen.getText().contains("/")) {
-
+                
                 try {
                     ve.setVencimento(formatterbanco.format(formatter.parse(txtBusVen.getText())));
                     ve.setData(formatterbanco.format(formatter.parse(txtBusVen.getText())));
-
+                    
                 } catch (ParseException ex) {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 lblErrVen.setVisible(false);
-
+                
             }
-
+            
             if (tabelavencimentopa(tblVen, scrVen, ve)) {
                 lblErrVen.setVisible(false);
             } else {
                 lblErrVen.setVisible(true);
             }
-
+            
         }
     }//GEN-LAST:event_txtBusVenKeyPressed
 
@@ -14693,16 +14668,16 @@ public final class main extends javax.swing.JFrame {
 
     private void txtAceCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAceCadVenKeyReleased
         if (txtAceCadVen.getText().length() == 11 && !txtAceCadVen.getText().contains("(")) {
-
+            
             StringBuilder string = new StringBuilder(txtTelCadVen.getText());
-
+            
             string.insert(0, "(");
             string.insert(3, ")");
             string.insert(4, " ");
             string.insert(10, "-");
-
+            
             txtAceCadVen.setText(string.toString());
-
+            
         }
     }//GEN-LAST:event_txtAceCadVenKeyReleased
 
@@ -14712,13 +14687,13 @@ public final class main extends javax.swing.JFrame {
                 evt.consume();
             }
         } else {
-
+            
             if (!Character.isDigit(evt.getKeyChar())) {
-
+                
                 evt.consume();
-
+                
             } else {
-
+                
                 switch (txtAceCadVen.getText().length()) {
                     case 0:
                         txtAceCadVen.setText(txtAceCadVen.getText() + "(");
@@ -14735,7 +14710,7 @@ public final class main extends javax.swing.JFrame {
                     default:
                         break;
                 }
-
+                
             }
             if (txtAceCadVen.getText().length() > 14) {
                 evt.consume();
@@ -14745,12 +14720,12 @@ public final class main extends javax.swing.JFrame {
 
     private void btnCopAVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopAVenActionPerformed
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-
+        
         String texto = (tblVen.getValueAt(tblVen.getSelectedRow(), 3).toString())
                 .replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("-", "").replaceAll(" ", "");
-
+        
         StringSelection selecao = new StringSelection(texto);
-
+        
         clipboard.setContents(selecao, null);
     }//GEN-LAST:event_btnCopAVenActionPerformed
 
@@ -14758,7 +14733,7 @@ public final class main extends javax.swing.JFrame {
         if (!txtBusIteCadEnt.getText().isEmpty()) {
             lblBusIteCadEnt.setLocation(60, 70);
         }
-
+        
         lblBusIteCadEnt.requestFocus();
 
     }//GEN-LAST:event_pnlIteCadEntComponentShown
@@ -14851,12 +14826,12 @@ public final class main extends javax.swing.JFrame {
 
     private void btnAtvGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtvGerTipSerActionPerformed
         try {
-
+            
             tiposervico ts = new tiposervico();
             tiposervicoDAO tsdao = new tiposervicoDAO();
-
+            
             ts.setIdtiposervico(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
-
+            
             if (btnAtvGerTipSer.getText().equals("Ativar")) {
                 ts.setAtv(1);
                 tsdao.atvdes(ts);
@@ -14864,28 +14839,28 @@ public final class main extends javax.swing.JFrame {
                 ts.setAtv(0);
                 tsdao.atvdes(ts);
             }
-
+            
             tabelatiposervico();
-
+            
             lblDesGerTipSer.setLocation(510, 240);
             lblDesGerTipSer.setEnabled(false);
             txtDesGerTipSer.setEnabled(false);
             sepDesGerTipSer.setForeground(Color.GRAY);
-
+            
             txtDesGerTipSer.setText(null);
-
+            
             btnExcGerTipSer.setEnabled(false);
             btnAltGerTipSer.setEnabled(false);
             btnAtvGerTipSer.setEnabled(false);
             btnAtvGerTipSer.setText("Desativar");
-
+            
             rbtnTimGerTipSer.setEnabled(false);
             rbtnAssGerTipSer.setEnabled(false);
             rbtnOutGerTipSer.setEnabled(false);
             btnGroup.clearSelection();
-
+            
             txtDesGerTipSer.requestFocus();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
