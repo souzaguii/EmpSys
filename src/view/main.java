@@ -13744,7 +13744,7 @@ public final class main extends javax.swing.JFrame {
                     + "Você pode usar o PIX no aplicativo *Meu TIM* ou ir à lotérica mais próxima para efetuar o pagamento. "
                     + "Estamos na loja para ajudar com a fatura, se preferir.\n\n"
                     + "É importante ressaltar que esta mensagem *não* é uma cobrança, mas sim um lembrete amigável.\n\n"
-                    + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
+                    + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*.\n"
                     + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
 
             String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
