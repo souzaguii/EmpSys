@@ -372,16 +372,14 @@ public final class main extends javax.swing.JFrame {
             LocalDateTime data = LocalDateTime.now();
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
             String dataFormatada = data.format(formato);
-            
-            String username = "root";
-            String password = "Empcell@4848ROOT";
+         
             String databaseName = "empsysdatabase";
-            String outputFile = "\\\\PC\\Arquivos\\BackupDatabase\\reg\\bkp-" + dataFormatada + ".sql"; // Corrigindo caminho do arquivo
+            String outputFile = "\\\\PC\\Arquivos\\BackupDatabase\\reg\\bkp-" + dataFormatada + ".sql";
 
-            String loginFilePath = System.getProperty("user.dir") + "\\bkp.cnf";
+            String loginFilePath = "\\\\PC\\Arquivos\\BackupDatabase\\bin\\bkp.cnf";
             String host = "192.168.0.123";
             
-            String[] command = {
+            String[] command = {    
                 "\\\\PC\\Arquivos\\BackupDatabase\\bin\\mysqldump",
                 "--defaults-extra-file=" + loginFilePath,
                 "--host=" + host,
@@ -3173,7 +3171,7 @@ public final class main extends javax.swing.JFrame {
                 btnTenPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnTenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 100, 20));
+        pnlPri.add(btnTenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 120, 20));
 
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(corforeazul);
@@ -13712,15 +13710,15 @@ public final class main extends javax.swing.JFrame {
 
     private void btnWppVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWppVenActionPerformed
         try {
-            String texto = "*Empório Cell - TIM*\n\n"
+             String texto = "*Empório Cell - TIM*\n\n"
                     + "Olá, tudo bem? Esperamos que sim!\n\n"
-                    + "Passando para lembrar que o plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "* que você fez com a gente no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
-                    + "*, vence *hoje*.\n"
-                    + "Você pode fazer o pagamento por PIX no aplicativo *Meu TIM* ou ir até a lotérica mais próxima e informar o seu número. "
-                    + "Se preferir, pode vir até à loja que tiramos a fatura também, ok?\n\n"
-                    + "Esta mensagem não é uma cobrança, queremos saber de você o que está achando do seu novo plano TIM. "
-                    + "Conte para todos a incrível experiência de usar a *rede móvel líder em cobertura no Brasil!*\n\n"
-                    + "Qualquer dúvida, estamos à disposição. Obrigado por confiar na gente!";
+                    + "Estamos aqui para lembrar que o seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*, contratado conosco em *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+                    + "*, está com vencimento *hoje*.\n\n"
+                    + "Você pode usar o PIX no aplicativo *Meu TIM* ou ir à lotérica mais próxima para efetuar o pagamento. "
+                    + "Estamos na loja para ajudar com a fatura, se preferir.\n\n"
+                    + "É importante ressaltar que esta mensagem *não* é uma cobrança, mas sim um lembrete amigável.\n\n"
+                    + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
+                    + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
             
             String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
             
