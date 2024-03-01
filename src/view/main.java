@@ -56,7 +56,7 @@ import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
+import org.xml.sax.Attributes;
 import model.despezas;
 import model.entrada;
 import model.tiposervico;
@@ -2139,9 +2139,12 @@ public final class main extends javax.swing.JFrame {
         };
     }
     
-    public void comboboxentrada(JComboBox cmb, int op) {
+    public void comboboxentrada(JComboBox cmbb, int op) {
         
         try {
+            
+           JComboBox<Object> cmb = cmbb;
+
             
             tiposervicoDAO tpdao = new tiposervicoDAO();
             
@@ -2205,7 +2208,7 @@ public final class main extends javax.swing.JFrame {
     }
     
     private String moedadoublereal(Double valor) {
-        NumberFormat formatadorMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+       NumberFormat formatadorMoeda = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
         return formatadorMoeda.format(valor);
     }
     
