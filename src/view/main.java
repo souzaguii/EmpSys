@@ -866,7 +866,7 @@ public final class main extends javax.swing.JFrame {
             modelo.addColumn("Detalhes");
             modelo.addColumn("Código Entrada");
 
-            DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+             DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
                 @Override
                 public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                     Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -881,9 +881,9 @@ public final class main extends javax.swing.JFrame {
                     return c;
                 }
             };
-
-            tbl.repaint();
-
+             
+             tbl.repaint();
+            
             double somaCartao = 0;
             double somaDinheiro = 0;
             double somaPix = 0;
@@ -951,7 +951,7 @@ public final class main extends javax.swing.JFrame {
 
             tbl.getColumnModel().getColumn(7).setMinWidth(0);
             tbl.getColumnModel().getColumn(7).setMaxWidth(0);
-            tbl.getColumnModel().getColumn(7).setWidth(0);
+            tbl.getColumnModel().getColumn(7).setWidth(0);                 
 
             double somaValor = 0;
             int somaentrada = 0;
@@ -13739,13 +13739,13 @@ public final class main extends javax.swing.JFrame {
         try {
             String texto = "*Empório Cell - TIM*\n\n"
                     + "Olá, tudo bem? Esperamos que sim!\n\n"
-                    + "Estamos aqui para lembrar que o seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*, contratado conosco em *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
-                    + "*, está com vencimento *hoje*.\n\n"
-                    + "Você pode usar o PIX no aplicativo *Meu TIM* ou ir à lotérica mais próxima para efetuar o pagamento. "
-                    + "Estamos na loja para ajudar com a fatura, se preferir.\n\n"
-                    + "É importante ressaltar que esta mensagem *não* é uma cobrança, mas sim um lembrete amigável.\n\n"
-                    + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*.\n"
-                    + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
+                    + "Passando para lembrar que o plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "* que você fez com a gente no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+                    + "*, vence *hoje*.\n"
+                    + "Você pode fazer o pagamento por PIX no aplicativo *Meu TIM* ou ir até a lotérica mais próxima e informar o seu número. "
+                    + "Se preferir, pode vir até à loja que tiramos a fatura também, ok?\n\n"
+                    + "Esta mensagem não é uma cobrança, queremos saber de você o que está achando do seu novo plano TIM. "
+                    + "Conte para todos a incrível experiência de usar a *rede móvel líder em cobertura no Brasil!*\n\n"
+                    + "Qualquer dúvida, estamos à disposição. Obrigado por confiar na gente!";
 
             String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
 
