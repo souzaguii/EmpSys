@@ -12599,7 +12599,7 @@ public final class main extends javax.swing.JFrame {
                 parameters.clear();
 
                 parameters.put("LogoTim", getClass().getResourceAsStream("/images/LOGOTIM.png"));
-                parameters.put("LogoLoja", getClass().getResourceAsStream("/images/LOGOLOJA.png"));
+                parameters.put("LogoLoja", getClass().getResourceAsStream("/images/LogoLoja580.png"));
                 parameters.put("Nome", txtCliOs.getText());
                 parameters.put("Endereco", txtEndOs.getText());
                 parameters.put("Telefone", txtTelOs.getText());
