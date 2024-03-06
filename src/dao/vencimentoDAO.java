@@ -88,7 +88,7 @@ public class vencimentoDAO {
 
         List<String[]> lista = new ArrayList<>();
 
-        String SQL = "SELECT * FROM vencimento ORDER BY OKVEN = 0 AND vencimentoVen <= CURDATE() DESC, vencimentoVen >= CURDATE() DESC, ABS(DATEDIFF(vencimentoVen, CURDATE()))";
+        String SQL = "SELECT * FROM vencimento ORDER BY OkVen, vencimentoVen <= CURDATE() DESC, vencimentoVen >= CURDATE() DESC, ABS(DATEDIFF(vencimentoVen, CURDATE()))";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
