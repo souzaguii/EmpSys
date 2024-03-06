@@ -1527,6 +1527,7 @@ public final class main extends javax.swing.JFrame {
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
                         try {
+
                             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
                             Date dataatu = new Date();
@@ -2141,8 +2142,8 @@ public final class main extends javax.swing.JFrame {
         };
     }
 
-      @SuppressWarnings({"unchecked"})
-    
+    @SuppressWarnings({"unchecked"})
+
     public void comboboxentrada(JComboBox cmb, int op) {
 
         try {
@@ -7011,7 +7012,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopAVen);
-        btnCopAVen.setBounds(560, 280, 100, 50);
+        btnCopAVen.setBounds(680, 280, 100, 50);
 
         btnCopVen.setFont(fontmed(12));
         btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -7024,7 +7025,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopVen);
-        btnCopVen.setBounds(680, 280, 100, 50);
+        btnCopVen.setBounds(560, 280, 100, 50);
 
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -14110,6 +14111,7 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setVisible(false);
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
+        btnJurPri.setVisible(false);
 
         lblCliCadVen.setLocation(400, 60);
         lblPlaCadVen.setLocation(700, 60);
@@ -14820,6 +14822,9 @@ public final class main extends javax.swing.JFrame {
                 break;
             case '=':
                 txtPlaCadVen.setText("TIM Black C Express");
+                break;
+            case '[':
+                txtPlaCadVen.setText("Não Aplicável");
                 break;
             default:
                 break;
