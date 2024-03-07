@@ -13500,7 +13500,11 @@ public final class main extends javax.swing.JFrame {
                 ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
                 ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
 
-                vedao.inserir(ve);
+                if(txtPlaCadVen.getText().equals("Não Aplicável")){
+                vedao.inserir(ve, "1");
+                }else{
+                vedao.inserir(ve, "0");
+                }
 
                 JOptionPane.showMessageDialog(pnlCadVen, "Vencimento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
@@ -13517,8 +13521,12 @@ public final class main extends javax.swing.JFrame {
                 ve.setClienteold(lblCli.getText());
                 ve.setDataold(formatterbanco.format(((formatter.parse(lblDat.getText())))));
                 ve.setVencimentoold(formatterbanco.format(((formatter.parse(lblVen.getText())))));
-
-                vedao.alterar(ve);
+ 
+                if(txtPlaCadVen.getText().equals("Não Aplicável")){
+                vedao.alterar(ve, "1");
+                }else{
+                vedao.alterar(ve, "0");
+                }
 
                 JOptionPane.showMessageDialog(pnlCadVen, "Vencimento alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
@@ -14673,7 +14681,7 @@ public final class main extends javax.swing.JFrame {
     private void txtAceCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAceCadVenKeyReleased
         if (txtAceCadVen.getText().length() == 11 && !txtAceCadVen.getText().contains("(")) {
 
-            StringBuilder string = new StringBuilder(txtTelCadVen.getText());
+            StringBuilder string = new StringBuilder(txtAceCadVen.getText());
 
             string.insert(0, "(");
             string.insert(3, ")");
@@ -14698,21 +14706,21 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                switch (txtAceCadVen.getText().length()) {
-                    case 0:
-                        txtAceCadVen.setText(txtAceCadVen.getText() + "(");
-                        txtAceCadVen.setCaretPosition(1);
-                        break;
-                    case 3:
-                        txtAceCadVen.setText(txtAceCadVen.getText() + ") ");
-                        txtAceCadVen.setCaretPosition(5);
-                        break;
-                    case 10:
-                        txtAceCadVen.setText(txtAceCadVen.getText() + "-");
-                        txtAceCadVen.setCaretPosition(11);
-                        break;
-                    default:
-                        break;
+                if (txtAceCadVen.getText().length() == 0) {
+
+                    txtAceCadVen.setText(txtAceCadVen.getText() + "(");
+                    txtAceCadVen.setCaretPosition(1);
+
+                } else if (txtAceCadVen.getText().length() == 3) {
+
+                    txtAceCadVen.setText(txtAceCadVen.getText() + ") ");
+                    txtAceCadVen.setCaretPosition(5);
+
+                } else if (txtAceCadVen.getText().length() == 10) {
+
+                    txtAceCadVen.setText(txtAceCadVen.getText() + "-");
+                    txtAceCadVen.setCaretPosition(11);
+
                 }
 
             }

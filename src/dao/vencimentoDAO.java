@@ -9,9 +9,9 @@ import model.vencimento;
 
 public class vencimentoDAO {
 
-    public void inserir(vencimento ve) throws SQLException {
+    public void inserir(vencimento ve, String ok) throws SQLException {
 
-        String SQL = "INSERT INTO vencimento(clienteVen, telefoneVen, acessoVen, cpfVen, dataVen, planoVen, vencimentoVen) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO vencimento(clienteVen, telefoneVen, acessoVen, cpfVen, dataVen, planoVen, vencimentoVen, okVen) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
@@ -22,6 +22,7 @@ public class vencimentoDAO {
         stmt.setString(5, ve.getData());
         stmt.setString(6, ve.getPlano());
         stmt.setString(7, ve.getVencimento());
+        stmt.setString(8, ok);
 
         stmt.executeUpdate();
         stmt.close();
@@ -29,9 +30,9 @@ public class vencimentoDAO {
 
     }
 
-    public void alterar(vencimento ve) throws SQLException {
+    public void alterar(vencimento ve, String ok) throws SQLException {
 
-        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, acessoVen = ?, cpfVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ? WHERE clienteVen = ? AND dataVen = ? AND vencimentoVen = ?";
+        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, acessoVen = ?, cpfVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ?, okVen = ? WHERE clienteVen = ? AND dataVen = ? AND vencimentoVen = ?";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
@@ -42,9 +43,11 @@ public class vencimentoDAO {
         stmt.setString(5, ve.getData());
         stmt.setString(6, ve.getPlano());
         stmt.setString(7, ve.getVencimento());
-        stmt.setString(8, ve.getClienteold());
-        stmt.setString(9, ve.getDataold());
-        stmt.setString(10, ve.getVencimentoold());
+        stmt.setString(8, ok);
+        stmt.setString(9, ve.getClienteold());
+        stmt.setString(10, ve.getDataold());
+        stmt.setString(11, ve.getVencimentoold());
+        
 
         stmt.executeUpdate();
         stmt.close();
