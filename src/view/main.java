@@ -1500,10 +1500,11 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Data");
                 modelo.addColumn("Vencimento");
                 modelo.addColumn("Ok");
+                modelo.addColumn("ID");
 
                 for (String[] row : lista) {
 
-                    Object[] rowData = new Object[8];
+                    Object[] rowData = new Object[9];
 
                     Date date = formatterbanco.parse(row[5]);
 
@@ -1517,6 +1518,7 @@ public final class main extends javax.swing.JFrame {
                     rowData[5] = formatter.format(date);
                     rowData[6] = formatter.format(datecon);
                     rowData[7] = row[7];
+                    rowData[8] = row[8];
 
                     modelo.addRow(rowData);
 
@@ -1588,6 +1590,10 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(7).setMinWidth(0);
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
+                
+                tbl.getColumnModel().getColumn(8).setMinWidth(0);
+                tbl.getColumnModel().getColumn(8).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(8).setWidth(0);
 
                 tbl.setVisible(true);
                 scr.setVisible(true);
@@ -1624,10 +1630,11 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Data");
                 modelo.addColumn("Vencimento");
                 modelo.addColumn("Ok");
+                modelo.addColumn("ID");
 
                 for (String[] row : lista) {
 
-                    Object[] rowData = new Object[8];
+                    Object[] rowData = new Object[9];
 
                     Date date = formatterbanco.parse(row[5]);
 
@@ -1641,6 +1648,7 @@ public final class main extends javax.swing.JFrame {
                     rowData[5] = formatter.format(date);
                     rowData[6] = formatter.format(datecon);
                     rowData[7] = row[7];
+                    rowData[8] = row[8];
 
                     modelo.addRow(rowData);
 
@@ -1710,6 +1718,11 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(7).setMinWidth(0);
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
+                
+                tbl.getColumnModel().getColumn(8).setMinWidth(0);
+                tbl.getColumnModel().getColumn(8).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(8).setWidth(0);
+                
                 tbl.setVisible(true);
                 scr.setVisible(true);
 
@@ -13518,10 +13531,8 @@ public final class main extends javax.swing.JFrame {
                 ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
                 ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
 
-                ve.setClienteold(lblCli.getText());
-                ve.setDataold(formatterbanco.format(((formatter.parse(lblDat.getText())))));
-                ve.setVencimentoold(formatterbanco.format(((formatter.parse(lblVen.getText())))));
- 
+                ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 8).toString());
+                
                 if(txtPlaCadVen.getText().equals("Não Aplicável")){
                 vedao.alterar(ve, "1");
                 }else{
@@ -13754,17 +13765,13 @@ public final class main extends javax.swing.JFrame {
                         vencimento ve = new vencimento();
                         vencimentoDAO vedao = new vencimentoDAO();
 
-                        ve.setCliente(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
-                        ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()))));
-                        ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 6).toString()))));
-
+                        ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 8).toString());
+                        
                         vedao.marcarok(ve);
 
                         JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Vencimento", JOptionPane.INFORMATION_MESSAGE);
 
                     } catch (SQLException ex) {
-                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ParseException ex) {
                         Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
@@ -13800,13 +13807,12 @@ public final class main extends javax.swing.JFrame {
         if (resp == JOptionPane.YES_OPTION) {
 
             try {
+                
                 vencimento ve = new vencimento();
                 vencimentoDAO vedao = new vencimentoDAO();
 
-                ve.setCliente(tblVen.getValueAt(tblVen.getSelectedRow(), 0).toString());
-                ve.setData(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()))));
-                ve.setVencimento(formatterbanco.format((formatter.parse(tblVen.getValueAt(tblVen.getSelectedRow(), 6).toString()))));
-
+                ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 8).toString());
+             
                 vedao.excluir(ve);
 
                 JOptionPane.showMessageDialog(pnlVen, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
@@ -13827,7 +13833,8 @@ public final class main extends javax.swing.JFrame {
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
-            } catch (SQLException | ParseException ex) {
+                
+            } catch (SQLException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

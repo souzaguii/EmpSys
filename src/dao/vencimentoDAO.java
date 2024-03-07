@@ -32,7 +32,9 @@ public class vencimentoDAO {
 
     public void alterar(vencimento ve, String ok) throws SQLException {
 
-        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, acessoVen = ?, cpfVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ?, okVen = ? WHERE clienteVen = ? AND dataVen = ? AND vencimentoVen = ?";
+        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, acessoVen = ?, cpfVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ?, okVen = "
+                + "CASE WHEN okVen = 1 THEN 1 ELSE ? END"
+                + " WHERE idVen = ?";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
@@ -44,10 +46,7 @@ public class vencimentoDAO {
         stmt.setString(6, ve.getPlano());
         stmt.setString(7, ve.getVencimento());
         stmt.setString(8, ok);
-        stmt.setString(9, ve.getClienteold());
-        stmt.setString(10, ve.getDataold());
-        stmt.setString(11, ve.getVencimentoold());
-        
+        stmt.setString(9, ve.getId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -57,13 +56,11 @@ public class vencimentoDAO {
 
     public void excluir(vencimento ve) throws SQLException {
 
-        String SQL = "DELETE FROM vencimento WHERE clienteVen = ? and dataVen = ? and vencimentoVen = ?";
+        String SQL = "DELETE FROM vencimento WHERE idVen = ?";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
-        stmt.setString(1, ve.getCliente());
-        stmt.setString(2, ve.getData());
-        stmt.setString(3, ve.getVencimento());
+        stmt.setString(1, ve.getId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -73,13 +70,11 @@ public class vencimentoDAO {
 
     public void marcarok(vencimento ve) throws SQLException {
 
-        String SQL = "UPDATE vencimento SET okVen = 1 WHERE clienteVen = ? and dataVen = ? and vencimentoVen = ?";
+        String SQL = "UPDATE vencimento SET okVen = 1 WHERE idVen = ?";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
-        stmt.setString(1, ve.getCliente());
-        stmt.setString(2, ve.getData());
-        stmt.setString(3, ve.getVencimento());
+        stmt.setString(1, ve.getId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -106,7 +101,8 @@ public class vencimentoDAO {
                 rs.getString("planoVen"),
                 rs.getString("dataVen"),
                 rs.getString("vencimentoVen"),
-                rs.getString("okVen")};
+                rs.getString("okVen"),
+                rs.getString("idVen")};
 
             lista.add(rowData);
 
@@ -141,7 +137,8 @@ public class vencimentoDAO {
                 rs.getString("planoVen"),
                 rs.getString("dataVen"),
                 rs.getString("vencimentoVen"),
-                rs.getString("okVen")};
+                rs.getString("okVen"),
+                rs.getString("idVen")};
 
             lista.add(rowData);
 

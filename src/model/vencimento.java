@@ -2,6 +2,7 @@ package model;
 
 public class vencimento {
 
+    public String id;
     public String cliente;
     public String plano;
     public String data;
@@ -9,9 +10,14 @@ public class vencimento {
     public String acesso;
     public String cpf;
     public String vencimento;
-    public String clienteold;
-    public String dataold;
-    public String vencimentoold;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCliente() {
         return cliente;
@@ -68,29 +74,5 @@ public class vencimento {
     public void setVencimento(String vencimento) {
         this.vencimento = vencimento;
     }
-
-    public String getClienteold() {
-        return clienteold;
-    }
-
-    public void setClienteold(String clienteold) {
-        this.clienteold = clienteold;
-    }
-
-    public String getDataold() {
-        return dataold;
-    }
-
-    public void setDataold(String dataold) {
-        this.dataold = dataold;
-    }
-
-    public String getVencimentoold() {
-        return vencimentoold;
-    }
-
-    public void setVencimentoold(String vencimentoold) {
-        this.vencimentoold = vencimentoold;
-    }
-    
+   
 }
