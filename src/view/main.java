@@ -904,7 +904,7 @@ public final class main extends javax.swing.JFrame {
                 rowData[0] = formatter.format(date);
                 rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
                 rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
-                rowData[3] = moedadoublereal(Double.valueOf(row[3]));
+                rowData[3] = (!row[3].equals("0.0")) ? moedadoublereal(Double.valueOf(row[3])) : "Não Aplicável";
                 rowData[4] = (row[4] != null) ? moedadoublereal(Double.valueOf(row[4])) : "Não Aplicável";
                 rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
                 rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
@@ -973,6 +973,10 @@ public final class main extends javax.swing.JFrame {
                 codigoAnterior = codigoAtual;
             }
 
+            tbl.getColumnModel().getColumn(7).setMinWidth(0);
+            tbl.getColumnModel().getColumn(7).setMaxWidth(0);
+            tbl.getColumnModel().getColumn(7).setWidth(0);
+
             tblRel.setVisible(true);
             scrRel.setVisible(true);
 
@@ -1007,8 +1011,10 @@ public final class main extends javax.swing.JFrame {
 
     private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2) {
         try {
+
             entradaDAO endao = new entradaDAO();
-            List<String[]> lista = endao.buscar(opc, opc1, data1, data2);
+            entrada en = new entrada();
+            List<String[]> lista = endao.buscar(opc, opc1, data1, data2, en);
 
             if (!lista.isEmpty()) {
 
@@ -1045,11 +1051,6 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
                 tbl.repaint();
 
-                double somaCartao = 0;
-                double somaDinheiro = 0;
-                double somaPix = 0;
-                double somaCusto = 0;
-
                 for (String[] row : lista) {
                     Object[] rowData = new Object[8];
 
@@ -1057,7 +1058,7 @@ public final class main extends javax.swing.JFrame {
                     rowData[0] = formatter.format(date);
                     rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
                     rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
-                    rowData[3] = moedadoublereal(Double.valueOf(row[3]));
+                    rowData[3] = (!row[3].equals("0.0")) ? moedadoublereal(Double.valueOf(row[3])) : "Não Aplicável";
                     rowData[4] = (row[4] != null) ? moedadoublereal(Double.valueOf(row[4])) : "Não Aplicável";
                     rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
                     rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
@@ -1088,91 +1089,25 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
 
-                double somaValor = 0;
-                int somaentrada = 0;
-                String codigoAnterior = null;
-
-                for (String[] row : lista) {
-
-                    String codigoAtual = row[7];
-
-                    if (codigoAnterior == null || !codigoAtual.equals(codigoAnterior)) {
-
-                        if ("1".equals(row[5])) {
-                            if (!"Saída Caixa".equals(row[1])) {
-                                somaDinheiro += Double.parseDouble(row[3]);
-                                if (row[4] != null && chkCus.isSelected()) {
-                                    somaDinheiro -= Double.parseDouble(row[4]);
-                                }
-                            } else {
-                                somaDinheiro -= Double.parseDouble(row[3]);
-                                if (row[4] != null && chkCus.isSelected()) {
-                                    somaDinheiro -= Double.parseDouble(row[4]);
-                                }
-                            }
-                        } else if ("2".equals(row[5])) {
-                            if (!"Saída Caixa".equals(row[1])) {
-                                somaCartao += Double.parseDouble(row[3]);
-                                if (row[4] != null && chkCus.isSelected()) {
-                                    somaCartao -= Double.parseDouble(row[4]);
-                                }
-                            } else {
-                                somaCartao -= Double.parseDouble(row[3]);
-                                if (row[4] != null && chkCus.isSelected()) {
-                                    somaCartao -= Double.parseDouble(row[4]);
-                                }
-                            }
-                        } else if ("3".equals(row[5])) {
-                            if (!"Saída Caixa".equals(row[1])) {
-                                somaPix += Double.parseDouble(row[3]);
-                                if (row[4] != null && chkCus.isSelected()) {
-                                    somaPix -= Double.parseDouble(row[4]);
-                                }
-                            } else {
-                                somaPix -= Double.parseDouble(row[3]);
-                                if (row[4] != null && chkCus.isSelected()) {
-                                    somaPix -= Double.parseDouble(row[4]);
-                                }
-                            }
-                        }
-
-                        if (row[4] != null) {
-                            if (!"Saída Caixa".equals(row[1])) {
-                                somaCusto += Double.parseDouble(row[4]);
-                            } else {
-                                somaCusto -= Double.parseDouble(row[4]);
-                            }
-                        }
-
-                        if (!"Saída Caixa".equals(row[1])) {
-                            somaValor += Double.parseDouble(row[3]);
-                        } else {
-                            somaValor -= Double.parseDouble(row[3]);
-                        }
-
-                        somaentrada++;
-                    }
-
-                    codigoAnterior = codigoAtual;
-                }
-
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
 
                 if (chkCus.isSelected()) {
-                    lblValTotRel.setText(moedadoublereal(somaValor - somaCusto));
+                    lblValTotRel.setText(moedadoublereal(en.getPtotal() - en.getCtotal()));
+                    lblValDinRel.setText(moedadoublereal(en.getPdin() - en.getCdin()));
+                    lblValCarRel.setText(moedadoublereal(en.getPcartao() - en.getCcartao()));
+                    lblValPixRel.setText(moedadoublereal(en.getPpix() - en.getCpix()));
                 } else {
-                    lblValTotRel.setText(moedadoublereal(somaValor));
+                    lblValTotRel.setText(moedadoublereal(en.getPtotal()));
+                    lblValDinRel.setText(moedadoublereal(en.getPdin()));
+                    lblValCarRel.setText(moedadoublereal(en.getPcartao()));
+                    lblValPixRel.setText(moedadoublereal(en.getPpix()));
                 }
 
-                lblValMedRel.setText(moedadoublereal(somaCusto));
-                lblTotEntRel.setText(String.valueOf(somaentrada));
+                lblValMedRel.setText(moedadoublereal(en.getCtotal()));
+                lblTotEntRel.setText(String.valueOf(en.getEnt()));
 
-                lblValDinRel.setText(moedadoublereal(somaDinheiro));
-                lblValCarRel.setText(moedadoublereal(somaCartao));
-                lblValPixRel.setText(moedadoublereal(somaPix));
-
-                if (somaCusto == 0) {
+                if (en.getCtotal() == 0) {
                     chkCus.setEnabled(false);
                     chkCus.setSelected(false);
                 } else {
@@ -1370,7 +1305,7 @@ public final class main extends javax.swing.JFrame {
 
                     rowData[0] = row[0];
                     rowData[1] = row[1];
-                    rowData[2] = moedadoublereal(Double.valueOf(row[2]));
+                    rowData[2] = (!row[2].equals("0.0")) ? moedadoublereal(Double.valueOf(row[2])) : "Não Aplicável";
                     rowData[3] = formatter.format(date);
                     rowData[4] = (row[4] != null) ? formatter.format(datecon) : "Não Concluído";
 
@@ -1590,7 +1525,7 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(7).setMinWidth(0);
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
-                
+
                 tbl.getColumnModel().getColumn(8).setMinWidth(0);
                 tbl.getColumnModel().getColumn(8).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(8).setWidth(0);
@@ -1718,11 +1653,11 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(7).setMinWidth(0);
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
-                
+
                 tbl.getColumnModel().getColumn(8).setMinWidth(0);
                 tbl.getColumnModel().getColumn(8).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(8).setWidth(0);
-                
+
                 tbl.setVisible(true);
                 scr.setVisible(true);
 
@@ -1773,7 +1708,7 @@ public final class main extends javax.swing.JFrame {
 
                     rowData[0] = row[0];
                     rowData[1] = row[1];
-                    rowData[2] = moedadoublereal(Double.valueOf(row[2]));
+                    rowData[2] = (!row[2].equals("0.0")) ? moedadoublereal(Double.valueOf(row[2])) : "Não Aplicável";
                     rowData[3] = formatter.format(date);
                     rowData[4] = (row[4] != null) ? formatter.format(datecon) : "Não Concluído";
 
@@ -1800,6 +1735,10 @@ public final class main extends javax.swing.JFrame {
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
+
+                tbl.getColumnModel().getColumn(0).setMinWidth(0);
+                tbl.getColumnModel().getColumn(0).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(0).setWidth(0);
 
                 tbl.setVisible(true);
                 scr.setVisible(true);
@@ -10553,10 +10492,15 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
 
-        if (rbtnVenRel.isSelected()) {
-            cmbrelatorio(tblRel, cmbRel, 2);
+        if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
+            if (rbtnVenRel.isSelected()) {
+                cmbrelatorio(tblRel, cmbRel, 2);
+            } else {
+                cmbrelatorio(tblRel, cmbRel, 1);
+            }
         } else {
-            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setSelectedIndex(0);
+            cmbRel.setEnabled(false);
         }
 
         btnTodRel.grabFocus();
@@ -10591,10 +10535,15 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
 
-        if (rbtnVenRel.isSelected()) {
-            cmbrelatorio(tblRel, cmbRel, 2);
+        if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
+            if (rbtnVenRel.isSelected()) {
+                cmbrelatorio(tblRel, cmbRel, 2);
+            } else {
+                cmbrelatorio(tblRel, cmbRel, 1);
+            }
         } else {
-            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setSelectedIndex(0);
+            cmbRel.setEnabled(false);
         }
 
         btnDiaRel.grabFocus();
@@ -10627,10 +10576,15 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
 
-        if (rbtnVenRel.isSelected()) {
-            cmbrelatorio(tblRel, cmbRel, 2);
+        if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
+            if (rbtnVenRel.isSelected()) {
+                cmbrelatorio(tblRel, cmbRel, 2);
+            } else {
+                cmbrelatorio(tblRel, cmbRel, 1);
+            }
         } else {
-            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setSelectedIndex(0);
+            cmbRel.setEnabled(false);
         }
 
         btnSemRel.grabFocus();
@@ -10664,10 +10618,15 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
 
-        if (rbtnVenRel.isSelected()) {
-            cmbrelatorio(tblRel, cmbRel, 2);
+        if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
+            if (rbtnVenRel.isSelected()) {
+                cmbrelatorio(tblRel, cmbRel, 2);
+            } else {
+                cmbrelatorio(tblRel, cmbRel, 1);
+            }
         } else {
-            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setSelectedIndex(0);
+            cmbRel.setEnabled(false);
         }
 
         btnMesRel.grabFocus();
@@ -10700,10 +10659,15 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setLocation(430, 150);
         lblDatIniRel.setLocation(290, 150);
 
-        if (rbtnVenRel.isSelected()) {
-            cmbrelatorio(tblRel, cmbRel, 2);
+        if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
+            if (rbtnVenRel.isSelected()) {
+                cmbrelatorio(tblRel, cmbRel, 2);
+            } else {
+                cmbrelatorio(tblRel, cmbRel, 1);
+            }
         } else {
-            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setSelectedIndex(0);
+            cmbRel.setEnabled(false);
         }
 
         btnAnoRel.grabFocus();
@@ -10738,9 +10702,17 @@ public final class main extends javax.swing.JFrame {
                 lblDatFinRel.setFont(fontbold(13));
 
                 chkCus.setSelected(false);
-                cmbrelatorio(tblRel, cmbRel, 1);
-                cmbRel.setEnabled(true);
-                cmbRel.setSelectedItem("Filtrar resultados");
+
+                if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
+                    if (rbtnVenRel.isSelected()) {
+                        cmbrelatorio(tblRel, cmbRel, 2);
+                    } else {
+                        cmbrelatorio(tblRel, cmbRel, 1);
+                    }
+                } else {
+                    cmbRel.setSelectedIndex(0);
+                    cmbRel.setEnabled(false);
+                }
 
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(pnlRel, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -10777,10 +10749,18 @@ public final class main extends javax.swing.JFrame {
                 lblDatIniRel.setFont(fontbold(13));
                 lblDatFinRel.setFont(fontbold(13));
 
-                cmbrelatorio(tblRel, cmbRel, 1);
-                cmbRel.setEnabled(true);
+                if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
+                    if (rbtnVenRel.isSelected()) {
+                        cmbrelatorio(tblRel, cmbRel, 2);
+                    } else {
+                        cmbrelatorio(tblRel, cmbRel, 1);
+                    }
+                } else {
+                    cmbRel.setSelectedIndex(0);
+                    cmbRel.setEnabled(false);
+                }
+
                 chkCus.setSelected(false);
-                cmbRel.setSelectedItem("Filtrar resultados");
 
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(pnlRel, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -13513,10 +13493,10 @@ public final class main extends javax.swing.JFrame {
                 ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
                 ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
 
-                if(txtPlaCadVen.getText().equals("Não Aplicável")){
-                vedao.inserir(ve, "1");
-                }else{
-                vedao.inserir(ve, "0");
+                if (txtPlaCadVen.getText().equals("Não Aplicável")) {
+                    vedao.inserir(ve, "1");
+                } else {
+                    vedao.inserir(ve, "0");
                 }
 
                 JOptionPane.showMessageDialog(pnlCadVen, "Vencimento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -13532,11 +13512,11 @@ public final class main extends javax.swing.JFrame {
                 ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
 
                 ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 8).toString());
-                
-                if(txtPlaCadVen.getText().equals("Não Aplicável")){
-                vedao.alterar(ve, "1");
-                }else{
-                vedao.alterar(ve, "0");
+
+                if (txtPlaCadVen.getText().equals("Não Aplicável")) {
+                    vedao.alterar(ve, "1");
+                } else {
+                    vedao.alterar(ve, "0");
                 }
 
                 JOptionPane.showMessageDialog(pnlCadVen, "Vencimento alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -13766,7 +13746,7 @@ public final class main extends javax.swing.JFrame {
                         vencimentoDAO vedao = new vencimentoDAO();
 
                         ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 8).toString());
-                        
+
                         vedao.marcarok(ve);
 
                         JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Vencimento", JOptionPane.INFORMATION_MESSAGE);
@@ -13807,12 +13787,12 @@ public final class main extends javax.swing.JFrame {
         if (resp == JOptionPane.YES_OPTION) {
 
             try {
-                
+
                 vencimento ve = new vencimento();
                 vencimentoDAO vedao = new vencimentoDAO();
 
                 ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 8).toString());
-             
+
                 vedao.excluir(ve);
 
                 JOptionPane.showMessageDialog(pnlVen, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
@@ -13833,7 +13813,7 @@ public final class main extends javax.swing.JFrame {
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -14070,8 +14050,9 @@ public final class main extends javax.swing.JFrame {
                 tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2);
             }
 
-            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
+
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }

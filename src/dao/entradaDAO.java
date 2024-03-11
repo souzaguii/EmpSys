@@ -69,7 +69,7 @@ public class entradaDAO {
                     stmt.setString(8, en.getCliente());
                     stmt.setString(9, en.getFornecedor());
                     stmt.setDouble(10, en.getCusto());
-                    
+
                 } else {
 
                     SQL = "INSERT INTO entradas(idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, idTip, formapagamentoEnt, clienteEnt, fornecedorEnt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -131,13 +131,13 @@ public class entradaDAO {
 
     }
 
-    public List<String[]> buscar(int opc, int opc1, String data1, String data2) throws SQLException {
+    public List<String[]> buscar(int opc, int opc1, String data1, String data2, entrada en) throws SQLException {
 
         List<String[]> listaen = new ArrayList<>();
 
-        String SQL = "";
+        String SQL;
 
-        PreparedStatement stmt = null;
+        PreparedStatement stmt;
 
         switch (opc) {
             case 1:
@@ -295,11 +295,28 @@ public class entradaDAO {
 
         ResultSet rs = stmt.executeQuery();
 
+        int ent = 0;
+        double pd;
+        double pdc;
+        double pad = 0;
+        double padc = 0;
+        double ppc;
+        double pp;
+        double pap = 0;
+        double papc = 0;
+        double pcc;
+        double pc;
+        double pac = 0;
+        double pacc = 0;
+
+        String ca = "1";
+        String c;
+
         while (rs.next()) {
 
             String produto = null;
 
-            if (!"3".equals(rs.getString("idTip"))) {
+            if (!"3".equals(rs.getString("idTip"))) {  // CONCATENA O PRODUTO COM MARCA, CHIP..
 
                 if ("Chip".equals(rs.getString("tipoprodutoEst"))) {
 
@@ -363,6 +380,56 @@ public class entradaDAO {
                 listaen.add(rowData);
 
             }
+
+            if (rs.getString("formapagamentoEnt").equals("1")) { //CALCULAR PRECO COM CODIGO DISTINTO E FORMAS SEPARADAS
+
+                c = rs.getString("codigoEnt");
+                pd = Double.parseDouble(rs.getString("precoEnt"));
+                pdc = (rs.getString("custoEnt") != null) ? Double.parseDouble(rs.getString("custoEnt")) : 0;
+                if (!ca.equals(c)) {
+                    pad = pd + pad;
+                    padc = pdc + padc;
+                    ent++;
+                }
+                ca = c;
+
+            } else if (rs.getString("formapagamentoEnt").equals("2")) {
+
+                c = rs.getString("codigoEnt");
+                pc = Double.parseDouble(rs.getString("precoEnt"));
+                pcc = (rs.getString("custoEnt") != null) ? Double.parseDouble(rs.getString("custoEnt")) : 0;
+                if (!ca.equals(c)) {
+                    pac = pc + pac;
+                    pacc = pcc + pacc;
+                    ent++;
+                }
+                ca = c;
+
+            } else {
+
+                c = rs.getString("codigoEnt");
+                pp = Double.parseDouble(rs.getString("precoEnt"));
+                ppc = (rs.getString("custoEnt") != null) ? Double.parseDouble(rs.getString("custoEnt")) : 0;
+                if (!ca.equals(c)) {
+                    pap = pp + pap;
+                    papc = ppc + papc;
+                    ent++;
+                }
+                ca = c;
+
+            }
+
+            en.setEnt(ent);
+
+            en.setPtotal(pad + pac + pap);
+            en.setPdin(pad);
+            en.setPcartao(pac);
+            en.setPpix(pap);
+
+            en.setCtotal(padc + pacc + papc);
+            en.setCdin(padc);
+            en.setCcartao(pacc);
+            en.setCpix(papc);
 
         }
 
