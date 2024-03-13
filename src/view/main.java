@@ -577,6 +577,68 @@ public final class main extends javax.swing.JFrame {
         return true;
     }
 
+    private double juros(int parcela) {
+
+         if (parcela == 0) {
+            return 1.99;
+        } else if (parcela == 1) {
+            return 4.98;
+        } else if (parcela == 2) {
+            return 9.90;
+        } else if (parcela == 3) {
+            return 11.28;
+        } else if (parcela == 4) {
+            return 12.64;
+        } else if (parcela == 5) {
+            return 13.97;
+        } else if (parcela == 6) {
+            return 15.27;
+        } else if (parcela == 7) {
+            return 16.55;
+        } else if (parcela == 8) {
+            return 17.81;
+        } else if (parcela == 9) {
+            return 19.04;
+        } else if (parcela == 10) {
+            return 20.24;
+        } else if (parcela == 11) {
+            return 21.43;
+        } else if (parcela == 12) {
+            return 22.59;
+        }
+        
+//        if (parcela == 0) {
+//            return 1.68;
+//        } else if (parcela == 1) {
+//            return 3.48;
+//        } else if (parcela == 2) {
+//            return 8.99;
+//        } else if (parcela == 3) {
+//            return 10.99;
+//        } else if (parcela == 4) {
+//            return 11.99;
+//        } else if (parcela == 5) {
+//            return 12.99;
+//        } else if (parcela == 6) {
+//            return 13.99;
+//        } else if (parcela == 7) {
+//            return 14.99;
+//        } else if (parcela == 8) {
+//            return 15.99;
+//        } else if (parcela == 9) {
+//            return 16.99;
+//        } else if (parcela == 10) {
+//            return 17.99;
+//        } else if (parcela == 11) {
+//            return 17.99;
+//        } else if (parcela == 12) {
+//            return 17.99;
+//        }
+
+        return parcela;
+
+    }
+
     private boolean tabelaestoqueconsulta(estoque es, JTable tbl, JScrollPane scr) {
         try {
             estoqueDAO esdao = new estoqueDAO();
@@ -2666,8 +2728,8 @@ public final class main extends javax.swing.JFrame {
         lblValMesPreJur = new javax.swing.JLabel();
         lblValParJur = new javax.swing.JLabel();
         lblValParJur1 = new javax.swing.JLabel();
-        lblR$Jur = new javax.swing.JLabel();
         lblValJur = new javax.swing.JLabel();
+        lblR$Jur = new javax.swing.JLabel();
         txtValJur = new javax.swing.JTextField();
         sepDesGerTipSer10 = new javax.swing.JSeparator();
         sepDesGerTipSer11 = new javax.swing.JSeparator();
@@ -7418,18 +7480,18 @@ public final class main extends javax.swing.JFrame {
         pnlJur.add(lblValParJur1);
         lblValParJur1.setBounds(980, 140, 140, 20);
 
-        lblR$Jur.setFont(fontmed(13));
-        lblR$Jur.setText("R$");
-        lblR$Jur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlJur.add(lblR$Jur);
-        lblR$Jur.setBounds(200, 100, 20, 21);
-
         lblValJur.setFont(fontmed(12));
         lblValJur.setForeground(new java.awt.Color(10, 60, 133));
         lblValJur.setText("Preço");
         lblValJur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlJur.add(lblValJur);
         lblValJur.setBounds(200, 100, 70, 20);
+
+        lblR$Jur.setFont(fontmed(13));
+        lblR$Jur.setText("R$");
+        lblR$Jur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlJur.add(lblR$Jur);
+        lblR$Jur.setBounds(200, 100, 20, 21);
 
         txtValJur.setBackground(new java.awt.Color(246, 246, 246));
         txtValJur.setFont(fontmed(13));
@@ -9417,54 +9479,55 @@ public final class main extends javax.swing.JFrame {
                     int idpagamento = 1;
                     double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
 
-                    if (rbtnCarCadEnt.isSelected()) {
+                     if (rbtnCarCadEnt.isSelected()) {
 
                         if (rbtnDebCadEnt.isSelected()) {
 
-                            preco = preco - (preco * 1.68 / 100);
+                            preco = preco - (preco * juros(0) / 100);
 
                         } else if (rbtnCreCadEnt.isSelected()) {
 
                             switch ((int) spnParCadEnt.getValue()) {
                                 case 1:
-                                    preco = preco - (preco * 3.48 / 100);
+                                    preco = preco - (preco * juros(1) / 100);
                                     break;
                                 case 2:
-                                    preco = preco - (preco * 8.99 / 100);
+                                    preco = preco - (preco * juros(2) / 100);
                                     break;
                                 case 3:
-                                    preco = preco - (preco * 10.99 / 100);
+                                    preco = preco - (preco * juros(3) / 100);
                                     break;
                                 case 4:
-                                    preco = preco - (preco * 11.99 / 100);
+                                    preco = preco - (preco * juros(4) / 100);
                                     break;
                                 case 5:
-                                    preco = preco - (preco * 12.99 / 100);
+                                    preco = preco - (preco * juros(5) / 100);
                                     break;
                                 case 6:
-                                    preco = preco - (preco * 13.99 / 100);
+                                    preco = preco - (preco * juros(6) / 100);
                                     break;
                                 case 7:
-                                    preco = preco - (preco * 14.99 / 100);
+                                    preco = preco - (preco * juros(7) / 100);
                                     break;
                                 case 8:
-                                    preco = preco - (preco * 15.99 / 100);
+                                    preco = preco - (preco * juros(8) / 100);
                                     break;
                                 case 9:
-                                    preco = preco - (preco * 16.99 / 100);
+                                    preco = preco - (preco * juros(9) / 100);
                                     break;
                                 case 10:
-                                    preco = preco - (preco * 17.99 / 100);
+                                    preco = preco - (preco * juros(10) / 100);
                                     break;
                                 case 11:
-                                    preco = preco - (preco * 17.99 / 100);
+                                    preco = preco - (preco * juros(11) / 100);
                                     break;
                                 case 12:
-                                    preco = preco - (preco * 17.99 / 100);
+                                    preco = preco - (preco * juros(12) / 100);
                                     break;
                                 default:
                                     break;
                             }
+
 
                         }
 
@@ -13720,7 +13783,7 @@ public final class main extends javax.swing.JFrame {
                     + "*, está com vencimento *hoje*.\n\n"
                     + "Você pode usar o PIX no aplicativo *Meu TIM* ou ir à lotérica mais próxima para efetuar o pagamento. "
                     + "Estamos na loja para ajudar com a fatura, se preferir.\n\n"
-                    + "É importante ressaltar que esta mensagem *não* é uma cobrança, mas sim um lembrete amigável.\n\n"
+                    + "É importante ressaltar que esta mensagem *não* é uma cobrança. Se você já pagou ou não, queremos apenas te lembrar do seu plano.\n\n"
                     + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
                     + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
 
@@ -14233,58 +14296,58 @@ public final class main extends javax.swing.JFrame {
         double preco = Double.parseDouble(txtValJur.getText().replace(".", "").replace(",", "."));
         double taxa = 0;
 
-        switch ((int) spnParJur.getValue()) {
+             switch ((int) spnParJur.getValue()) {
             case 1:
-                preco = preco - (preco * 3.48 / 100);
-                taxa = (3.48 / 100) - 1;
+                preco = preco - (preco * juros(1) / 100);
+                taxa = (juros(1) / 100) - 1;
                 break;
             case 2:
-                preco = preco - (preco * 8.99 / 100);
-                taxa = (8.99 / 100) - 1;
+                preco = preco - (preco * juros(2) / 100);
+                taxa = (juros(2) / 100) - 1;
                 break;
             case 3:
-                preco = preco - (preco * 10.99 / 100);
-                taxa = (10.99 / 100) - 1;
+                preco = preco - (preco * juros(3) / 100);
+                taxa = (juros(3) / 100) - 1;
                 break;
             case 4:
-                preco = preco - (preco * 11.99 / 100);
-                taxa = (11.99 / 100) - 1;
+                preco = preco - (preco * juros(4) / 100);
+                taxa = (juros(4) / 100) - 1;
                 break;
             case 5:
-                preco = preco - (preco * 12.99 / 100);
-                taxa = (12.99 / 100) - 1;
+                 preco = preco - (preco * juros(5) / 100);
+                taxa = (juros(5) / 100) - 1;
                 break;
             case 6:
-                preco = preco - (preco * 13.99 / 100);
-                taxa = (13.99 / 100) - 1;
+                 preco = preco - (preco * juros(6) / 100);
+                taxa = (juros(6) / 100) - 1;
                 break;
             case 7:
-                preco = preco - (preco * 14.99 / 100);
-                taxa = (14.99 / 100) - 1;
+               preco = preco - (preco * juros(7) / 100);
+                taxa = (juros(7) / 100) - 1;
                 break;
             case 8:
-                preco = preco - (preco * 15.99 / 100);
-                taxa = (15.99 / 100) - 1;
+                preco = preco - (preco * juros(8) / 100);
+                taxa = (juros(8) / 100) - 1;
                 break;
             case 9:
-                preco = preco - (preco * 16.99 / 100);
-                taxa = (16.99 / 100) - 1;
+             preco = preco - (preco * juros(9) / 100);
+                taxa = (juros(9) / 100) - 1;
                 break;
             case 10:
-                preco = preco - (preco * 17.99 / 100);
-                taxa = (17.99 / 100) - 1;
+              preco = preco - (preco * juros(10) / 100);
+                taxa = (juros(10) / 100) - 1;
                 break;
             case 11:
-                preco = preco - (preco * 17.99 / 100);
-                taxa = (17.99 / 100) - 1;
+            preco = preco - (preco * juros(11) / 100);
+                taxa = (juros(11) / 100) - 1;
                 break;
             case 12:
-                preco = preco - (preco * 17.99 / 100);
-                taxa = (17.99 / 100) - 1;
+       preco = preco - (preco * juros(12) / 100);
+                taxa = (juros(12) / 100) - 1;
                 break;
             case 0:
-                preco = preco - (preco * 1.68 / 100);
-                taxa = (1.68 / 100) - 1;
+             preco = preco - (preco * juros(0) / 100);
+                taxa = (juros(0) / 100) - 1;
                 break;
             default:
                 break;
@@ -14294,7 +14357,7 @@ public final class main extends javax.swing.JFrame {
         lblValFinJur.setText(moedadoublereal(preco));
         lblValJur2.setText(moedadoublereal(precoini));
 
-        if ((int) spnParJur.getValue() != 0) {
+         if ((int) spnParJur.getValue() != 0) {
 
             lblValMesPreJur.setText((int) spnParJur.getValue() + "x de " + moedadoublereal((precoini / Math.abs(taxa)) / (int) spnParJur.getValue()) + " = " + moedadoublereal(precoini / Math.abs(taxa)));
 
