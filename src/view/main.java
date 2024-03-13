@@ -579,7 +579,7 @@ public final class main extends javax.swing.JFrame {
 
     private double juros(int parcela) {
 
-         if (parcela == 0) {
+        if (parcela == 0) {
             return 1.99;
         } else if (parcela == 1) {
             return 4.98;
@@ -606,7 +606,7 @@ public final class main extends javax.swing.JFrame {
         } else if (parcela == 12) {
             return 22.59;
         }
-        
+
 //        if (parcela == 0) {
 //            return 1.68;
 //        } else if (parcela == 1) {
@@ -634,7 +634,6 @@ public final class main extends javax.swing.JFrame {
 //        } else if (parcela == 12) {
 //            return 17.99;
 //        }
-
         return parcela;
 
     }
@@ -858,7 +857,7 @@ public final class main extends javax.swing.JFrame {
                     rowData[3] = ("Assistência".equals(row[1]) && "".equals(row[3])) ? "Não Informado"
                             : (!"Assistência".equals(row[1]) && row[3] == null) ? "Não Aplicável" : row[3];
                     rowData[4] = (!"null - null null - null".equals(row[4]) && row[4] != null) ? row[4] : "Nenhum Produto";
-                    rowData[5] = moedadoublereal(Double.valueOf(row[5]));
+                    rowData[5] = (!row[5].equals("0.0")) ? moedadoublereal(Double.valueOf(row[5])) : "Não Aplicável";
                     rowData[6] = (row[6] != null) ? moedadoublereal(Double.valueOf(row[6])) : "Não Aplicável";
                     rowData[7] = ("1".equals(row[7])) ? "Dinheiro" : ("2".equals(row[7])) ? "Cartão" : ("3".equals(row[7])) ? "PIX" : null;
                     rowData[8] = ("Assistência".equals(row[1]) && "".equals(row[8])) ? "Não Informado"
@@ -1280,7 +1279,7 @@ public final class main extends javax.swing.JFrame {
                     rowData[3] = ("Assistência".equals(row[1]) && "".equals(row[3])) ? "Não Informado"
                             : (!"Assistência".equals(row[1]) && row[3] == null) ? "Não Aplicável" : row[3];
                     rowData[4] = (!"null - null null - null".equals(row[4]) && row[4] != null) ? row[4] : "Nenhum Produto";
-                    rowData[5] = moedadoublereal(Double.valueOf(row[5]));
+                    rowData[5] = (!row[5].equals("0.0")) ? moedadoublereal(Double.valueOf(row[5])) : "Não Aplicável";
                     rowData[6] = (row[6] != null) ? moedadoublereal(Double.valueOf(row[6])) : "Não Aplicável";
                     rowData[7] = ("1".equals(row[7])) ? "Dinheiro" : ("2".equals(row[7])) ? "Cartão" : ("3".equals(row[7])) ? "PIX" : null;
                     rowData[8] = ("Assistência".equals(row[1]) && "".equals(row[8])) ? "Não Informado"
@@ -3190,7 +3189,7 @@ public final class main extends javax.swing.JFrame {
                 btnTenPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnTenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 120, 20));
+        pnlPri.add(btnTenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 150, 20));
 
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(corforeazul);
@@ -4452,7 +4451,7 @@ public final class main extends javax.swing.JFrame {
         lblProCadEst.setText("Produtos registrados");
         lblProCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEst.add(lblProCadEst);
-        lblProCadEst.setBounds(40, 50, 130, 20);
+        lblProCadEst.setBounds(40, 50, 160, 20);
 
         lblModCadEst.setFont(fontmed(12));
         lblModCadEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -9479,7 +9478,7 @@ public final class main extends javax.swing.JFrame {
                     int idpagamento = 1;
                     double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
 
-                     if (rbtnCarCadEnt.isSelected()) {
+                    if (rbtnCarCadEnt.isSelected()) {
 
                         if (rbtnDebCadEnt.isSelected()) {
 
@@ -9527,7 +9526,6 @@ public final class main extends javax.swing.JFrame {
                                 default:
                                     break;
                             }
-
 
                         }
 
@@ -12971,8 +12969,7 @@ public final class main extends javax.swing.JFrame {
                 }
 
             } catch (ParseException ex) {
-                Logger.getLogger(main.class
-                        .getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -14296,7 +14293,7 @@ public final class main extends javax.swing.JFrame {
         double preco = Double.parseDouble(txtValJur.getText().replace(".", "").replace(",", "."));
         double taxa = 0;
 
-             switch ((int) spnParJur.getValue()) {
+        switch ((int) spnParJur.getValue()) {
             case 1:
                 preco = preco - (preco * juros(1) / 100);
                 taxa = (juros(1) / 100) - 1;
@@ -14314,15 +14311,15 @@ public final class main extends javax.swing.JFrame {
                 taxa = (juros(4) / 100) - 1;
                 break;
             case 5:
-                 preco = preco - (preco * juros(5) / 100);
+                preco = preco - (preco * juros(5) / 100);
                 taxa = (juros(5) / 100) - 1;
                 break;
             case 6:
-                 preco = preco - (preco * juros(6) / 100);
+                preco = preco - (preco * juros(6) / 100);
                 taxa = (juros(6) / 100) - 1;
                 break;
             case 7:
-               preco = preco - (preco * juros(7) / 100);
+                preco = preco - (preco * juros(7) / 100);
                 taxa = (juros(7) / 100) - 1;
                 break;
             case 8:
@@ -14330,23 +14327,23 @@ public final class main extends javax.swing.JFrame {
                 taxa = (juros(8) / 100) - 1;
                 break;
             case 9:
-             preco = preco - (preco * juros(9) / 100);
+                preco = preco - (preco * juros(9) / 100);
                 taxa = (juros(9) / 100) - 1;
                 break;
             case 10:
-              preco = preco - (preco * juros(10) / 100);
+                preco = preco - (preco * juros(10) / 100);
                 taxa = (juros(10) / 100) - 1;
                 break;
             case 11:
-            preco = preco - (preco * juros(11) / 100);
+                preco = preco - (preco * juros(11) / 100);
                 taxa = (juros(11) / 100) - 1;
                 break;
             case 12:
-       preco = preco - (preco * juros(12) / 100);
+                preco = preco - (preco * juros(12) / 100);
                 taxa = (juros(12) / 100) - 1;
                 break;
             case 0:
-             preco = preco - (preco * juros(0) / 100);
+                preco = preco - (preco * juros(0) / 100);
                 taxa = (juros(0) / 100) - 1;
                 break;
             default:
@@ -14357,7 +14354,7 @@ public final class main extends javax.swing.JFrame {
         lblValFinJur.setText(moedadoublereal(preco));
         lblValJur2.setText(moedadoublereal(precoini));
 
-         if ((int) spnParJur.getValue() != 0) {
+        if ((int) spnParJur.getValue() != 0) {
 
             lblValMesPreJur.setText((int) spnParJur.getValue() + "x de " + moedadoublereal((precoini / Math.abs(taxa)) / (int) spnParJur.getValue()) + " = " + moedadoublereal(precoini / Math.abs(taxa)));
 
