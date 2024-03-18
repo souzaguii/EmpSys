@@ -158,7 +158,7 @@ public class estoqueDAO {
 
         } else {
 
-            SQL = SQL + " WHERE modeloEst = ? AND marcaEst = ? AND tipoprodutoEst = ? AND corEst = ? AND materialEst = ? AND precoEst = ? AND localizacaoEst = ?";
+            SQL = SQL + " WHERE modeloEst = ? AND marcaEst = ? AND tipoprodutoEst = ? AND corEst = ? AND materialEst = ? AND localizacaoEst = ?";
 
             stmt = connection.Connect().prepareStatement(SQL);
 
@@ -167,8 +167,7 @@ public class estoqueDAO {
             stmt.setString(3, es.getTipoproduto());
             stmt.setString(4, es.getCor());
             stmt.setString(5, es.getMaterial());
-            stmt.setDouble(6, es.getPreco());
-            stmt.setString(7, es.getLocalizacao());
+            stmt.setString(6, es.getLocalizacao());
             
         }
 
