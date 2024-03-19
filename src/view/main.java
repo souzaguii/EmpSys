@@ -3109,7 +3109,7 @@ public final class main extends javax.swing.JFrame {
         btnVen.setFont(fontmed(12));
         btnVen.setForeground(corforeazul);
         btnVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnVen.setText("Vencimentos");
+        btnVen.setText("Planos");
         btnVen.setToolTipText("");
         btnVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVen.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -3128,7 +3128,7 @@ public final class main extends javax.swing.JFrame {
         btnCadVen.setFont(fontmed(12));
         btnCadVen.setForeground(corforeazul);
         btnCadVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCadVen.setText("Cadastrar Vencimento");
+        btnCadVen.setText("Cadastrar Planos");
         btnCadVen.setToolTipText("");
         btnCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadVen.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -7124,6 +7124,9 @@ public final class main extends javax.swing.JFrame {
         txtBusVen.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBusVenKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBusVenKeyTyped(evt);
             }
         });
         pnlVen.add(txtBusVen);
@@ -13480,7 +13483,7 @@ public final class main extends javax.swing.JFrame {
             txtDatCadVen.setText(dataAtual.format(formatteratual));
             anitxtin(lblDatCadVen);
 
-            lblTitPri.setText("Cadastrar Vencimento");
+            lblTitPri.setText("Cadastrar Planos");
             lblTitPri.setVisible(true);
 
             pnlbtn();
@@ -13507,7 +13510,7 @@ public final class main extends javax.swing.JFrame {
 
             if (tabelavencimento(tblVen, scrVen)) {
 
-                lblTitPri.setText("Vencimentos");
+                lblTitPri.setText("Planos");
                 lblTitPri.setVisible(true);
 
                 btnExcVen.setEnabled(false);
@@ -13525,7 +13528,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(pnlDes, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -13821,7 +13824,7 @@ public final class main extends javax.swing.JFrame {
 
                 } else {
 
-                    JOptionPane.showMessageDialog(null, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
                     pnlVen.setVisible(false);
                     lblTitPri.setVisible(false);
                 }
@@ -13861,7 +13864,7 @@ public final class main extends javax.swing.JFrame {
 
                 } else {
 
-                    JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(pnlDes, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
                     pnlVen.setVisible(false);
                     lblTitPri.setVisible(false);
                 }
@@ -13944,7 +13947,7 @@ public final class main extends javax.swing.JFrame {
 
             if (tabelavencimento(tblVen, scrVen)) {
 
-                lblTitPri.setText("Vencimentos");
+                lblTitPri.setText("Planos");
                 lblTitPri.setVisible(true);
                 pnlCadEnt.setVisible(false);
                 pnlRel.setVisible(false);
@@ -13973,7 +13976,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlDes, "Sem vencimentos. Cadastre-os primeiro!", "Vencimentos", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(pnlDes, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -14705,6 +14708,18 @@ public final class main extends javax.swing.JFrame {
 
             }
 
+            if (txtBusVen.getText().isEmpty()) {
+
+                ve.setCliente("%");
+                ve.setTelefone("%");
+                ve.setAcesso("%");
+                ve.setCpf("%");
+                ve.setPlano("%");
+                ve.setVencimento("%");
+                ve.setData("%");
+
+            }
+
             if (tabelavencimentopa(tblVen, scrVen, ve)) {
                 lblErrVen.setVisible(false);
             } else {
@@ -14944,6 +14959,10 @@ public final class main extends javax.swing.JFrame {
     private void rbtnTimGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTimGerTipSerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtnTimGerTipSerActionPerformed
+
+    private void txtBusVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusVenKeyTyped
+   
+    }//GEN-LAST:event_txtBusVenKeyTyped
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
