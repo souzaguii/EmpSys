@@ -1987,14 +1987,17 @@ public final class main extends javax.swing.JFrame {
     private void adicionarprodutos(JTable tabelaOrigem, JTable tabelaDestino, String qua, JRadioButton rbtn) {
 
         try {
+
+            JTableHeader header = tabelaDestino.getTableHeader();
             DefaultTableModel modelo = (DefaultTableModel) tabelaDestino.getModel();
 
-            String idt = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("ID"))).toString();
-            String precot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Preço"))).toString();
+            String idt = tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 0).toString();
+            String precot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Preço"))).toString();;
             String produtot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Produto"))).toString();
-            String marcat = null;
-            String chipt = null;
-            String modelot = null;
+            String cort;
+            String marcat;
+            String chipt;
+            String modelot;
 
             entrada en = new entrada();
             entradaDAO endao = new entradaDAO();
@@ -2006,6 +2009,7 @@ public final class main extends javax.swing.JFrame {
 
             if (rbtn.isSelected()) {
 
+                precot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Preço"))).toString();
                 chipt = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Chip"))).toString();
 
                 Object[] novaLinha = {qua, idt, produtot + " - " + chipt, precot};
@@ -2018,17 +2022,23 @@ public final class main extends javax.swing.JFrame {
 
                 marcat = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Marca"))).toString();
                 modelot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Modelo"))).toString();
+                cort = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Cor"))).toString();
+                precot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Preço"))).toString();
 
-                Object[] novaLinha = {qua, idt, produtot + " - " + marcat + " " + modelot, precot};
+                Object[] novaLinha = {qua, idt, produtot + " - " + marcat + " " + modelot + " - " + cort, precot};
 
                 modelo.addRow(novaLinha);
 
+                header.getColumnModel().getColumn(1).setMinWidth(0);
+                header.getColumnModel().getColumn(1).setMaxWidth(0);
+                header.getColumnModel().getColumn(1).setWidth(0);
+
                 tabelaDestino.setModel(modelo);
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     private boolean tabelaestoquegerenciar(estoque es) {
@@ -4286,6 +4296,11 @@ public final class main extends javax.swing.JFrame {
         rbtnAssIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAssIteGerEnt.setText("Acessório");
         rbtnAssIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAssIteGerEntActionPerformed(evt);
+            }
+        });
         pnlIteGerEnt.add(rbtnAssIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 100, -1));
 
         btnGroup1.add(rbtnPelIteGerEnt);
@@ -4293,6 +4308,11 @@ public final class main extends javax.swing.JFrame {
         rbtnPelIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnPelIteGerEnt.setText("Película");
         rbtnPelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPelIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnPelIteGerEntActionPerformed(evt);
+            }
+        });
         pnlIteGerEnt.add(rbtnPelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 80, -1));
 
         btnGroup1.add(rbtnCapIteGerEnt);
@@ -4300,6 +4320,11 @@ public final class main extends javax.swing.JFrame {
         rbtnCapIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCapIteGerEnt.setText("Capinha");
         rbtnCapIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCapIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnCapIteGerEntActionPerformed(evt);
+            }
+        });
         pnlIteGerEnt.add(rbtnCapIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 90, -1));
 
         btnGroup1.add(rbtnChiIteGerEnt);
@@ -4307,6 +4332,11 @@ public final class main extends javax.swing.JFrame {
         rbtnChiIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnChiIteGerEnt.setText("Chip");
         rbtnChiIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnChiIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnChiIteGerEntActionPerformed(evt);
+            }
+        });
         pnlIteGerEnt.add(rbtnChiIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 70, -1));
 
         lblBusIteGerEnt.setFont(fontmed(12));
@@ -11837,6 +11867,14 @@ public final class main extends javax.swing.JFrame {
 
         tabelaitensselecionadosgerenciar(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
 
+        txtBusIteGerEnt.setEnabled(false);
+        txtBusIteGerEnt.setText(null);
+        lblBusIteGerEnt.setEnabled(false);
+        sepBusIteCadEnt1.setForeground(Color.GRAY);
+        btnGroup1.clearSelection();
+
+        tblEstIteGerEnt.requestFocus();
+
         if ("Dinheiro".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString())) {
 
             rbtnDinGerEnt.setSelected(true);
@@ -14961,8 +14999,32 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnTimGerTipSerActionPerformed
 
     private void txtBusVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusVenKeyTyped
-   
+
     }//GEN-LAST:event_txtBusVenKeyTyped
+
+    private void rbtnCapIteGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCapIteGerEntActionPerformed
+        txtBusIteGerEnt.setEnabled(true);
+        lblBusIteGerEnt.setEnabled(true);
+        sepBusIteCadEnt1.setForeground(corforeazul);
+    }//GEN-LAST:event_rbtnCapIteGerEntActionPerformed
+
+    private void rbtnPelIteGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPelIteGerEntActionPerformed
+        txtBusIteGerEnt.setEnabled(true);
+        lblBusIteGerEnt.setEnabled(true);
+        sepBusIteCadEnt1.setForeground(corforeazul);
+    }//GEN-LAST:event_rbtnPelIteGerEntActionPerformed
+
+    private void rbtnChiIteGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnChiIteGerEntActionPerformed
+        txtBusIteGerEnt.setEnabled(true);
+        lblBusIteGerEnt.setEnabled(true);
+        sepBusIteCadEnt1.setForeground(corforeazul);
+    }//GEN-LAST:event_rbtnChiIteGerEntActionPerformed
+
+    private void rbtnAssIteGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAssIteGerEntActionPerformed
+        txtBusIteGerEnt.setEnabled(true);
+        lblBusIteGerEnt.setEnabled(true);
+        sepBusIteCadEnt1.setForeground(corforeazul);
+    }//GEN-LAST:event_rbtnAssIteGerEntActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
