@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import model.entrada;
 
 public class entradaDAO {
@@ -131,7 +132,7 @@ public class entradaDAO {
 
     }
 
-    public List<String[]> buscar(int opc, int opc1, String data1, String data2, entrada en) throws SQLException {
+    public List<String[]> buscar(int opc, int opc1, String data1, String data2, entrada en, int opc2) throws SQLException {
 
         List<String[]> listaen = new ArrayList<>();
 
@@ -144,22 +145,22 @@ public class entradaDAO {
                 SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE dataEnt = CURDATE() ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE dataEnt = DATE_SUB(CURDATE(), INTERVAL "+opc2+" DAY) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE WEEK(dataEnt) = WEEK(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE WEEK(dataEnt) = WEEK(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE MONTH(dataEnt) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE ((MONTH(dataEnt) + "+opc2+") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE YEAR(dataEnt) = YEAR(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE YEAR(dataEnt) + " + opc2 + " = YEAR(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 6) {
@@ -172,22 +173,22 @@ public class entradaDAO {
                 SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE areaTipSer != 2 ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE areaTipSer != 2 AND dataEnt = CURDATE() ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE areaTipSer != 2 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL "+opc2+" DAY) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE areaTipSer != 2 AND WEEK(dataEnt) = WEEK(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE areaTipSer != 2 AND WEEK(dataEnt) = WEEK(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE areaTipSer != 2 AND MONTH(dataEnt) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE areaTipSer != 2 AND ((MONTH(dataEnt) + "+opc2+") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE areaTipSer != 2 AND YEAR(dataEnt) = YEAR(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE areaTipSer != 2 AND YEAR(dataEnt) + " + opc2 + " = YEAR(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 6) {
@@ -200,22 +201,22 @@ public class entradaDAO {
                 SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND dataEnt = CURDATE() ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL "+opc2+" DAY) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND WEEK(dataEnt) = WEEK(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND WEEK(dataEnt) = WEEK(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND MONTH(dataEnt) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND ((MONTH(dataEnt) + "+opc2+") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND YEAR(dataEnt) = YEAR(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND YEAR(dataEnt) + " + opc2 + " = YEAR(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 6) {
@@ -228,22 +229,22 @@ public class entradaDAO {
                 SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer != 2 OR idTip = 2 ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 2 OR idTip = 2) AND dataEnt = CURDATE() ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 2 OR idTip = 2) AND dataEnt = DATE_SUB(CURDATE(), INTERVAL "+opc2+" DAY) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 2 OR idTip = 2) AND WEEK(dataEnt) = WEEK(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 2 OR idTip = 2) AND WEEK(dataEnt) = WEEK(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 2 OR idTip = 2) AND MONTH(dataEnt) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 2 OR idTip = 2) AND ((MONTH(dataEnt) + "+opc2+") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 2 OR idTip = 2) AND YEAR(dataEnt) = YEAR(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE (areaTipSer != 2 OR idTip = 2) AND YEAR(dataEnt) + " + opc2 + " = YEAR(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 6) {
@@ -253,26 +254,25 @@ public class entradaDAO {
                 }
                 break;
             default:
-
                 SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 2 ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 2 AND dataEnt = CURDATE() ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 2 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL "+opc2+" DAY) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 2 AND WEEK(dataEnt) = WEEK(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 2 AND WEEK(dataEnt) = WEEK(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL "+opc2+" WEEK)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 2 AND MONTH(dataEnt) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 2 AND ((MONTH(dataEnt) + "+opc2+") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 2 AND YEAR(dataEnt) = YEAR(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE areaTipSer = 2 AND YEAR(dataEnt) + " + opc2 + " = YEAR(CURDATE()) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 6) {
@@ -312,6 +312,9 @@ public class entradaDAO {
         String ca = "1";
         String c;
 
+        boolean saidaentrada = false;
+        
+        
         while (rs.next()) {
 
             String produto = null;
@@ -352,7 +355,11 @@ public class entradaDAO {
                 listaen.add(rowData);
 
             } else if ("1".equals(rs.getString("idTip"))) {
-
+              
+                if(Objects.equals(rs.getString("descricaoTipSer"), "Saída Caixa")){                 
+                saidaentrada = true;              
+                }
+                          
                 String[] rowData = {
                     rs.getString("dataEnt"),
                     rs.getString("descricaoTipSer"),
@@ -381,7 +388,7 @@ public class entradaDAO {
 
             }
 
-            if (rs.getString("formapagamentoEnt").equals("1")) { //CALCULAR PRECO COM CODIGO DISTINTO E FORMAS SEPARADAS
+            if (rs.getString("formapagamentoEnt").equals("1") && !saidaentrada) { //CALCULAR PRECO COM CODIGO DISTINTO E FORMAS SEPARADAS
 
                 c = rs.getString("codigoEnt");
                 pd = Double.parseDouble(rs.getString("precoEnt"));
@@ -393,7 +400,7 @@ public class entradaDAO {
                 }
                 ca = c;
 
-            } else if (rs.getString("formapagamentoEnt").equals("2")) {
+            } else if (rs.getString("formapagamentoEnt").equals("2") && !saidaentrada) {
 
                 c = rs.getString("codigoEnt");
                 pc = Double.parseDouble(rs.getString("precoEnt"));
@@ -405,7 +412,7 @@ public class entradaDAO {
                 }
                 ca = c;
 
-            } else {
+            } else if (!saidaentrada) {
 
                 c = rs.getString("codigoEnt");
                 pp = Double.parseDouble(rs.getString("precoEnt"));
@@ -419,6 +426,8 @@ public class entradaDAO {
 
             }
 
+            saidaentrada = false;
+            
             en.setEnt(ent);
 
             en.setPtotal(pad + pac + pap);

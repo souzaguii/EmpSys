@@ -32,6 +32,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -356,6 +358,17 @@ public final class main extends javax.swing.JFrame {
 
         try {
             Font fonte = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("fonts/Poppins-SemiBold.ttf"));
+            return fonte.deriveFont((float) size);
+        } catch (FontFormatException | IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Font fontblack(int size) {
+
+        try {
+            Font fonte = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("fonts/Poppins-ExtraBold.ttf"));
             return fonte.deriveFont((float) size);
         } catch (FontFormatException | IOException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -831,8 +844,6 @@ public final class main extends javax.swing.JFrame {
 
                 JTableHeader header = tbl.getTableHeader();
 
-                DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
-
                 modelo.addColumn("Data");
                 modelo.addColumn("Área");
                 modelo.addColumn("Serviço");
@@ -869,6 +880,22 @@ public final class main extends javax.swing.JFrame {
                     modelo.addRow(rowData);
 
                 }
+
+                DefaultTableCellRenderer deheader = new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                        if ("Saída Caixa".equals(table.getValueAt(row, 2))) {
+                            c.setBackground(new Color(255, 246, 246));
+                        } else if ("Entrada Caixa".equals(table.getValueAt(row, 2))) {
+                            c.setBackground(new Color(246, 255, 246));
+                        } else {
+                            c.setBackground(table.getBackground());
+                        }
+                        return c;
+                    }
+                };
 
                 deheader.setHorizontalAlignment(JLabel.CENTER);
 
@@ -915,153 +942,185 @@ public final class main extends javax.swing.JFrame {
 
         try {
 
-            DefaultTableModel modelo = new DefaultTableModel();
-            JTableHeader header = tbl.getTableHeader();
-            DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
+            if (!listacmb.isEmpty()) {
 
-            modelo.addColumn("Data");
-            modelo.addColumn("Serviço");
-            modelo.addColumn("Produto");
-            modelo.addColumn("Preço");
-            modelo.addColumn("Custo");
-            modelo.addColumn("Pagamento");
-            modelo.addColumn("Detalhes");
-            modelo.addColumn("Código Entrada");
+                DefaultTableModel modelo = new DefaultTableModel();
+                JTableHeader header = tbl.getTableHeader();
 
-            double somaCartao = 0;
-            double somaDinheiro = 0;
-            double somaPix = 0;
-            double somaCusto = 0;
+                modelo.addColumn("Data");
+                modelo.addColumn("Serviço");
+                modelo.addColumn("Produto");
+                modelo.addColumn("Preço");
+                modelo.addColumn("Custo");
+                modelo.addColumn("Pagamento");
+                modelo.addColumn("Detalhes");
+                modelo.addColumn("Código Entrada");
 
-            List<String[]> listaa = new ArrayList<>();
+                double somaCartao = 0;
+                double somaDinheiro = 0;
+                double somaPix = 0;
+                double somaCusto = 0;
 
-            for (String[] row : listacmb) {
+                List<String[]> listaa = new ArrayList<>();
 
-                if (rbtnVenRel.isSelected()) {
+                for (String[] row : listacmb) {
 
-                    if (cmb.getSelectedItem().equals(row[2]) || cmb.getSelectedItem().equals("Filtrar resultados")) {
+                    if (rbtnVenRel.isSelected()) {
 
-                        listaa.add(row);
+                        if (cmb.getSelectedItem().equals(row[2]) || cmb.getSelectedItem().equals("Filtrar resultados")) {
+                            listaa.add(row);
+                        }
+
+                    } else {
+
+                        if (cmb.getSelectedItem().equals(row[1]) || cmb.getSelectedItem().equals("Filtrar resultados")) {
+                            listaa.add(row);
+                        }
 
                     }
+
+                }
+
+                for (String[] row : listaa) {
+
+                    Object[] rowData = new Object[8];
+
+                    Date date = formatterbanco.parse(row[0]);
+                    rowData[0] = formatter.format(date);
+                    rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
+                    rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
+                    rowData[3] = (!row[3].equals("0.0")) ? moedadoublereal(Double.valueOf(row[3])) : "Não Aplicável";
+                    rowData[4] = (row[4] != null) ? moedadoublereal(Double.valueOf(row[4])) : "Não Aplicável";
+                    rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
+                    rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
+                    rowData[7] = row[7];
+
+                    modelo.addRow(rowData);
+
+                }
+
+                DefaultTableCellRenderer deheader = new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                        if ("Saída Caixa".equals(table.getValueAt(row, 1))) {
+                            c.setBackground(new Color(255, 246, 246));
+                        } else if ("Entrada Caixa".equals(table.getValueAt(row, 1))) {
+                            c.setBackground(new Color(246, 255, 246));
+                        } else {
+                            c.setBackground(table.getBackground());
+                        }
+                        return c;
+                    }
+                };
+
+                deheader.setHorizontalAlignment(JLabel.CENTER);
+                deheader.setForeground(Color.BLACK);
+                deheader.setFont(fontmed(12));
+
+                header.setForeground(corforeazul);
+                header.setBackground(new Color(246, 246, 246));
+                header.setFont(fontbold(13));
+                header.setReorderingAllowed(false);
+
+                tbl.setModel(modelo);
+                tbl.setRowHeight(25);
+                tbl.setDefaultEditor(Object.class, null);
+                scr.getVerticalScrollBar().setValue(0);
+
+                for (int i = 0; i < tbl.getColumnCount(); i++) {
+                    tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
+                }
+
+                double somaValor = 0;
+                int somaentrada = 0;
+                String codigoAnterior = null;
+
+                for (String[] row : listaa) {
+
+                    String codigoAtual = row[7];
+
+                    if (codigoAnterior == null || !codigoAtual.equals(codigoAnterior)) {
+
+                        if ("1".equals(row[5])) {
+                            somaDinheiro += Double.parseDouble(row[3]);
+                            if (row[4] != null && chkCus.isSelected()) {
+                                somaDinheiro -= Double.parseDouble(row[4]);
+                            }
+                        } else if ("2".equals(row[5])) {
+                            somaCartao += Double.parseDouble(row[3]);
+                            if (row[4] != null && chkCus.isSelected()) {
+                                somaCartao -= Double.parseDouble(row[4]);
+                            }
+                        } else if ("3".equals(row[5])) {
+                            somaPix += Double.parseDouble(row[3]);
+                            if (row[4] != null && chkCus.isSelected()) {
+                                somaPix -= Double.parseDouble(row[4]);
+                            }
+                        }
+
+                        if (row[4] != null) {
+
+                            somaCusto += Double.parseDouble(row[4]);
+
+                        }
+
+                        somaValor += Double.parseDouble(row[3]);
+
+                        somaentrada++;
+                    }
+
+                    codigoAnterior = codigoAtual;
+                }
+
+                tbl.getColumnModel().getColumn(7).setMinWidth(0);
+                tbl.getColumnModel().getColumn(7).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(7).setWidth(0);
+
+                tblRel.setVisible(true);
+                scrRel.setVisible(true);
+
+                if (chkCus.isSelected()) {
+                    lblValTotRel.setText(moedadoublereal(somaValor - somaCusto));
+                } else {
+                    lblValTotRel.setText(moedadoublereal(somaValor));
+                }
+
+                lblValMedRel.setText(moedadoublereal(somaCusto));
+                lblTotEntRel.setText(String.valueOf(somaentrada));
+
+                lblValDinRel.setText(moedadoublereal(somaDinheiro));
+                lblValCarRel.setText(moedadoublereal(somaCartao));
+                lblValPixRel.setText(moedadoublereal(somaPix));
+
+                if (somaCusto == 0) {
+
+                    chkCus.setEnabled(false);
+                    chkCus.setSelected(false);
 
                 } else {
 
-                    if (cmb.getSelectedItem().equals(row[1]) || cmb.getSelectedItem().equals("Filtrar resultados")) {
-
-                        listaa.add(row);
-
-                    }
-
+                    chkCus.setEnabled(true);
                 }
-
-            }
-
-            for (String[] row : listaa) {
-
-                Object[] rowData = new Object[8];
-
-                Date date = formatterbanco.parse(row[0]);
-                rowData[0] = formatter.format(date);
-                rowData[1] = (row[1] != null) ? row[1] : "Nenhum Serviço";
-                rowData[2] = (!"null - null null - null".equals(row[2]) && row[2] != null) ? row[2] : "Nenhum Produto";
-                rowData[3] = (!row[3].equals("0.0")) ? moedadoublereal(Double.valueOf(row[3])) : "Não Aplicável";
-                rowData[4] = (row[4] != null) ? moedadoublereal(Double.valueOf(row[4])) : "Não Aplicável";
-                rowData[5] = ("1".equals(row[5])) ? "Dinheiro" : ("2".equals(row[5])) ? "Cartão" : ("3".equals(row[5])) ? "PIX" : null;
-                rowData[6] = (row[6] != null && !"".equals(row[6])) ? row[6] : "Sem Detalhes";
-                rowData[7] = row[7];
-
-                modelo.addRow(rowData);
-
-            }
-
-            deheader.setHorizontalAlignment(JLabel.CENTER);
-            deheader.setForeground(Color.BLACK);
-            deheader.setFont(fontmed(12));
-
-            header.setForeground(corforeazul);
-            header.setBackground(new Color(246, 246, 246));
-            header.setFont(fontbold(13));
-            header.setReorderingAllowed(false);
-
-            tbl.setModel(modelo);
-            tbl.setRowHeight(25);
-            tbl.setDefaultEditor(Object.class, null);
-            scr.getVerticalScrollBar().setValue(0);
-
-            for (int i = 0; i < tbl.getColumnCount(); i++) {
-                tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
-            }
-
-            double somaValor = 0;
-            int somaentrada = 0;
-            String codigoAnterior = null;
-
-            for (String[] row : listaa) {
-
-                String codigoAtual = row[7];
-
-                if (codigoAnterior == null || !codigoAtual.equals(codigoAnterior)) {
-
-                    if ("1".equals(row[5])) {
-                        somaDinheiro += Double.parseDouble(row[3]);
-                        if (row[4] != null && chkCus.isSelected()) {
-                            somaDinheiro -= Double.parseDouble(row[4]);
-                        }
-                    } else if ("2".equals(row[5])) {
-                        somaCartao += Double.parseDouble(row[3]);
-                        if (row[4] != null && chkCus.isSelected()) {
-                            somaCartao -= Double.parseDouble(row[4]);
-                        }
-                    } else if ("3".equals(row[5])) {
-                        somaPix += Double.parseDouble(row[3]);
-                        if (row[4] != null && chkCus.isSelected()) {
-                            somaPix -= Double.parseDouble(row[4]);
-                        }
-                    }
-
-                    if (row[4] != null) {
-
-                        somaCusto += Double.parseDouble(row[4]);
-
-                    }
-
-                    somaValor += Double.parseDouble(row[3]);
-
-                    somaentrada++;
-                }
-
-                codigoAnterior = codigoAtual;
-            }
-
-            tbl.getColumnModel().getColumn(7).setMinWidth(0);
-            tbl.getColumnModel().getColumn(7).setMaxWidth(0);
-            tbl.getColumnModel().getColumn(7).setWidth(0);
-
-            tblRel.setVisible(true);
-            scrRel.setVisible(true);
-
-            if (chkCus.isSelected()) {
-                lblValTotRel.setText(moedadoublereal(somaValor - somaCusto));
-            } else {
-                lblValTotRel.setText(moedadoublereal(somaValor));
-            }
-
-            lblValMedRel.setText(moedadoublereal(somaCusto));
-            lblTotEntRel.setText(String.valueOf(somaentrada));
-
-            lblValDinRel.setText(moedadoublereal(somaDinheiro));
-            lblValCarRel.setText(moedadoublereal(somaCartao));
-            lblValPixRel.setText(moedadoublereal(somaPix));
-
-            if (somaCusto == 0) {
-
-                chkCus.setEnabled(false);
-                chkCus.setSelected(false);
 
             } else {
 
-                chkCus.setEnabled(true);
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                mol.setRowCount(0);
+
+                tblRel.setVisible(false);
+                scrRel.setVisible(false);
+
+                lblResRel.setVisible(true);
+
+                lblValTotRel.setText("R$0,00");
+                lblValMedRel.setText("R$0,00");
+                lblTotEntRel.setText("0");
+
+                lblValDinRel.setText("R$0,00");
+                lblValCarRel.setText("R$0,00");
+                lblValPixRel.setText("R$0,00");
             }
 
         } catch (ParseException ex) {
@@ -1070,12 +1129,14 @@ public final class main extends javax.swing.JFrame {
 
     }
 
-    private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2) {
+    private boolean tabelarelatorio(JTable tbl, JScrollPane scr, int opc, int opc1, String data1, String data2, int opc2) {
+
         try {
 
             entradaDAO endao = new entradaDAO();
             entrada en = new entrada();
-            List<String[]> lista = endao.buscar(opc, opc1, data1, data2, en);
+
+            List<String[]> lista = endao.buscar(opc, opc1, data1, data2, en, opc2);
 
             if (!lista.isEmpty()) {
 
@@ -1093,25 +1154,6 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
 
-                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
-                    @Override
-                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                        if ("Saída Caixa".equals(table.getValueAt(row, 1))) {
-                            c.setBackground(new Color(255, 246, 246));
-                        } else if ("Entrada Caixa".equals(table.getValueAt(row, 1))) {
-                            c.setBackground(new Color(246, 255, 246));
-                        } else {
-                            c.setBackground(table.getBackground());
-                        }
-                        return c;
-                    }
-                };
-
-                tbl.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
-                tbl.repaint();
-
                 for (String[] row : lista) {
                     Object[] rowData = new Object[8];
 
@@ -1128,6 +1170,27 @@ public final class main extends javax.swing.JFrame {
                     modelo.addRow(rowData);
                 }
 
+                tbl.setModel(modelo);
+                tbl.setRowHeight(25);
+                tbl.setDefaultEditor(Object.class, null);
+                scr.getVerticalScrollBar().setValue(0);
+
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                        if ("Saída Caixa".equals(table.getValueAt(row, 1))) {
+                            c.setBackground(new Color(255, 246, 246));
+                        } else if ("Entrada Caixa".equals(table.getValueAt(row, 1))) {
+                            c.setBackground(new Color(246, 255, 246));
+                        } else {
+                            c.setBackground(table.getBackground());
+                        }
+                        return c;
+                    }
+                };
+
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
                 cellRenderer.setFont(fontmed(12));
@@ -1136,11 +1199,6 @@ public final class main extends javax.swing.JFrame {
                 header.setBackground(new Color(246, 246, 246));
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
-
-                tbl.setModel(modelo);
-                tbl.setRowHeight(25);
-                tbl.setDefaultEditor(Object.class, null);
-                scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
@@ -1179,11 +1237,11 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                tblRel.setVisible(false);
-                scrRel.setVisible(false);
-
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
+
+                tblRel.setVisible(false);
+                scrRel.setVisible(false);
 
                 lblResRel.setVisible(true);
 
@@ -1195,6 +1253,7 @@ public final class main extends javax.swing.JFrame {
                 lblValCarRel.setText("R$0,00");
                 lblValPixRel.setText("R$0,00");
             }
+
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1253,8 +1312,6 @@ public final class main extends javax.swing.JFrame {
 
                 JTableHeader header = tbl.getTableHeader();
 
-                DefaultTableCellRenderer deheader = new DefaultTableCellRenderer();
-
                 modelo.addColumn("Data");
                 modelo.addColumn("Área");
                 modelo.addColumn("Serviço");
@@ -1291,6 +1348,22 @@ public final class main extends javax.swing.JFrame {
                     modelo.addRow(rowData);
 
                 }
+
+                DefaultTableCellRenderer deheader = new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                        if ("Saída Caixa".equals(table.getValueAt(row, 2))) {
+                            c.setBackground(new Color(255, 246, 246));
+                        } else if ("Entrada Caixa".equals(table.getValueAt(row, 2))) {
+                            c.setBackground(new Color(246, 255, 246));
+                        } else {
+                            c.setBackground(table.getBackground());
+                        }
+                        return c;
+                    }
+                };
 
                 deheader.setHorizontalAlignment(JLabel.CENTER);
 
@@ -2539,6 +2612,10 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel = new javax.swing.JLabel();
         txtDatFinRel = new javax.swing.JTextField();
         sepDatCadEnt2 = new javax.swing.JSeparator();
+        lblDiaRel = new javax.swing.JLabel();
+        btnMenDiaRel = new javax.swing.JLabel();
+        btnNumDiaRel = new javax.swing.JLabel();
+        btnMaiDiaRel = new javax.swing.JLabel();
         btnDiaRel = new javax.swing.JLabel();
         btnMesRel = new javax.swing.JLabel();
         btnSemRel = new javax.swing.JLabel();
@@ -5328,6 +5405,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblRel.setToolTipText("");
         tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblRel.setEnabled(false);
         tblRel.setFocusable(false);
@@ -5347,7 +5425,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlRel.add(btnVolRel);
-        btnVolRel.setBounds(60, 122, 90, 50);
+        btnVolRel.setBounds(60, 123, 90, 50);
 
         btnGroup.add(rbtnSerRel);
         rbtnSerRel.setFont(fontmed(12));
@@ -5457,7 +5535,7 @@ public final class main extends javax.swing.JFrame {
 
         btnTodRel.setFont(fontbold(12));
         btnTodRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnTodRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnTodRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnTodRel.setText("Todos");
         btnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTodRel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -5476,7 +5554,7 @@ public final class main extends javax.swing.JFrame {
 
         btnAnoRel.setFont(fontmed(12));
         btnAnoRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnAnoRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAnoRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAnoRel.setText("Ano");
         btnAnoRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAnoRel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -5532,9 +5610,85 @@ public final class main extends javax.swing.JFrame {
         pnlRel.add(sepDatCadEnt2);
         sepDatCadEnt2.setBounds(840, 70, 10, 240);
 
+        lblDiaRel.setFont(fontbold(12));
+        lblDiaRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblDiaRel.setText("Este dia");
+        lblDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(lblDiaRel);
+        lblDiaRel.setBounds(60, 85, 120, 20);
+
+        btnMenDiaRel.setFont(fontbold(18));
+        btnMenDiaRel.setForeground(new java.awt.Color(255, 0, 0));
+        btnMenDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenDiaRel.setText("-");
+        btnMenDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMenDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMenDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMenDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnMenDiaRel);
+        btnMenDiaRel.setBounds(60, 65, 15, 20);
+
+        btnNumDiaRel.setFont(fontbold(14));
+        btnNumDiaRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnNumDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnNumDiaRel.setText("10");
+        btnNumDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnNumDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNumDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNumDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnNumDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnNumDiaRel);
+        btnNumDiaRel.setBounds(60, 75, 100, 20);
+
+        btnMaiDiaRel.setFont(fontbold(18));
+        btnMaiDiaRel.setForeground(new java.awt.Color(51, 204, 0));
+        btnMaiDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMaiDiaRel.setText("+");
+        btnMaiDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMaiDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMaiDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMaiDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMaiDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnMaiDiaRel);
+        btnMaiDiaRel.setBounds(85, 65, 15, 20);
+
         btnDiaRel.setFont(fontmed(12));
         btnDiaRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnDiaRel.setText("Dia");
         btnDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -5553,7 +5707,7 @@ public final class main extends javax.swing.JFrame {
 
         btnMesRel.setFont(fontmed(12));
         btnMesRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnMesRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMesRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnMesRel.setText("Mês");
         btnMesRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMesRel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -6064,12 +6218,12 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadTipSer.add(rbtnOutTipSer);
-        rbtnOutTipSer.setBounds(750, 10, 80, 21);
+        rbtnOutTipSer.setBounds(780, 10, 80, 21);
 
         btnGroup.add(rbtnSerTimTipSer);
         rbtnSerTimTipSer.setFont(fontmed(12));
         rbtnSerTimTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnSerTimTipSer.setText("TIM");
+        rbtnSerTimTipSer.setText("Serviço");
         rbtnSerTimTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rbtnSerTimTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6077,7 +6231,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadTipSer.add(rbtnSerTimTipSer);
-        rbtnSerTimTipSer.setBounds(480, 10, 70, 21);
+        rbtnSerTimTipSer.setBounds(450, 10, 70, 21);
 
         btnGroup.add(rbtnAssTipSer);
         rbtnAssTipSer.setFont(fontmed(12));
@@ -6090,7 +6244,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadTipSer.add(rbtnAssTipSer);
-        rbtnAssTipSer.setBounds(561, 10, 170, 21);
+        rbtnAssTipSer.setBounds(576, 10, 170, 21);
 
         lblDesTipSer.setFont(fontmed(12));
         lblDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
@@ -6253,7 +6407,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(rbtnOutGerTipSer);
-        rbtnOutGerTipSer.setBounds(750, 10, 100, 21);
+        rbtnOutGerTipSer.setBounds(780, 10, 100, 21);
 
         btnGroup.add(rbtnAssGerTipSer);
         rbtnAssGerTipSer.setFont(fontmed(12));
@@ -6266,12 +6420,12 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(rbtnAssGerTipSer);
-        rbtnAssGerTipSer.setBounds(561, 10, 150, 21);
+        rbtnAssGerTipSer.setBounds(576, 10, 150, 21);
 
         btnGroup.add(rbtnTimGerTipSer);
         rbtnTimGerTipSer.setFont(fontmed(12));
         rbtnTimGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnTimGerTipSer.setText("TIM");
+        rbtnTimGerTipSer.setText("Serviço");
         rbtnTimGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rbtnTimGerTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6279,7 +6433,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerTipSer.add(rbtnTimGerTipSer);
-        rbtnTimGerTipSer.setBounds(480, 10, 60, 21);
+        rbtnTimGerTipSer.setBounds(450, 10, 80, 21);
 
         pnlPri.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -9501,158 +9655,162 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_tblGerEstMouseClicked
 
     private void btnSalCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadEntActionPerformed
-        if (!(rbtnVenCadEnt.isSelected() && tblSelIteCadEnt.getRowCount() == 0)) {
+        if ((rbtnDinCadEnt.isSelected() || rbtnPixCadEnt.isSelected()) || (rbtnCarCadEnt.isSelected() && (rbtnCreCadEnt.isSelected() || rbtnDebCadEnt.isSelected()))) {
 
-            if (!(cmbVezCar.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
+            if (!(rbtnVenCadEnt.isSelected() && tblSelIteCadEnt.getRowCount() == 0)) {
 
-                try {
+                if (!(cmbVezCar.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
 
-                    int idser = 0;
-                    int idpagamento = 1;
-                    double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
+                    try {
 
-                    if (rbtnCarCadEnt.isSelected()) {
+                        int idser = 0;
+                        int idpagamento = 1;
+                        double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
 
-                        if (rbtnDebCadEnt.isSelected()) {
+                        if (rbtnCarCadEnt.isSelected()) {
 
-                            preco = preco - (preco * juros(0) / 100);
+                            if (rbtnDebCadEnt.isSelected()) {
 
-                        } else if (rbtnCreCadEnt.isSelected()) {
+                                preco = preco - (preco * juros(0) / 100);
 
-                            switch ((int) spnParCadEnt.getValue()) {
-                                case 1:
-                                    preco = preco - (preco * juros(1) / 100);
-                                    break;
-                                case 2:
-                                    preco = preco - (preco * juros(2) / 100);
-                                    break;
-                                case 3:
-                                    preco = preco - (preco * juros(3) / 100);
-                                    break;
-                                case 4:
-                                    preco = preco - (preco * juros(4) / 100);
-                                    break;
-                                case 5:
-                                    preco = preco - (preco * juros(5) / 100);
-                                    break;
-                                case 6:
-                                    preco = preco - (preco * juros(6) / 100);
-                                    break;
-                                case 7:
-                                    preco = preco - (preco * juros(7) / 100);
-                                    break;
-                                case 8:
-                                    preco = preco - (preco * juros(8) / 100);
-                                    break;
-                                case 9:
-                                    preco = preco - (preco * juros(9) / 100);
-                                    break;
-                                case 10:
-                                    preco = preco - (preco * juros(10) / 100);
-                                    break;
-                                case 11:
-                                    preco = preco - (preco * juros(11) / 100);
-                                    break;
-                                case 12:
-                                    preco = preco - (preco * juros(12) / 100);
-                                    break;
-                                default:
-                                    break;
+                            } else if (rbtnCreCadEnt.isSelected()) {
+
+                                switch ((int) spnParCadEnt.getValue()) {
+                                    case 1:
+                                        preco = preco - (preco * juros(1) / 100);
+                                        break;
+                                    case 2:
+                                        preco = preco - (preco * juros(2) / 100);
+                                        break;
+                                    case 3:
+                                        preco = preco - (preco * juros(3) / 100);
+                                        break;
+                                    case 4:
+                                        preco = preco - (preco * juros(4) / 100);
+                                        break;
+                                    case 5:
+                                        preco = preco - (preco * juros(5) / 100);
+                                        break;
+                                    case 6:
+                                        preco = preco - (preco * juros(6) / 100);
+                                        break;
+                                    case 7:
+                                        preco = preco - (preco * juros(7) / 100);
+                                        break;
+                                    case 8:
+                                        preco = preco - (preco * juros(8) / 100);
+                                        break;
+                                    case 9:
+                                        preco = preco - (preco * juros(9) / 100);
+                                        break;
+                                    case 10:
+                                        preco = preco - (preco * juros(10) / 100);
+                                        break;
+                                    case 11:
+                                        preco = preco - (preco * juros(11) / 100);
+                                        break;
+                                    case 12:
+                                        preco = preco - (preco * juros(12) / 100);
+                                        break;
+                                    default:
+                                        break;
+                                }
+
                             }
 
                         }
 
-                    }
+                        if (rbtnCarCadEnt.isSelected()) {
+                            idpagamento = 2;
+                        } else if (rbtnPixCadEnt.isSelected()) {
+                            idpagamento = 3;
+                        }
 
-                    if (rbtnCarCadEnt.isSelected()) {
-                        idpagamento = 2;
-                    } else if (rbtnPixCadEnt.isSelected()) {
-                        idpagamento = 3;
-                    }
+                        if (cmbVezCar.getSelectedIndex() != 0) {
+                            itens selectedItem = (itens) cmbVezCar.getSelectedItem();
+                            idser = selectedItem.getId();
+                        }
 
-                    if (cmbVezCar.getSelectedIndex() != 0) {
-                        itens selectedItem = (itens) cmbVezCar.getSelectedItem();
-                        idser = selectedItem.getId();
-                    }
+                        if (tblSelIteCadEnt.getRowCount() != 0) {
 
-                    if (tblSelIteCadEnt.getRowCount() != 0) {
+                            for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
 
-                        for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
+                                entrada en = new entrada();
+                                entradaDAO endao = new entradaDAO();
+
+                                en.setCodigo(txtCodCadEnt.getText());
+                                en.setData(formatterbanco.format(((formatter.parse(txtDatCadEnt.getText())))));
+                                en.setPreco(preco);
+                                en.setDetalhes(txtDetCadEnt.getText());
+                                en.setFormapagamento(idpagamento);
+
+                                if (rbtnSerCadEnt.isSelected()) {
+
+                                    en.setIdtiposervico(idser);
+                                    en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
+                                    en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+
+                                    endao.inserir(en, 1);
+
+                                } else if (rbtnVenCadEnt.isSelected()) {
+
+                                    en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
+                                    en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+
+                                    endao.inserir(en, 2);
+                                }
+
+                            }
+
+                        } else {
 
                             entrada en = new entrada();
                             entradaDAO endao = new entradaDAO();
 
                             en.setCodigo(txtCodCadEnt.getText());
-                            en.setData(formatterbanco.format(((formatter.parse(txtDatCadEnt.getText())))));
+                            en.setData(formatterbanco.format((formatter.parse(txtDatCadEnt.getText()))));
                             en.setPreco(preco);
                             en.setDetalhes(txtDetCadEnt.getText());
+                            en.setIdtiposervico(idser);
+                            en.setIdestoque(1);
                             en.setFormapagamento(idpagamento);
 
                             if (rbtnSerCadEnt.isSelected()) {
 
-                                en.setIdtiposervico(idser);
-                                en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
-                                en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
-
                                 endao.inserir(en, 1);
 
-                            } else if (rbtnVenCadEnt.isSelected()) {
+                            } else if (rbtnAssCadEnt.isSelected()) {
 
-                                en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
-                                en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+                                en.setCliente(txtCliCadEnt.getText());
+                                en.setCusto((!txtCusCadEnt.getText().isEmpty()) ? Double.valueOf(txtCusCadEnt.getText().replace(".", "").replace(",", ".")) : null);
+                                en.setFornecedor(txtForCadEnt.getText());
 
-                                endao.inserir(en, 2);
+                                endao.inserir(en, 3);
+
                             }
 
                         }
 
-                    } else {
+                        JOptionPane.showMessageDialog(pnlCadEnt, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
-                        entrada en = new entrada();
-                        entradaDAO endao = new entradaDAO();
+                        pnlCadEnt.setVisible(false);
 
-                        en.setCodigo(txtCodCadEnt.getText());
-                        en.setData(formatterbanco.format((formatter.parse(txtDatCadEnt.getText()))));
-                        en.setPreco(preco);
-                        en.setDetalhes(txtDetCadEnt.getText());
-                        en.setIdtiposervico(idser);
-                        en.setIdestoque(1);
-                        en.setFormapagamento(idpagamento);
-
-                        if (rbtnSerCadEnt.isSelected()) {
-
-                            endao.inserir(en, 1);
-
-                        } else if (rbtnAssCadEnt.isSelected()) {
-
-                            en.setCliente(txtCliCadEnt.getText());
-                            en.setCusto((!txtCusCadEnt.getText().isEmpty()) ? Double.valueOf(txtCusCadEnt.getText().replace(".", "").replace(",", ".")) : null);
-                            en.setFornecedor(txtForCadEnt.getText());
-
-                            endao.inserir(en, 3);
-
-                        }
-
+                    } catch (SQLException | ParseException ex) {
+                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    JOptionPane.showMessageDialog(pnlCadEnt, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-                    pnlCadEnt.setVisible(false);
-
-                } catch (SQLException | ParseException ex) {
-                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                } else {
+                    JOptionPane.showMessageDialog(pnlCadEnt, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
                 }
 
+                lblTitPri.setVisible(false);
+
             } else {
-                JOptionPane.showMessageDialog(pnlCadEnt, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(pnlCadEnt, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
 
-            lblTitPri.setVisible(false);
-
         } else {
-
-            JOptionPane.showMessageDialog(pnlCadEnt, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
-
+            JOptionPane.showMessageDialog(pnlCadEnt, "Selecione o método de pagamento!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnSalCadEntActionPerformed
 
@@ -10265,23 +10423,22 @@ public final class main extends javax.swing.JFrame {
             chkCus.setEnabled(false);
 
             if (btnTodRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
+                tabelarelatorio(tblRel, scrRel, 2, 1, null, null, 0);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 2, 2, null, null);
+                tabelarelatorio(tblRel, scrRel, 2, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnSemRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 2, 3, null, null);
+                tabelarelatorio(tblRel, scrRel, 2, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnMesRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 2, 4, null, null);
+                tabelarelatorio(tblRel, scrRel, 2, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnAnoRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 2, 5, null, null);
+                tabelarelatorio(tblRel, scrRel, 2, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
-                tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2);
+                tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2, 0);
             }
 
             cmbrelatorio(tblRel, cmbRel, 1);
-            cmbRel.setEnabled(true);
 
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -10297,23 +10454,23 @@ public final class main extends javax.swing.JFrame {
             chkCus.setEnabled(false);
 
             if (btnTodRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
+                tabelarelatorio(tblRel, scrRel, 3, 1, null, null, 0);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 3, 2, null, null);
+                tabelarelatorio(tblRel, scrRel, 3, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnSemRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 3, 3, null, null);
+                tabelarelatorio(tblRel, scrRel, 3, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnMesRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 3, 4, null, null);
+                tabelarelatorio(tblRel, scrRel, 3, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnAnoRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 3, 5, null, null);
+                tabelarelatorio(tblRel, scrRel, 3, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
-                tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2);
+                tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2, 0);
             }
 
             cmbrelatorio(tblRel, cmbRel, 2);
-            cmbRel.setEnabled(true);
+
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -10328,22 +10485,22 @@ public final class main extends javax.swing.JFrame {
             chkCus.setSelected(false);
 
             if (btnTodRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
+                tabelarelatorio(tblRel, scrRel, 1, 1, null, null, 0);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
+                tabelarelatorio(tblRel, scrRel, 1, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnSemRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
+                tabelarelatorio(tblRel, scrRel, 1, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnMesRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
+                tabelarelatorio(tblRel, scrRel, 1, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnAnoRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
+                tabelarelatorio(tblRel, scrRel, 1, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
-                tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2);
+                tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2, 0);
             }
 
-            cmbrelatorio(tblRel, cmbRel, 1);
+            cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
 
         } catch (ParseException ex) {
@@ -10449,23 +10606,22 @@ public final class main extends javax.swing.JFrame {
             chkCus.setSelected(false);
 
             if (btnTodRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
+                tabelarelatorio(tblRel, scrRel, 5, 1, null, null, 0);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 5, 2, null, null);
+                tabelarelatorio(tblRel, scrRel, 5, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnSemRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 5, 3, null, null);
+                tabelarelatorio(tblRel, scrRel, 5, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnMesRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 5, 4, null, null);
+                tabelarelatorio(tblRel, scrRel, 5, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnAnoRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 5, 5, null, null);
+                tabelarelatorio(tblRel, scrRel, 5, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
-                tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2);
+                tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2, 0);
             }
 
             cmbrelatorio(tblRel, cmbRel, 1);
-            cmbRel.setEnabled(true);
 
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -10474,6 +10630,11 @@ public final class main extends javax.swing.JFrame {
 
     private void btnRelPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelPriMouseReleased
         if (!pnlRel.isVisible()) {
+
+            btnNumDiaRel.setVisible(false);
+            btnMenDiaRel.setVisible(false);
+            btnMaiDiaRel.setVisible(false);
+            lblDiaRel.setVisible(false);
 
             rbtnTodRel.setSelected(true);
 
@@ -10494,7 +10655,7 @@ public final class main extends javax.swing.JFrame {
             chkCus.setEnabled(false);
             chkCus.setSelected(false);
 
-            tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
+            tabelarelatorio(tblRel, scrRel, 1, 1, null, null, 0);
 
             cmbrelatorio(tblRel, cmbRel, 1);
             cmbRel.setEnabled(false);
@@ -10560,8 +10721,10 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_lblDatIniRelFocusGained
 
     private void btnTodRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTodRelMouseReleased
-        txtDatIniRel.setText(null);
-        txtDatFinRel.setText(null);
+        btnNumDiaRel.setVisible(false);
+        btnMenDiaRel.setVisible(false);
+        btnMaiDiaRel.setVisible(false);
+        lblDiaRel.setVisible(false);
 
         btnTodRel.setFont(fontbold(13));
         btnDiaRel.setFont(fontmed(12));
@@ -10572,19 +10735,26 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setFont(fontmed(12));
 
         if (rbtnTodRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
+            tabelarelatorio(tblRel, scrRel, 1, 1, null, null, 0);
         } else if (rbtnSerRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
+            tabelarelatorio(tblRel, scrRel, 2, 1, null, null, 0);
         } else if (rbtnVenRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
+            tabelarelatorio(tblRel, scrRel, 3, 1, null, null, 0);
         } else if (rbtnVenRel1.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 4, 1, null, null);
+            tabelarelatorio(tblRel, scrRel, 4, 1, null, null, 0);
         } else {
-            tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
+            tabelarelatorio(tblRel, scrRel, 5, 1, null, null, 0);
         }
 
-        lblDatFinRel.setLocation(430, 150);
-        lblDatIniRel.setLocation(290, 150);
+        if (txtDatIniRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatFinRel.setLocation(430, 150);
+        } else if (txtDatFinRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatIniRel.setLocation(290, 150);
+        }
 
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
             if (rbtnVenRel.isSelected()) {
@@ -10603,8 +10773,18 @@ public final class main extends javax.swing.JFrame {
     private void btnDiaRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDiaRelMouseReleased
         btnDiaRel.grabFocus();
 
-        txtDatIniRel.setText(null);
-        txtDatFinRel.setText(null);
+        btnNumDiaRel.setText("0");
+        btnNumDiaRel.setVisible(false);
+        btnMenDiaRel.setVisible(true);
+        btnMenDiaRel.setEnabled(false);
+        btnMaiDiaRel.setVisible(true);
+
+        lblDiaRel.setVisible(true);
+        lblDiaRel.setText("Este dia");
+
+        btnMaiDiaRel.setLocation(85, 65);
+        btnMenDiaRel.setLocation(60, 65);
+        lblDiaRel.setLocation(60, 85);
 
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontbold(13));
@@ -10615,19 +10795,26 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setFont(fontmed(12));
 
         if (rbtnTodRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
+            tabelarelatorio(tblRel, scrRel, 1, 2, null, null, 0);
         } else if (rbtnSerRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 2, 2, null, null);
+            tabelarelatorio(tblRel, scrRel, 2, 2, null, null, 0);
         } else if (rbtnVenRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 3, 2, null, null);
+            tabelarelatorio(tblRel, scrRel, 3, 2, null, null, 0);
         } else if (rbtnVenRel1.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 4, 2, null, null);
+            tabelarelatorio(tblRel, scrRel, 4, 2, null, null, 0);
         } else {
-            tabelarelatorio(tblRel, scrRel, 5, 2, null, null);
+            tabelarelatorio(tblRel, scrRel, 5, 2, null, null, 0);
         }
 
-        lblDatFinRel.setLocation(430, 150);
-        lblDatIniRel.setLocation(290, 150);
+        if (txtDatIniRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatFinRel.setLocation(430, 150);
+        } else if (txtDatFinRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatIniRel.setLocation(290, 150);
+        }
 
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
             if (rbtnVenRel.isSelected()) {
@@ -10644,8 +10831,18 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDiaRelMouseReleased
 
     private void btnSemRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSemRelMouseReleased
-        txtDatIniRel.setText(null);
-        txtDatFinRel.setText(null);
+        btnNumDiaRel.setText("0");
+        btnNumDiaRel.setVisible(false);
+        btnMenDiaRel.setVisible(true);
+        btnMenDiaRel.setEnabled(false);
+        btnMaiDiaRel.setVisible(true);
+
+        lblDiaRel.setVisible(true);
+        lblDiaRel.setText("Esta semana");
+
+        btnMaiDiaRel.setLocation(85, 65);
+        btnMenDiaRel.setLocation(60, 65);
+        lblDiaRel.setLocation(60, 85);
 
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
@@ -10656,19 +10853,26 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setFont(fontmed(12));
 
         if (rbtnTodRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
+            tabelarelatorio(tblRel, scrRel, 1, 3, null, null, 0);
         } else if (rbtnSerRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 2, 3, null, null);
+            tabelarelatorio(tblRel, scrRel, 2, 3, null, null, 0);
         } else if (rbtnVenRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 3, 3, null, null);
+            tabelarelatorio(tblRel, scrRel, 3, 3, null, null, 0);
         } else if (rbtnVenRel1.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 4, 3, null, null);
+            tabelarelatorio(tblRel, scrRel, 4, 3, null, null, 0);
         } else {
-            tabelarelatorio(tblRel, scrRel, 5, 3, null, null);
+            tabelarelatorio(tblRel, scrRel, 5, 3, null, null, 0);
         }
 
-        lblDatFinRel.setLocation(430, 150);
-        lblDatIniRel.setLocation(290, 150);
+        if (txtDatIniRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatFinRel.setLocation(430, 150);
+        } else if (txtDatFinRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatIniRel.setLocation(290, 150);
+        }
 
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
             if (rbtnVenRel.isSelected()) {
@@ -10685,9 +10889,18 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSemRelMouseReleased
 
     private void btnMesRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesRelMouseReleased
+        btnNumDiaRel.setText("0");
+        btnNumDiaRel.setVisible(false);
+        btnMenDiaRel.setVisible(true);
+        btnMenDiaRel.setEnabled(false);
+        btnMaiDiaRel.setVisible(true);
 
-        txtDatIniRel.setText(null);
-        txtDatFinRel.setText(null);
+        lblDiaRel.setVisible(true);
+        lblDiaRel.setText("Este mês");
+
+        btnMaiDiaRel.setLocation(85, 65);
+        btnMenDiaRel.setLocation(60, 65);
+        lblDiaRel.setLocation(60, 85);
 
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
@@ -10698,19 +10911,26 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setFont(fontmed(12));
 
         if (rbtnTodRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
+            tabelarelatorio(tblRel, scrRel, 1, 4, null, null, 0);
         } else if (rbtnSerRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 2, 4, null, null);
+            tabelarelatorio(tblRel, scrRel, 2, 4, null, null, 0);
         } else if (rbtnVenRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 3, 4, null, null);
+            tabelarelatorio(tblRel, scrRel, 3, 4, null, null, 0);
         } else if (rbtnVenRel1.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 4, 4, null, null);
+            tabelarelatorio(tblRel, scrRel, 4, 4, null, null, 0);
         } else {
-            tabelarelatorio(tblRel, scrRel, 5, 4, null, null);
+            tabelarelatorio(tblRel, scrRel, 5, 4, null, null, 0);
         }
 
-        lblDatFinRel.setLocation(430, 150);
-        lblDatIniRel.setLocation(290, 150);
+        if (txtDatIniRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatFinRel.setLocation(430, 150);
+        } else if (txtDatFinRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatIniRel.setLocation(290, 150);
+        }
 
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
             if (rbtnVenRel.isSelected()) {
@@ -10727,8 +10947,18 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMesRelMouseReleased
 
     private void btnAnoRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnoRelMouseReleased
-        txtDatIniRel.setText(null);
-        txtDatFinRel.setText(null);
+        btnNumDiaRel.setText("0");
+        btnNumDiaRel.setVisible(false);
+        btnMenDiaRel.setVisible(true);
+        btnMenDiaRel.setEnabled(false);
+        btnMaiDiaRel.setVisible(true);
+
+        lblDiaRel.setVisible(true);
+        lblDiaRel.setText("Este ano");
+
+        btnMaiDiaRel.setLocation(85, 65);
+        btnMenDiaRel.setLocation(60, 65);
+        lblDiaRel.setLocation(60, 85);
 
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
@@ -10739,19 +10969,26 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setFont(fontmed(12));
 
         if (rbtnTodRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
+            tabelarelatorio(tblRel, scrRel, 1, 5, null, null, 0);
         } else if (rbtnSerRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 2, 5, null, null);
+            tabelarelatorio(tblRel, scrRel, 2, 5, null, null, 0);
         } else if (rbtnVenRel.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 3, 5, null, null);
+            tabelarelatorio(tblRel, scrRel, 3, 5, null, null, 0);
         } else if (rbtnVenRel1.isSelected()) {
-            tabelarelatorio(tblRel, scrRel, 4, 5, null, null);
+            tabelarelatorio(tblRel, scrRel, 4, 5, null, null, 0);
         } else {
-            tabelarelatorio(tblRel, scrRel, 5, 5, null, null);
+            tabelarelatorio(tblRel, scrRel, 5, 5, null, null, 0);
         }
 
-        lblDatFinRel.setLocation(430, 150);
-        lblDatIniRel.setLocation(290, 150);
+        if (txtDatIniRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatFinRel.setLocation(430, 150);
+        } else if (txtDatFinRel.hasFocus()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatIniRel.setLocation(290, 150);
+        }
 
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
             if (rbtnVenRel.isSelected()) {
@@ -10770,21 +11007,26 @@ public final class main extends javax.swing.JFrame {
     private void txtDatFinRelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatFinRelKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
+            btnNumDiaRel.setVisible(false);
+            btnMenDiaRel.setVisible(false);
+            btnMaiDiaRel.setVisible(false);
+            lblDiaRel.setVisible(false);
+
             try {
 
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
 
                 if (rbtnTodRel.isSelected()) {
-                    tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2);
+                    tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2, 0);
                 } else if (rbtnSerRel.isSelected()) {
-                    tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2);
+                    tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2, 0);
                 } else if (rbtnVenRel.isSelected()) {
-                    tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2);
+                    tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2, 0);
                 } else if (rbtnVenRel1.isSelected()) {
-                    tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2);
+                    tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2, 0);
                 } else {
-                    tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2);
+                    tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2, 0);
                 }
 
                 btnTodRel.setFont(fontmed(12));
@@ -10820,20 +11062,10 @@ public final class main extends javax.swing.JFrame {
 
             try {
 
-                String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
-                String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
-
-                if (rbtnTodRel.isSelected()) {
-                    tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2);
-                } else if (rbtnSerRel.isSelected()) {
-                    tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2);
-                } else if (rbtnVenRel.isSelected()) {
-                    tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2);
-                } else if (rbtnVenRel1.isSelected()) {
-                    tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2);
-                } else {
-                    tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2);
-                }
+                btnNumDiaRel.setVisible(false);
+                btnMenDiaRel.setVisible(false);
+                btnMaiDiaRel.setVisible(false);
+                lblDiaRel.setVisible(false);
 
                 btnTodRel.setFont(fontmed(12));
                 btnDiaRel.setFont(fontmed(12));
@@ -10842,6 +11074,21 @@ public final class main extends javax.swing.JFrame {
                 btnAnoRel.setFont(fontmed(12));
                 lblDatIniRel.setFont(fontbold(13));
                 lblDatFinRel.setFont(fontbold(13));
+
+                String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
+                String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
+
+                if (rbtnTodRel.isSelected()) {
+                    tabelarelatorio(tblRel, scrRel, 1, 6, data1, data2, 0);
+                } else if (rbtnSerRel.isSelected()) {
+                    tabelarelatorio(tblRel, scrRel, 2, 6, data1, data2, 0);
+                } else if (rbtnVenRel.isSelected()) {
+                    tabelarelatorio(tblRel, scrRel, 3, 6, data1, data2, 0);
+                } else if (rbtnVenRel1.isSelected()) {
+                    tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2, 0);
+                } else {
+                    tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2, 0);
+                }
 
                 if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
                     if (rbtnVenRel.isSelected()) {
@@ -13347,81 +13594,81 @@ public final class main extends javax.swing.JFrame {
             if (cmbRel.getSelectedItem().equals("Filtrar resultados")) {
 
                 if (btnTodRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
+                    tabelarelatorio(tblRel, scrRel, 1, 1, null, null, 0);
                 } else if (btnDiaRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
+                    tabelarelatorio(tblRel, scrRel, 1, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                 } else if (btnSemRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
+                    tabelarelatorio(tblRel, scrRel, 1, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                 } else if (btnMesRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
+                    tabelarelatorio(tblRel, scrRel, 1, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                 } else if (btnAnoRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
+                    tabelarelatorio(tblRel, scrRel, 1, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                 } else if (lblDatIniRel.getFont().getSize() == 13) {
-                    tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                    tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())), 0);
                 }
 
                 if (rbtnTodRel.isSelected()) {
 
                     if (btnTodRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 1, 1, null, null);
+                        tabelarelatorio(tblRel, scrRel, 1, 1, null, null, 0);
                     } else if (btnDiaRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 1, 2, null, null);
+                        tabelarelatorio(tblRel, scrRel, 1, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnSemRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 1, 3, null, null);
+                        tabelarelatorio(tblRel, scrRel, 1, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnMesRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 1, 4, null, null);
+                        tabelarelatorio(tblRel, scrRel, 1, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnAnoRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 1, 5, null, null);
+                        tabelarelatorio(tblRel, scrRel, 1, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (lblDatIniRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                        tabelarelatorio(tblRel, scrRel, 1, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())), 0);
                     }
 
                 } else if (rbtnSerRel.isSelected()) {
 
                     if (btnTodRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 2, 1, null, null);
+                        tabelarelatorio(tblRel, scrRel, 2, 1, null, null, 0);
                     } else if (btnDiaRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 2, 2, null, null);
+                        tabelarelatorio(tblRel, scrRel, 2, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnSemRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 2, 3, null, null);
+                        tabelarelatorio(tblRel, scrRel, 2, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnMesRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 2, 4, null, null);
+                        tabelarelatorio(tblRel, scrRel, 2, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnAnoRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 2, 5, null, null);
+                        tabelarelatorio(tblRel, scrRel, 2, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (lblDatIniRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 2, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                        tabelarelatorio(tblRel, scrRel, 2, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())), 0);
                     }
 
                 } else if (rbtnVenRel.isSelected()) {
 
                     if (btnTodRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 3, 1, null, null);
+                        tabelarelatorio(tblRel, scrRel, 3, 1, null, null, 0);
                     } else if (btnDiaRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 3, 2, null, null);
+                        tabelarelatorio(tblRel, scrRel, 3, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnSemRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 3, 3, null, null);
+                        tabelarelatorio(tblRel, scrRel, 3, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnMesRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 3, 4, null, null);
+                        tabelarelatorio(tblRel, scrRel, 3, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnAnoRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 3, 5, null, null);
+                        tabelarelatorio(tblRel, scrRel, 3, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (lblDatIniRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 3, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                        tabelarelatorio(tblRel, scrRel, 3, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())), 0);
                     }
 
                 } else {
 
                     if (btnTodRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 5, 1, null, null);
+                        tabelarelatorio(tblRel, scrRel, 5, 1, null, null, 0);
                     } else if (btnDiaRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 5, 2, null, null);
+                        tabelarelatorio(tblRel, scrRel, 5, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnSemRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 5, 3, null, null);
+                        tabelarelatorio(tblRel, scrRel, 5, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnMesRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 5, 4, null, null);
+                        tabelarelatorio(tblRel, scrRel, 5, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (btnAnoRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 5, 5, null, null);
+                        tabelarelatorio(tblRel, scrRel, 5, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                     } else if (lblDatIniRel.getFont().getSize() == 13) {
-                        tabelarelatorio(tblRel, scrRel, 5, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())));
+                        tabelarelatorio(tblRel, scrRel, 5, 6, formatterbanco.format(formatter.parse(txtDatIniRel.getText())), formatterbanco.format(formatter.parse(txtDatFinRel.getText())), 0);
                     }
 
                 }
@@ -14136,19 +14383,19 @@ public final class main extends javax.swing.JFrame {
             chkCus.setEnabled(false);
 
             if (btnTodRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 4, 1, null, null);
+                tabelarelatorio(tblRel, scrRel, 4, 1, null, null, 0);
             } else if (btnDiaRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 4, 2, null, null);
+                tabelarelatorio(tblRel, scrRel, 4, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnSemRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 4, 3, null, null);
+                tabelarelatorio(tblRel, scrRel, 4, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnMesRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 4, 4, null, null);
+                tabelarelatorio(tblRel, scrRel, 4, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (btnAnoRel.getFont().equals(fontbold(13))) {
-                tabelarelatorio(tblRel, scrRel, 4, 5, null, null);
+                tabelarelatorio(tblRel, scrRel, 4, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
             } else if (!"".equals(lblDatIniRel.getText()) && !"".equals(lblDatFinRel.getText())) {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
-                tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2);
+                tabelarelatorio(tblRel, scrRel, 4, 6, data1, data2, 0);
             }
 
             cmbRel.setSelectedIndex(0);
@@ -15025,6 +15272,282 @@ public final class main extends javax.swing.JFrame {
         lblBusIteGerEnt.setEnabled(true);
         sepBusIteCadEnt1.setForeground(corforeazul);
     }//GEN-LAST:event_rbtnAssIteGerEntActionPerformed
+
+    private void btnMenDiaRelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenDiaRelMouseEntered
+        btnMenDiaRel.setForeground(new Color(255, 153, 153));
+    }//GEN-LAST:event_btnMenDiaRelMouseEntered
+
+    private void btnMenDiaRelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenDiaRelMouseExited
+        btnMenDiaRel.setForeground(new Color(255, 0, 0));
+    }//GEN-LAST:event_btnMenDiaRelMouseExited
+
+    private void btnMenDiaRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenDiaRelMouseReleased
+        if (btnMenDiaRel.isEnabled()) {
+
+            int opc2 = Integer.parseInt(btnNumDiaRel.getText()) - 1;
+
+            btnMaiDiaRel.setEnabled(true);
+
+            if (opc2 == 0) {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("Este dia");
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("Esta semana");
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("Este mês");
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("Este ano");
+                }
+
+                btnMaiDiaRel.setLocation(85, 65);
+                btnMenDiaRel.setLocation(60, 65);
+                lblDiaRel.setLocation(60, 85);
+
+                btnNumDiaRel.setVisible(false);
+                btnMenDiaRel.setEnabled(false);
+
+            } else {
+
+                btnNumDiaRel.setVisible(true);
+
+//                lblDiaRel.setLocation(60, 100);
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("dia(s) atrás");
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("semana(s) atrás");
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("mês(es) atrás");
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("ano(s) atrás");
+                }
+
+            }
+
+            btnNumDiaRel.setText(String.valueOf(opc2));
+
+            lblDiaRel.setVisible(true);
+
+//            -------
+            if (rbtnTodRel.isSelected()) {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
+            } else if (rbtnSerRel.isSelected()) {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
+            } else if (rbtnVenRel.isSelected()) {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
+            } else {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
+            }
+
+            lblDatFinRel.setLocation(430, 150);
+            lblDatIniRel.setLocation(290, 150);
+
+            if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
+                if (rbtnVenRel.isSelected()) {
+                    cmbrelatorio(tblRel, cmbRel, 2);
+                } else {
+                    cmbrelatorio(tblRel, cmbRel, 1);
+                }
+            } else {
+                cmbRel.setSelectedIndex(0);
+                cmbRel.setEnabled(false);
+            }
+
+            btnDiaRel.grabFocus();
+
+            btnMaiDiaRel.setVisible(true);
+
+        }
+    }//GEN-LAST:event_btnMenDiaRelMouseReleased
+
+    private void btnMaiDiaRelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaiDiaRelMouseEntered
+        btnMaiDiaRel.setForeground(new Color(0, 230, 0));
+    }//GEN-LAST:event_btnMaiDiaRelMouseEntered
+
+    private void btnMaiDiaRelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaiDiaRelMouseExited
+        btnMaiDiaRel.setForeground(new Color(51, 204, 0));
+    }//GEN-LAST:event_btnMaiDiaRelMouseExited
+
+    private void btnMaiDiaRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaiDiaRelMouseReleased
+        if (btnMaiDiaRel.isEnabled()) {
+
+            int opc2 = Integer.parseInt(btnNumDiaRel.getText()) + 1;
+
+            btnMenDiaRel.setEnabled(true);
+
+            if (opc2 >= 60) {
+
+                btnMaiDiaRel.setEnabled(false);
+
+            } else {
+
+                btnNumDiaRel.setVisible(true);
+
+                lblDiaRel.setLocation(60, 95);
+                btnMaiDiaRel.setLocation(85, 55);
+                btnMenDiaRel.setLocation(60, 55);
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("dia(s) atrás");
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("semana(s) atrás");
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("mês(es) atrás");
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    lblDiaRel.setText("ano(s) atrás");
+                }
+
+            }
+
+            btnNumDiaRel.setText(String.valueOf(opc2));
+
+            lblDiaRel.setVisible(true);
+
+//            -------
+            if (btnDiaRel.getFont().getSize() == 13) {
+                lblDiaRel.setText("dia(s) atrás");
+            } else if (btnSemRel.getFont().getSize() == 13) {
+                lblDiaRel.setText("semana(s) atrás");
+            } else if (btnMesRel.getFont().getSize() == 13) {
+                lblDiaRel.setText("mês(es) atrás");
+            } else if (btnAnoRel.getFont().getSize() == 13) {
+                lblDiaRel.setText("ano(s) atrás");
+            }
+
+            if (rbtnTodRel.isSelected()) {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 1, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
+            } else if (rbtnSerRel.isSelected()) {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 2, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
+            } else if (rbtnVenRel.isSelected()) {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 3, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
+            } else {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 5, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
+            }
+
+            lblDatFinRel.setLocation(430, 150);
+            lblDatIniRel.setLocation(290, 150);
+
+            if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
+                if (rbtnVenRel.isSelected()) {
+                    cmbrelatorio(tblRel, cmbRel, 2);
+                } else {
+                    cmbrelatorio(tblRel, cmbRel, 1);
+                }
+            } else {
+                cmbRel.setSelectedIndex(0);
+                cmbRel.setEnabled(false);
+            }
+
+            btnDiaRel.grabFocus();
+
+            btnMenDiaRel.setEnabled(true);
+
+        }
+    }//GEN-LAST:event_btnMaiDiaRelMouseReleased
+
+    private void btnNumDiaRelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNumDiaRelMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNumDiaRelMouseEntered
+
+    private void btnNumDiaRelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNumDiaRelMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNumDiaRelMouseExited
+
+    private void btnNumDiaRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNumDiaRelMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNumDiaRelMouseReleased
+
+    private void lblDiaRelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiaRelMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblDiaRelMouseEntered
+
+    private void lblDiaRelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiaRelMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblDiaRelMouseExited
+
+    private void lblDiaRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiaRelMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblDiaRelMouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -15090,8 +15613,11 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnIteCadEnt;
     private javax.swing.JButton btnIteGerEnt;
     private javax.swing.JLabel btnJurPri;
+    private javax.swing.JLabel btnMaiDiaRel;
     private javax.swing.JLabel btnMasPla;
+    private javax.swing.JLabel btnMenDiaRel;
     private javax.swing.JLabel btnMesRel;
+    private javax.swing.JLabel btnNumDiaRel;
     private javax.swing.JLabel btnOrdSerPri;
     private javax.swing.JLabel btnOutPri;
     private javax.swing.JLabel btnRelPri;
@@ -15179,6 +15705,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblDetCadEst;
     private javax.swing.JLabel lblDetGerEnt;
     private javax.swing.JLabel lblDetGerEst;
+    private javax.swing.JLabel lblDiaRel;
     private javax.swing.JLabel lblEndOs;
     private javax.swing.JLabel lblEquOs;
     private javax.swing.JLabel lblErrVen;
