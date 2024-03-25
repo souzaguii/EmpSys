@@ -6495,7 +6495,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(btnCanMas);
         btnCanMas.setBounds(90, 280, 100, 40);
 
-        btnCopMas.setFont(fontmed(12));
+        btnCopMas.setFont(fontbold(11));
         btnCopMas.setForeground(new java.awt.Color(10, 60, 133));
         btnCopMas.setText("Copiar");
         btnCopMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -6511,7 +6511,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnCopMas);
-        btnCopMas.setBounds(980, 255, 50, 20);
+        btnCopMas.setBounds(950, 260, 50, 20);
 
         lblNomMas.setFont(fontmed(12));
         lblNomMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6719,7 +6719,7 @@ public final class main extends javax.swing.JFrame {
         sepDesGerTipSer7.setForeground(new java.awt.Color(10, 60, 133));
         sepDesGerTipSer7.setOrientation(javax.swing.SwingConstants.VERTICAL);
         pnlMas.add(sepDesGerTipSer7);
-        sepDesGerTipSer7.setBounds(914, 30, 10, 235);
+        sepDesGerTipSer7.setBounds(850, 37, 10, 230);
 
         txtPlaMas.setBackground(new java.awt.Color(246, 246, 246));
         txtPlaMas.setFont(fontmed(13));
@@ -6799,7 +6799,7 @@ public final class main extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtAreMas);
 
         pnlMas.add(jScrollPane1);
-        jScrollPane1.setBounds(980, 20, 220, 220);
+        jScrollPane1.setBounds(950, 30, 260, 220);
 
         btnGroup4.add(chkDebMas);
         chkDebMas.setFont(fontmed(12));
@@ -11319,11 +11319,11 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCopMasMouseReleased
 
     private void btnCopMasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCopMasMouseEntered
-        btnCopMas.setForeground(new Color(19, 84, 178));
+        btnCopMas.setForeground(corforeazulenter);
     }//GEN-LAST:event_btnCopMasMouseEntered
 
     private void btnCopMasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCopMasMouseExited
-        btnCopMas.setForeground(new Color(10, 60, 133));
+        btnCopMas.setForeground(corforeazul);
     }//GEN-LAST:event_btnCopMasMouseExited
 
     private void txtVenMasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVenMasKeyTyped
