@@ -3215,7 +3215,7 @@ public final class main extends javax.swing.JFrame {
         btnCadVen.setFont(fontmed(12));
         btnCadVen.setForeground(corforeazul);
         btnCadVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCadVen.setText("Cadastrar Planos");
+        btnCadVen.setText("Cadastrar Plano");
         btnCadVen.setToolTipText("");
         btnCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadVen.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -13768,7 +13768,7 @@ public final class main extends javax.swing.JFrame {
             txtDatCadVen.setText(dataAtual.format(formatteratual));
             anitxtin(lblDatCadVen);
 
-            lblTitPri.setText("Cadastrar Planos");
+            lblTitPri.setText("Cadastrar Plano");
             lblTitPri.setVisible(true);
 
             pnlbtn();
@@ -13831,7 +13831,7 @@ public final class main extends javax.swing.JFrame {
             vencimento ve = new vencimento();
             vencimentoDAO vedao = new vencimentoDAO();
 
-            if (lblTitPri.getText().equals("Cadastrar Vencimento")) {
+            if (lblTitPri.getText().equals("Cadastrar Plano")) {
 
                 ve.setCliente(txtCliCadVen.getText());
                 ve.setPlano(txtPlaCadVen.getText());
@@ -13847,7 +13847,7 @@ public final class main extends javax.swing.JFrame {
                     vedao.inserir(ve, "0");
                 }
 
-                JOptionPane.showMessageDialog(pnlCadVen, "Vencimento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(pnlCadVen, "Plano cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
 
@@ -13859,7 +13859,7 @@ public final class main extends javax.swing.JFrame {
                 ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
                 ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
 
-                ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 8).toString());
+                ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), tblVen.getColumnModel().getColumnIndex("ID")).toString());
 
                 if (txtPlaCadVen.getText().equals("Não Aplicável")) {
                     vedao.alterar(ve, "1");
@@ -13867,7 +13867,7 @@ public final class main extends javax.swing.JFrame {
                     vedao.alterar(ve, "0");
                 }
 
-                JOptionPane.showMessageDialog(pnlCadVen, "Vencimento alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(pnlCadVen, "Plano alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -14074,7 +14074,7 @@ public final class main extends javax.swing.JFrame {
 
             String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
 
-            int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Mensagem", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
 
@@ -14084,7 +14084,7 @@ public final class main extends javax.swing.JFrame {
 
                 Desktop.getDesktop().browse(link);
 
-                int resp1 = JOptionPane.showOptionDialog(null, "Navegador aberto para envio!\n\nMarcar como concluído?", "Vencimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+                int resp1 = JOptionPane.showOptionDialog(null, "Navegador aberto para envio!\n\nMarcar como concluído?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
                 if (resp1 == JOptionPane.YES_OPTION) {
 
@@ -14097,7 +14097,7 @@ public final class main extends javax.swing.JFrame {
 
                         vedao.marcarok(ve);
 
-                        JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Vencimento", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Planos", JOptionPane.INFORMATION_MESSAGE);
 
                     } catch (SQLException ex) {
                         Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -14143,7 +14143,7 @@ public final class main extends javax.swing.JFrame {
 
                 vedao.excluir(ve);
 
-                JOptionPane.showMessageDialog(pnlVen, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(pnlVen, "Plano excluído com sucesso!", "Planos", JOptionPane.INFORMATION_MESSAGE);
 
                 if (tabelavencimento(tblVen, scrVen)) {
 
@@ -14198,7 +14198,7 @@ public final class main extends javax.swing.JFrame {
 
             pnlMas.setVisible(false);
             pnlCadVen.setVisible(true);
-            lblTitPri.setText("Cadastrar Vencimento");
+            lblTitPri.setText("Cadastrar Plano");
             lblTitPri.setVisible(true);
             anitxtin(lblCliCadVen);
             anitxtin(lblPlaCadVen);
@@ -14469,7 +14469,7 @@ public final class main extends javax.swing.JFrame {
         txtCliCadVen.setSelectionEnd(0);
         btnCanCadVen.grabFocus();
 
-        lblTitPri.setText("Alterar Vencimento");
+        lblTitPri.setText("Alterar Plano");
         lblTitPri.setVisible(true);
     }//GEN-LAST:event_btnAltVenActionPerformed
 
