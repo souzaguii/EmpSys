@@ -7196,7 +7196,7 @@ public final class main extends javax.swing.JFrame {
         scrVen.setViewportView(tblVen);
 
         pnlVen.add(scrVen);
-        scrVen.setBounds(160, 20, 980, 240);
+        scrVen.setBounds(160, 20, 980, 250);
 
         btnCopAVen.setFont(fontmed(12));
         btnCopAVen.setForeground(new java.awt.Color(10, 60, 133));
