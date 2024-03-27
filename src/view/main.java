@@ -1136,7 +1136,9 @@ public final class main extends javax.swing.JFrame {
             entradaDAO endao = new entradaDAO();
             entrada en = new entrada();
 
-            List<String[]> lista = endao.buscar(opc, opc1, data1, data2, en, opc2);
+            List<String[]> lista;
+
+            lista = endao.buscar(opc, opc1, data1, data2, en, opc2);
 
             if (!lista.isEmpty()) {
 
@@ -1237,11 +1239,11 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
-                mol.setRowCount(0);
-
                 tblRel.setVisible(false);
                 scrRel.setVisible(false);
+
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                mol.setRowCount(0);
 
                 lblResRel.setVisible(true);
 
@@ -3999,6 +4001,7 @@ public final class main extends javax.swing.JFrame {
         lblR$GerEnt.setFont(fontmed(13));
         lblR$GerEnt.setText("R$");
         lblR$GerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$GerEnt.setFocusable(false);
         pnlGerEnt.add(lblR$GerEnt);
         lblR$GerEnt.setBounds(780, 130, 20, 21);
 
@@ -12085,7 +12088,7 @@ public final class main extends javax.swing.JFrame {
         lblR$CusGerEnt.setVisible(false);
 
         txtDatGerEnt.setText(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 0).toString());
-        txtPreGerEnt.setText((tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString().length()));
+        txtPreGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString())) ? (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString().length()) : null);
         txtDetGerEnt.setText((!"Sem Detalhes".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString() : null);
 
         txtCliGerEnt.setEnabled(false);
@@ -12165,9 +12168,9 @@ public final class main extends javax.swing.JFrame {
             sepForGerEnt.setForeground(corforeazul);
             lblForGerEnt.setEnabled(true);
 
-            txtCliGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString() : null);
+            txtCliGerEnt.setText((!"Não Informado".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString() : null);
             txtCusGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString())) ? (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString().length()) : null);
-            txtForGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString() : null);
+            txtForGerEnt.setText((!"Não Informado".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString() : null);
 
             for (int i = 1; i <= cmbSerGerEnt.getItemCount(); i++) {
 
@@ -12225,7 +12228,11 @@ public final class main extends javax.swing.JFrame {
 
         txtDatGerEnt.setEnabled(true);
         txtPreGerEnt.setEnabled(true);
-        lblR$GerEnt.setVisible(true);
+        if ("Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString())) {
+            lblR$GerEnt.setVisible(false);
+        } else {
+            lblR$GerEnt.setVisible(true);
+        }
         txtDetGerEnt.setEnabled(true);
 
         lblDatGerEnt.setEnabled(true);
@@ -14961,7 +14968,7 @@ public final class main extends javax.swing.JFrame {
 
     private void txtBusVenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusVenFocusLost
         if (txtBusVen.getText().isEmpty()) {
-            anitxtin(lblBusVen);
+            anitxtout(lblBusVen);
         }
     }//GEN-LAST:event_txtBusVenFocusLost
 
@@ -15311,7 +15318,6 @@ public final class main extends javax.swing.JFrame {
 
                 btnNumDiaRel.setVisible(true);
 
-//                lblDiaRel.setLocation(60, 100);
                 if (btnDiaRel.getFont().getSize() == 13) {
                     lblDiaRel.setText("dia(s) atrás");
                 } else if (btnSemRel.getFont().getSize() == 13) {
@@ -15328,7 +15334,7 @@ public final class main extends javax.swing.JFrame {
 
             lblDiaRel.setVisible(true);
 
-//            -------
+//          -------
             if (rbtnTodRel.isSelected()) {
 
                 if (btnDiaRel.getFont().getSize() == 13) {
@@ -15365,6 +15371,18 @@ public final class main extends javax.swing.JFrame {
                     tabelarelatorio(tblRel, scrRel, 3, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                 }
 
+            } else if (rbtnVenRel1.isSelected()) {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
             } else {
 
                 if (btnDiaRel.getFont().getSize() == 13) {
@@ -15391,6 +15409,21 @@ public final class main extends javax.swing.JFrame {
             } else {
                 cmbRel.setSelectedIndex(0);
                 cmbRel.setEnabled(false);
+            }
+
+            if (lblResRel.isVisible()) {
+
+                tblRel.setVisible(false);
+                scrRel.setVisible(false);
+
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                mol.setRowCount(0);
+
+            } else {
+
+                tblRel.setVisible(true);
+                scrRel.setVisible(true);
+
             }
 
             btnDiaRel.grabFocus();
@@ -15443,17 +15476,7 @@ public final class main extends javax.swing.JFrame {
 
             lblDiaRel.setVisible(true);
 
-//            -------
-            if (btnDiaRel.getFont().getSize() == 13) {
-                lblDiaRel.setText("dia(s) atrás");
-            } else if (btnSemRel.getFont().getSize() == 13) {
-                lblDiaRel.setText("semana(s) atrás");
-            } else if (btnMesRel.getFont().getSize() == 13) {
-                lblDiaRel.setText("mês(es) atrás");
-            } else if (btnAnoRel.getFont().getSize() == 13) {
-                lblDiaRel.setText("ano(s) atrás");
-            }
-
+//          -------       
             if (rbtnTodRel.isSelected()) {
 
                 if (btnDiaRel.getFont().getSize() == 13) {
@@ -15490,6 +15513,18 @@ public final class main extends javax.swing.JFrame {
                     tabelarelatorio(tblRel, scrRel, 3, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
                 }
 
+            } else if (rbtnVenRel1.isSelected()) {
+
+                if (btnDiaRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 2, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnSemRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 3, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnMesRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 4, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                } else if (btnAnoRel.getFont().getSize() == 13) {
+                    tabelarelatorio(tblRel, scrRel, 4, 5, null, null, Integer.parseInt(btnNumDiaRel.getText()));
+                }
+
             } else {
 
                 if (btnDiaRel.getFont().getSize() == 13) {
@@ -15516,6 +15551,21 @@ public final class main extends javax.swing.JFrame {
             } else {
                 cmbRel.setSelectedIndex(0);
                 cmbRel.setEnabled(false);
+            }
+
+            if (lblResRel.isVisible()) {
+
+                tblRel.setVisible(false);
+                scrRel.setVisible(false);
+
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                mol.setRowCount(0);
+
+            } else {
+
+                tblRel.setVisible(true);
+                scrRel.setVisible(true);
+
             }
 
             btnDiaRel.grabFocus();

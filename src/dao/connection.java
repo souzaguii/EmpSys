@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import view.loading;
 import view.main;
 
 public class connection {
@@ -12,7 +11,7 @@ public class connection {
     public static String status;
     public static Connection connection = null;
 
-    public static java.sql.Connection Connect() {
+    public static Connection Connect() {
         if (connection == null) {
             createConnection();
         }
