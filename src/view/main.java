@@ -58,6 +58,8 @@ import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 import model.despezas;
 import model.entrada;
@@ -193,7 +195,7 @@ public final class main extends javax.swing.JFrame {
 
             @Override
             protected void process(java.util.List<String> chunks) {
-                // Atualize a UI com mensagens intermediárias
+
                 for (String mensagem : chunks) {
                     lo.lblLoa.setText(mensagem);
                 }
@@ -451,6 +453,20 @@ public final class main extends javax.swing.JFrame {
             return false;
         }
         return true;
+    }
+
+    public void autocoluna(JTable table) {
+        final TableColumnModel columnModel = table.getColumnModel();
+        for (int column = 0; column < table.getColumnCount(); column++) {
+            int width = 250;
+            for (int row = 0; row < table.getRowCount(); row++) {
+                TableCellRenderer renderer = table.getCellRenderer(row, column);
+                Component comp = table.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width + 1, width);
+                columnModel.getColumn(column).setPreferredWidth(width);
+            }
+
+        }
     }
 
     private boolean tabelatiposervico() {
@@ -900,7 +916,7 @@ public final class main extends javax.swing.JFrame {
                 deheader.setHorizontalAlignment(JLabel.CENTER);
 
                 deheader.setForeground(Color.BLACK);
-                deheader.setFont(fontmed(12));
+                deheader.setFont(fontmed(11));
 
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
@@ -1017,11 +1033,11 @@ public final class main extends javax.swing.JFrame {
 
                 deheader.setHorizontalAlignment(JLabel.CENTER);
                 deheader.setForeground(Color.BLACK);
-                deheader.setFont(fontmed(12));
+                deheader.setFont(fontmed(11));
 
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-                header.setFont(fontbold(13));
+                header.setFont(fontbold(12));
                 header.setReorderingAllowed(false);
 
                 tbl.setModel(modelo);
@@ -1195,11 +1211,11 @@ public final class main extends javax.swing.JFrame {
 
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
-                cellRenderer.setFont(fontmed(12));
+                cellRenderer.setFont(fontmed(4));
 
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(246, 246, 246));
-                header.setFont(fontbold(13));
+                header.setFont(fontbold(12));
                 header.setReorderingAllowed(false);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -1922,14 +1938,12 @@ public final class main extends javax.swing.JFrame {
         header.setForeground(corforeazul);
         header.setBackground(new Color(246, 246, 246));
 
-        header.setFont(fontbold(11));
+        header.setFont(fontbold(12));
         header.setReorderingAllowed(false);
 
         tblSelIteCadEnt.setModel(modelo);
         tblSelIteCadEnt.setRowHeight(25);
-        tblSelIteCadEnt
-                .setDefaultEditor(Object.class,
-                        null);
+        tblSelIteCadEnt.setDefaultEditor(Object.class, null);
         scrSelIteCadEnt.getVerticalScrollBar().setValue(0);
 
         for (int i = 0; i < tblSelIteCadEnt.getColumnCount(); i++) {
@@ -1989,7 +2003,7 @@ public final class main extends javax.swing.JFrame {
                     deheader.setHorizontalAlignment(JLabel.CENTER);
 
                     deheader.setForeground(Color.BLACK);
-                    deheader.setFont(fontmed(11));
+                    deheader.setFont(fontmed(12));
 
                     header.setForeground(corforeazul);
                     header.setBackground(new Color(246, 246, 246));
@@ -2018,7 +2032,7 @@ public final class main extends javax.swing.JFrame {
                     deheader.setHorizontalAlignment(JLabel.CENTER);
 
                     deheader.setForeground(Color.BLACK);
-                    deheader.setFont(fontmed(11));
+                    deheader.setFont(fontmed(12));
 
                     header.setForeground(corforeazul);
                     header.setBackground(new Color(246, 246, 246));
@@ -2067,7 +2081,7 @@ public final class main extends javax.swing.JFrame {
             DefaultTableModel modelo = (DefaultTableModel) tabelaDestino.getModel();
 
             String idt = tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 0).toString();
-            String precot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Preço"))).toString();;
+            String precot;
             String produtot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Produto"))).toString();
             String cort;
             String marcat;
@@ -3895,7 +3909,7 @@ public final class main extends javax.swing.JFrame {
 
         tblConEnt.setBackground(new java.awt.Color(246, 246, 246));
         tblConEnt.setBorder(null);
-        tblConEnt.setFont(fontmed(12));
+        tblConEnt.setFont(fontmed(10));
         tblConEnt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -4532,7 +4546,7 @@ public final class main extends javax.swing.JFrame {
 
         tblCadEst.setBackground(new java.awt.Color(246, 246, 246));
         tblCadEst.setBorder(null);
-        tblCadEst.setFont(fontmed(12));
+        tblCadEst.setFont(fontmed(10));
         tblCadEst.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -4926,7 +4940,7 @@ public final class main extends javax.swing.JFrame {
 
         tblConEst.setBackground(new java.awt.Color(246, 246, 246));
         tblConEst.setBorder(null);
-        tblConEst.setFont(fontmed(12));
+        tblConEst.setFont(fontmed(10));
         tblConEst.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -5409,6 +5423,7 @@ public final class main extends javax.swing.JFrame {
             }
         ));
         tblRel.setToolTipText("");
+        tblRel.setAutoscrolls(false);
         tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblRel.setEnabled(false);
         tblRel.setFocusable(false);
@@ -6371,7 +6386,7 @@ public final class main extends javax.swing.JFrame {
         tblTipSer.setTableHeader(null);
         tblTipSer.setBackground(new java.awt.Color(246, 246, 246));
         tblTipSer.setBorder(null);
-        tblTipSer.setFont(fontmed(12));
+        tblTipSer.setFont(fontmed(10));
         tblTipSer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -7138,7 +7153,7 @@ public final class main extends javax.swing.JFrame {
         tblTipSer.setTableHeader(null);
         tblGerDes.setBackground(new java.awt.Color(246, 246, 246));
         tblGerDes.setBorder(null);
-        tblGerDes.setFont(fontmed(12));
+        tblGerDes.setFont(fontmed(10));
         tblGerDes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -10443,6 +10458,16 @@ public final class main extends javax.swing.JFrame {
 
             cmbrelatorio(tblRel, cmbRel, 1);
 
+            if (lblResRel.isVisible()) {
+                tblRel.setVisible(false);
+                scrRel.setVisible(false);
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                mol.setRowCount(0);
+            } else {
+                tblRel.setVisible(true);
+                scrRel.setVisible(true);
+            }
+
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -10473,6 +10498,16 @@ public final class main extends javax.swing.JFrame {
             }
 
             cmbrelatorio(tblRel, cmbRel, 2);
+
+            if (lblResRel.isVisible()) {
+                tblRel.setVisible(false);
+                scrRel.setVisible(false);
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                mol.setRowCount(0);
+            } else {
+                tblRel.setVisible(true);
+                scrRel.setVisible(true);
+            }
 
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -10505,6 +10540,16 @@ public final class main extends javax.swing.JFrame {
 
             cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
+
+            if (lblResRel.isVisible()) {
+                tblRel.setVisible(false);
+                scrRel.setVisible(false);
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                mol.setRowCount(0);
+            } else {
+                tblRel.setVisible(true);
+                scrRel.setVisible(true);
+            }
 
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -10625,6 +10670,16 @@ public final class main extends javax.swing.JFrame {
             }
 
             cmbrelatorio(tblRel, cmbRel, 1);
+
+            if (lblResRel.isVisible()) {
+                tblRel.setVisible(false);
+                scrRel.setVisible(false);
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                mol.setRowCount(0);
+            } else {
+                tblRel.setVisible(true);
+                scrRel.setVisible(true);
+            }
 
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -10770,6 +10825,16 @@ public final class main extends javax.swing.JFrame {
             cmbRel.setEnabled(false);
         }
 
+        if (lblResRel.isVisible()) {
+            tblRel.setVisible(false);
+            scrRel.setVisible(false);
+            DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+            mol.setRowCount(0);
+        } else {
+            tblRel.setVisible(true);
+            scrRel.setVisible(true);
+        }
+
         btnTodRel.grabFocus();
     }//GEN-LAST:event_btnTodRelMouseReleased
 
@@ -10830,6 +10895,16 @@ public final class main extends javax.swing.JFrame {
             cmbRel.setEnabled(false);
         }
 
+        if (lblResRel.isVisible()) {
+            tblRel.setVisible(false);
+            scrRel.setVisible(false);
+            DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+            mol.setRowCount(0);
+        } else {
+            tblRel.setVisible(true);
+            scrRel.setVisible(true);
+        }
+
         btnDiaRel.grabFocus();
     }//GEN-LAST:event_btnDiaRelMouseReleased
 
@@ -10886,6 +10961,16 @@ public final class main extends javax.swing.JFrame {
         } else {
             cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
+        }
+
+        if (lblResRel.isVisible()) {
+            tblRel.setVisible(false);
+            scrRel.setVisible(false);
+            DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+            mol.setRowCount(0);
+        } else {
+            tblRel.setVisible(true);
+            scrRel.setVisible(true);
         }
 
         btnSemRel.grabFocus();
@@ -10946,6 +11031,16 @@ public final class main extends javax.swing.JFrame {
             cmbRel.setEnabled(false);
         }
 
+        if (lblResRel.isVisible()) {
+            tblRel.setVisible(false);
+            scrRel.setVisible(false);
+            DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+            mol.setRowCount(0);
+        } else {
+            tblRel.setVisible(true);
+            scrRel.setVisible(true);
+        }
+
         btnMesRel.grabFocus();
     }//GEN-LAST:event_btnMesRelMouseReleased
 
@@ -11002,6 +11097,16 @@ public final class main extends javax.swing.JFrame {
         } else {
             cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
+        }
+
+        if (lblResRel.isVisible()) {
+            tblRel.setVisible(false);
+            scrRel.setVisible(false);
+            DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+            mol.setRowCount(0);
+        } else {
+            tblRel.setVisible(true);
+            scrRel.setVisible(true);
         }
 
         btnAnoRel.grabFocus();
@@ -14408,6 +14513,16 @@ public final class main extends javax.swing.JFrame {
             cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
 
+            if (lblResRel.isVisible()) {
+                tblRel.setVisible(false);
+                scrRel.setVisible(false);
+                DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                mol.setRowCount(0);
+            } else {
+                tblRel.setVisible(true);
+                scrRel.setVisible(true);
+            }
+
         } catch (ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -15412,18 +15527,13 @@ public final class main extends javax.swing.JFrame {
             }
 
             if (lblResRel.isVisible()) {
-
                 tblRel.setVisible(false);
                 scrRel.setVisible(false);
-
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
-
             } else {
-
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
-
             }
 
             btnDiaRel.grabFocus();
@@ -15554,18 +15664,13 @@ public final class main extends javax.swing.JFrame {
             }
 
             if (lblResRel.isVisible()) {
-
                 tblRel.setVisible(false);
                 scrRel.setVisible(false);
-
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
-
             } else {
-
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
-
             }
 
             btnDiaRel.grabFocus();
