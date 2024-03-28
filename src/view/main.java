@@ -13676,7 +13676,7 @@ public final class main extends javax.swing.JFrame {
 
     private void btnConEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEntMouseReleased
         if (!pnlConEnt.isVisible()) {
-
+            
             txtBusConEnt.setText(null);
 
             tblConEnt.setVisible(false);
