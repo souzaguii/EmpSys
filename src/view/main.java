@@ -5,6 +5,7 @@ import dao.connection;
 import dao.despezasDAO;
 import dao.entradaDAO;
 import dao.estoqueDAO;
+import dao.osDAO;
 import dao.tiposervicoDAO;
 import dao.vencimentoDAO;
 import java.awt.Color;
@@ -29,11 +30,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,18 +59,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
 import model.despezas;
 import model.entrada;
 import model.tiposervico;
 import model.vencimento;
+import model.os;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperExportManager;
 
 public final class main extends javax.swing.JFrame {
 
@@ -2651,6 +2649,7 @@ public final class main extends javax.swing.JFrame {
         chkCus = new javax.swing.JCheckBox();
         pnlOs = new javax.swing.JPanel();
         btnGerOs = new javax.swing.JButton();
+        chkGarOs = new javax.swing.JCheckBox();
         btnCanOs = new javax.swing.JButton();
         lblEndOs = new javax.swing.JLabel();
         txtEndOs = new javax.swing.JTextField();
@@ -2680,7 +2679,7 @@ public final class main extends javax.swing.JFrame {
         txtDatOs = new javax.swing.JTextField();
         sepDetCadEst3 = new javax.swing.JSeparator();
         lblHorOs = new javax.swing.JLabel();
-        txtHorOs = new javax.swing.JTextField();
+        txtDatSaiOs = new javax.swing.JTextField();
         sepDetCadEst4 = new javax.swing.JSeparator();
         sepCusGerEnt1 = new javax.swing.JSeparator();
         lblPreOs = new javax.swing.JLabel();
@@ -5872,7 +5871,20 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlOs.add(btnGerOs);
-        btnGerOs.setBounds(700, 270, 90, 50);
+        btnGerOs.setBounds(720, 300, 90, 50);
+
+        chkGarOs.setFont(fontmed(12));
+        chkGarOs.setForeground(new java.awt.Color(10, 60, 133));
+        chkGarOs.setText("Garantia");
+        chkGarOs.setBorder(null);
+        chkGarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkGarOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkGarOsActionPerformed(evt);
+            }
+        });
+        pnlOs.add(chkGarOs);
+        chkGarOs.setBounds(370, 330, 80, 30);
 
         btnCanOs.setFont(fontmed(12));
         btnCanOs.setForeground(new java.awt.Color(10, 60, 133));
@@ -5884,7 +5896,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlOs.add(btnCanOs);
-        btnCanOs.setBounds(850, 270, 90, 50);
+        btnCanOs.setBounds(830, 300, 90, 50);
 
         lblEndOs.setFont(fontmed(12));
         lblEndOs.setForeground(new java.awt.Color(10, 60, 133));
@@ -6097,10 +6109,10 @@ public final class main extends javax.swing.JFrame {
 
         lblDatOs.setFont(fontmed(12));
         lblDatOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatOs.setText("Data");
+        lblDatOs.setText("Data entrada");
         lblDatOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlOs.add(lblDatOs);
-        lblDatOs.setBounds(370, 160, 60, 20);
+        lblDatOs.setBounds(370, 180, 110, 20);
 
         txtDatOs.setBackground(new java.awt.Color(246, 246, 246));
         txtDatOs.setFont(fontmed(13));
@@ -6127,29 +6139,29 @@ public final class main extends javax.swing.JFrame {
 
         lblHorOs.setFont(fontmed(12));
         lblHorOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblHorOs.setText("Horário");
+        lblHorOs.setText("Data saída");
         lblHorOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlOs.add(lblHorOs);
-        lblHorOs.setBounds(370, 210, 80, 20);
+        lblHorOs.setBounds(370, 230, 80, 20);
 
-        txtHorOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtHorOs.setFont(fontmed(13));
-        txtHorOs.setBorder(null);
-        txtHorOs.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDatSaiOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatSaiOs.setFont(fontmed(13));
+        txtDatSaiOs.setBorder(null);
+        txtDatSaiOs.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtHorOsFocusGained(evt);
+                txtDatSaiOsFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtHorOsFocusLost(evt);
+                txtDatSaiOsFocusLost(evt);
             }
         });
-        txtHorOs.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDatSaiOs.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtHorOsKeyTyped(evt);
+                txtDatSaiOsKeyTyped(evt);
             }
         });
-        pnlOs.add(txtHorOs);
-        txtHorOs.setBounds(370, 230, 90, 20);
+        pnlOs.add(txtDatSaiOs);
+        txtDatSaiOs.setBounds(370, 230, 90, 20);
 
         sepDetCadEst4.setForeground(new java.awt.Color(10, 60, 133));
         pnlOs.add(sepDetCadEst4);
@@ -13041,7 +13053,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPreCadEstFocusGained
 
     private void btnGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerOsActionPerformed
-        if (txtCliOs.getText().isEmpty() || txtEndOs.getText().isEmpty() || txtTelOs.getText().isEmpty() || txtEquOs.getText().isEmpty() || txtMarOs.getText().isEmpty() || txtModOs.getText().isEmpty() || txtConOs.getText().isEmpty() || txtDatOs.getText().isEmpty() || txtHorOs.getText().isEmpty() || txtDefOs.getText().isEmpty()) {
+        if (txtCliOs.getText().isEmpty() || txtEndOs.getText().isEmpty() || txtTelOs.getText().isEmpty() || txtEquOs.getText().isEmpty() || txtMarOs.getText().isEmpty() || txtModOs.getText().isEmpty() || txtConOs.getText().isEmpty() || txtDatOs.getText().isEmpty() || txtDefOs.getText().isEmpty() || (txtDatSaiOs.getText().isEmpty() && chkGarOs.isSelected())) {
 
             JOptionPane.showMessageDialog(pnlOs, "Preencha todos os dados!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
@@ -13049,7 +13061,50 @@ public final class main extends javax.swing.JFrame {
 
             try {
 
-                String datahora = txtDatOs.getText() + " - " + txtHorOs.getText();
+                int resp1 = JOptionPane.showOptionDialog(null, "Salvar OS no banco de dados?", "OS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                if (resp1 == JOptionPane.YES_OPTION) {
+
+                    osDAO osdao = new osDAO();
+                    os oss = new os();
+
+                    oss.setCliente(txtCliOs.getText());
+                    oss.setTelefone(txtTelOs.getText());
+                    oss.setEndereco(txtEndOs.getText());
+                    oss.setEquipamento(txtEquOs.getText());
+                    oss.setMarca(txtMarOs.getText());
+                    oss.setModelo(txtModOs.getText());
+                    oss.setDefeito(txtConOs.getText());
+                    oss.setReparo(txtDefOs.getText());
+                    oss.setDataentrada(txtDatOs.getText());
+                    oss.setDatasaida(txtDatSaiOs.getText());
+                    oss.setPreco("R$ " + txtPreOs.getText());
+
+                    if (chkGarOs.isSelected()) {
+                        oss.setGarantia("Sim");
+
+                    } else {
+                        oss.setGarantia("Não");
+                    }
+
+                    osdao.inserir(oss);
+
+                }
+
+                String datasaida = (!txtDatSaiOs.getText().equals("")) ? txtDatSaiOs.getText() : "Não Aplicável";
+
+                String datagarantia = "Não Aplicável";
+
+                if (!txtDatSaiOs.getText().equals("") && chkGarOs.isSelected()) {
+
+                    Date data = formatter.parse(datasaida);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(data);
+                    calendar.add(Calendar.MONTH, 3);
+                    Date novaData = calendar.getTime();
+                    datagarantia = formatter.format(novaData);
+
+                }
 
                 Map<String, Object> parameters = new HashMap<>();
 
@@ -13065,7 +13120,9 @@ public final class main extends javax.swing.JFrame {
                 parameters.put("Modelo", txtModOs.getText());
                 parameters.put("Condicoes", txtConOs.getText());
                 parameters.put("Defeito", txtDefOs.getText());
-                parameters.put("DataEntrada", datahora);
+                parameters.put("DataEntrada", txtDatOs.getText());
+                parameters.put("DataSaida", datasaida);
+                parameters.put("Garantia", datagarantia);
                 parameters.put("Preco", moedadoublereal(Double.valueOf(txtPreOs.getText().replace(".", "").replace(",", "."))));
 
                 InputStream inputStream = getClass().getClassLoader().getResourceAsStream("os/OSEmpSysView.jasper");
@@ -13081,7 +13138,12 @@ public final class main extends javax.swing.JFrame {
 
             } catch (JRException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(pnlOs, "Erro ao calcular garantia!", "Erro", JOptionPane.WARNING_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }//GEN-LAST:event_btnGerOsActionPerformed
 
@@ -13267,20 +13329,20 @@ public final class main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtDatOsKeyTyped
 
-    private void txtHorOsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHorOsFocusGained
-        if (txtHorOs.getText().isEmpty()) {
+    private void txtDatSaiOsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatSaiOsFocusGained
+        if (txtDatSaiOs.getText().isEmpty()) {
             anitxtin(lblHorOs);
         }
-    }//GEN-LAST:event_txtHorOsFocusGained
+    }//GEN-LAST:event_txtDatSaiOsFocusGained
 
-    private void txtHorOsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHorOsFocusLost
-        if (txtHorOs.getText().isEmpty()) {
+    private void txtDatSaiOsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatSaiOsFocusLost
+        if (txtDatSaiOs.getText().isEmpty()) {
             anitxtout(lblHorOs);
         }
-    }//GEN-LAST:event_txtHorOsFocusLost
+    }//GEN-LAST:event_txtDatSaiOsFocusLost
 
-    private void txtHorOsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorOsKeyTyped
-        if (txtHorOs.getSelectedText() != null) {
+    private void txtDatSaiOsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatSaiOsKeyTyped
+        if (txtDatSaiOs.getSelectedText() != null) {
             if (!Character.isDigit(evt.getKeyChar())) {
                 evt.consume();
             }
@@ -13292,23 +13354,27 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                if (txtHorOs.getText().length() == 2) {
+                if (txtDatSaiOs.getText().length() == 2) {
 
-                    txtHorOs.setText(txtHorOs.getText() + ":");
-                    txtHorOs.setCaretPosition(3);
+                    txtDatSaiOs.setText(txtDatSaiOs.getText() + "/");
+                    txtDatSaiOs.setCaretPosition(3);
+
+                } else if (txtDatSaiOs.getText().length() == 5) {
+
+                    txtDatSaiOs.setText(txtDatSaiOs.getText() + "/");
+                    txtDatSaiOs.setCaretPosition(6);
 
                 }
-                if (txtHorOs.getText().length() > 4) {
-                    evt.consume();
-                }
+
+            }
+            if (txtDatSaiOs.getText().length() > 9) {
+                evt.consume();
             }
         }
-    }//GEN-LAST:event_txtHorOsKeyTyped
+    }//GEN-LAST:event_txtDatSaiOsKeyTyped
 
     private void btnOrdSerPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOrdSerPriMouseReleased
         if (!pnlOs.isVisible()) {
-
-            DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
 
             txtCliOs.setText(null);
             txtEndOs.setText(null);
@@ -13319,14 +13385,15 @@ public final class main extends javax.swing.JFrame {
             txtConOs.setText(null);
             txtDefOs.setText(null);
             txtPreOs.setText(null);
-            txtHorOs.setText(LocalTime.now().format(formatoHora));
-            txtDatOs.setText(LocalDate.now().format(formatteratual));
+            txtDatOs.setText(null);
+            txtDatSaiOs.setText(null);
+            chkGarOs.setSelected(false);
 
             lblCliOs.setLocation(370, 30);
             lblTelOs.setLocation(370, 80);
             lblEndOs.setLocation(370, 130);
-            lblDatOs.setLocation(370, 160);
-            lblHorOs.setLocation(370, 210);
+            lblDatOs.setLocation(370, 180);
+            lblHorOs.setLocation(370, 230);
             lblEquOs.setLocation(700, 30);
             lblMarOs.setLocation(700, 80);
             lblModOs.setLocation(700, 130);
@@ -13676,7 +13743,7 @@ public final class main extends javax.swing.JFrame {
 
     private void btnConEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEntMouseReleased
         if (!pnlConEnt.isVisible()) {
-            
+
             txtBusConEnt.setText(null);
 
             tblConEnt.setVisible(false);
@@ -15703,6 +15770,10 @@ public final class main extends javax.swing.JFrame {
     private void lblDiaRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiaRelMouseReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_lblDiaRelMouseReleased
+
+    private void chkGarOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkGarOsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkGarOsActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -15803,6 +15874,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkCus;
     private javax.swing.JRadioButton chkDebMas;
     private javax.swing.JCheckBox chkDebMasa;
+    private javax.swing.JCheckBox chkGarOs;
     private javax.swing.JCheckBox chkMelMas;
     private javax.swing.JComboBox<String> cmbChiCadEst;
     private javax.swing.JComboBox<String> cmbChiGerEst;
@@ -16137,6 +16209,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtDatGerEnt;
     private javax.swing.JTextField txtDatIniRel;
     private javax.swing.JTextField txtDatOs;
+    private javax.swing.JTextField txtDatSaiOs;
     private javax.swing.JTextField txtDefOs;
     private javax.swing.JTextField txtDesDes;
     private javax.swing.JTextField txtDesGerDes;
@@ -16150,7 +16223,6 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtEquOs;
     private javax.swing.JTextField txtForCadEnt;
     private javax.swing.JTextField txtForGerEnt;
-    private javax.swing.JTextField txtHorOs;
     private javax.swing.JTextField txtLocCadEst;
     private javax.swing.JTextField txtLocGerEst;
     private javax.swing.JTextField txtMarCadEst;
