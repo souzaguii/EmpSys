@@ -36,7 +36,7 @@ public class osDAO {
 
     public void alterar(os os) throws SQLException {
 
-        String SQL = "UPDATE os SET clienteOs = ?, telefoneOs = ?, enderecoOs = ?, dataentradaOs = ?, datasaidaOs = ?, precoOs = ?, equipamentoOs = ?, marcaOs = ?, modeloOs = ?, defeitoOs = ?, garantiaOs = ? WHERE idOs = ?";
+        String SQL = "UPDATE os SET clienteOs = ?, telefoneOs = ?, enderecoOs = ?, dataentradaOs = ?, datasaidaOs = ?, precoOs = ?, equipamentoOs = ?, marcaOs = ?, modeloOs = ?, defeitoOs = ?, reparoOs = ?, garantiaOs = ? WHERE idOs = ?";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
@@ -86,19 +86,20 @@ public class osDAO {
         while (rs.next()) {
 
             String[] rowData = {
-                rs.getString("idOs"),
+               
                 rs.getString("clienteOs"),
-                rs.getString("telefoneOs"),
                 rs.getString("enderecoOs"),
-                rs.getString("dataentradaOs"),
-                rs.getString("datasaidaOs"),
-                rs.getString("precoOs"),
+                rs.getString("telefoneOs"),
                 rs.getString("equipamentoOs"),
                 rs.getString("marcaOs"),
                 rs.getString("modeloOs"),
                 rs.getString("defeitoOs"),
                 rs.getString("reparoOs"),
-                rs.getString("garantiaOs")};
+                rs.getString("precoOs"),
+                rs.getString("dataentradaOs"),
+                rs.getString("datasaidaOs"),
+                rs.getString("garantiaOs"),
+                 rs.getString("idOs")};
 
             lista.add(rowData);
 
@@ -111,4 +112,47 @@ public class osDAO {
         return lista;
     } 
 
+     public List<String[]> buscarpa(os os) throws SQLException {
+
+        List<String[]> lista = new ArrayList<>();
+
+       String SQL = "SELECT * FROM os WHERE clienteOs LIKE '%" + os.cliente + "%' "
+                + "OR telefoneOs LIKE '%" + os.telefone + "%' OR enderecoOs LIKE '%" + os.endereco + "%' "
+                + "OR dataentradaOs LIKE '%" + os.dataentrada + "%' OR datasaidaOs LIKE '%" + os.datasaida + "%' "
+                + "OR precoOs LIKE '%" + os.preco + "%' OR equipamentoOs LIKE '%" + os.equipamento + "%' OR marcaOs LIKE '%" + os.marca + "%'"
+               + " OR modeloOs LIKE '%" + os.modelo + "%' OR defeitoOs LIKE '%" + os.defeito + "%' OR reparoOs LIKE '%" + os.reparo + "%' OR garantiaOs LIKE '%" + os.garantia + "%' ORDER BY clienteOs";
+      
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            String[] rowData = {
+               
+                rs.getString("clienteOs"),
+                rs.getString("enderecoOs"),
+                rs.getString("telefoneOs"),
+                rs.getString("equipamentoOs"),
+                rs.getString("marcaOs"),
+                rs.getString("modeloOs"),
+                rs.getString("defeitoOs"),
+                rs.getString("reparoOs"),
+                rs.getString("precoOs"),
+                rs.getString("dataentradaOs"),
+                rs.getString("datasaidaOs"),
+                rs.getString("garantiaOs"),
+                 rs.getString("idOs")};
+
+            lista.add(rowData);
+
+        }
+
+        rs.close();
+        stmt.close();
+        connection.Close();
+
+        return lista;
+    } 
+    
 }

@@ -69,7 +69,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-import net.sf.jasperreports.engine.JasperExportManager;
 
 public final class main extends javax.swing.JFrame {
 
@@ -233,6 +232,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.setVisible(false);
         pnlVen.setVisible(false);
         pnlJur.setVisible(false);
+        pnlGerOs.setVisible(false);
 
         txtTipCadEst.setVisible(false);
         lblR$CadEst.setVisible(false);
@@ -266,6 +266,8 @@ public final class main extends javax.swing.JFrame {
         btnVen.setVisible(false);
         btnCadVen.setVisible(false);
         btnJurPri.setVisible(false);
+        btnGerOsPri.setVisible(false);
+        btnCadOsPri.setVisible(false);
 
     }
 
@@ -1564,6 +1566,182 @@ public final class main extends javax.swing.JFrame {
         return true;
     }
 
+    private boolean tabelaos(JTable tbl, JScrollPane scr) {
+
+        try {
+
+            osDAO osdao = new osDAO();
+            List<String[]> lista = osdao.buscar();
+
+            if (!lista.isEmpty()) {
+
+                JTableHeader header = tbl.getTableHeader();
+
+                DefaultTableModel modelo = new DefaultTableModel();
+
+                modelo.addColumn("Nome");
+                modelo.addColumn("Endereço");
+                modelo.addColumn("Telefone");
+                modelo.addColumn("Equipamento");
+                modelo.addColumn("Marca");
+                modelo.addColumn("Modelo");
+                modelo.addColumn("Defeito");
+                modelo.addColumn("Reparo");
+                modelo.addColumn("Preço");
+                modelo.addColumn("Entrada");
+                modelo.addColumn("Saída");
+                modelo.addColumn("Garantia");
+                modelo.addColumn("ID");
+
+                for (String[] row : lista) {
+
+                    Object[] rowData = new Object[13];
+
+                    rowData[0] = row[0];
+                    rowData[1] = row[1];
+                    rowData[2] = row[2];
+                    rowData[3] = row[3];
+                    rowData[4] = row[4];
+                    rowData[5] = row[5];
+                    rowData[6] = row[6];
+                    rowData[7] = row[7];
+                    rowData[8] = row[8];
+                    rowData[9] = row[9];
+                    rowData[10] = row[10];
+                    rowData[11] = row[11];
+                    rowData[12] = row[12];
+
+                    modelo.addRow(rowData);
+
+                }
+
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+
+                cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+                cellRenderer.setForeground(Color.BLACK);
+                cellRenderer.setFont(fontmed(12));
+
+                header.setForeground(corforeazul);
+                header.setBackground(new Color(246, 246, 246));
+
+                header.setFont(fontbold(13));
+                header.setReorderingAllowed(false);
+
+                tbl.setModel(modelo);
+                tbl.setRowHeight(25);
+                tbl.setDefaultEditor(Object.class, null);
+                scr.getVerticalScrollBar().setValue(0);
+
+                for (int i = 0; i < tbl.getColumnCount(); i++) {
+                    tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+                }
+
+                tbl.getColumnModel().getColumn(12).setMinWidth(0);
+                tbl.getColumnModel().getColumn(12).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(12).setWidth(0);
+
+                tbl.setVisible(true);
+                scr.setVisible(true);
+
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
+    }
+
+    private boolean tabelaospa(JTable tbl, JScrollPane scr, os os) {
+
+        try {
+
+            osDAO osdao = new osDAO();
+            List<String[]> lista = osdao.buscarpa(os);
+
+            if (!lista.isEmpty()) {
+
+                JTableHeader header = tbl.getTableHeader();
+
+                DefaultTableModel modelo = new DefaultTableModel();
+
+                modelo.addColumn("Nome");
+                modelo.addColumn("Endereço");
+                modelo.addColumn("Telefone");
+                modelo.addColumn("Equipamento");
+                modelo.addColumn("Marca");
+                modelo.addColumn("Modelo");
+                modelo.addColumn("Defeito");
+                modelo.addColumn("Reparo");
+                modelo.addColumn("Preço");
+                modelo.addColumn("Entrada");
+                modelo.addColumn("Saída");
+                modelo.addColumn("Garantia");
+                modelo.addColumn("ID");
+
+                for (String[] row : lista) {
+
+                    Object[] rowData = new Object[13];
+
+                    rowData[0] = row[0];
+                    rowData[1] = row[1];
+                    rowData[2] = row[2];
+                    rowData[3] = row[3];
+                    rowData[4] = row[4];
+                    rowData[5] = row[5];
+                    rowData[6] = row[6];
+                    rowData[7] = row[7];
+                    rowData[8] = row[8];
+                    rowData[9] = row[9];
+                    rowData[10] = row[10];
+                    rowData[11] = row[11];
+                    rowData[12] = row[12];
+
+                    modelo.addRow(rowData);
+
+                }
+
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+
+                cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+                cellRenderer.setForeground(Color.BLACK);
+                cellRenderer.setFont(fontmed(12));
+
+                header.setForeground(corforeazul);
+                header.setBackground(new Color(246, 246, 246));
+
+                header.setFont(fontbold(13));
+                header.setReorderingAllowed(false);
+
+                tbl.setModel(modelo);
+                tbl.setRowHeight(25);
+                tbl.setDefaultEditor(Object.class, null);
+                scr.getVerticalScrollBar().setValue(0);
+
+                for (int i = 0; i < tbl.getColumnCount(); i++) {
+                    tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+                }
+
+                tbl.getColumnModel().getColumn(12).setMinWidth(0);
+                tbl.getColumnModel().getColumn(12).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(12).setWidth(0);
+
+                tbl.setVisible(true);
+                scr.setVisible(true);
+
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
+    }
+
     private boolean tabelavencimento(JTable tbl, JScrollPane scr) {
 
         try {
@@ -2359,6 +2537,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadDes.setVisible(false);
         pnlGerEnt.setVisible(false);
         pnlOs.setVisible(false);
+        pnlGerOs.setVisible(false);
         pnlIteGerEnt.setVisible(false);
         pnlConEnt.setVisible(false);
         pnlCadVen.setVisible(false);
@@ -2386,6 +2565,8 @@ public final class main extends javax.swing.JFrame {
         btnGerEst = new javax.swing.JLabel();
         btnRelPri = new javax.swing.JLabel();
         btnOrdSerPri = new javax.swing.JLabel();
+        btnCadOsPri = new javax.swing.JLabel();
+        btnGerOsPri = new javax.swing.JLabel();
         btnTipSerPri = new javax.swing.JLabel();
         btnCadTipSer = new javax.swing.JLabel();
         btnGerTipSer = new javax.swing.JLabel();
@@ -2670,12 +2851,12 @@ public final class main extends javax.swing.JFrame {
         txtModOs = new javax.swing.JTextField();
         sepLocCadEst1 = new javax.swing.JSeparator();
         lblConOs = new javax.swing.JLabel();
-        txtConOs = new javax.swing.JTextField();
+        txtDefOs = new javax.swing.JTextField();
         sepDetCadEst1 = new javax.swing.JSeparator();
         lblDefOs = new javax.swing.JLabel();
-        txtDefOs = new javax.swing.JTextField();
+        txtRepOs = new javax.swing.JTextField();
         sepDetCadEst2 = new javax.swing.JSeparator();
-        lblDatOs = new javax.swing.JLabel();
+        lblDatEntOs = new javax.swing.JLabel();
         txtDatOs = new javax.swing.JTextField();
         sepDetCadEst3 = new javax.swing.JSeparator();
         lblHorOs = new javax.swing.JLabel();
@@ -2685,6 +2866,17 @@ public final class main extends javax.swing.JFrame {
         lblPreOs = new javax.swing.JLabel();
         lblR$Os = new javax.swing.JLabel();
         txtPreOs = new javax.swing.JTextField();
+        pnlGerOs = new javax.swing.JPanel();
+        scrOs = new javax.swing.JScrollPane();
+        tblOs = new javax.swing.JTable();
+        btnAltGerOs = new javax.swing.JButton();
+        btnGerGerOs = new javax.swing.JButton();
+        btnExcGerOs = new javax.swing.JButton();
+        btnVolGerOs = new javax.swing.JButton();
+        lblErrGerOs = new javax.swing.JLabel();
+        lblBusGerOs = new javax.swing.JLabel();
+        txtBusGerOs = new javax.swing.JTextField();
+        sepBusVen1 = new javax.swing.JSeparator();
         pnlCadTipSer = new javax.swing.JPanel();
         btnSalTipSer = new javax.swing.JButton();
         btnCanTipSer = new javax.swing.JButton();
@@ -3042,6 +3234,9 @@ public final class main extends javax.swing.JFrame {
         btnOrdSerPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnOrdSerPri.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOrdSerPri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOrdSerPriMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnOrdSerPriMouseEntered(evt);
             }
@@ -3053,6 +3248,44 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlPri.add(btnOrdSerPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, 170, 40));
+
+        btnCadOsPri.setFont(fontmed(12));
+        btnCadOsPri.setForeground(corforeazul);
+        btnCadOsPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCadOsPri.setText("Nova");
+        btnCadOsPri.setToolTipText("");
+        btnCadOsPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadOsPri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCadOsPriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCadOsPriMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnCadOsPriMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnCadOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 70, 20));
+
+        btnGerOsPri.setFont(fontmed(12));
+        btnGerOsPri.setForeground(corforeazul);
+        btnGerOsPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGerOsPri.setText("Gerenciar");
+        btnGerOsPri.setToolTipText("");
+        btnGerOsPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerOsPri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGerOsPriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGerOsPriMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnGerOsPriMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnGerOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 280, 90, 20));
 
         btnTipSerPri.setFont(fontmed(14));
         btnTipSerPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -3221,6 +3454,9 @@ public final class main extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnVenMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnVenMousePressed(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 btnVenMouseReleased(evt);
             }
@@ -3316,7 +3552,7 @@ public final class main extends javax.swing.JFrame {
         lblTitPri.setForeground(corforeazul);
         lblTitPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitPri.setText("Cadastrar Estoque");
-        pnlPri.add(lblTitPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 270, 270, 50));
+        pnlPri.add(lblTitPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 300, 270, 30));
 
         pnlCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadEnt.setLayout(null);
@@ -6064,31 +6300,6 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblConOs);
         lblConOs.setBounds(700, 180, 130, 20);
 
-        txtConOs.setBackground(new java.awt.Color(246, 246, 246));
-        txtConOs.setFont(fontmed(13));
-        txtConOs.setBorder(null);
-        txtConOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtConOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtConOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtConOs);
-        txtConOs.setBounds(700, 180, 240, 20);
-
-        sepDetCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepDetCadEst1);
-        sepDetCadEst1.setBounds(700, 200, 240, 10);
-
-        lblDefOs.setFont(fontmed(12));
-        lblDefOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblDefOs.setText("Reparo");
-        lblDefOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblDefOs);
-        lblDefOs.setBounds(700, 230, 100, 20);
-
         txtDefOs.setBackground(new java.awt.Color(246, 246, 246));
         txtDefOs.setFont(fontmed(13));
         txtDefOs.setBorder(null);
@@ -6101,18 +6312,43 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlOs.add(txtDefOs);
-        txtDefOs.setBounds(700, 230, 240, 20);
+        txtDefOs.setBounds(700, 180, 240, 20);
+
+        sepDetCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepDetCadEst1);
+        sepDetCadEst1.setBounds(700, 200, 240, 10);
+
+        lblDefOs.setFont(fontmed(12));
+        lblDefOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblDefOs.setText("Reparo");
+        lblDefOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblDefOs);
+        lblDefOs.setBounds(700, 230, 100, 20);
+
+        txtRepOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtRepOs.setFont(fontmed(13));
+        txtRepOs.setBorder(null);
+        txtRepOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRepOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRepOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtRepOs);
+        txtRepOs.setBounds(700, 230, 240, 20);
 
         sepDetCadEst2.setForeground(new java.awt.Color(10, 60, 133));
         pnlOs.add(sepDetCadEst2);
         sepDetCadEst2.setBounds(700, 250, 240, 10);
 
-        lblDatOs.setFont(fontmed(12));
-        lblDatOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatOs.setText("Data entrada");
-        lblDatOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblDatOs);
-        lblDatOs.setBounds(370, 180, 110, 20);
+        lblDatEntOs.setFont(fontmed(12));
+        lblDatEntOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatEntOs.setText("Data entrada");
+        lblDatEntOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblDatEntOs);
+        lblDatEntOs.setBounds(370, 180, 110, 20);
 
         txtDatOs.setBackground(new java.awt.Color(246, 246, 246));
         txtDatOs.setFont(fontmed(13));
@@ -6209,6 +6445,139 @@ public final class main extends javax.swing.JFrame {
         txtPreOs.setBounds(390, 280, 70, 20);
 
         pnlPri.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+
+        pnlGerOs.setBackground(new java.awt.Color(246, 246, 246));
+        pnlGerOs.setLayout(null);
+
+        scrOs.setBackground(new java.awt.Color(250, 250, 250));
+        scrOs.setBorder(BorderFactory.createEmptyBorder());
+
+        tblOs.setBackground(new java.awt.Color(246, 246, 246));
+        tblOs.setBorder(null);
+        tblOs.setFont(fontmed(10));
+        tblOs.setForeground(new java.awt.Color(229, 192, 191));
+        tblOs.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblOs.setFocusable(false);
+        tblOs.setGridColor(new java.awt.Color(192, 211, 250));
+        tblOs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblOs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOsMouseClicked(evt);
+            }
+        });
+        scrOs.setViewportView(tblOs);
+
+        pnlGerOs.add(scrOs);
+        scrOs.setBounds(160, 20, 980, 250);
+
+        btnAltGerOs.setFont(fontmed(12));
+        btnAltGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnAltGerOs.setText("Alterar");
+        btnAltGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerOs.setEnabled(false);
+        btnAltGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltGerOsActionPerformed(evt);
+            }
+        });
+        pnlGerOs.add(btnAltGerOs);
+        btnAltGerOs.setBounds(920, 280, 100, 50);
+
+        btnGerGerOs.setFont(fontmed(12));
+        btnGerGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnGerGerOs.setText("Gerar");
+        btnGerGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerGerOs.setEnabled(false);
+        btnGerGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerGerOsActionPerformed(evt);
+            }
+        });
+        pnlGerOs.add(btnGerGerOs);
+        btnGerGerOs.setBounds(800, 280, 100, 50);
+
+        btnExcGerOs.setFont(fontmed(12));
+        btnExcGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnExcGerOs.setText("Excluir");
+        btnExcGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerOs.setEnabled(false);
+        btnExcGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcGerOsActionPerformed(evt);
+            }
+        });
+        pnlGerOs.add(btnExcGerOs);
+        btnExcGerOs.setBounds(1040, 280, 100, 50);
+
+        btnVolGerOs.setFont(fontmed(12));
+        btnVolGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnVolGerOs.setText("Voltar");
+        btnVolGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolGerOsActionPerformed(evt);
+            }
+        });
+        pnlGerOs.add(btnVolGerOs);
+        btnVolGerOs.setBounds(160, 280, 100, 50);
+
+        lblErrGerOs.setFont(fontbold(10));
+        lblErrGerOs.setForeground(new java.awt.Color(204, 51, 0));
+        lblErrGerOs.setText("Nenhum registro encontrado!");
+        lblErrGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerOs.add(lblErrGerOs);
+        lblErrGerOs.setBounds(310, 330, 190, 20);
+
+        lblBusGerOs.setFont(fontmed(12));
+        lblBusGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblBusGerOs.setText("Buscar");
+        lblBusGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerOs.add(lblBusGerOs);
+        lblBusGerOs.setBounds(310, 300, 80, 20);
+
+        txtBusGerOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusGerOs.setFont(fontmed(13));
+        txtBusGerOs.setBorder(null);
+        txtBusGerOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBusGerOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBusGerOsFocusLost(evt);
+            }
+        });
+        txtBusGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBusGerOsActionPerformed(evt);
+            }
+        });
+        txtBusGerOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBusGerOsKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBusGerOsKeyTyped(evt);
+            }
+        });
+        pnlGerOs.add(txtBusGerOs);
+        txtBusGerOs.setBounds(310, 300, 200, 20);
+
+        sepBusVen1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerOs.add(sepBusVen1);
+        sepBusVen1.setBounds(310, 320, 200, 10);
+
+        pnlPri.add(pnlGerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
         pnlCadTipSer.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadTipSer.setLayout(null);
@@ -7997,6 +8366,8 @@ public final class main extends javax.swing.JFrame {
             btnGerEnt.setVisible(false);
             btnConEnt.setVisible(false);
 
+            btnCadOsPri.setVisible(false);
+            btnGerOsPri.setVisible(false);
             btnCadTipSer.setVisible(false);
             btnGerTipSer.setVisible(false);
             btnMasPla.setVisible(false);
@@ -8284,6 +8655,8 @@ public final class main extends javax.swing.JFrame {
             btnConEst.setVisible(false);
             btnGerEst.setVisible(false);
             btnJurPri.setVisible(false);
+            btnCadOsPri.setVisible(false);
+            btnGerOsPri.setVisible(false);
 
             btnVen.setVisible(false);
             btnCadVen.setVisible(false);
@@ -8538,6 +8911,8 @@ public final class main extends javax.swing.JFrame {
             btnVen.setVisible(true);
             btnCadVen.setVisible(true);
             btnJurPri.setVisible(true);
+            btnCadOsPri.setVisible(false);
+            btnGerOsPri.setVisible(false);
 
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
@@ -10392,6 +10767,9 @@ public final class main extends javax.swing.JFrame {
             btnVen.setVisible(false);
             btnCadVen.setVisible(false);
             btnJurPri.setVisible(false);
+            btnCadOsPri.setVisible(false);
+            btnGerOsPri.setVisible(false);
+
         } else {
             btnCadEnt.setVisible(false);
             btnGerEnt.setVisible(false);
@@ -13053,97 +13431,166 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPreCadEstFocusGained
 
     private void btnGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerOsActionPerformed
-        if (txtCliOs.getText().isEmpty() || txtEndOs.getText().isEmpty() || txtTelOs.getText().isEmpty() || txtEquOs.getText().isEmpty() || txtMarOs.getText().isEmpty() || txtModOs.getText().isEmpty() || txtConOs.getText().isEmpty() || txtDatOs.getText().isEmpty() || txtDefOs.getText().isEmpty() || (txtDatSaiOs.getText().isEmpty() && chkGarOs.isSelected())) {
+        try {
 
-            JOptionPane.showMessageDialog(pnlOs, "Preencha todos os dados!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            if (txtCliOs.getText().isEmpty() || txtEndOs.getText().isEmpty() || txtTelOs.getText().isEmpty() || txtEquOs.getText().isEmpty() || txtMarOs.getText().isEmpty() || txtModOs.getText().isEmpty() || txtDefOs.getText().isEmpty() || txtDatOs.getText().isEmpty() || txtRepOs.getText().isEmpty() || (txtDatSaiOs.getText().isEmpty() && chkGarOs.isSelected())) {
 
-        } else {
+                JOptionPane.showMessageDialog(pnlOs, "Preencha todos os dados!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
-            try {
+            } else {
 
-                int resp1 = JOptionPane.showOptionDialog(null, "Salvar OS no banco de dados?", "OS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+                if (btnGerOs.getText().equals("Gerar")) {//VERIFICA SE IGUAL GERAR O BOTAP
 
-                if (resp1 == JOptionPane.YES_OPTION) {
+                    int resp1 = JOptionPane.showOptionDialog(null, "Salvar OS no banco de dados?", "OS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-                    osDAO osdao = new osDAO();
-                    os oss = new os();
+                    if (resp1 != JOptionPane.CLOSED_OPTION) {//SE APERTAR X NO SALVAR BD
 
-                    oss.setCliente(txtCliOs.getText());
-                    oss.setTelefone(txtTelOs.getText());
-                    oss.setEndereco(txtEndOs.getText());
-                    oss.setEquipamento(txtEquOs.getText());
-                    oss.setMarca(txtMarOs.getText());
-                    oss.setModelo(txtModOs.getText());
-                    oss.setDefeito(txtConOs.getText());
-                    oss.setReparo(txtDefOs.getText());
-                    oss.setDataentrada(txtDatOs.getText());
-                    oss.setDatasaida(txtDatSaiOs.getText());
-                    oss.setPreco("R$ " + txtPreOs.getText());
+                        int resp2 = JOptionPane.showOptionDialog(null, "Quantas vias?", "OS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"1 Via", "2 Vias"}, "Sim");
 
-                    if (chkGarOs.isSelected()) {
-                        oss.setGarantia("Sim");
+                        if (resp2 != JOptionPane.CLOSED_OPTION) {//SE PAERTAR X VIA
 
-                    } else {
-                        oss.setGarantia("Não");
+                            if (resp1 == JOptionPane.YES_OPTION) {//YES = 1 VIA 
+
+                                osDAO osdao = new osDAO();
+                                os oss = new os();
+
+                                oss.setCliente(txtCliOs.getText());
+                                oss.setTelefone(txtTelOs.getText());
+                                oss.setEndereco(txtEndOs.getText());
+                                oss.setEquipamento(txtEquOs.getText());
+                                oss.setMarca(txtMarOs.getText());
+                                oss.setModelo(txtModOs.getText());
+                                oss.setDefeito(txtDefOs.getText());
+                                oss.setReparo(txtRepOs.getText());
+                                oss.setDataentrada(txtDatOs.getText());
+                                oss.setDatasaida((!txtDatSaiOs.getText().equals("")) ? txtDatSaiOs.getText() : "Não Aplicável");
+                                oss.setPreco(moedadoublereal(Double.valueOf(txtPreOs.getText().replace(".", "").replace(",", "."))));
+
+                                if (chkGarOs.isSelected()) {
+                                    oss.setGarantia("Sim");
+
+                                } else {
+                                    oss.setGarantia("Não");
+                                }
+
+                                osdao.inserir(oss);
+
+                            }
+
+                            String datasaida = (!txtDatSaiOs.getText().equals("")) ? txtDatSaiOs.getText() : "____/____/________";
+
+                            String datagarantia = "Não Aplicável";
+
+                            if (!txtDatSaiOs.getText().equals("") && chkGarOs.isSelected()) {
+
+                                Date data = formatter.parse(datasaida);
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTime(data);
+                                calendar.add(Calendar.MONTH, 3);
+                                Date novaData = calendar.getTime();
+                                datagarantia = formatter.format(novaData);
+
+                            }
+
+                            Map<String, Object> parameters = new HashMap<>();
+
+                            parameters.clear();
+
+                            parameters.put("LogoTim", getClass().getResourceAsStream("/images/LOGOTIM.png"));
+                            parameters.put("LogoLoja", getClass().getResourceAsStream("/images/LogoLoja580.png"));
+                            parameters.put("Nome", txtCliOs.getText());
+                            parameters.put("Endereco", txtEndOs.getText());
+                            parameters.put("Telefone", txtTelOs.getText());
+                            parameters.put("Equipamento", txtEquOs.getText());
+                            parameters.put("Marca", txtMarOs.getText());
+                            parameters.put("Modelo", txtModOs.getText());
+                            parameters.put("Condicoes", txtDefOs.getText());
+                            parameters.put("Defeito", txtRepOs.getText());
+                            parameters.put("DataEntrada", txtDatOs.getText());
+                            parameters.put("DataSaida", datasaida);
+                            parameters.put("Garantia", datagarantia);
+                            parameters.put("Preco", moedadoublereal(Double.valueOf(txtPreOs.getText().replace(".", "").replace(",", "."))));
+
+                            parameters.put("LogoTim2", getClass().getResourceAsStream("/images/LOGOTIM.png"));
+                            parameters.put("LogoLoja2", getClass().getResourceAsStream("/images/LogoLoja580.png"));
+                            parameters.put("Nome2", txtCliOs.getText());
+                            parameters.put("Endereco2", txtEndOs.getText());
+                            parameters.put("Telefone2", txtTelOs.getText());
+                            parameters.put("Equipamento2", txtEquOs.getText());
+                            parameters.put("Marca2", txtMarOs.getText());
+                            parameters.put("Modelo2", txtModOs.getText());
+                            parameters.put("Condicoes2", txtDefOs.getText());
+                            parameters.put("Defeito2", txtRepOs.getText());
+                            parameters.put("DataEntrada2", txtDatOs.getText());
+                            parameters.put("DataSaida2", datasaida);
+                            parameters.put("Garantia2", datagarantia);
+                            parameters.put("Preco2", moedadoublereal(Double.valueOf(txtPreOs.getText().replace(".", "").replace(",", "."))));
+
+                            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("os/OSEmpSysView2.jasper");
+
+                            if (resp2 == JOptionPane.YES_OPTION) {
+                                inputStream = getClass().getClassLoader().getResourceAsStream("os/OSEmpSysView1.jasper");
+                            }
+
+                            JasperPrint print = JasperFillManager.fillReport(inputStream, parameters, new JREmptyDataSource(1));
+
+                            JasperViewer jc = new JasperViewer(print, false);
+                            jc.setVisible(true);
+                            jc.toFront();
+
+                            pnlOs.setVisible(false);
+                            lblTitPri.setVisible(false);
+
+                        }
+
                     }
 
-                    osdao.inserir(oss);
+                } else {//BOTAO ALTERAR
 
+                    int resp1 = JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar a OS?", "OS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                    if (resp1 == JOptionPane.YES_OPTION) {//YES = ALTERAR
+
+                        osDAO osdao = new osDAO();
+                        os oss = new os();
+
+                        oss.setCliente(txtCliOs.getText());
+                        oss.setTelefone(txtTelOs.getText());
+                        oss.setEndereco(txtEndOs.getText());
+                        oss.setEquipamento(txtEquOs.getText());
+                        oss.setMarca(txtMarOs.getText());
+                        oss.setModelo(txtModOs.getText());
+                        oss.setDefeito(txtDefOs.getText());
+                        oss.setReparo(txtRepOs.getText());
+                        oss.setDataentrada(txtDatOs.getText());
+                        oss.setDatasaida((!txtDatSaiOs.getText().equals("")) ? txtDatSaiOs.getText() : "Não Aplicável");
+                        oss.setPreco(moedadoublereal(Double.valueOf(txtPreOs.getText().replace(".", "").replace(",", "."))));
+
+                        oss.setId(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("ID")).toString());
+
+                        if (chkGarOs.isSelected()) {
+                            oss.setGarantia("Sim");
+                        } else {
+                            oss.setGarantia("Não");
+                        }
+
+                        osdao.alterar(oss);
+
+                        JOptionPane.showMessageDialog(pnlOs, "OS alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                        pnlbtn();
+                        lblTitPri.setVisible(false);
+
+                    }
                 }
-
-                String datasaida = (!txtDatSaiOs.getText().equals("")) ? txtDatSaiOs.getText() : "Não Aplicável";
-
-                String datagarantia = "Não Aplicável";
-
-                if (!txtDatSaiOs.getText().equals("") && chkGarOs.isSelected()) {
-
-                    Date data = formatter.parse(datasaida);
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(data);
-                    calendar.add(Calendar.MONTH, 3);
-                    Date novaData = calendar.getTime();
-                    datagarantia = formatter.format(novaData);
-
-                }
-
-                Map<String, Object> parameters = new HashMap<>();
-
-                parameters.clear();
-
-                parameters.put("LogoTim", getClass().getResourceAsStream("/images/LOGOTIM.png"));
-                parameters.put("LogoLoja", getClass().getResourceAsStream("/images/LogoLoja580.png"));
-                parameters.put("Nome", txtCliOs.getText());
-                parameters.put("Endereco", txtEndOs.getText());
-                parameters.put("Telefone", txtTelOs.getText());
-                parameters.put("Equipamento", txtEquOs.getText());
-                parameters.put("Marca", txtMarOs.getText());
-                parameters.put("Modelo", txtModOs.getText());
-                parameters.put("Condicoes", txtConOs.getText());
-                parameters.put("Defeito", txtDefOs.getText());
-                parameters.put("DataEntrada", txtDatOs.getText());
-                parameters.put("DataSaida", datasaida);
-                parameters.put("Garantia", datagarantia);
-                parameters.put("Preco", moedadoublereal(Double.valueOf(txtPreOs.getText().replace(".", "").replace(",", "."))));
-
-                InputStream inputStream = getClass().getClassLoader().getResourceAsStream("os/OSEmpSysView.jasper");
-
-                JasperPrint print = JasperFillManager.fillReport(inputStream, parameters, new JREmptyDataSource(1));
-
-                JasperViewer jc = new JasperViewer(print, false);
-                jc.setVisible(true);
-                jc.toFront();
-
-                pnlOs.setVisible(false);
-                lblTitPri.setVisible(false);
-
-            } catch (JRException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException e) {
-                JOptionPane.showMessageDialog(pnlOs, "Erro ao calcular garantia!", "Erro", JOptionPane.WARNING_MESSAGE);
-            } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+        } catch (JRException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(pnlOs, "Erro ao calcular garantia!", "Erro", JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGerOsActionPerformed
 
@@ -13261,39 +13708,39 @@ public final class main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtModOsFocusLost
 
-    private void txtConOsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConOsFocusGained
-        if (txtConOs.getText().isEmpty()) {
-            anitxtin(lblConOs);
-        }
-    }//GEN-LAST:event_txtConOsFocusGained
-
-    private void txtConOsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConOsFocusLost
-        if (txtConOs.getText().isEmpty()) {
-            anitxtout(lblConOs);
-        }
-    }//GEN-LAST:event_txtConOsFocusLost
-
     private void txtDefOsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDefOsFocusGained
         if (txtDefOs.getText().isEmpty()) {
-            anitxtin(lblDefOs);
+            anitxtin(lblConOs);
         }
     }//GEN-LAST:event_txtDefOsFocusGained
 
     private void txtDefOsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDefOsFocusLost
         if (txtDefOs.getText().isEmpty()) {
-            anitxtout(lblDefOs);
+            anitxtout(lblConOs);
         }
     }//GEN-LAST:event_txtDefOsFocusLost
 
+    private void txtRepOsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRepOsFocusGained
+        if (txtRepOs.getText().isEmpty()) {
+            anitxtin(lblDefOs);
+        }
+    }//GEN-LAST:event_txtRepOsFocusGained
+
+    private void txtRepOsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRepOsFocusLost
+        if (txtRepOs.getText().isEmpty()) {
+            anitxtout(lblDefOs);
+        }
+    }//GEN-LAST:event_txtRepOsFocusLost
+
     private void txtDatOsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatOsFocusGained
         if (txtDatOs.getText().isEmpty()) {
-            anitxtin(lblDatOs);
+            anitxtin(lblDatEntOs);
         }
     }//GEN-LAST:event_txtDatOsFocusGained
 
     private void txtDatOsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatOsFocusLost
         if (txtDatOs.getText().isEmpty()) {
-            anitxtout(lblDatOs);
+            anitxtout(lblDatEntOs);
         }
     }//GEN-LAST:event_txtDatOsFocusLost
 
@@ -13374,45 +13821,31 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDatSaiOsKeyTyped
 
     private void btnOrdSerPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOrdSerPriMouseReleased
-        if (!pnlOs.isVisible()) {
+        if (btnCadOsPri.isVisible()) {
 
-            txtCliOs.setText(null);
-            txtEndOs.setText(null);
-            txtTelOs.setText(null);
-            txtEquOs.setText(null);
-            txtMarOs.setText(null);
-            txtModOs.setText(null);
-            txtConOs.setText(null);
-            txtDefOs.setText(null);
-            txtPreOs.setText(null);
-            txtDatOs.setText(null);
-            txtDatSaiOs.setText(null);
-            chkGarOs.setSelected(false);
-
-            lblCliOs.setLocation(370, 30);
-            lblTelOs.setLocation(370, 80);
-            lblEndOs.setLocation(370, 130);
-            lblDatOs.setLocation(370, 180);
-            lblHorOs.setLocation(370, 230);
-            lblEquOs.setLocation(700, 30);
-            lblMarOs.setLocation(700, 80);
-            lblModOs.setLocation(700, 130);
-            lblConOs.setLocation(700, 180);
-            lblDefOs.setLocation(700, 230);
-            lblPreOs.setLocation(370, 280);
-
-            lblR$Os.setVisible(false);
-
-            lblTitPri.setText("Ordem de Serviço");
-            lblTitPri.setVisible(true);
-
-            pnlbtn();
-            pnlOs.setVisible(true);
+            btnCadOsPri.setVisible(false);
+            btnGerOsPri.setVisible(false);
 
         } else {
 
-            pnlbtn();
-            pnlOs.setVisible(true);
+            btnCadEst.setVisible(false);
+            btnConEst.setVisible(false);
+            btnGerEst.setVisible(false);
+            btnCadOsPri.setVisible(true);
+            btnGerOsPri.setVisible(true);
+            btnJurPri.setVisible(false);
+            btnCadEnt.setVisible(false);
+            btnGerEnt.setVisible(false);
+            btnConEnt.setVisible(false);
+
+            btnCadTipSer.setVisible(false);
+            btnGerTipSer.setVisible(false);
+            btnMasPla.setVisible(false);
+            btnDes.setVisible(false);
+            btnCadDes.setVisible(false);
+            btnGerDes.setVisible(false);
+            btnVen.setVisible(false);
+            btnCadVen.setVisible(false);
 
         }
     }//GEN-LAST:event_btnOrdSerPriMouseReleased
@@ -15774,6 +16207,365 @@ public final class main extends javax.swing.JFrame {
     private void chkGarOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkGarOsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chkGarOsActionPerformed
+
+    private void tblOsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOsMouseClicked
+        btnGerGerOs.setEnabled(true);
+        btnExcGerOs.setEnabled(true);
+        btnAltGerOs.setEnabled(true);
+    }//GEN-LAST:event_tblOsMouseClicked
+
+    private void btnAltGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerOsActionPerformed
+        String preco = tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Preço")).toString();
+        String datasaida = tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Saída")).toString();
+
+        txtCliOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Nome")).toString());
+        txtEndOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Endereço")).toString());
+        txtTelOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Telefone")).toString());
+        txtEquOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Equipamento")).toString());
+        txtMarOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Marca")).toString());
+        txtModOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Modelo")).toString());
+        txtRepOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Reparo")).toString());
+        txtDefOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Defeito")).toString());
+        txtDatOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Entrada")).toString());
+
+        if (datasaida.equals("Não Aplicável")) {
+            txtDatSaiOs.setText(null);
+            lblHorOs.setLocation(370, 230);
+        } else {
+            txtDatSaiOs.setText(datasaida);
+            lblHorOs.setLocation(370, 210);
+        }
+
+        txtPreOs.setText(preco.substring(3, preco.length()));
+
+        if (tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Garantia")).toString().equals("Sim")) {
+            chkGarOs.setSelected(true);
+        } else {
+            chkGarOs.setSelected(false);
+        }
+
+        lblCliOs.setLocation(370, 10);
+        lblTelOs.setLocation(370, 60);
+        lblEndOs.setLocation(370, 110);
+        lblDatEntOs.setLocation(370, 160);
+        lblEquOs.setLocation(700, 10);
+        lblMarOs.setLocation(700, 60);
+        lblModOs.setLocation(700, 110);
+        lblConOs.setLocation(700, 160);
+        lblDefOs.setLocation(700, 210);
+        lblPreOs.setLocation(370, 260);
+
+        lblR$Os.setVisible(true);
+
+        lblTitPri.setText("Alterar OS");
+
+        btnGerOs.setText("Alterar");
+
+        pnlbtn();
+        pnlOs.setVisible(true);
+
+    }//GEN-LAST:event_btnAltGerOsActionPerformed
+
+    private void btnGerGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerGerOsActionPerformed
+        try {
+
+            int resp2 = JOptionPane.showOptionDialog(null, "Quantas vias?", "OS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"1 Via", "2 Vias"}, null);
+
+            if (resp2 != JOptionPane.CLOSED_OPTION) {
+
+                String datagarantia;
+
+                String datasaida = tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Saída")).toString();
+
+                if (tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Garantia")).toString().equals("Sim")) {
+
+                    Date data = formatter.parse(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Saída")).toString());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(data);
+                    calendar.add(Calendar.MONTH, 3);
+                    Date novaData = calendar.getTime();
+                    datagarantia = formatter.format(novaData);
+
+                } else {
+
+                    datagarantia = "Não Aplicável";
+
+                }
+
+                Map<String, Object> parameters = new HashMap<>();
+
+                parameters.clear();
+
+                parameters.put("LogoTim", getClass().getResourceAsStream("/images/LOGOTIM.png"));
+                parameters.put("LogoLoja", getClass().getResourceAsStream("/images/LogoLoja580.png"));
+                parameters.put("Nome", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Nome")).toString());
+                parameters.put("Endereco", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Endereço")).toString());
+                parameters.put("Telefone", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Telefone")).toString());
+                parameters.put("Equipamento", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Equipamento")).toString());
+                parameters.put("Marca", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Marca")).toString());
+                parameters.put("Modelo", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Modelo")).toString());
+                parameters.put("Condicoes", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Defeito")).toString());
+                parameters.put("Defeito", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Reparo")).toString());
+                parameters.put("DataEntrada", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Entrada")).toString());
+                parameters.put("DataSaida", (!datasaida.equals("Não Aplicável")) ? datasaida : "____/____/________");
+                parameters.put("Garantia", datagarantia);
+                parameters.put("Preco", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Preço")).toString());
+
+                parameters.put("LogoTim2", getClass().getResourceAsStream("/images/LOGOTIM.png"));
+                parameters.put("LogoLoja2", getClass().getResourceAsStream("/images/LogoLoja580.png"));
+                parameters.put("Nome2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Nome")).toString());
+                parameters.put("Endereco2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Endereço")).toString());
+                parameters.put("Telefone2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Telefone")).toString());
+                parameters.put("Equipamento2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Equipamento")).toString());
+                parameters.put("Marca2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Marca")).toString());
+                parameters.put("Modelo2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Modelo")).toString());
+                parameters.put("Condicoes2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Defeito")).toString());
+                parameters.put("Defeito2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Reparo")).toString());
+                parameters.put("DataEntrada2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Entrada")).toString());
+                parameters.put("DataSaida2", (!datasaida.equals("Não Aplicável")) ? datasaida : "____/____/________");
+                parameters.put("Garantia2", datagarantia);
+                parameters.put("Preco2", tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Preço")).toString());
+
+                InputStream inputStream = getClass().getClassLoader().getResourceAsStream("os/OSEmpSysView2.jasper");
+
+                if (resp2 == JOptionPane.YES_OPTION) {
+                    inputStream = getClass().getClassLoader().getResourceAsStream("os/OSEmpSysView1.jasper");
+                    System.out.print("wdwd");
+                }
+
+                JasperPrint print = JasperFillManager.fillReport(inputStream, parameters, new JREmptyDataSource(1));
+
+                JasperViewer jc = new JasperViewer(print, false);
+                jc.setVisible(true);
+                jc.toFront();
+
+                tabelaos(tblOs, scrOs);
+
+                btnGerGerOs.setEnabled(false);
+                btnExcGerOs.setEnabled(false);
+                btnAltGerOs.setEnabled(false);
+
+            }
+
+        } catch (JRException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGerGerOsActionPerformed
+
+    private void btnExcGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerOsActionPerformed
+        int resp = JOptionPane.showOptionDialog(pnlGerOs, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+        if (resp == JOptionPane.YES_OPTION) {
+
+            try {
+
+                os os = new os();
+                osDAO osdao = new osDAO();
+
+                os.setId(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("ID")).toString());
+
+                osdao.excluir(os);
+
+                JOptionPane.showMessageDialog(pnlGerOs, "OS excluída com sucesso!", "OS", JOptionPane.INFORMATION_MESSAGE);
+
+                if (tabelaos(tblOs, scrOs)) {
+
+                } else {
+
+                    JOptionPane.showMessageDialog(pnlGerOs, "Sem OS. Cadastre-as primeiro!", "OS", JOptionPane.INFORMATION_MESSAGE);
+                    pnlGerOs.setVisible(false);
+                    lblTitPri.setVisible(false);
+                }
+
+                btnGerGerOs.setEnabled(false);
+                btnExcGerOs.setEnabled(false);
+                btnAltGerOs.setEnabled(false);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnExcGerOsActionPerformed
+
+    private void btnVolGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolGerOsActionPerformed
+        pnlbtn();
+        lblTitPri.setVisible(false);
+    }//GEN-LAST:event_btnVolGerOsActionPerformed
+
+    private void txtBusGerOsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusGerOsFocusGained
+        if (txtBusGerOs.getText().isEmpty()) {
+            anitxtin(lblBusGerOs);
+        }
+    }//GEN-LAST:event_txtBusGerOsFocusGained
+
+    private void txtBusGerOsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusGerOsFocusLost
+        if (txtBusGerOs.getText().isEmpty()) {
+            anitxtout(lblBusGerOs);
+        }
+    }//GEN-LAST:event_txtBusGerOsFocusLost
+
+    private void txtBusGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusGerOsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBusGerOsActionPerformed
+
+    private void txtBusGerOsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusGerOsKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            os os = new os();
+
+            os.setCliente(txtBusGerOs.getText());
+            os.setTelefone(txtBusGerOs.getText());
+            os.setEndereco(txtBusGerOs.getText());
+            os.setEquipamento(txtBusGerOs.getText());
+            os.setMarca(txtBusGerOs.getText());
+            os.setModelo(txtBusGerOs.getText());
+            os.setDefeito(txtBusGerOs.getText());
+            os.setReparo(txtBusGerOs.getText());
+            os.setPreco(txtBusGerOs.getText());
+            os.setDataentrada(txtBusGerOs.getText());
+            os.setDatasaida(txtBusGerOs.getText());
+            os.setGarantia(txtBusGerOs.getText());
+            os.setId(txtBusGerOs.getText());
+
+            if (txtBusGerOs.getText().isEmpty()) {
+
+                os.setCliente("%");
+                os.setTelefone("%");
+                os.setEndereco("%");
+                os.setEquipamento("%");
+                os.setMarca("%");
+                os.setModelo("%");
+                os.setDefeito("%");
+                os.setReparo("%");
+                os.setPreco("%");
+                os.setDataentrada("%");
+                os.setDatasaida("%");
+                os.setGarantia("%");
+                os.setId("%");
+
+            }
+
+            if (tabelaospa(tblOs, scrOs, os)) {
+                lblErrGerOs.setVisible(false);
+            } else {
+                lblErrGerOs.setVisible(true);
+            }
+
+        }
+    }//GEN-LAST:event_txtBusGerOsKeyPressed
+
+    private void txtBusGerOsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusGerOsKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBusGerOsKeyTyped
+
+    private void btnGerOsPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerOsPriMouseEntered
+        btnGerOsPri.setForeground(corforeazulenter);
+    }//GEN-LAST:event_btnGerOsPriMouseEntered
+
+    private void btnGerOsPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerOsPriMouseExited
+        btnGerOsPri.setForeground(corforeazul);
+    }//GEN-LAST:event_btnGerOsPriMouseExited
+
+    private void btnGerOsPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerOsPriMouseReleased
+        if (!pnlGerOs.isVisible()) {
+
+            if (tabelaos(tblOs, scrOs)) {
+
+                lblTitPri.setText("Gerenciar OS");
+                lblTitPri.setVisible(true);
+
+                btnExcGerOs.setEnabled(false);
+                btnGerGerOs.setEnabled(false);
+                btnAltGerOs.setEnabled(false);
+
+                lblBusGerOs.setLocation(310, 300);
+                txtBusGerOs.setText(null);
+                lblErrGerOs.setVisible(false);
+
+                pnlbtn();
+                pnlGerOs.setVisible(true);
+
+            } else {
+
+                JOptionPane.showMessageDialog(pnlDes, "Sem OS. Cadastre-as primeiro!", "OS", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+            btnCadOsPri.setVisible(false);
+            btnGerOsPri.setVisible(false);
+
+        } else {
+            btnCadOsPri.setVisible(false);
+            btnGerOsPri.setVisible(false);
+        }
+    }//GEN-LAST:event_btnGerOsPriMouseReleased
+
+    private void btnVenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVenMousePressed
+
+    private void btnOrdSerPriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOrdSerPriMouseClicked
+
+    }//GEN-LAST:event_btnOrdSerPriMouseClicked
+
+    private void btnCadOsPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadOsPriMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadOsPriMouseEntered
+
+    private void btnCadOsPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadOsPriMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadOsPriMouseExited
+
+    private void btnCadOsPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadOsPriMouseReleased
+        if (!pnlOs.isVisible()) {
+
+            txtCliOs.setText(null);
+            txtEndOs.setText(null);
+            txtTelOs.setText(null);
+            txtEquOs.setText(null);
+            txtMarOs.setText(null);
+            txtModOs.setText(null);
+            txtDefOs.setText(null);
+            txtRepOs.setText(null);
+            txtPreOs.setText(null);
+            txtDatOs.setText(null);
+            txtDatSaiOs.setText(null);
+            chkGarOs.setSelected(false);
+
+            lblCliOs.setLocation(370, 30);
+            lblTelOs.setLocation(370, 80);
+            lblEndOs.setLocation(370, 130);
+            lblDatEntOs.setLocation(370, 180);
+            lblHorOs.setLocation(370, 230);
+            lblEquOs.setLocation(700, 30);
+            lblMarOs.setLocation(700, 80);
+            lblModOs.setLocation(700, 130);
+            lblConOs.setLocation(700, 180);
+            lblDefOs.setLocation(700, 230);
+            lblPreOs.setLocation(370, 280);
+
+            lblR$Os.setVisible(false);
+
+            lblTitPri.setText("Ordem de Serviço");
+            lblTitPri.setVisible(true);
+
+            btnCadOsPri.setVisible(false);
+            btnGerOsPri.setVisible(false);
+
+            btnGerOs.setText("Gerar");
+
+            pnlbtn();
+            pnlOs.setVisible(true);
+
+        } else {
+
+            btnCadOsPri.setVisible(false);
+            btnGerOsPri.setVisible(false);
+
+        }
+    }//GEN-LAST:event_btnCadOsPriMouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -15784,6 +16576,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnAltGerDes;
     private javax.swing.JButton btnAltGerEnt;
     private javax.swing.JButton btnAltGerEst;
+    private javax.swing.JButton btnAltGerOs;
     private javax.swing.JButton btnAltGerTipSer;
     private javax.swing.JButton btnAltVen;
     private javax.swing.JLabel btnAnoRel;
@@ -15795,6 +16588,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel btnCadDes;
     private javax.swing.JLabel btnCadEnt;
     private javax.swing.JLabel btnCadEst;
+    private javax.swing.JLabel btnCadOsPri;
     private javax.swing.JLabel btnCadTipSer;
     private javax.swing.JLabel btnCadVen;
     private javax.swing.JButton btnCalJur;
@@ -15823,13 +16617,16 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnExcGerDes;
     private javax.swing.JButton btnExcGerEnt;
     private javax.swing.JButton btnExcGerEst;
+    private javax.swing.JButton btnExcGerOs;
     private javax.swing.JButton btnExcGerTipSer;
     private javax.swing.JButton btnExcVen;
     private javax.swing.JLabel btnGerDes;
     private javax.swing.JLabel btnGerEnt;
     private javax.swing.JLabel btnGerEst;
+    private javax.swing.JButton btnGerGerOs;
     private javax.swing.JButton btnGerMas;
     private javax.swing.JButton btnGerOs;
+    private javax.swing.JLabel btnGerOsPri;
     private javax.swing.JLabel btnGerTipSer;
     private javax.swing.ButtonGroup btnGroup;
     private javax.swing.ButtonGroup btnGroup1;
@@ -15860,6 +16657,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnVenMas;
     private javax.swing.JLabel btnVenPri;
     private javax.swing.JButton btnVolDes;
+    private javax.swing.JButton btnVolGerOs;
     private javax.swing.JButton btnVolIteCadEnt;
     private javax.swing.JButton btnVolIteGerEnt;
     private javax.swing.JButton btnVolJur;
@@ -15894,6 +16692,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblBusConEnt;
     private javax.swing.JLabel lblBusConEst;
     private javax.swing.JLabel lblBusGerEst;
+    private javax.swing.JLabel lblBusGerOs;
     private javax.swing.JLabel lblBusIteCadEnt;
     private javax.swing.JLabel lblBusIteGerEnt;
     private javax.swing.JLabel lblBusVen;
@@ -15916,11 +16715,11 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblDatCadEnt;
     private javax.swing.JLabel lblDatCadVen;
     private javax.swing.JLabel lblDatDes;
+    private javax.swing.JLabel lblDatEntOs;
     private javax.swing.JLabel lblDatFinRel;
     private javax.swing.JLabel lblDatGerDes;
     private javax.swing.JLabel lblDatGerEnt;
     private javax.swing.JLabel lblDatIniRel;
-    private javax.swing.JLabel lblDatOs;
     private javax.swing.JLabel lblDefOs;
     private javax.swing.JLabel lblDesDes;
     private javax.swing.JLabel lblDesGerDes;
@@ -15935,6 +16734,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblDiaRel;
     private javax.swing.JLabel lblEndOs;
     private javax.swing.JLabel lblEquOs;
+    private javax.swing.JLabel lblErrGerOs;
     private javax.swing.JLabel lblErrVen;
     private javax.swing.JLabel lblEstIteCadEnt;
     private javax.swing.JLabel lblEstIteGerEnt;
@@ -16018,6 +16818,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGerDes;
     private javax.swing.JPanel pnlGerEnt;
     private javax.swing.JPanel pnlGerEst;
+    private javax.swing.JPanel pnlGerOs;
     private javax.swing.JPanel pnlGerTipSer;
     private javax.swing.JPanel pnlIteCadEnt;
     private javax.swing.JPanel pnlIteGerEnt;
@@ -16081,6 +16882,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrGerDes;
     private javax.swing.JScrollPane scrGerEnt;
     private javax.swing.JScrollPane scrGerEst;
+    private javax.swing.JScrollPane scrOs;
     private javax.swing.JScrollPane scrRel;
     private javax.swing.JScrollPane scrSelIteCadEnt;
     private javax.swing.JScrollPane scrSelIteGerEnt;
@@ -16093,6 +16895,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JSeparator sepBusIteCadEnt;
     private javax.swing.JSeparator sepBusIteCadEnt1;
     private javax.swing.JSeparator sepBusVen;
+    private javax.swing.JSeparator sepBusVen1;
     private javax.swing.JSeparator sepCadVen;
     private javax.swing.JSeparator sepCliCadEnt;
     private javax.swing.JSeparator sepCliCadVen;
@@ -16175,6 +16978,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTable tblGerDes;
     private javax.swing.JTable tblGerEnt;
     private javax.swing.JTable tblGerEst;
+    private javax.swing.JTable tblOs;
     private javax.swing.JTable tblRel;
     private javax.swing.JTable tblSelIteCadEnt;
     private javax.swing.JTable tblSelIteGerEnt;
@@ -16185,6 +16989,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtBusConEnt;
     private javax.swing.JTextField txtBusConEst;
     private javax.swing.JTextField txtBusGerEst;
+    private javax.swing.JTextField txtBusGerOs;
     private javax.swing.JTextField txtBusIteCadEnt;
     private javax.swing.JTextField txtBusIteGerEnt;
     private javax.swing.JTextField txtBusVen;
@@ -16193,7 +16998,6 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtCliGerEnt;
     private javax.swing.JTextField txtCliOs;
     private javax.swing.JTextField txtCodCadEnt;
-    private javax.swing.JTextField txtConOs;
     private javax.swing.JTextField txtCorCadEst;
     private javax.swing.JTextField txtCorGerEst;
     private javax.swing.JTextField txtCpfCadVen;
@@ -16248,6 +17052,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JTextField txtPreOs;
     private javax.swing.JTextField txtQuaCadEst;
     private javax.swing.JTextField txtQuaGerEst;
+    private javax.swing.JTextField txtRepOs;
     private javax.swing.JTextField txtTelCadVen;
     private javax.swing.JTextField txtTelOs;
     private javax.swing.JTextField txtTipCadEst;
