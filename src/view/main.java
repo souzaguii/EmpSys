@@ -11825,16 +11825,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCopMasMouseExited
 
     private void txtVenMasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVenMasKeyTyped
-//        if (txtVenMas.getSelectedText() != null) {
-//            if (!Character.isDigit(evt.getKeyChar())) {
-//                evt.consume();
-//            }
-//        } else {
-//            if (!Character.isDigit(evt.getKeyChar()) || txtVenMas.getText().length() > 1) {
-//                evt.consume();
-//            }
-//        }
-
         if (txtVenMas.getSelectedText() != null) {
             if (!Character.isDigit(evt.getKeyChar())) {
                 evt.consume();
@@ -11867,11 +11857,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtVenMasKeyTyped
 
     private void txtVenMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVenMasKeyReleased
-//        if (!"".equals(txtVenMas.getText())) {
-//            if (Integer.parseInt(txtVenMas.getText()) > 31) {
-//                txtVenMas.setText("31");
-//            }
-//        }
+
     }//GEN-LAST:event_txtVenMasKeyReleased
 
     private void txtCpfMasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfMasKeyTyped

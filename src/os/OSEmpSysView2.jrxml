@@ -599,7 +599,7 @@
 				<text><![CDATA[As frontais substituídas estão cobertas por uma garantia de 3 meses, desde que não sofram danos físicos (quebrado, trincado interno, oxidação ou mal uso)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="125" width="70" height="13" uuid="791412ed-0de7-4e52-9143-3350e8ed565e">
+				<reportElement x="220" y="125" width="90" height="13" uuid="791412ed-0de7-4e52-9143-3350e8ed565e">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -612,9 +612,9 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Poppins" size="8" isBold="true"/>
+					<font fontName="Poppins" size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Garantia Até]]></text>
+				<text><![CDATA[Garantia Válida Até]]></text>
 			</staticText>
 			<line>
 				<reportElement x="210" y="114" width="1" height="45" uuid="e30ac511-93ba-4a83-9831-ac38ecaaa37b">
@@ -1013,7 +1013,7 @@
 				<text><![CDATA[As frontais substituídas estão cobertas por uma garantia de 3 meses, desde que não sofram danos físicos (quebrado, trincado interno, oxidação ou mal uso)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="476" width="70" height="13" uuid="6f39c8c0-c347-4eaa-818a-bf2912b8cf33">
+				<reportElement x="220" y="476" width="90" height="13" uuid="6f39c8c0-c347-4eaa-818a-bf2912b8cf33">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1026,9 +1026,9 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Poppins" size="8" isBold="true"/>
+					<font fontName="Poppins" size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Garantia Até]]></text>
+				<text><![CDATA[Garantia Válida Até]]></text>
 			</staticText>
 			<line>
 				<reportElement x="210" y="465" width="1" height="45" uuid="6de59848-3aa5-418b-b493-ebfced00085d">
@@ -1216,7 +1216,7 @@
 				<text><![CDATA[Rua Bias Fortes, 485 | Centro | Frutal - MG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="234" width="220" height="18" uuid="6755c331-2c97-4ae9-8cb2-10344ddfa932">
+				<reportElement x="170" y="235" width="220" height="18" uuid="6755c331-2c97-4ae9-8cb2-10344ddfa932">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -1225,7 +1225,7 @@
 				<text><![CDATA[(34) 99298-4848 | (34) 99192-9394]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="249" width="220" height="16" uuid="da7de7d8-31e3-4ba8-b19f-5d493390e45c">
+				<reportElement x="170" y="250" width="220" height="16" uuid="da7de7d8-31e3-4ba8-b19f-5d493390e45c">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">

@@ -599,7 +599,7 @@
 				<text><![CDATA[As frontais substituídas estão cobertas por uma garantia de 3 meses, desde que não sofram danos físicos (quebrado, trincado interno, oxidação ou mal uso)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="125" width="70" height="13" uuid="791412ed-0de7-4e52-9143-3350e8ed565e">
+				<reportElement x="215" y="125" width="100" height="13" uuid="791412ed-0de7-4e52-9143-3350e8ed565e">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -612,9 +612,9 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Poppins" size="8" isBold="true"/>
+					<font fontName="Poppins" size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Garantia Até]]></text>
+				<text><![CDATA[Garantia Válida Até]]></text>
 			</staticText>
 			<line>
 				<reportElement x="210" y="114" width="1" height="45" uuid="e30ac511-93ba-4a83-9831-ac38ecaaa37b">
