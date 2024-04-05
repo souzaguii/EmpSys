@@ -1130,13 +1130,13 @@ public final class main extends javax.swing.JFrame {
 
                 lblResRel.setVisible(true);
 
-                lblValTotRel.setText("R$0,00");
-                lblValMedRel.setText("R$0,00");
+                lblValTotRel.setText("R$ 0,00");
+                lblValMedRel.setText("R$ 0,00");
                 lblTotEntRel.setText("0");
 
-                lblValDinRel.setText("R$0,00");
-                lblValCarRel.setText("R$0,00");
-                lblValPixRel.setText("R$0,00");
+                lblValDinRel.setText("R$ 0,00");
+                lblValCarRel.setText("R$ 0,00");
+                lblValPixRel.setText("R$ 0,00");
             }
 
         } catch (ParseException ex) {
@@ -1263,13 +1263,13 @@ public final class main extends javax.swing.JFrame {
 
                 lblResRel.setVisible(true);
 
-                lblValTotRel.setText("R$0,00");
-                lblValMedRel.setText("R$0,00");
+                lblValTotRel.setText("R$ 0,00");
+                lblValMedRel.setText("R$ 0,00");
                 lblTotEntRel.setText("0");
 
-                lblValDinRel.setText("R$0,00");
-                lblValCarRel.setText("R$0,00");
-                lblValPixRel.setText("R$0,00");
+                lblValDinRel.setText("R$ 0,00");
+                lblValCarRel.setText("R$ 0,00");
+                lblValPixRel.setText("R$ 0,00");
             }
 
         } catch (SQLException | ParseException ex) {
@@ -10853,6 +10853,13 @@ public final class main extends javax.swing.JFrame {
                 scrRel.setVisible(false);
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
+                lblValTotRel.setText("R$ 0,00");
+                lblValMedRel.setText("R$ 0,00");
+                lblTotEntRel.setText("0");
+
+                lblValDinRel.setText("R$ 0,00");
+                lblValCarRel.setText("R$ 0,00");
+                lblValPixRel.setText("R$ 0,00");
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
@@ -10894,6 +10901,13 @@ public final class main extends javax.swing.JFrame {
                 scrRel.setVisible(false);
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
+                lblValTotRel.setText("R$ 0,00");
+                lblValMedRel.setText("R$ 0,00");
+                lblTotEntRel.setText("0");
+
+                lblValDinRel.setText("R$ 0,00");
+                lblValCarRel.setText("R$ 0,00");
+                lblValPixRel.setText("R$ 0,00");
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
@@ -10936,6 +10950,13 @@ public final class main extends javax.swing.JFrame {
                 scrRel.setVisible(false);
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
+                lblValTotRel.setText("R$ 0,00");
+                lblValMedRel.setText("R$ 0,00");
+                lblTotEntRel.setText("0");
+
+                lblValDinRel.setText("R$ 0,00");
+                lblValCarRel.setText("R$ 0,00");
+                lblValPixRel.setText("R$ 0,00");
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
@@ -11066,6 +11087,13 @@ public final class main extends javax.swing.JFrame {
                 scrRel.setVisible(false);
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
+                lblValTotRel.setText("R$ 0,00");
+                lblValMedRel.setText("R$ 0,00");
+                lblTotEntRel.setText("0");
+
+                lblValDinRel.setText("R$ 0,00");
+                lblValCarRel.setText("R$ 0,00");
+                lblValPixRel.setText("R$ 0,00");
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
@@ -11220,6 +11248,13 @@ public final class main extends javax.swing.JFrame {
             scrRel.setVisible(false);
             DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
             mol.setRowCount(0);
+            lblValTotRel.setText("R$ 0,00");
+            lblValMedRel.setText("R$ 0,00");
+            lblTotEntRel.setText("0");
+
+            lblValDinRel.setText("R$ 0,00");
+            lblValCarRel.setText("R$ 0,00");
+            lblValPixRel.setText("R$ 0,00");
         } else {
             tblRel.setVisible(true);
             scrRel.setVisible(true);
@@ -11290,6 +11325,13 @@ public final class main extends javax.swing.JFrame {
             scrRel.setVisible(false);
             DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
             mol.setRowCount(0);
+            lblValTotRel.setText("R$ 0,00");
+            lblValMedRel.setText("R$ 0,00");
+            lblTotEntRel.setText("0");
+
+            lblValDinRel.setText("R$ 0,00");
+            lblValCarRel.setText("R$ 0,00");
+            lblValPixRel.setText("R$ 0,00");
         } else {
             tblRel.setVisible(true);
             scrRel.setVisible(true);
@@ -11358,6 +11400,13 @@ public final class main extends javax.swing.JFrame {
             scrRel.setVisible(false);
             DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
             mol.setRowCount(0);
+            lblValTotRel.setText("R$ 0,00");
+            lblValMedRel.setText("R$ 0,00");
+            lblTotEntRel.setText("0");
+
+            lblValDinRel.setText("R$ 0,00");
+            lblValCarRel.setText("R$ 0,00");
+            lblValPixRel.setText("R$ 0,00");
         } else {
             tblRel.setVisible(true);
             scrRel.setVisible(true);
@@ -11426,6 +11475,13 @@ public final class main extends javax.swing.JFrame {
             scrRel.setVisible(false);
             DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
             mol.setRowCount(0);
+            lblValTotRel.setText("R$ 0,00");
+            lblValMedRel.setText("R$ 0,00");
+            lblTotEntRel.setText("0");
+
+            lblValDinRel.setText("R$ 0,00");
+            lblValCarRel.setText("R$ 0,00");
+            lblValPixRel.setText("R$ 0,00");
         } else {
             tblRel.setVisible(true);
             scrRel.setVisible(true);
@@ -11494,6 +11550,13 @@ public final class main extends javax.swing.JFrame {
             scrRel.setVisible(false);
             DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
             mol.setRowCount(0);
+            lblValTotRel.setText("R$ 0,00");
+            lblValMedRel.setText("R$ 0,00");
+            lblTotEntRel.setText("0");
+
+            lblValDinRel.setText("R$ 0,00");
+            lblValCarRel.setText("R$ 0,00");
+            lblValPixRel.setText("R$ 0,00");
         } else {
             tblRel.setVisible(true);
             scrRel.setVisible(true);
@@ -15004,6 +15067,13 @@ public final class main extends javax.swing.JFrame {
                 scrRel.setVisible(false);
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
+                lblValTotRel.setText("R$ 0,00");
+                lblValMedRel.setText("R$ 0,00");
+                lblTotEntRel.setText("0");
+
+                lblValDinRel.setText("R$ 0,00");
+                lblValCarRel.setText("R$ 0,00");
+                lblValPixRel.setText("R$ 0,00");
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
@@ -15703,7 +15773,6 @@ public final class main extends javax.swing.JFrame {
         }
 
         lblBusIteCadEnt.requestFocus();
-
     }//GEN-LAST:event_pnlIteCadEntComponentShown
 
     private void txtPlaMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaMasKeyReleased
@@ -15718,10 +15787,10 @@ public final class main extends javax.swing.JFrame {
                 txtPlaMas.setText("TIM Controle Redes Sociais");
                 break;
             case '4':
-                txtPlaMas.setText("TIM Controle B Express");
+                txtPlaMas.setText("TIM Controle J Express");
                 break;
             case '5':
-                txtPlaMas.setText("TIM Controle C Express");
+                txtPlaMas.setText("TIM Controle L Express");
                 break;
             case '6':
                 txtPlaMas.setText("TIM Black A");
@@ -15761,10 +15830,10 @@ public final class main extends javax.swing.JFrame {
                 txtPlaCadVen.setText("TIM Controle Redes Sociais");
                 break;
             case '4':
-                txtPlaCadVen.setText("TIM Controle B Express");
+                txtPlaCadVen.setText("TIM Controle J Express");
                 break;
             case '5':
-                txtPlaCadVen.setText("TIM Controle C Express");
+                txtPlaCadVen.setText("TIM Controle L Express");
                 break;
             case '6':
                 txtPlaCadVen.setText("TIM Black A");
@@ -16017,6 +16086,14 @@ public final class main extends javax.swing.JFrame {
                 scrRel.setVisible(false);
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
+                lblValTotRel.setText("R$ 0,00");
+                lblValMedRel.setText("R$ 0,00");
+                lblTotEntRel.setText("0");
+
+                lblValDinRel.setText("R$ 0,00");
+                lblValCarRel.setText("R$ 0,00");
+                lblValPixRel.setText("R$ 0,00");
+
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
@@ -16154,6 +16231,13 @@ public final class main extends javax.swing.JFrame {
                 scrRel.setVisible(false);
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
+                lblValTotRel.setText("R$ 0,00");
+                lblValMedRel.setText("R$ 0,00");
+                lblTotEntRel.setText("0");
+
+                lblValDinRel.setText("R$ 0,00");
+                lblValCarRel.setText("R$ 0,00");
+                lblValPixRel.setText("R$ 0,00");
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
