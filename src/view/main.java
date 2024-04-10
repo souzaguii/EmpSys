@@ -32,10 +32,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -1811,6 +1813,7 @@ public final class main extends javax.swing.JFrame {
 
                             if (comparacao1 >= 0 && ok == 0) {
                                 component.setBackground(new Color(182, 222, 170));
+
                             } else {
                                 component.setBackground(new Color(246, 246, 246));
                             }
@@ -14723,69 +14726,158 @@ public final class main extends javax.swing.JFrame {
 
     private void btnWppVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWppVenActionPerformed
         try {
-            String texto = "*Empório Cell - TIM*\n\n"
-                    + "Olá, tudo bem? Esperamos que sim!\n\n"
-                    + "Estamos aqui para lembrar que o seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*, contratado conosco em *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
-                    + "*, está com vencimento *hoje*.\n\n"
-                    + "Você pode usar o PIX no aplicativo *Meu TIM* ou ir à lotérica mais próxima para efetuar o pagamento. "
-                    + "Estamos na loja para ajudar com a fatura, se preferir.\n\n"
-                    + "É importante ressaltar que esta mensagem *não* é uma cobrança. Se você já pagou ou não, queremos apenas te lembrar do seu plano.\n\n"
-                    + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
-                    + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
 
-            String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
+            vencimentoDAO vendao = new vencimentoDAO();
 
-            int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            List<String[]> listaverifica = vendao.buscarverificaplano();
 
-            if (resp == JOptionPane.YES_OPTION) {
+            Iterator<String[]> iterator = listaverifica.iterator();
 
-                String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "") + "&text=" + msg + "&app_absent=0";
+            while (iterator.hasNext()) {
 
-                URI link = new URI(l);
+                String[] item = iterator.next();
 
-                Desktop.getDesktop().browse(link);
-
-                int resp1 = JOptionPane.showOptionDialog(null, "Navegador aberto para envio!\n\nMarcar como concluído?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
-                if (resp1 == JOptionPane.YES_OPTION) {
-
-                    try {
-
-                        vencimento ve = new vencimento();
-                        vencimentoDAO vedao = new vencimentoDAO();
-
-                        ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 8).toString());
-
-                        vedao.marcarok(ve);
-
-                        JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Planos", JOptionPane.INFORMATION_MESSAGE);
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
+                if (!item[0].equals(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString())) {
+                    iterator.remove();
                 }
-
-                if (tabelavencimento(tblVen, scrVen)) {
-
-                } else {
-
-                    JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
-                    pnlVen.setVisible(false);
-                    lblTitPri.setVisible(false);
-                }
-
-                verificavencimento();
-
-                btnWppVen.setEnabled(false);
-                btnExcVen.setEnabled(false);
-                btnAltVen.setEnabled(false);
-                btnCopVen.setEnabled(false);
-                btnCopAVen.setEnabled(false);
 
             }
 
-        } catch (URISyntaxException | IOException ex) {
+            if (!listaverifica.isEmpty()) {
+
+                int c = 0;
+                String plano = null;
+
+                if (listaverifica.size() != 1) {
+
+                    Map<String, Integer> contagemItens = new HashMap<>();
+                    for (String[] array : listaverifica) {
+                        String item = Arrays.toString(array);
+                        contagemItens.put(item, contagemItens.getOrDefault(item, 0) + 1);
+                    }
+
+                    for (Map.Entry<String, Integer> entry : contagemItens.entrySet()) {
+
+                        String[] array = entry.getKey().substring(1, entry.getKey().length() - 1).split(", ");
+
+                        c++;
+
+                        if (c == 1) {//o primeiro
+
+                            if (entry.getValue() == 1) {
+                                plano = "os seus planos *" + array[1] + "*";
+                            } else {
+                                plano = "os seus " + entry.getValue() + " planos *" + array[1] + "*";
+                            }
+
+                        } else {
+
+                            if (c == contagemItens.entrySet().size()) {//se for o ultimo
+
+                                if (entry.getValue() == 1) {
+                                    plano = plano + " e o *" + array[1] + "*";
+                                } else {
+                                    plano = plano + " e os " + entry.getValue() + " *" + array[1] + "*";
+                                }
+                            } else {
+
+                                if (entry.getValue() == 1) {
+                                    plano = plano + ", *" + array[1] + "*";
+                                } else {
+                                    plano = plano + ", os " + entry.getValue() + " *" + array[1] + "*";
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    plano = plano + ", contratados conosco em *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+                            + "*, estão com vencimento *hoje*.\n\n";
+
+                } else {//quando tiver so um
+                    plano = "o seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*"
+                            + ", contratado conosco em *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+                            + "*, está com vencimento *hoje*.\n\n";
+                }
+
+                String texto = "*Empório Cell - TIM*\n\n"
+                        + "Olá, tudo bem? Esperamos que sim!\n\n"
+                        + "Estamos aqui para lembrá-lo que " + plano
+                        + "É importante ressaltar que esta mensagem *não* é uma cobrança. Se você já fez o pagamento ou não, queremos apenas lembrá-lo do seu plano.\n\n"
+                        + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
+                        + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
+
+                String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
+
+                int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                if (resp == JOptionPane.YES_OPTION) {
+
+                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "") + "&text=" + msg + "&app_absent=0";
+
+                    URI link = new URI(l);
+
+                    Desktop.getDesktop().browse(link);
+
+                    int resp1 = JOptionPane.showOptionDialog(null, "Navegador aberto para envio!\n\nMarcar como concluído?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                    if (resp1 == JOptionPane.YES_OPTION) {
+
+                        try {
+
+                            vencimento ve = new vencimento();
+                            vencimentoDAO vedao = new vencimentoDAO();
+
+                            ve.setCpf(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString());
+
+                            vedao.marcarok(ve);
+
+                            JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+
+                        } catch (SQLException ex) {
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    }
+
+                    if (tabelavencimento(tblVen, scrVen)) {
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+                        pnlVen.setVisible(false);
+                        lblTitPri.setVisible(false);
+                    }
+
+                    verificavencimento();
+
+                    btnWppVen.setEnabled(false);
+                    btnExcVen.setEnabled(false);
+                    btnAltVen.setEnabled(false);
+                    btnCopVen.setEnabled(false);
+                    btnCopAVen.setEnabled(false);
+
+                }
+
+            } else {
+
+                int resp = JOptionPane.showOptionDialog(null, "Atenção, mensagem de aviso indisponível para esse cliente!\n\nAbrir o WhatsApp mesmo assim?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                if (resp == JOptionPane.YES_OPTION) {
+
+                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "");
+
+                    URI link = new URI(l);
+
+                    Desktop.getDesktop().browse(link);
+
+                }
+
+            }
+
+        } catch (URISyntaxException | IOException | SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnWppVenActionPerformed

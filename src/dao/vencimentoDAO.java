@@ -70,11 +70,11 @@ public class vencimentoDAO {
 
     public void marcarok(vencimento ve) throws SQLException {
 
-        String SQL = "UPDATE vencimento SET okVen = 1 WHERE idVen = ?";
+        String SQL = "UPDATE vencimento SET okVen = 1 WHERE vencimentoVen <= CURDATE() AND cpfVen = ?";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
-        stmt.setString(1, ve.getId());
+        stmt.setString(1, ve.getCpf());
 
         stmt.executeUpdate();
         stmt.close();
@@ -151,6 +151,32 @@ public class vencimentoDAO {
         return lista;
     }
 
+     public List<String[]> buscarverificaplano() throws SQLException {
+
+        List<String[]> lista = new ArrayList<>();
+
+        String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <= CURDATE() AND okVen = 0 ORDER BY planoVen";
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            String[] rowData = {
+                rs.getString("cpfVen"),    
+                rs.getString("planoVen")};
+
+            lista.add(rowData);
+
+        }
+
+        rs.close();
+        stmt.close();
+        connection.Close();
+
+        return lista;
+    }
+    
     public boolean verificar() throws SQLException {
 
         String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <=  CURRENT_DATE() AND okVen = 0";
