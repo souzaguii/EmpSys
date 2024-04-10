@@ -14863,7 +14863,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                int resp = JOptionPane.showOptionDialog(null, "Atenção, mensagem de aviso indisponível para esse cliente!\n\nAbrir o WhatsApp mesmo assim?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+                int resp = JOptionPane.showOptionDialog(null, "Atenção, mensagem de aviso indisponível para este cliente!\n\nAbrir o WhatsApp mesmo assim?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
                 if (resp == JOptionPane.YES_OPTION) {
 
