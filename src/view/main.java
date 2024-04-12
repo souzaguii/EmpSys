@@ -1493,7 +1493,7 @@ public final class main extends javax.swing.JFrame {
 
                                 comparacao2 = data.compareTo(formatter.parse(table.getValueAt(row, 4).toString()));
 
-                                if (comparacao1 < 0 && comparacao2 > 0 && diferencaDias > 10) { //dataatual menor data e data maior datacon
+                                if (comparacao1 < 0 && comparacao2 > 0 && diferencaDias > 4) { //dataatual menor data e data maior datacon
 
                                     component.setBackground(new Color(182, 222, 170));//verde
 
@@ -1505,7 +1505,7 @@ public final class main extends javax.swing.JFrame {
 
                             } else {
 
-                                if (comparacao1 < 0 && diferencaDias > 10) {
+                                if (comparacao1 < 0 && diferencaDias > 4) {
 
                                     component.setBackground(new Color(182, 222, 170));//verde
 
