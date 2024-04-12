@@ -14765,9 +14765,9 @@ public final class main extends javax.swing.JFrame {
                         if (c == 1) {//o primeiro
 
                             if (entry.getValue() == 1) {
-                                plano = "os seus planos *" + array[1] + "*";
+                                plano = "dos seus planos *" + array[1] + "*";
                             } else {
-                                plano = "os seus " + entry.getValue() + " planos *" + array[1] + "*";
+                                plano = "dos seus *" + entry.getValue() + "* planos *" + array[1] + "*";
                             }
 
                         } else {
@@ -14777,14 +14777,14 @@ public final class main extends javax.swing.JFrame {
                                 if (entry.getValue() == 1) {
                                     plano = plano + " e o *" + array[1] + "*";
                                 } else {
-                                    plano = plano + " e os " + entry.getValue() + " *" + array[1] + "*";
+                                    plano = plano + " e os *" + entry.getValue() + " " + array[1] + "*";
                                 }
                             } else {
 
                                 if (entry.getValue() == 1) {
                                     plano = plano + ", *" + array[1] + "*";
                                 } else {
-                                    plano = plano + ", os " + entry.getValue() + " *" + array[1] + "*";
+                                    plano = plano + ", dos *" + entry.getValue() + " " + array[1] + "*";
                                 }
 
                             }
@@ -14793,19 +14793,18 @@ public final class main extends javax.swing.JFrame {
 
                     }
 
-                    plano = plano + ", contratados conosco em *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
-                            + "*, estão com vencimento *hoje*.\n\n";
+                    plano = plano + ", contratados conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+                            + "*.\n\n";
 
                 } else {//quando tiver so um
-                    plano = "o seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*"
-                            + ", contratado conosco em *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
-                            + "*, está com vencimento *hoje*.\n\n";
+                    plano = "do seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*"
+                            + ", contratado conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+                            + "*.\n\n";
                 }
 
                 String texto = "*Empório Cell - TIM*\n\n"
                         + "Olá, tudo bem? Esperamos que sim!\n\n"
-                        + "Estamos aqui para lembrá-lo que " + plano
-                        + "É importante ressaltar que esta mensagem *não* é uma cobrança. Se você já fez o pagamento ou não, queremos apenas lembrá-lo do seu plano.\n\n"
+                        + "Estamos aqui para lembrá-lo " + plano                       
                         + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
                         + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
 
