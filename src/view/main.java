@@ -16760,7 +16760,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadOsPriMouseReleased
 
     private void txtNomMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomMasKeyReleased
-        if ((evt.getKeyCode() != KeyEvent.VK_SPACE) && (evt.getKeyCode() != KeyEvent.VK_CAPS_LOCK)) {
+        if (Character.isLetter(evt.getKeyChar())) {
             String capitalizedText = capitalizeFirstLetterOfEachWord(txtNomMas.getText());
             txtNomMas.setText(capitalizedText);
         }
