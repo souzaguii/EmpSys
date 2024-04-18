@@ -608,6 +608,24 @@ public final class main extends javax.swing.JFrame {
         return true;
     }
 
+    private static String capitalizeFirstLetterOfEachWord(String text) {
+        StringBuilder sb = new StringBuilder();
+
+        // Dividir o texto em palavras
+        String[] words = text.split("\\s+");
+
+        // Capitalizar a primeira letra de cada palavra
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                // Capitalizar a primeira letra e concatenar com o restante da palavra em minúsculas
+                sb.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1).toLowerCase()).append(" ");
+            }
+        }
+
+        // Remover o espaço extra no final e retornar o texto capitalizado
+        return sb.toString().trim();
+    }
+
     private double juros(int parcela) {
 
         if (parcela == 0) {
@@ -2202,6 +2220,10 @@ public final class main extends javax.swing.JFrame {
 
                     tblSelIteGerEnt.setModel(modelo);
 
+                    header.getColumnModel().getColumn(1).setMinWidth(0);
+                    header.getColumnModel().getColumn(1).setMaxWidth(0);
+                    header.getColumnModel().getColumn(1).setWidth(0);
+
                     tblSelIteGerEnt.setVisible(true);
                     scrSelIteGerEnt.setVisible(true);
                     lblSelIteGerEnt.setVisible(true);
@@ -2233,6 +2255,10 @@ public final class main extends javax.swing.JFrame {
 
                     DefaultTableModel model = (DefaultTableModel) tblSelIteGerEnt.getModel();
                     model.setRowCount(0);
+
+                    header.getColumnModel().getColumn(1).setMinWidth(0);
+                    header.getColumnModel().getColumn(1).setMaxWidth(0);
+                    header.getColumnModel().getColumn(1).setWidth(0);
 
                     tblSelIteGerEnt.setVisible(false);
                     scrSelIteGerEnt.setVisible(false);
@@ -6938,6 +6964,11 @@ public final class main extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNomMasFocusLost(evt);
+            }
+        });
+        txtNomMas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomMasKeyReleased(evt);
             }
         });
         pnlMas.add(txtNomMas);
@@ -12527,7 +12558,7 @@ public final class main extends javax.swing.JFrame {
     private void btnCanGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanGerEntActionPerformed
         if (btnAltGerEnt.isEnabled()) {
 
-            int resp = JOptionPane.showOptionDialog(pnlCadEst, "Antes de cancelar, verifique a tabela de produtos selecionados e remova aqueles que não fazem parte da entrada! Deseja continuar?", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(pnlCadEst, "Antes de cancelar, verifique a tabela de produtos selecionados e remova aqueles que não fazem parte da entrada! Deseja cancelar?", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
                 pnlGerEnt.setVisible(false);
@@ -14804,7 +14835,7 @@ public final class main extends javax.swing.JFrame {
 
                 String texto = "*Empório Cell - TIM*\n\n"
                         + "Olá, tudo bem? Esperamos que sim!\n\n"
-                        + "Estamos aqui para lembrá-lo " + plano                       
+                        + "Estamos aqui para lembrá-lo " + plano
                         + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
                         + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
 
@@ -16727,6 +16758,13 @@ public final class main extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnCadOsPriMouseReleased
+
+    private void txtNomMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomMasKeyReleased
+        if ((evt.getKeyCode() != KeyEvent.VK_SPACE) && (evt.getKeyCode() != KeyEvent.VK_CAPS_LOCK)) {
+            String capitalizedText = capitalizeFirstLetterOfEachWord(txtNomMas.getText());
+            txtNomMas.setText(capitalizedText);
+        }
+    }//GEN-LAST:event_txtNomMasKeyReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
