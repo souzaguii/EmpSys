@@ -57,13 +57,13 @@
 				<text><![CDATA[Empório Cell - TIM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="26" width="220" height="16" uuid="e7de9249-a052-43c6-a97c-59207fbb397a">
+				<reportElement x="170" y="24" width="220" height="16" uuid="e7de9249-a052-43c6-a97c-59207fbb397a">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font fontName="Poppins Medium"/>
 				</textElement>
-				<text><![CDATA[51.089.413/0001-25]]></text>
+				<text><![CDATA[Rua Bias Fortes, 485 | Centro | Frutal - MG]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="170" y="41" width="220" height="18" uuid="9314c364-417e-471b-bc58-7e011ff15600">
@@ -72,7 +72,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Poppins Medium" size="10"/>
 				</textElement>
-				<text><![CDATA[Rua Bias Fortes, 485 | Centro | Frutal - MG]]></text>
+				<text><![CDATA[(34) 99298-4848 | (34) 99192-9394]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="170" y="56" width="220" height="16" uuid="70abaa3d-c2b6-4d1f-a5cc-370e33cf788a">
@@ -81,7 +81,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Poppins Medium"/>
 				</textElement>
-				<text><![CDATA[(34) 99298-4848 | (34) 99192-9394]]></text>
+				<text><![CDATA[emporiocelltimfrutal@gmail.com]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="440" y="14" width="100" height="50" uuid="c6765c6b-4c19-4f67-bf5b-7049a24f33fe">

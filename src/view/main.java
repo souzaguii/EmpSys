@@ -617,8 +617,14 @@ public final class main extends javax.swing.JFrame {
         // Capitalizar a primeira letra de cada palavra
         for (String word : words) {
             if (!word.isEmpty()) {
-                // Capitalizar a primeira letra e concatenar com o restante da palavra em minúsculas
-                sb.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1).toLowerCase()).append(" ");
+                if (word.length() > 2) {
+                    // Para palavras com mais de duas letras, capitalizar a primeira letra e concatenar com o restante da palavra em minúsculas
+                    sb.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1).toLowerCase());
+                } else {
+                    // Para palavras com duas ou menos letras, manter a palavra em minúsculas
+                    sb.append(word.toLowerCase());
+                }
+                sb.append(" ");
             }
         }
 
@@ -7891,6 +7897,11 @@ public final class main extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCliCadVenFocusLost(evt);
+            }
+        });
+        txtCliCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCliCadVenKeyReleased(evt);
             }
         });
         pnlCadVen.add(txtCliCadVen);
@@ -16760,11 +16771,18 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadOsPriMouseReleased
 
     private void txtNomMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomMasKeyReleased
-        if (Character.isLetter(evt.getKeyChar())) {
+        if ((evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_V) || (Character.isLetter(evt.getKeyChar()))) {
             String capitalizedText = capitalizeFirstLetterOfEachWord(txtNomMas.getText());
             txtNomMas.setText(capitalizedText);
         }
     }//GEN-LAST:event_txtNomMasKeyReleased
+
+    private void txtCliCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliCadVenKeyReleased
+      if ((evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_V) || (Character.isLetter(evt.getKeyChar()))) {
+            String capitalizedText = capitalizeFirstLetterOfEachWord(txtCliCadVen.getText());
+            txtCliCadVen.setText(capitalizedText);
+        }
+    }//GEN-LAST:event_txtCliCadVenKeyReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
