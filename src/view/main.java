@@ -6,6 +6,7 @@ import dao.despezasDAO;
 import dao.entradaDAO;
 import dao.estoqueDAO;
 import dao.osDAO;
+import dao.planosDAO;
 import dao.tiposervicoDAO;
 import dao.vencimentoDAO;
 import java.awt.Color;
@@ -2942,6 +2943,8 @@ public final class main extends javax.swing.JFrame {
         btnVenMas = new javax.swing.JButton();
         btnGerMas = new javax.swing.JButton();
         btnCanMas = new javax.swing.JButton();
+        btnAdiMas = new javax.swing.JLabel();
+        btnAdiConMas = new javax.swing.JLabel();
         btnCopMas = new javax.swing.JLabel();
         lblNomMas = new javax.swing.JLabel();
         chkDebMasa = new javax.swing.JCheckBox();
@@ -3019,6 +3022,8 @@ public final class main extends javax.swing.JFrame {
         btnWppVen = new javax.swing.JButton();
         btnVolVen = new javax.swing.JButton();
         btnExcVen = new javax.swing.JButton();
+        lblConPlaVen = new javax.swing.JLabel();
+        lblBusVen2 = new javax.swing.JLabel();
         lblErrVen = new javax.swing.JLabel();
         lblBusVen = new javax.swing.JLabel();
         txtBusVen = new javax.swing.JTextField();
@@ -6879,7 +6884,7 @@ public final class main extends javax.swing.JFrame {
         chkCarMasa.setVisible(false);
         chkCarMasa.setText("Cartão de Crédito");
         pnlMas.add(chkCarMasa);
-        chkCarMasa.setBounds(370, 290, 150, 20);
+        chkCarMasa.setBounds(410, 290, 150, 20);
 
         chkAppMas.setFont(fontmed(12));
         chkAppMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6929,6 +6934,42 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(btnCanMas);
         btnCanMas.setBounds(90, 280, 100, 40);
 
+        btnAdiMas.setFont(fontmed(11));
+        btnAdiMas.setForeground(new java.awt.Color(0, 153, 51));
+        btnAdiMas.setText("Adicionado!");
+        btnAdiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAdiMas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAdiMasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAdiMasMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAdiMasMouseReleased(evt);
+            }
+        });
+        pnlMas.add(btnAdiMas);
+        btnAdiMas.setBounds(200, 310, 80, 20);
+
+        btnAdiConMas.setFont(fontmed(11));
+        btnAdiConMas.setForeground(new java.awt.Color(10, 60, 133));
+        btnAdiConMas.setText("Adicionar à contagem de planos");
+        btnAdiConMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdiConMas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAdiConMasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAdiConMasMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAdiConMasMouseReleased(evt);
+            }
+        });
+        pnlMas.add(btnAdiConMas);
+        btnAdiConMas.setBounds(200, 290, 200, 20);
+
         btnCopMas.setFont(fontbold(11));
         btnCopMas.setForeground(new java.awt.Color(10, 60, 133));
         btnCopMas.setText("Copiar");
@@ -6959,7 +7000,7 @@ public final class main extends javax.swing.JFrame {
         chkDebMasa.setVisible(false);
         chkDebMasa.setText("Débito em conta");
         pnlMas.add(chkDebMasa);
-        chkDebMasa.setBounds(370, 260, 150, 20);
+        chkDebMasa.setBounds(410, 260, 150, 20);
 
         txtNomMas.setBackground(new java.awt.Color(246, 246, 246));
         txtNomMas.setFont(fontmed(13));
@@ -7713,6 +7754,20 @@ public final class main extends javax.swing.JFrame {
         });
         pnlVen.add(btnExcVen);
         btnExcVen.setBounds(920, 280, 100, 50);
+
+        lblConPlaVen.setFont(fontbold(12));
+        lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblConPlaVen.setText("0");
+        lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlVen.add(lblConPlaVen);
+        lblConPlaVen.setBounds(315, 340, 50, 40);
+
+        lblBusVen2.setFont(fontmed(11));
+        lblBusVen2.setForeground(new java.awt.Color(10, 60, 133));
+        lblBusVen2.setText("Planos ativados este mês:");
+        lblBusVen2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlVen.add(lblBusVen2);
+        lblBusVen2.setBounds(160, 350, 160, 20);
 
         lblErrVen.setFont(fontbold(10));
         lblErrVen.setForeground(new java.awt.Color(204, 51, 0));
@@ -9014,6 +9069,8 @@ public final class main extends javax.swing.JFrame {
             lblPlaMas.setLocation(350, 210);
 
             btnCopMas.setVisible(false);
+            btnAdiMas.setVisible(false);
+            btnAdiConMas.setVisible(false);
 
             pnlbtn();
             pnlMas.setVisible(true);
@@ -11795,6 +11852,7 @@ public final class main extends javax.swing.JFrame {
         txtAreMas.setCaretPosition(0);
 
         btnCopMas.setVisible(true);
+        btnAdiConMas.setVisible(true);
     }//GEN-LAST:event_btnGerMasActionPerformed
 
     private void btnCanMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanMasActionPerformed
@@ -14501,6 +14559,14 @@ public final class main extends javax.swing.JFrame {
 
             if (tabelavencimento(tblVen, scrVen)) {
 
+                planosDAO pladao = new planosDAO();
+
+                try {
+                    lblConPlaVen.setText(String.valueOf(pladao.buscar()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 lblTitPri.setText("Planos");
                 lblTitPri.setVisible(true);
 
@@ -14924,7 +14990,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnWppVenActionPerformed
 
     private void btnExcVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcVenActionPerformed
-        int resp = JOptionPane.showOptionDialog(pnlVen, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
         if (resp == JOptionPane.YES_OPTION) {
 
@@ -14937,13 +15003,25 @@ public final class main extends javax.swing.JFrame {
 
                 vedao.excluir(ve);
 
-                JOptionPane.showMessageDialog(pnlVen, "Plano excluído com sucesso!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+                int resp2 = JOptionPane.showOptionDialog(null, "Plano excluído com sucesso! Remover do contador?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, null);
+
+                if (resp2 == JOptionPane.YES_OPTION) {
+
+                    planosDAO pladao = new planosDAO();
+
+                    pladao.remover();
+
+                    JOptionPane.showMessageDialog(null, "Plano removido do contador!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+
+                    lblConPlaVen.setText(String.valueOf(pladao.buscar()));
+
+                }
 
                 if (tabelavencimento(tblVen, scrVen)) {
 
                 } else {
 
-                    JOptionPane.showMessageDialog(pnlDes, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
                     pnlVen.setVisible(false);
                     lblTitPri.setVisible(false);
                 }
@@ -16778,11 +16856,73 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomMasKeyReleased
 
     private void txtCliCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliCadVenKeyReleased
-      if ((evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_V) || (Character.isLetter(evt.getKeyChar()))) {
+        if ((evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_V) || (Character.isLetter(evt.getKeyChar()))) {
             String capitalizedText = capitalizeFirstLetterOfEachWord(txtCliCadVen.getText());
             txtCliCadVen.setText(capitalizedText);
         }
     }//GEN-LAST:event_txtCliCadVenKeyReleased
+
+    private void btnAdiConMasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiConMasMouseEntered
+        btnAdiConMas.setForeground(corforeazulenter);
+    }//GEN-LAST:event_btnAdiConMasMouseEntered
+
+    private void btnAdiConMasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiConMasMouseExited
+        btnAdiConMas.setForeground(corforeazul);
+    }//GEN-LAST:event_btnAdiConMasMouseExited
+
+    private void btnAdiConMasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiConMasMouseReleased
+        try {
+
+            planosDAO pladao = new planosDAO();
+
+            if (pladao.verifica()) {
+
+                pladao.adicionar();
+
+            } else {
+
+                pladao.criar();
+
+            }
+
+            Timer timer = new Timer(1000, new ActionListener() {
+
+                int cont = 0;
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    cont++;
+
+                    if (cont == 5) {
+                        btnAdiMas.setVisible(false);
+                        ((Timer) e.getSource()).stop();
+                    } else {
+                        btnAdiMas.setVisible(true);
+                    }
+
+                }
+
+            });
+
+            timer.start();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdiConMasMouseReleased
+
+    private void btnAdiMasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiMasMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdiMasMouseEntered
+
+    private void btnAdiMasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiMasMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdiMasMouseExited
+
+    private void btnAdiMasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiMasMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdiMasMouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -16790,6 +16930,8 @@ public final class main extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAdiConMas;
+    private javax.swing.JLabel btnAdiMas;
     private javax.swing.JButton btnAltGerDes;
     private javax.swing.JButton btnAltGerEnt;
     private javax.swing.JButton btnAltGerEst;
@@ -16913,6 +17055,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblBusIteCadEnt;
     private javax.swing.JLabel lblBusIteGerEnt;
     private javax.swing.JLabel lblBusVen;
+    private javax.swing.JLabel lblBusVen2;
     private javax.swing.JLabel lblChiCadEst;
     private javax.swing.JLabel lblChiGerEst;
     private javax.swing.JLabel lblCli;
@@ -16921,6 +17064,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblCliGerEnt;
     private javax.swing.JLabel lblCliOs;
     private javax.swing.JLabel lblConOs;
+    private javax.swing.JLabel lblConPlaVen;
     private javax.swing.JLabel lblCorCadEst;
     private javax.swing.JLabel lblCorGerEst;
     private javax.swing.JLabel lblCpfCadVen;
