@@ -7676,7 +7676,7 @@ public final class main extends javax.swing.JFrame {
         scrVen.setViewportView(tblVen);
 
         pnlVen.add(scrVen);
-        scrVen.setBounds(160, 20, 980, 250);
+        scrVen.setBounds(160, 20, 980, 220);
 
         btnCopAVen.setFont(fontmed(12));
         btnCopAVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -7689,7 +7689,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopAVen);
-        btnCopAVen.setBounds(680, 280, 100, 50);
+        btnCopAVen.setBounds(680, 260, 100, 50);
 
         btnCopVen.setFont(fontmed(12));
         btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -7702,7 +7702,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopVen);
-        btnCopVen.setBounds(560, 280, 100, 50);
+        btnCopVen.setBounds(560, 260, 100, 50);
 
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -7715,7 +7715,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnAltVen);
-        btnAltVen.setBounds(800, 280, 100, 50);
+        btnAltVen.setBounds(800, 260, 100, 50);
 
         btnWppVen.setFont(fontmed(12));
         btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -7728,7 +7728,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnWppVen);
-        btnWppVen.setBounds(1040, 280, 100, 50);
+        btnWppVen.setBounds(1040, 260, 100, 50);
 
         btnVolVen.setFont(fontmed(12));
         btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -7740,7 +7740,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnVolVen);
-        btnVolVen.setBounds(160, 280, 100, 50);
+        btnVolVen.setBounds(160, 260, 100, 50);
 
         btnExcVen.setFont(fontmed(12));
         btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -7753,35 +7753,35 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnExcVen);
-        btnExcVen.setBounds(920, 280, 100, 50);
+        btnExcVen.setBounds(920, 260, 100, 50);
 
         lblConPlaVen.setFont(fontbold(12));
         lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
         lblConPlaVen.setText("0");
         lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblConPlaVen);
-        lblConPlaVen.setBounds(315, 340, 50, 40);
+        lblConPlaVen.setBounds(310, 320, 50, 40);
 
         lblBusVen2.setFont(fontmed(11));
         lblBusVen2.setForeground(new java.awt.Color(10, 60, 133));
         lblBusVen2.setText("Planos ativados este mês:");
         lblBusVen2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblBusVen2);
-        lblBusVen2.setBounds(160, 350, 160, 20);
+        lblBusVen2.setBounds(160, 330, 160, 20);
 
         lblErrVen.setFont(fontbold(10));
         lblErrVen.setForeground(new java.awt.Color(204, 51, 0));
         lblErrVen.setText("Nenhum registro encontrado!");
         lblErrVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlVen.add(lblErrVen);
-        lblErrVen.setBounds(310, 330, 190, 20);
+        lblErrVen.setBounds(310, 305, 190, 20);
 
         lblBusVen.setFont(fontmed(12));
         lblBusVen.setForeground(new java.awt.Color(10, 60, 133));
         lblBusVen.setText("Buscar");
         lblBusVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlVen.add(lblBusVen);
-        lblBusVen.setBounds(310, 300, 80, 20);
+        lblBusVen.setBounds(310, 280, 80, 20);
 
         txtBusVen.setBackground(new java.awt.Color(246, 246, 246));
         txtBusVen.setFont(fontmed(13));
@@ -7808,11 +7808,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(txtBusVen);
-        txtBusVen.setBounds(310, 300, 200, 20);
+        txtBusVen.setBounds(310, 280, 200, 20);
 
         sepBusVen.setForeground(new java.awt.Color(10, 60, 133));
         pnlVen.add(sepBusVen);
-        sepBusVen.setBounds(310, 320, 200, 10);
+        sepBusVen.setBounds(310, 300, 200, 10);
 
         pnlPri.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -14576,7 +14576,7 @@ public final class main extends javax.swing.JFrame {
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
 
-                lblBusVen.setLocation(310, 300);
+                lblBusVen.setLocation(310, 280);
                 txtBusVen.setText(null);
                 lblErrVen.setVisible(false);
 
@@ -15423,16 +15423,22 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumAceMasKeyReleased
 
     private void txtNumPorMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumPorMasKeyReleased
-        if (txtNumPorMas.getText().length() == 11 && !txtNumPorMas.getText().contains("(")) {
+        if (evt.getKeyChar() == '[') {
+            txtNumPorMas.setText(txtNumConMas.getText());
+        } else {
 
-            StringBuilder string = new StringBuilder(txtNumPorMas.getText());
+            if (txtNumPorMas.getText().length() == 11 && !txtNumPorMas.getText().contains("(")) {
 
-            string.insert(0, "(");
-            string.insert(3, ")");
-            string.insert(4, " ");
-            string.insert(10, "-");
+                StringBuilder string = new StringBuilder(txtNumPorMas.getText());
 
-            txtNumPorMas.setText(string.toString());
+                string.insert(0, "(");
+                string.insert(3, ")");
+                string.insert(4, " ");
+                string.insert(10, "-");
+
+                txtNumPorMas.setText(string.toString());
+
+            }
 
         }
     }//GEN-LAST:event_txtNumPorMasKeyReleased
