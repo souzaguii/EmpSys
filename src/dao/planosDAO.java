@@ -86,22 +86,16 @@ public class planosDAO {
 
     }
 
-//    public int excluir() throws SQLException {
-//
-//        int num;
-//
-//        String SQL = "DELETE FROM planos WHERE mesPla != MONTH(NOW())";
-//        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-//
-//        ResultSet rs = stmt.executeQuery();
-//
-//        num = rs.getInt("idVen");
-//
-//        rs.close();
-//        stmt.close();
-//        connection.Close();
-//
-//        return num;
-//
-//    }
+    public void excluir() throws SQLException {
+
+        String SQL = "DELETE FROM planos WHERE mesPla != MONTH(NOW())";
+
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        stmt.executeUpdate();
+        stmt.close();
+        connection.Close();
+
+    }
+
 }

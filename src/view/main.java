@@ -7760,7 +7760,7 @@ public final class main extends javax.swing.JFrame {
         lblConPlaVen.setText("0");
         lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblConPlaVen);
-        lblConPlaVen.setBounds(310, 320, 50, 40);
+        lblConPlaVen.setBounds(316, 321, 50, 40);
 
         lblBusVen2.setFont(fontmed(11));
         lblBusVen2.setForeground(new java.awt.Color(10, 60, 133));
@@ -16880,7 +16880,9 @@ public final class main extends javax.swing.JFrame {
         try {
 
             planosDAO pladao = new planosDAO();
-
+            
+            pladao.excluir();
+            
             if (pladao.verifica()) {
 
                 pladao.adicionar();
