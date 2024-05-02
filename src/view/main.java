@@ -9072,6 +9072,8 @@ public final class main extends javax.swing.JFrame {
             btnAdiMas.setVisible(false);
             btnAdiConMas.setVisible(false);
 
+            btnAdiConMas.setEnabled(true);
+
             pnlbtn();
             pnlMas.setVisible(true);
 
@@ -16877,46 +16879,51 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdiConMasMouseExited
 
     private void btnAdiConMasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiConMasMouseReleased
-        try {
+        if (btnAdiConMas.isEnabled()) {
 
-            planosDAO pladao = new planosDAO();
-            
-            pladao.excluir();
-            
-            if (pladao.verifica()) {
+            try {
 
-                pladao.adicionar();
+                planosDAO pladao = new planosDAO();
 
-            } else {
+                pladao.excluir();
 
-                pladao.criar();
+                if (pladao.verifica()) {
 
-            }
+                    pladao.adicionar();
 
-            Timer timer = new Timer(1000, new ActionListener() {
+                } else {
 
-                int cont = 0;
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                    cont++;
-
-                    if (cont == 5) {
-                        btnAdiMas.setVisible(false);
-                        ((Timer) e.getSource()).stop();
-                    } else {
-                        btnAdiMas.setVisible(true);
-                    }
+                    pladao.criar();
 
                 }
 
-            });
+                btnAdiConMas.setEnabled(false);
 
-            timer.start();
+                Timer timer = new Timer(1000, new ActionListener() {
 
-        } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    int cont = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        cont++;
+
+                        if (cont == 5) {
+                            btnAdiMas.setVisible(false);
+                            ((Timer) e.getSource()).stop();
+                        } else {
+                            btnAdiMas.setVisible(true);
+                        }
+
+                    }
+
+                });
+
+                timer.start();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnAdiConMasMouseReleased
 
