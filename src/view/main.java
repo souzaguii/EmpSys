@@ -2943,8 +2943,6 @@ public final class main extends javax.swing.JFrame {
         btnVenMas = new javax.swing.JButton();
         btnGerMas = new javax.swing.JButton();
         btnCanMas = new javax.swing.JButton();
-        btnAdiMas = new javax.swing.JLabel();
-        btnAdiConMas = new javax.swing.JLabel();
         btnCopMas = new javax.swing.JLabel();
         lblNomMas = new javax.swing.JLabel();
         chkDebMasa = new javax.swing.JCheckBox();
@@ -6934,42 +6932,6 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(btnCanMas);
         btnCanMas.setBounds(90, 280, 100, 40);
 
-        btnAdiMas.setFont(fontmed(11));
-        btnAdiMas.setForeground(new java.awt.Color(0, 153, 51));
-        btnAdiMas.setText("Adicionado!");
-        btnAdiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnAdiMas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAdiMasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAdiMasMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnAdiMasMouseReleased(evt);
-            }
-        });
-        pnlMas.add(btnAdiMas);
-        btnAdiMas.setBounds(200, 310, 80, 20);
-
-        btnAdiConMas.setFont(fontmed(11));
-        btnAdiConMas.setForeground(new java.awt.Color(10, 60, 133));
-        btnAdiConMas.setText("Adicionar à contagem de planos");
-        btnAdiConMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdiConMas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAdiConMasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAdiConMasMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnAdiConMasMouseReleased(evt);
-            }
-        });
-        pnlMas.add(btnAdiConMas);
-        btnAdiConMas.setBounds(200, 290, 200, 20);
-
         btnCopMas.setFont(fontbold(11));
         btnCopMas.setForeground(new java.awt.Color(10, 60, 133));
         btnCopMas.setText("Copiar");
@@ -8396,13 +8358,13 @@ public final class main extends javax.swing.JFrame {
 
                 esdao.inserir(es);
 
-                JOptionPane.showMessageDialog(pnlCadEst, "Novo ítem inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Novo ítem inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
 
                 esdao.acrescentar(es);
 
-                JOptionPane.showMessageDialog(pnlCadEst, "Inserido com sucesso! O ítem já existia no estoque e foi adicionado a nova quantidade!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Inserido com sucesso! O ítem já existia no estoque e foi adicionado a nova quantidade!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -8410,11 +8372,11 @@ public final class main extends javax.swing.JFrame {
             lblTitPri.setVisible(false);
         } catch (SQLException ex) {
 
-            JOptionPane.showMessageDialog(pnlCadEst, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 
         } catch (NumberFormatException n) {
 
-            JOptionPane.showMessageDialog(pnlCadEst, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
         }
     }//GEN-LAST:event_btnSalCadEstActionPerformed
@@ -8572,7 +8534,7 @@ public final class main extends javax.swing.JFrame {
     private void btnCanCadEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanCadEstActionPerformed
         if (btnSalCadEst.isEnabled()) {
 
-            int resp = JOptionPane.showOptionDialog(pnlCadEst, "Cancelar inserção? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, "Cancelar inserção? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
 
@@ -8612,20 +8574,20 @@ public final class main extends javax.swing.JFrame {
 
             tsdao.inserir(ts);
 
-            JOptionPane.showMessageDialog(pnlCadEst, "Inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             pnlCadTipSer.setVisible(false);
             lblTitPri.setVisible(false);
 
         } catch (SQLException ex) {
 
-            JOptionPane.showMessageDialog(pnlCadEst, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_btnSalTipSerActionPerformed
 
     private void btnCanTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanTipSerActionPerformed
-        int resp = JOptionPane.showOptionDialog(pnlCadTipSer, "Cancelar inserção? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        int resp = JOptionPane.showOptionDialog(null, "Cancelar inserção? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
         if (resp == JOptionPane.YES_OPTION) {
 
@@ -8731,7 +8693,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlGerDes, "Sem tipo de serviço para gerenciar. Cadastre-o primeiro!", "Gerenciar Tipo de Serviço", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sem tipo de serviço para gerenciar. Cadastre-o primeiro!", "Gerenciar Tipo de Serviço", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -9069,10 +9031,6 @@ public final class main extends javax.swing.JFrame {
             lblPlaMas.setLocation(350, 210);
 
             btnCopMas.setVisible(false);
-            btnAdiMas.setVisible(false);
-            btnAdiConMas.setVisible(false);
-
-            btnAdiConMas.setEnabled(true);
 
             pnlbtn();
             pnlMas.setVisible(true);
@@ -9142,7 +9100,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlDes, "Sem afazeres. Cadastre-as primeiro!", "Gerenciar Afazeres", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sem afazeres. Cadastre-as primeiro!", "Gerenciar Afazeres", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -9155,7 +9113,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDesMouseReleased
 
     private void btnExcGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerTipSerActionPerformed
-        int resp = JOptionPane.showOptionDialog(pnlGerTipSer, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
         if (resp == JOptionPane.YES_OPTION) {
             try {
@@ -9166,19 +9124,19 @@ public final class main extends javax.swing.JFrame {
 
                 tsdao.excluir(ts);
 
-                JOptionPane.showMessageDialog(pnlGerTipSer, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 pnlGerTipSer.setVisible(false);
                 lblTitPri.setVisible(false);
             } catch (SQLException ex) {
 
-                JOptionPane.showMessageDialog(pnlGerTipSer, "Erro ao excluir! Erro: " + ex.getMessage(), "Erro", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "Erro ao excluir! Erro: " + ex.getMessage(), "Erro", JOptionPane.OK_OPTION);
 
             }
         }
     }//GEN-LAST:event_btnExcGerTipSerActionPerformed
 
     private void btnAltGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerTipSerActionPerformed
-        int resp = JOptionPane.showOptionDialog(pnlGerTipSer, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
         if (resp == JOptionPane.YES_OPTION) {
 
@@ -9199,14 +9157,14 @@ public final class main extends javax.swing.JFrame {
 
                 tsdao.alterar(ts);
 
-                JOptionPane.showMessageDialog(pnlGerTipSer, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                 pnlGerTipSer.setVisible(false);
                 lblTitPri.setVisible(false);
 
             } catch (SQLException ex) {
 
-                JOptionPane.showMessageDialog(pnlGerTipSer, "Erro ao alterar! Erro: " + ex.getMessage(), "Erro", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "Erro ao alterar! Erro: " + ex.getMessage(), "Erro", JOptionPane.OK_OPTION);
 
             }
         }
@@ -9360,7 +9318,7 @@ public final class main extends javax.swing.JFrame {
             scrConEst.setVisible(false);
             tblConEst.setVisible(false);
 
-            JOptionPane.showMessageDialog(pnlConEst, "Ítem não cadastrado no sistema!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ítem não cadastrado no sistema!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
 
         }
     }//GEN-LAST:event_btnBusConEstActionPerformed
@@ -9375,7 +9333,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCanConEstActionPerformed
 
     private void btnAltGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerEstActionPerformed
-        int resp = JOptionPane.showOptionDialog(pnlGerEst, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
         if (resp == JOptionPane.YES_OPTION) {
 
@@ -9403,30 +9361,30 @@ public final class main extends javax.swing.JFrame {
 
                     esdao.alterar(es);
 
-                    JOptionPane.showMessageDialog(pnlGerEst, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                     pnlGerEst.setVisible(false);
                     lblTitPri.setVisible(false);
                 } catch (SQLException ex) {
 
-                    JOptionPane.showMessageDialog(pnlGerEst, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 
                 } catch (NumberFormatException n) {
 
-                    JOptionPane.showMessageDialog(pnlCadEst, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
                 }
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlGerEst, "Selecione uma linha na tabela para alterar!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Selecione uma linha na tabela para alterar!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
 
         }
     }//GEN-LAST:event_btnAltGerEstActionPerformed
 
     private void btnCanGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanGerEstActionPerformed
-        int resp = JOptionPane.showOptionDialog(pnlGerEst, "Cancelar alterações?", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        int resp = JOptionPane.showOptionDialog(null, "Cancelar alterações?", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
         if (resp == JOptionPane.YES_OPTION) {
 
@@ -9899,13 +9857,13 @@ public final class main extends javax.swing.JFrame {
             scrGerEst.setVisible(false);
             tblGerEst.setVisible(false);
 
-            JOptionPane.showMessageDialog(pnlGerEst, "Nenhum dado encontrado!", "Gerenciar", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum dado encontrado!", "Gerenciar", JOptionPane.INFORMATION_MESSAGE);
 
         }
     }//GEN-LAST:event_btnBusGerEstActionPerformed
 
     private void btnExcGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerEstActionPerformed
-        int resp = JOptionPane.showOptionDialog(pnlGerEst, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
         if (resp == JOptionPane.YES_OPTION) {
 
@@ -9918,7 +9876,7 @@ public final class main extends javax.swing.JFrame {
 
                 esdao.excluir(es);
 
-                JOptionPane.showMessageDialog(pnlGerEst, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                 pnlGerEst.setVisible(false);
                 lblTitPri.setVisible(false);
@@ -10300,7 +10258,7 @@ public final class main extends javax.swing.JFrame {
 
                         }
 
-                        JOptionPane.showMessageDialog(pnlCadEnt, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                         pnlCadEnt.setVisible(false);
 
@@ -10309,24 +10267,24 @@ public final class main extends javax.swing.JFrame {
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(pnlCadEnt, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
                 }
 
                 lblTitPri.setVisible(false);
 
             } else {
-                JOptionPane.showMessageDialog(pnlCadEnt, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {
-            JOptionPane.showMessageDialog(pnlCadEnt, "Selecione o método de pagamento!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecione o método de pagamento!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnSalCadEntActionPerformed
 
     private void btnCanCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanCadEntActionPerformed
         if (btnSalCadEnt.isEnabled()) {
 
-            int resp = JOptionPane.showOptionDialog(pnlCadEnt, "Cancelar entrada? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, "Cancelar entrada? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
 
@@ -10590,7 +10548,7 @@ public final class main extends javax.swing.JFrame {
 
         if (existe) {
 
-            JOptionPane.showMessageDialog(pnlIteCadEnt, "Ítem já adicionado!", "Entrada", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ítem já adicionado!", "Entrada", JOptionPane.ERROR_MESSAGE);
 
         } else {
 
@@ -10606,7 +10564,7 @@ public final class main extends javax.swing.JFrame {
 
                         if (Integer.parseInt(tblEstIteCadEnt.getValueAt(tblEstIteCadEnt.getSelectedRow(), 3).toString()) < i) {
 
-                            JOptionPane.showMessageDialog(pnlIteCadEnt, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
 
                         } else {
 
@@ -10622,7 +10580,7 @@ public final class main extends javax.swing.JFrame {
 
                         if (Integer.parseInt(tblEstIteCadEnt.getValueAt(tblEstIteCadEnt.getSelectedRow(), 5).toString()) < i) {
 
-                            JOptionPane.showMessageDialog(pnlIteCadEnt, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
 
                         } else {
 
@@ -10638,7 +10596,7 @@ public final class main extends javax.swing.JFrame {
 
                 } catch (NumberFormatException e) {
 
-                    JOptionPane.showMessageDialog(pnlIteCadEnt, "Digite apenas número!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Digite apenas número!", "Erro", JOptionPane.ERROR_MESSAGE);
 
                 }
 
@@ -10912,7 +10870,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlIteCadEnt, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -11716,7 +11674,7 @@ public final class main extends javax.swing.JFrame {
                 }
 
             } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(pnlRel, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -11769,7 +11727,7 @@ public final class main extends javax.swing.JFrame {
                 chkCus.setSelected(false);
 
             } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(pnlRel, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -11783,6 +11741,70 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDatIniRelKeyReleased
 
     private void btnGerMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerMasActionPerformed
+        int resp = JOptionPane.showOptionDialog(null, "Adicionar plano à contagem?", "Máscara", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+        if (resp == JOptionPane.YES_OPTION) {
+
+            try {
+
+                planosDAO pladao = new planosDAO();
+
+                pladao.excluir();
+
+                if (pladao.verifica()) {
+
+                    pladao.adicionar();
+
+                } else {
+
+                    pladao.criar();
+
+                }
+
+                JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        int resp1 = JOptionPane.showOptionDialog(null, "Atualizar estoque de chip?", "Máscara", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+        if (resp1 == JOptionPane.YES_OPTION) {
+
+            estoque es = new estoque();
+            estoqueDAO esdao = new estoqueDAO();
+
+            int resp2 = JOptionPane.showOptionDialog(null, "Qual chip?", "Máscara", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Triplo", "eSIM", "Naked"}, null);
+
+//TRIPLO 546
+//ESIM 547
+//NAKED 548
+            try {
+                if (resp2 == JOptionPane.YES_OPTION) {
+
+                    es.setId(546);
+                    esdao.excluirum(es);
+
+                } else if (resp2 == JOptionPane.NO_OPTION) {
+                    es.setId(547);
+                    esdao.excluirum(es);
+
+                } else if (resp2 == JOptionPane.CANCEL_OPTION) {
+                    es.setId(548);
+                    esdao.excluirum(es);
+
+                }
+
+                JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
         String nome = txtNomMas.getText();
         String cpf = txtCpfMas.getText();
         String contato = txtNumConMas.getText();
@@ -11854,7 +11876,6 @@ public final class main extends javax.swing.JFrame {
         txtAreMas.setCaretPosition(0);
 
         btnCopMas.setVisible(true);
-        btnAdiConMas.setVisible(true);
     }//GEN-LAST:event_btnGerMasActionPerformed
 
     private void btnCanMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanMasActionPerformed
@@ -12189,7 +12210,7 @@ public final class main extends javax.swing.JFrame {
 
             dedao.inserir(de);
 
-            JOptionPane.showMessageDialog(pnlCadDes, "Afazer inserida com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Afazer inserida com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             pnlCadDes.setVisible(false);
             lblTitPri.setVisible(false);
@@ -12247,7 +12268,7 @@ public final class main extends javax.swing.JFrame {
     private void tblConDesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConDesMouseClicked
         try {
 
-            int resp = JOptionPane.showOptionDialog(pnlCadEst, "Ao confirmar a conclusão, a data será definida para o próximo mês e será considerado a data de hoje como a conclusão. Atualize somente se tiver feito o acerto! Deseja prosseguir?", "Conclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, "Ao confirmar a conclusão, a data será definida para o próximo mês e será considerado a data de hoje como a conclusão. Atualize somente se tiver feito o acerto! Deseja prosseguir?", "Conclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
 
@@ -12323,7 +12344,7 @@ public final class main extends javax.swing.JFrame {
     private void btnExcGerDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerDesActionPerformed
         try {
 
-            int resp = JOptionPane.showOptionDialog(pnlGerDes, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
                 despezas de = new despezas();
@@ -12333,7 +12354,7 @@ public final class main extends javax.swing.JFrame {
 
                 dedao.excluir(de);
 
-                JOptionPane.showMessageDialog(pnlGerDes, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                 pnlGerDes.setVisible(false);
                 lblTitPri.setVisible(false);
@@ -12348,7 +12369,7 @@ public final class main extends javax.swing.JFrame {
     private void btnAltGerDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerDesActionPerformed
         try {
 
-            int resp = JOptionPane.showOptionDialog(pnlGerDes, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
                 despezas de = new despezas();
@@ -12361,7 +12382,7 @@ public final class main extends javax.swing.JFrame {
 
                 dedao.alterar(de);
 
-                JOptionPane.showMessageDialog(pnlGerDes, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                 pnlGerDes.setVisible(false);
                 lblTitPri.setVisible(false);
@@ -12522,7 +12543,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlGerDes, "Sem afazeres para gerenciar. Cadastre-as primeiro!", "Gerenciar afazeres", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sem afazeres para gerenciar. Cadastre-as primeiro!", "Gerenciar afazeres", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -12537,13 +12558,13 @@ public final class main extends javax.swing.JFrame {
     private void btnExcGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerEntActionPerformed
         try {
 
-            int resp = JOptionPane.showOptionDialog(pnlGerEnt, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
 
                 if (tblSelIteGerEnt.getRowCount() != 0) {
 
-                    int resp1 = JOptionPane.showOptionDialog(pnlGerEnt, "Por favor, devolva os ítens para o estoque. Se prosseguir, todos os produtos serão excluídos!\n\nDevolver ítens?", "Entrada", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+                    int resp1 = JOptionPane.showOptionDialog(null, "Por favor, devolva os ítens para o estoque. Se prosseguir, todos os produtos serão excluídos!\n\nDevolver ítens?", "Entrada", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
                     if (resp1 == JOptionPane.YES_OPTION) {
 
@@ -12558,7 +12579,7 @@ public final class main extends javax.swing.JFrame {
 
                         endao.excluir(en);
 
-                        JOptionPane.showMessageDialog(pnlIteGerEnt, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
                         pnlGerEnt.setVisible(false);
                         lblTitPri.setVisible(false);
@@ -12572,7 +12593,7 @@ public final class main extends javax.swing.JFrame {
                     en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
                     endao.excluir(en);
 
-                    JOptionPane.showMessageDialog(pnlIteGerEnt, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
                     pnlGerEnt.setVisible(false);
                     lblTitPri.setVisible(false);
@@ -12602,7 +12623,7 @@ public final class main extends javax.swing.JFrame {
                 tblGerEnt.setVisible(false);
                 scrGerEnt.setVisible(false);
 
-                JOptionPane.showMessageDialog(pnlGerEnt, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -12629,7 +12650,7 @@ public final class main extends javax.swing.JFrame {
     private void btnCanGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanGerEntActionPerformed
         if (btnAltGerEnt.isEnabled()) {
 
-            int resp = JOptionPane.showOptionDialog(pnlCadEst, "Antes de cancelar, verifique a tabela de produtos selecionados e remova aqueles que não fazem parte da entrada! Deseja cancelar?", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, "Antes de cancelar, verifique a tabela de produtos selecionados e remova aqueles que não fazem parte da entrada! Deseja cancelar?", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
                 pnlGerEnt.setVisible(false);
@@ -12927,7 +12948,7 @@ public final class main extends javax.swing.JFrame {
     private void btnAltGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerEntActionPerformed
         try {
 
-            int resp = JOptionPane.showOptionDialog(pnlGerEnt, "Tem certeza que deseja alterar?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
 
@@ -13013,7 +13034,7 @@ public final class main extends javax.swing.JFrame {
 
                             }
 
-                            JOptionPane.showMessageDialog(pnlGerEnt, "Entrada alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Entrada alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                             pnlGerEnt.setVisible(false);
 
@@ -13023,14 +13044,14 @@ public final class main extends javax.swing.JFrame {
                         }
 
                     } else {
-                        JOptionPane.showMessageDialog(pnlGerEnt, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
                     }
 
                     lblTitPri.setVisible(false);
 
                 } else {
 
-                    JOptionPane.showMessageDialog(pnlGerEnt, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
 
                 }
 
@@ -13150,7 +13171,7 @@ public final class main extends javax.swing.JFrame {
 
         if (existe) {
 
-            JOptionPane.showMessageDialog(pnlIteGerEnt, "Ítem já adicionado!", "Entrada", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ítem já adicionado!", "Entrada", JOptionPane.ERROR_MESSAGE);
 
         } else {
 
@@ -13166,7 +13187,7 @@ public final class main extends javax.swing.JFrame {
 
                         if (Integer.parseInt(tblEstIteGerEnt.getValueAt(tblEstIteGerEnt.getSelectedRow(), 3).toString()) < i) {
 
-                            JOptionPane.showMessageDialog(pnlIteGerEnt, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
 
                         } else {
 
@@ -13182,7 +13203,7 @@ public final class main extends javax.swing.JFrame {
 
                         if (Integer.parseInt(tblEstIteGerEnt.getValueAt(tblEstIteGerEnt.getSelectedRow(), 5).toString()) < i) {
 
-                            JOptionPane.showMessageDialog(pnlIteGerEnt, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
 
                         } else {
 
@@ -13198,7 +13219,7 @@ public final class main extends javax.swing.JFrame {
 
                 } catch (NumberFormatException e) {
 
-                    JOptionPane.showMessageDialog(pnlIteGerEnt, "Digite apenas número!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Digite apenas número!", "Erro", JOptionPane.ERROR_MESSAGE);
 
                 }
 
@@ -13246,7 +13267,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlIteGerEnt, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -13589,7 +13610,7 @@ public final class main extends javax.swing.JFrame {
 
             if (txtCliOs.getText().isEmpty() || txtEndOs.getText().isEmpty() || txtTelOs.getText().isEmpty() || txtEquOs.getText().isEmpty() || txtMarOs.getText().isEmpty() || txtModOs.getText().isEmpty() || txtDefOs.getText().isEmpty() || txtDatOs.getText().isEmpty() || txtRepOs.getText().isEmpty() || (txtDatSaiOs.getText().isEmpty() && chkGarOs.isSelected())) {
 
-                JOptionPane.showMessageDialog(pnlOs, "Preencha todos os dados!", "Atenção", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Preencha todos os dados!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
             } else {
 
@@ -13730,7 +13751,7 @@ public final class main extends javax.swing.JFrame {
 
                         osdao.alterar(oss);
 
-                        JOptionPane.showMessageDialog(pnlOs, "OS alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "OS alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                         pnlbtn();
                         lblTitPri.setVisible(false);
@@ -13742,7 +13763,7 @@ public final class main extends javax.swing.JFrame {
         } catch (JRException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(pnlOs, "Erro ao calcular garantia!", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao calcular garantia!", "Erro", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -14018,7 +14039,7 @@ public final class main extends javax.swing.JFrame {
 
                 } else {
 
-                    JOptionPane.showMessageDialog(pnlGerEnt, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
                 }
 
@@ -14047,7 +14068,7 @@ public final class main extends javax.swing.JFrame {
                 scrConEst.setVisible(false);
                 tblConEst.setVisible(false);
 
-                JOptionPane.showMessageDialog(pnlConEst, "Ítem não cadastrado no sistema!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ítem não cadastrado no sistema!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -14072,7 +14093,7 @@ public final class main extends javax.swing.JFrame {
                 scrGerEst.setVisible(false);
                 tblGerEst.setVisible(false);
 
-                JOptionPane.showMessageDialog(pnlGerEst, "Nenhum dado encontrado!", "Gerenciar", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nenhum dado encontrado!", "Gerenciar", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -14243,7 +14264,7 @@ public final class main extends javax.swing.JFrame {
                 scrConEnt.setVisible(false);
                 tblConEnt.setVisible(false);
 
-                JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -14259,7 +14280,7 @@ public final class main extends javax.swing.JFrame {
                 scrConEnt.setVisible(false);
                 tblConEnt.setVisible(false);
 
-                JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -14292,7 +14313,7 @@ public final class main extends javax.swing.JFrame {
                     scrConEnt.setVisible(false);
                     tblConEnt.setVisible(false);
 
-                    JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
 
                 }
 
@@ -14308,7 +14329,7 @@ public final class main extends javax.swing.JFrame {
                     scrConEnt.setVisible(false);
                     tblConEnt.setVisible(false);
 
-                    JOptionPane.showMessageDialog(pnlConEnt, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Entrada não encontrada!", "Consultar", JOptionPane.INFORMATION_MESSAGE);
 
                 }
 
@@ -14587,7 +14608,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlDes, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -14621,7 +14642,7 @@ public final class main extends javax.swing.JFrame {
                     vedao.inserir(ve, "0");
                 }
 
-                JOptionPane.showMessageDialog(pnlCadVen, "Plano cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Plano cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
 
@@ -14641,7 +14662,7 @@ public final class main extends javax.swing.JFrame {
                     vedao.alterar(ve, "0");
                 }
 
-                JOptionPane.showMessageDialog(pnlCadVen, "Plano alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Plano alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -15135,7 +15156,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlDes, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -16644,7 +16665,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerGerOsActionPerformed
 
     private void btnExcGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcGerOsActionPerformed
-        int resp = JOptionPane.showOptionDialog(pnlGerOs, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
         if (resp == JOptionPane.YES_OPTION) {
 
@@ -16657,13 +16678,13 @@ public final class main extends javax.swing.JFrame {
 
                 osdao.excluir(os);
 
-                JOptionPane.showMessageDialog(pnlGerOs, "OS excluída com sucesso!", "OS", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "OS excluída com sucesso!", "OS", JOptionPane.INFORMATION_MESSAGE);
 
                 if (tabelaos(tblOs, scrOs)) {
 
                 } else {
 
-                    JOptionPane.showMessageDialog(pnlGerOs, "Sem OS. Cadastre-as primeiro!", "OS", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sem OS. Cadastre-as primeiro!", "OS", JOptionPane.INFORMATION_MESSAGE);
                     pnlGerOs.setVisible(false);
                     lblTitPri.setVisible(false);
                 }
@@ -16778,7 +16799,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(pnlDes, "Sem OS. Cadastre-as primeiro!", "OS", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sem OS. Cadastre-as primeiro!", "OS", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
@@ -16869,75 +16890,6 @@ public final class main extends javax.swing.JFrame {
             txtCliCadVen.setText(capitalizedText);
         }
     }//GEN-LAST:event_txtCliCadVenKeyReleased
-
-    private void btnAdiConMasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiConMasMouseEntered
-        btnAdiConMas.setForeground(corforeazulenter);
-    }//GEN-LAST:event_btnAdiConMasMouseEntered
-
-    private void btnAdiConMasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiConMasMouseExited
-        btnAdiConMas.setForeground(corforeazul);
-    }//GEN-LAST:event_btnAdiConMasMouseExited
-
-    private void btnAdiConMasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiConMasMouseReleased
-        if (btnAdiConMas.isEnabled()) {
-
-            try {
-
-                planosDAO pladao = new planosDAO();
-
-                pladao.excluir();
-
-                if (pladao.verifica()) {
-
-                    pladao.adicionar();
-
-                } else {
-
-                    pladao.criar();
-
-                }
-
-                btnAdiConMas.setEnabled(false);
-
-                Timer timer = new Timer(1000, new ActionListener() {
-
-                    int cont = 0;
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        cont++;
-
-                        if (cont == 5) {
-                            btnAdiMas.setVisible(false);
-                            ((Timer) e.getSource()).stop();
-                        } else {
-                            btnAdiMas.setVisible(true);
-                        }
-
-                    }
-
-                });
-
-                timer.start();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_btnAdiConMasMouseReleased
-
-    private void btnAdiMasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiMasMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdiMasMouseEntered
-
-    private void btnAdiMasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiMasMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdiMasMouseExited
-
-    private void btnAdiMasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdiMasMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdiMasMouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -16945,8 +16897,6 @@ public final class main extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnAdiConMas;
-    private javax.swing.JLabel btnAdiMas;
     private javax.swing.JButton btnAltGerDes;
     private javax.swing.JButton btnAltGerEnt;
     private javax.swing.JButton btnAltGerEst;

@@ -69,6 +69,19 @@ public class estoqueDAO {
         connection.Close();
 
     }
+     
+       public void excluirum(estoque es) throws SQLException {
+
+        String SQL = "UPDATE estoque SET quantidadeEst = quantidadeEst - 1 WHERE idEst = ?";
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        stmt.setInt(1, es.getId());
+
+        stmt.executeUpdate();
+        stmt.close();
+        connection.Close();
+
+    }
 
     public List<estoque> buscar(estoque es) throws SQLException {
 
