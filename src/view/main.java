@@ -574,6 +574,8 @@ public final class main extends javax.swing.JFrame {
 
             if (ve.verificar()) {
 
+                btnVenPri.setVisible(true);
+
                 Timer timer = new Timer(700, new ActionListener() {
 
                     int n = 0;
@@ -587,10 +589,10 @@ public final class main extends javax.swing.JFrame {
 
                         if (n % 2 == 0) {
 
-                            btnVenPri.setVisible(true);
+                            btnVenPri.setText("Vencimento encontrado!");
                         } else {
 
-                            btnVenPri.setVisible(false);
+                            btnVenPri.setText("");
                         }
                     }
 
@@ -15115,50 +15117,44 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVenPriMouseExited
 
     private void btnVenPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseReleased
-        pnlCadVen.setVisible(false);
-        btnMasPla.setVisible(false);
-        btnDes.setVisible(false);
-        btnCadDes.setVisible(false);
-        btnGerDes.setVisible(false);
-        btnVen.setVisible(false);
-        btnCadVen.setVisible(false);
-
         if (!pnlVen.isVisible()) {
 
             if (tabelavencimento(tblVen, scrVen)) {
 
+                planosDAO pladao = new planosDAO();
+
+                try {
+                    lblConPlaVen.setText(String.valueOf(pladao.buscar()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 lblTitPri.setText("Planos");
                 lblTitPri.setVisible(true);
-                pnlCadEnt.setVisible(false);
-                pnlRel.setVisible(false);
-                pnlIteCadEnt.setVisible(false);
-                pnlCadTipSer.setVisible(false);
-                pnlGerTipSer.setVisible(false);
-                pnlMas.setVisible(false);
-                pnlVen.setVisible(true);
-                pnlGerDes.setVisible(false);
-                pnlCadDes.setVisible(false);
-                pnlGerEnt.setVisible(false);
-                pnlOs.setVisible(false);
-                pnlIteGerEnt.setVisible(false);
-                pnlConEnt.setVisible(false);
-                pnlCadVen.setVisible(false);
-                pnlDes.setVisible(false);
 
                 btnExcVen.setEnabled(false);
                 btnWppVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
-                lblErrVen.setVisible(false);
+
+                lblBusVen.setLocation(310, 280);
                 txtBusVen.setText(null);
-                lblBusVen.setLocation(310, 300);
+                lblErrVen.setVisible(false);
+
+                pnlbtn();
+                pnlVen.setVisible(true);
 
             } else {
 
                 JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
 
             }
+
+        } else {
+
+            pnlbtn();
+            pnlVen.setVisible(true);
 
         }
     }//GEN-LAST:event_btnVenPriMouseReleased
