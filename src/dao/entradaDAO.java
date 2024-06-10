@@ -147,7 +147,7 @@ public class entradaDAO {
                 SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
@@ -157,7 +157,7 @@ public class entradaDAO {
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " MONTH)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
@@ -175,7 +175,7 @@ public class entradaDAO {
                 SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE idTip = 1 ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE idTip = 1 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE idTip = 1 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
@@ -185,7 +185,7 @@ public class entradaDAO {
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE idTip = 1 AND ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer WHERE idTip = 1 AND ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " MONTH)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
@@ -203,7 +203,7 @@ public class entradaDAO {
                 SQL = "SELECT * FROM entradas LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
@@ -213,7 +213,7 @@ public class entradaDAO {
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 2 AND ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " MONTH)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
@@ -231,7 +231,7 @@ public class entradaDAO {
                 SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip != 3 ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip != 3 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip != 3 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
@@ -241,7 +241,7 @@ public class entradaDAO {
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip != 3 AND ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip != 3 AND ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " MONTH)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
@@ -259,7 +259,7 @@ public class entradaDAO {
                 SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 3 ORDER BY dataEnt DESC";
                 if (opc1 == 2) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 3 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 3 AND dataEnt = DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " DAY)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 3) {
@@ -269,7 +269,7 @@ public class entradaDAO {
                 }
                 if (opc1 == 4) {
 
-                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 3 AND ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) ORDER BY dataEnt DESC";
+                    SQL = "SELECT * FROM entradas INNER JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE idTip = 3 AND ((MONTH(dataEnt) + " + opc2 + ") % 12) = MONTH(CURDATE()) AND YEAR(dataEnt) = YEAR(DATE_SUB(CURDATE(), INTERVAL " + opc2 + " MONTH)) ORDER BY dataEnt DESC";
 
                 }
                 if (opc1 == 5) {
