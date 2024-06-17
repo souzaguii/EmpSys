@@ -4,23 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class planosDAO {
+public class planosdiaDAO {
 
-    public void adicionar() throws SQLException {
+    public void adicionar(int tip) throws SQLException {
 
-        String SQL = "UPDATE planos SET numPla = numPla + 1 WHERE mesPla = MONTH(NOW())";
-
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-
-        stmt.executeUpdate();
-        stmt.close();
-        connection.Close();
-
-    }
-
-    public void remover() throws SQLException {
-
-        String SQL = "UPDATE planos SET numPla = numPla - 1 WHERE mesPla = MONTH(NOW())";
+        String SQL = "UPDATE planosdia SET numPlaDia = numPlaDia + 1 WHERE diaPlaDia = DAY(NOW()) AND tipPlaDia = "+tip+"";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
@@ -30,18 +18,18 @@ public class planosDAO {
 
     }
 
-    public int buscar() throws SQLException {
+    public int buscar(int tip) throws SQLException {
 
         int num;
 
-        String SQL = "SELECT numPla FROM planos WHERE mesPla = MONTH(NOW())";
+        String SQL = "SELECT numPlaDia FROM planosdia WHERE diaPlaDia = DAY(NOW()) AND tipPlaDia = "+tip+"";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
         rs.next();
 
-        num = rs.getInt("numPla");
+        num = rs.getInt("numPlaDia");
 
         rs.close();
         stmt.close();
@@ -53,7 +41,7 @@ public class planosDAO {
 
     public void zerar() throws SQLException {
 
-        String SQL = "UPDATE planos set numPla = 0, mesPla = MONTH(NOW()) WHERE mesPla != MONTH(NOW())";
+        String SQL = "UPDATE planosdia set numPlaDia = 0, diaPlaDia = DAY(NOW()) WHERE diaPlaDia != DAY(NOW())";
 
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 

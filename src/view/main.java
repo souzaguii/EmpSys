@@ -7,6 +7,7 @@ import dao.entradaDAO;
 import dao.estoqueDAO;
 import dao.osDAO;
 import dao.planosDAO;
+import dao.planosdiaDAO;
 import dao.tiposervicoDAO;
 import dao.vencimentoDAO;
 import java.awt.Color;
@@ -2945,6 +2946,7 @@ public final class main extends javax.swing.JFrame {
         btnVenMas = new javax.swing.JButton();
         btnGerMas = new javax.swing.JButton();
         btnCanMas = new javax.swing.JButton();
+        btnParMas = new javax.swing.JButton();
         btnCopMas = new javax.swing.JLabel();
         lblNomMas = new javax.swing.JLabel();
         chkDebMasa = new javax.swing.JCheckBox();
@@ -6933,6 +6935,18 @@ public final class main extends javax.swing.JFrame {
         });
         pnlMas.add(btnCanMas);
         btnCanMas.setBounds(90, 280, 100, 40);
+
+        btnParMas.setFont(fontmed(12));
+        btnParMas.setForeground(new java.awt.Color(10, 60, 133));
+        btnParMas.setText("Parcial");
+        btnParMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnParMas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnParMasActionPerformed(evt);
+            }
+        });
+        pnlMas.add(btnParMas);
+        btnParMas.setBounds(200, 280, 100, 40);
 
         btnCopMas.setFont(fontbold(11));
         btnCopMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -11750,17 +11764,17 @@ public final class main extends javax.swing.JFrame {
             try {
 
                 planosDAO pladao = new planosDAO();
+                planosdiaDAO pddao = new planosdiaDAO();
 
-                pladao.excluir();
+                pladao.zerar();
+                pddao.zerar();
 
-                if (pladao.verifica()) {
+                pladao.adicionar();
 
-                    pladao.adicionar();
-
+                if (txtPlaMas.getText().contains("Black")) {
+                    pddao.adicionar(2);
                 } else {
-
-                    pladao.criar();
-
+                    pddao.adicionar(1);
                 }
 
                 JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -16886,6 +16900,32 @@ public final class main extends javax.swing.JFrame {
             txtCliCadVen.setText(capitalizedText);
         }
     }//GEN-LAST:event_txtCliCadVenKeyReleased
+
+    private void btnParMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParMasActionPerformed
+        planosdiaDAO pdDAO = new planosdiaDAO();
+
+        Date dataa = new Date();
+        String data = new SimpleDateFormat("dd/MM").format(dataa);
+
+        try {
+
+            String con = String.valueOf(pdDAO.buscar(1));
+            String pos = String.valueOf(pdDAO.buscar(2));
+
+            txtAreMas.setText(
+                    "*PARCIAL DO DIA* " + data + "\n\n"
+                    + "Plano Controle: " + con
+                    + "\nPlano Black: " + pos
+            );
+
+            txtAreMas.setCaretPosition(0);
+
+            btnCopMas.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnParMasActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -16963,6 +17003,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel btnNumDiaRel;
     private javax.swing.JLabel btnOrdSerPri;
     private javax.swing.JLabel btnOutPri;
+    private javax.swing.JButton btnParMas;
     private javax.swing.JLabel btnRelPri;
     private javax.swing.JButton btnSalCadEnt;
     private javax.swing.JButton btnSalCadEst;
