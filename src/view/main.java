@@ -398,7 +398,7 @@ public final class main extends javax.swing.JFrame {
             String outputFile = "\\\\PC\\Arquivos\\BackupDatabase\\reg\\bkp-" + dataFormatada + ".sql";
 
             String loginFilePath = "\\\\PC\\Arquivos\\BackupDatabase\\bin\\bkp.cnf";
-            String host = "192.168.0.123";
+            String host = "192.168.0.101";
 
             String[] command = {
                 "\\\\PC\\Arquivos\\BackupDatabase\\bin\\mysqldump",
@@ -12650,11 +12650,23 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBusGerEntActionPerformed
 
     private void btnIteGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIteGerEntActionPerformed
-        tblEstIteGerEnt.setVisible(true);
-        scrEstIteGerEnt.setVisible(true);
+        if (tblSelIteGerEnt.getRowCount() == 0) {
+            tblSelIteGerEnt.setVisible(false);
+            scrSelIteGerEnt.setVisible(false);
+            lblSelIteGerEnt.setVisible(false);
+        } else {
+            tblSelIteGerEnt.setVisible(true);
+            scrSelIteGerEnt.setVisible(true);
+            lblSelIteGerEnt.setVisible(true);
+        }
+
+        tblEstIteGerEnt.setVisible(false);
+        scrEstIteGerEnt.setVisible(false);
+        lblEstIteGerEnt.setVisible(false);
+
         lblEstIteGerEnt.setForeground(corforeazul);
         btnVolIteGerEnt.grabFocus();
-        tblEstIteGerEnt.getTableHeader().setFont(fontbold(11));
+        tblSelIteGerEnt.getTableHeader().setFont(fontbold(11));
         pnlIteGerEnt.setVisible(true);
         pnlGerEnt.setVisible(false);
 
@@ -13279,6 +13291,7 @@ public final class main extends javax.swing.JFrame {
 
                 tblEstIteGerEnt.setVisible(true);
                 scrEstIteGerEnt.setVisible(true);
+                lblEstIteGerEnt.setVisible(true);
                 lblEstIteGerEnt.setForeground(corforeazul);
 
             } else {

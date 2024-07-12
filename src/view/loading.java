@@ -58,11 +58,7 @@ public final class loading extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//     public static void main(String args[]) {
-//        java.awt.EventQueue.invokeLater(() -> {
-//            new loading().setVisible(true);
-//        });
-//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel imgLogo;
     public javax.swing.JLabel lblLoa;
