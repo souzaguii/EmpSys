@@ -87,7 +87,7 @@ public final class main extends javax.swing.JFrame {
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 
                 try {
-
+if(connection.connection != null){
                     entrada en = new entrada();
                     entradaDAO endao = new entradaDAO();
 
@@ -102,7 +102,7 @@ public final class main extends javax.swing.JFrame {
 
                         }
                     }
-
+}
                 } catch (SQLException ex) {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -111,6 +111,7 @@ public final class main extends javax.swing.JFrame {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 try {
+                    if(connection.connection != null){
                     entrada en = new entrada();
                     entradaDAO endao = new entradaDAO();
 
@@ -125,7 +126,7 @@ public final class main extends javax.swing.JFrame {
 
                         }
                     }
-
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
