@@ -2594,6 +2594,7 @@ if(connection.connection != null){
         btnGroup3 = new javax.swing.ButtonGroup();
         btnGroup4 = new javax.swing.ButtonGroup();
         pnlPri = new javax.swing.JPanel();
+        btnRecBan = new javax.swing.JLabel();
         imgLogo = new javax.swing.JLabel();
         btnEntPri = new javax.swing.JLabel();
         btnCadEnt = new javax.swing.JLabel();
@@ -3090,6 +3091,22 @@ if(connection.connection != null){
         pnlPri.setBackground(new java.awt.Color(246, 246, 246));
         pnlPri.setPreferredSize(new java.awt.Dimension(1300, 760));
         pnlPri.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnRecBan.setFont(fontmed(12));
+        btnRecBan.setForeground(corforeazul);
+        btnRecBan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRecBan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRecBanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRecBanMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnRecBanMouseReleased(evt);
+            }
+        });
+        pnlPri.add(btnRecBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, 60, 20));
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoLoja580.png"))); // NOI18N
         imgLogo.setText("jLabel1");
@@ -16940,6 +16957,18 @@ if(connection.connection != null){
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnParMasActionPerformed
+
+    private void btnRecBanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecBanMouseEntered
+        btnRecBan.setForeground(new Color(19, 84, 178));
+    }//GEN-LAST:event_btnRecBanMouseEntered
+
+    private void btnRecBanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecBanMouseExited
+        btnRecBan.setForeground(new Color(10, 60, 133));
+    }//GEN-LAST:event_btnRecBanMouseExited
+
+    private void btnRecBanMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecBanMouseReleased
+        connection.Connect();
+    }//GEN-LAST:event_btnRecBanMouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -17018,6 +17047,7 @@ if(connection.connection != null){
     private javax.swing.JLabel btnOrdSerPri;
     private javax.swing.JLabel btnOutPri;
     private javax.swing.JButton btnParMas;
+    private javax.swing.JLabel btnRecBan;
     private javax.swing.JLabel btnRelPri;
     private javax.swing.JButton btnSalCadEnt;
     private javax.swing.JButton btnSalCadEst;
