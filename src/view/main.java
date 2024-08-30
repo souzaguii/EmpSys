@@ -10112,9 +10112,18 @@ if(connection.connection != null){
                 txtCorGerEst.setText((!"Não Aplicável".equals(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 8).toString())) ? tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 8).toString() : "");
                 txtMatGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 9).toString());
 
-            } else {
+            } else if (tblGerEst.getColumnCount() == 8) {
 
                 txtMarGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString());
+                txtModGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 3).toString());
+                txtPreGerEst.setText((tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString()).substring(3, tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().length()));
+                txtQuaGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 5).toString());
+                txtLocGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 6).toString());
+                txtMatGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString());
+
+            } else{
+            
+            txtMarGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString());
                 txtModGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 3).toString());
                 txtPreGerEst.setText((tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString()).substring(3, tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().length()));
                 txtQuaGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 5).toString());

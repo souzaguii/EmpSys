@@ -12,7 +12,7 @@
 	<parameter name="Defeito" class="java.lang.String"/>
 	<parameter name="DataEntrada" class="java.lang.String"/>
 	<parameter name="LogoLoja" class="java.io.InputStream"/>
-	<parameter name="LogoTim" class="java.io.InputStream"/>
+	<parameter name="LogoTimold" class="java.io.InputStream"/>
 	<parameter name="Preco" class="java.lang.String"/>
 	<parameter name="DataSaida" class="java.lang.String"/>
 	<parameter name="Garantia" class="java.lang.String"/>
@@ -48,7 +48,7 @@
 				<imageExpression><![CDATA[$P{LogoLoja}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="170" y="4" width="220" height="33" uuid="3632bfe5-0f0f-45c2-a730-c5a17014b4d9">
+				<reportElement x="170" y="12" width="220" height="33" uuid="3632bfe5-0f0f-45c2-a730-c5a17014b4d9">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -57,16 +57,8 @@
 				<text><![CDATA[Empório Cell - TIM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="26" width="220" height="16" uuid="e7de9249-a052-43c6-a97c-59207fbb397a">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font fontName="Poppins Medium"/>
-				</textElement>
-				<text><![CDATA[51.089.413/0001-25]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="170" y="41" width="220" height="18" uuid="9314c364-417e-471b-bc58-7e011ff15600">
+				<reportElement x="170" y="34" width="220" height="18" uuid="9314c364-417e-471b-bc58-7e011ff15600">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -75,7 +67,7 @@
 				<text><![CDATA[Rua Bias Fortes, 485 | Centro | Frutal - MG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="56" width="220" height="16" uuid="70abaa3d-c2b6-4d1f-a5cc-370e33cf788a">
+				<reportElement x="170" y="49" width="220" height="18" uuid="70abaa3d-c2b6-4d1f-a5cc-370e33cf788a">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -89,7 +81,7 @@
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$P{LogoTim}]]></imageExpression>
+				<imageExpression><![CDATA[$P{LogoTimold}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="78" width="555" height="30" forecolor="#030303" backcolor="#E8E8E8" uuid="b80d19fc-0606-4f6b-962a-f2f2426a6406">
