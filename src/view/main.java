@@ -3095,17 +3095,6 @@ if(connection.connection != null){
         btnRecBan.setFont(fontmed(12));
         btnRecBan.setForeground(corforeazul);
         btnRecBan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRecBan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnRecBanMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnRecBanMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnRecBanMouseReleased(evt);
-            }
-        });
         pnlPri.add(btnRecBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, 60, 20));
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoLoja580.png"))); // NOI18N
@@ -9179,8 +9168,9 @@ if(connection.connection != null){
                 tiposervico ts = new tiposervico();
                 tiposervicoDAO tsdao = new tiposervicoDAO();
 
-                ts.setDescricao(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 2).toString());
+                ts.setDescricao(txtDesGerTipSer.getText());
                 ts.setIdtiposervico(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
+                System.out.print(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
                 if (rbtnTimGerTipSer.isSelected()) {
                     ts.setArea("1");
                 } else if (rbtnAssGerTipSer.isSelected()) {
@@ -16966,18 +16956,6 @@ if(connection.connection != null){
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnParMasActionPerformed
-
-    private void btnRecBanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecBanMouseEntered
-        btnRecBan.setForeground(new Color(19, 84, 178));
-    }//GEN-LAST:event_btnRecBanMouseEntered
-
-    private void btnRecBanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecBanMouseExited
-        btnRecBan.setForeground(new Color(10, 60, 133));
-    }//GEN-LAST:event_btnRecBanMouseExited
-
-    private void btnRecBanMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecBanMouseReleased
-        connection.Connect();
-    }//GEN-LAST:event_btnRecBanMouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
