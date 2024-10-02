@@ -87,22 +87,22 @@ public final class main extends javax.swing.JFrame {
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 
                 try {
-if(connection.connection != null){
-                    entrada en = new entrada();
-                    entradaDAO endao = new entradaDAO();
+                    if (connection.connection != null) {
+                        entrada en = new entrada();
+                        entradaDAO endao = new entradaDAO();
 
-                    if (tblSelIteCadEnt.getRowCount() != 0) {
+                        if (tblSelIteCadEnt.getRowCount() != 0) {
 
-                        for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
+                            for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
 
-                            en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
-                            en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
+                                en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+                                en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
 
-                            endao.atualizarestoque(en, 1);
+                                endao.atualizarestoque(en, 1);
 
+                            }
                         }
                     }
-}
                 } catch (SQLException ex) {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -111,21 +111,21 @@ if(connection.connection != null){
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 try {
-                    if(connection.connection != null){
-                    entrada en = new entrada();
-                    entradaDAO endao = new entradaDAO();
+                    if (connection.connection != null) {
+                        entrada en = new entrada();
+                        entradaDAO endao = new entradaDAO();
 
-                    if (tblSelIteCadEnt.getRowCount() != 0) {
+                        if (tblSelIteCadEnt.getRowCount() != 0) {
 
-                        for (int i = 0; i <= tblSelIteCadEnt.getRowCount(); i++) {
+                            for (int i = 0; i <= tblSelIteCadEnt.getRowCount(); i++) {
 
-                            en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i, 0).toString()));
-                            en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i, 1).toString()));
+                                en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i, 0).toString()));
+                                en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i, 1).toString()));
 
-                            endao.atualizarestoque(en, 1);
+                                endao.atualizarestoque(en, 1);
 
+                            }
                         }
-                    }
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -10111,9 +10111,9 @@ if(connection.connection != null){
                 txtLocGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 6).toString());
                 txtMatGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 7).toString());
 
-            } else{
-            
-            txtMarGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString());
+            } else {
+
+                txtMarGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 2).toString());
                 txtModGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 3).toString());
                 txtPreGerEst.setText((tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString()).substring(3, tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().length()));
                 txtQuaGerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 5).toString());
@@ -16057,14 +16057,17 @@ if(connection.connection != null){
 
     private void txtPlaMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaMasKeyReleased
         switch (evt.getKeyChar()) {
-            case '1':
+            case '\'':
                 txtPlaMas.setText("TIM Controle A Plus");
                 break;
+            case '1':
+                txtPlaMas.setText("TIM Controle");
+                break;
             case '2':
-                txtPlaMas.setText("TIM Controle Smart");
+                txtPlaMas.setText("TIM Controle Plus");
                 break;
             case '3':
-                txtPlaMas.setText("TIM Controle Redes Sociais");
+                txtPlaMas.setText("TIM Controle Premium");
                 break;
             case '4':
                 txtPlaMas.setText("TIM Controle J Express");
@@ -16073,13 +16076,13 @@ if(connection.connection != null){
                 txtPlaMas.setText("TIM Controle L Express");
                 break;
             case '6':
-                txtPlaMas.setText("TIM Black A");
+                txtPlaMas.setText("TIM Black");
                 break;
             case '7':
-                txtPlaMas.setText("TIM Black B");
+                txtPlaMas.setText("TIM Black Plus");
                 break;
             case '8':
-                txtPlaMas.setText("TIM Black C Hero");
+                txtPlaMas.setText("TIM Black Premium");
                 break;
             case '9':
                 txtPlaMas.setText("TIM Black C Ultra");
@@ -16100,41 +16103,44 @@ if(connection.connection != null){
 
     private void txtPlaCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaCadVenKeyReleased
         switch (evt.getKeyChar()) {
+            case '\'':
+                txtPlaMas.setText("TIM Controle A Plus");
+                break;
             case '1':
-                txtPlaCadVen.setText("TIM Controle A Plus");
+                txtPlaMas.setText("TIM Controle");
                 break;
             case '2':
-                txtPlaCadVen.setText("TIM Controle Smart");
+                txtPlaMas.setText("TIM Controle Plus");
                 break;
             case '3':
-                txtPlaCadVen.setText("TIM Controle Redes Sociais");
+                txtPlaMas.setText("TIM Controle Premium");
                 break;
             case '4':
-                txtPlaCadVen.setText("TIM Controle J Express");
+                txtPlaMas.setText("TIM Controle J Express");
                 break;
             case '5':
-                txtPlaCadVen.setText("TIM Controle L Express");
+                txtPlaMas.setText("TIM Controle L Express");
                 break;
             case '6':
-                txtPlaCadVen.setText("TIM Black A");
+                txtPlaMas.setText("TIM Black");
                 break;
             case '7':
-                txtPlaCadVen.setText("TIM Black B");
+                txtPlaMas.setText("TIM Black Plus");
                 break;
             case '8':
-                txtPlaCadVen.setText("TIM Black C Hero");
+                txtPlaMas.setText("TIM Black Premium");
                 break;
             case '9':
-                txtPlaCadVen.setText("TIM Black C Ultra");
+                txtPlaMas.setText("TIM Black C Ultra");
                 break;
             case '0':
-                txtPlaCadVen.setText("TIM Black A Express");
+                txtPlaMas.setText("TIM Black A Express");
                 break;
             case '-':
-                txtPlaCadVen.setText("TIM Black B Express");
+                txtPlaMas.setText("TIM Black B Express");
                 break;
             case '=':
-                txtPlaCadVen.setText("TIM Black C Express");
+                txtPlaMas.setText("TIM Black C Express");
                 break;
             case '[':
                 txtPlaCadVen.setText("Não Aplicável");
