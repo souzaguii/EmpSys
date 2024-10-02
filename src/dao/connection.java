@@ -1,5 +1,7 @@
 package dao;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -50,7 +52,9 @@ public class connection {
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
             status = "Erro na conexão com o banco de dados!";
-        }
+                 
+            java.util.logging.Logger.getLogger(connection.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
+        } 
     }
 
     public static String Status() {
