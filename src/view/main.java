@@ -21,7 +21,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -50,6 +49,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -73,6 +73,14 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
+import java.awt.datatransfer.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.pdfbox.Loader;
 
 public final class main extends javax.swing.JFrame {
 
@@ -2945,6 +2953,7 @@ public final class main extends javax.swing.JFrame {
         chkCarMasa = new javax.swing.JCheckBox();
         chkAppMas = new javax.swing.JCheckBox();
         chkMelMas = new javax.swing.JCheckBox();
+        btnConMas = new javax.swing.JButton();
         btnVenMas = new javax.swing.JButton();
         btnGerMas = new javax.swing.JButton();
         btnCanMas = new javax.swing.JButton();
@@ -6907,6 +6916,18 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(chkMelMas);
         chkMelMas.setBounds(610, 250, 150, 20);
 
+        btnConMas.setFont(fontmed(12));
+        btnConMas.setForeground(new java.awt.Color(10, 60, 133));
+        btnConMas.setText("Contrato");
+        btnConMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConMas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConMasActionPerformed(evt);
+            }
+        });
+        pnlMas.add(btnConMas);
+        btnConMas.setBounds(90, 280, 100, 40);
+
         btnVenMas.setFont(fontmed(12));
         btnVenMas.setForeground(new java.awt.Color(10, 60, 133));
         btnVenMas.setText("Cadastrar");
@@ -6941,7 +6962,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnCanMas);
-        btnCanMas.setBounds(90, 280, 100, 40);
+        btnCanMas.setBounds(90, 330, 100, 40);
 
         btnParMas.setFont(fontmed(12));
         btnParMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -10291,6 +10312,19 @@ public final class main extends javax.swing.JFrame {
 
                         }
 
+                        //INSERIR CONTADOR DE TROCAS 
+                        itens selectedItem = (itens) cmbVezCar.getSelectedItem();
+
+                        String textoSelecionado = selectedItem.getDescricao();
+
+                        if (textoSelecionado.equals("Troca de Chip") || textoSelecionado.equals("Ativação eSIM")) {
+
+                            planosdiaDAO pddao = new planosdiaDAO();
+                            pddao.zerar();
+                            pddao.adicionar(3);
+
+                        }
+
                         JOptionPane.showMessageDialog(null, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                         pnlCadEnt.setVisible(false);
@@ -11793,6 +11827,24 @@ public final class main extends javax.swing.JFrame {
                 } else {
                     pddao.adicionar(1);
                 }
+
+                JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        int resp3 = JOptionPane.showOptionDialog(null, "Adicionar à contagem de troca de chip?", "Máscara", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+        if (resp3 == JOptionPane.YES_OPTION) {
+
+            try {
+
+                planosdiaDAO pddao = new planosdiaDAO();
+                pddao.zerar();
+                pddao.adicionar(3);
 
                 JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
@@ -16947,11 +16999,13 @@ public final class main extends javax.swing.JFrame {
 
             String con = String.valueOf(pdDAO.buscar(1));
             String pos = String.valueOf(pdDAO.buscar(2));
+            String troca = String.valueOf(pdDAO.buscar(3));
 
             txtAreMas.setText(
-                    "*PARCIAL DO DIA* " + data + "\n\n"
+                    "*PARCIAL DO DIA " + data + "*\n\n"
                     + "Plano Controle: " + con
                     + "\nPlano Black: " + pos
+                    + "\nTroca de chip: " + troca
             );
 
             txtAreMas.setCaretPosition(0);
@@ -16962,6 +17016,72 @@ public final class main extends javax.swing.JFrame {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnParMasActionPerformed
+
+    private void btnConMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConMasActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Escolha um arquivo PDF");
+
+        // Definindo o diretório de Downloads
+        String userHome = System.getProperty("user.home");
+        File downloadsFolder = new File(userHome, "Downloads");
+        fileChooser.setCurrentDirectory(downloadsFolder);
+
+        fileChooser.setFileFilter(new FileNameExtensionFilter("PDF Files", "pdf"));
+
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
+
+                PDDocument document = Loader.loadPDF(selectedFile);
+
+                PDFRenderer pdfRenderer = new PDFRenderer(document);
+                BufferedImage image = pdfRenderer.renderImageWithDPI(0, 300); // Renderiza a primeira página com 300 DPI
+
+                // Copia a imagem para a área de transferência
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                ImageTransferable transferable = new ImageTransferable(image);
+                clipboard.setContents(transferable, null);
+
+                document.close();
+                JOptionPane.showMessageDialog(this, "Contrato copiado!", "Máscara", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Erro ao abrir o PDF: " + ex.getMessage());
+            }
+        }
+    }
+
+// Classe auxiliar para transferir a imagem para a área de transferência
+    class ImageTransferable implements Transferable {
+
+        private final BufferedImage image;
+
+        public ImageTransferable(BufferedImage image) {
+            this.image = image;
+        }
+
+        @Override
+        public DataFlavor[] getTransferDataFlavors() {
+            return new DataFlavor[]{DataFlavor.imageFlavor};
+        }
+
+        @Override
+        public boolean isDataFlavorSupported(DataFlavor flavor) {
+            return DataFlavor.imageFlavor.equals(flavor);
+        }
+
+        @Override
+        public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
+            if (!isDataFlavorSupported(flavor)) {
+                throw new UnsupportedFlavorException(flavor);
+            }
+            return image;
+        }
+
+
+    }//GEN-LAST:event_btnConMasActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -17003,6 +17123,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnCanTipSer;
     private javax.swing.JLabel btnConEnt;
     private javax.swing.JLabel btnConEst;
+    private javax.swing.JButton btnConMas;
     private javax.swing.JButton btnCopAVen;
     private javax.swing.JLabel btnCopMas;
     private javax.swing.JButton btnCopVen;
