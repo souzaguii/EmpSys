@@ -10313,15 +10313,18 @@ public final class main extends javax.swing.JFrame {
                         }
 
                         //INSERIR CONTADOR DE TROCAS 
-                        itens selectedItem = (itens) cmbVezCar.getSelectedItem();
+                        if (cmbVezCar.isEnabled()) {
+                            itens selectedItem = (itens) cmbVezCar.getSelectedItem();
 
-                        String textoSelecionado = selectedItem.getDescricao();
+                            String textoSelecionado = selectedItem.getDescricao();
 
-                        if (textoSelecionado.equals("Troca de Chip") || textoSelecionado.equals("Ativação eSIM")) {
+                            if (textoSelecionado.equals("Troca de Chip") || textoSelecionado.equals("Ativação eSIM")) {
 
-                            planosdiaDAO pddao = new planosdiaDAO();
-                            pddao.zerar();
-                            pddao.adicionar(3);
+                                planosdiaDAO pddao = new planosdiaDAO();
+                                pddao.zerar();
+                                pddao.adicionar(3);
+
+                            }
 
                         }
 
@@ -11835,7 +11838,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         }
-        
+
         if (rbtnMigTroMas.isSelected()) {
 
             int resp3 = JOptionPane.showOptionDialog(null, "Adicionar à contagem de troca de chip?", "Máscara", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
