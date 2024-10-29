@@ -6926,7 +6926,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnConMas);
-        btnConMas.setBounds(90, 280, 100, 40);
+        btnConMas.setBounds(90, 250, 100, 40);
 
         btnVenMas.setFont(fontmed(12));
         btnVenMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6938,7 +6938,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnVenMas);
-        btnVenMas.setBounds(200, 230, 100, 40);
+        btnVenMas.setBounds(200, 200, 100, 40);
 
         btnGerMas.setFont(fontmed(12));
         btnGerMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6950,7 +6950,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnGerMas);
-        btnGerMas.setBounds(90, 230, 100, 40);
+        btnGerMas.setBounds(90, 200, 100, 40);
 
         btnCanMas.setFont(fontmed(12));
         btnCanMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6962,7 +6962,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnCanMas);
-        btnCanMas.setBounds(90, 330, 100, 40);
+        btnCanMas.setBounds(90, 300, 100, 40);
 
         btnParMas.setFont(fontmed(12));
         btnParMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6974,7 +6974,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnParMas);
-        btnParMas.setBounds(200, 280, 100, 40);
+        btnParMas.setBounds(200, 250, 100, 40);
 
         btnCopMas.setFont(fontbold(11));
         btnCopMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -11835,25 +11835,28 @@ public final class main extends javax.swing.JFrame {
             }
 
         }
+        
+        if (rbtnMigTroMas.isSelected()) {
 
-        int resp3 = JOptionPane.showOptionDialog(null, "Adicionar à contagem de troca de chip?", "Máscara", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            int resp3 = JOptionPane.showOptionDialog(null, "Adicionar à contagem de troca de chip?", "Máscara", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-        if (resp3 == JOptionPane.YES_OPTION) {
+            if (resp3 == JOptionPane.YES_OPTION) {
 
-            try {
+                try {
 
-                planosdiaDAO pddao = new planosdiaDAO();
-                pddao.zerar();
-                pddao.adicionar(3);
+                    planosdiaDAO pddao = new planosdiaDAO();
+                    pddao.zerar();
+                    pddao.adicionar(3);
 
-                JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
-            } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
 
         }
-
         int resp1 = JOptionPane.showOptionDialog(null, "Atualizar estoque de chip?", "Máscara", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
         if (resp1 == JOptionPane.YES_OPTION) {
