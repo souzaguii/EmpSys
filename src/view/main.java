@@ -9557,8 +9557,7 @@ public final class main extends javax.swing.JFrame {
 
                 ts.setDescricao(txtDesGerTipSer.getText());
                 ts.setIdtiposervico(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
-                System.out.print(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
-                if (rbtnTimGerTipSer.isSelected()) {
+                   if (rbtnTimGerTipSer.isSelected()) {
                     ts.setArea("1");
                 } else if (rbtnAssGerTipSer.isSelected()) {
                     ts.setArea("2");
@@ -9808,11 +9807,9 @@ public final class main extends javax.swing.JFrame {
 
                             for (int i = 0; i < rows; i++) {
 
-                                if (!txtMod1GerEst.getText().equals(txtModGerEst.getText())) {
-                                    System.out.print("1");
+                                if (!txtMod1GerEst.getText().equals(txtModGerEst.getText())) {                     
                                     es.setModelo(txtModGerEst.getText());
-                                } else {
-                                    System.out.print("2");
+                                } else {                                 
                                     es.setModelo(null);
                                 }
 
@@ -17361,7 +17358,6 @@ public final class main extends javax.swing.JFrame {
 
                 if (resp2 == JOptionPane.YES_OPTION) {
                     inputStream = getClass().getClassLoader().getResourceAsStream("os/OSEmpSysView1.jasper");
-                    System.out.print("wdwd");
                 }
 
                 JasperPrint print = JasperFillManager.fillReport(inputStream, parameters, new JREmptyDataSource(1));
