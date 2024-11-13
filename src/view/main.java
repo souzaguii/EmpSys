@@ -5549,8 +5549,10 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(rbtnAceGerEst);
         rbtnAceGerEst.setBounds(420, 30, 100, 21);
 
+        txtPre1GerEst.setEditable(false);
         txtPre1GerEst.setFont(fontmed(13));
         txtPre1GerEst.setBorder(null);
+        txtPre1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtPre1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtPre1GerEstFocusGained(evt);
@@ -5562,8 +5564,10 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(txtPre1GerEst);
         txtPre1GerEst.setBounds(880, 20, 50, 20);
 
+        txtQua1GerEst.setEditable(false);
         txtQua1GerEst.setFont(fontmed(13));
         txtQua1GerEst.setBorder(null);
+        txtQua1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtQua1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtQua1GerEstFocusGained(evt);
@@ -5575,8 +5579,10 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(txtQua1GerEst);
         txtQua1GerEst.setBounds(810, 20, 50, 20);
 
+        txtMod1GerEst.setEditable(false);
         txtMod1GerEst.setFont(fontmed(13));
         txtMod1GerEst.setBorder(null);
+        txtMod1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtMod1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMod1GerEstFocusGained(evt);
@@ -5588,8 +5594,10 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(txtMod1GerEst);
         txtMod1GerEst.setBounds(740, 20, 50, 20);
 
+        txtMar1GerEst.setEditable(false);
         txtMar1GerEst.setFont(fontmed(13));
         txtMar1GerEst.setBorder(null);
+        txtMar1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtMar1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMar1GerEstFocusGained(evt);
@@ -5601,8 +5609,10 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(txtMar1GerEst);
         txtMar1GerEst.setBounds(670, 20, 50, 20);
 
+        txtDet1GerEst.setEditable(false);
         txtDet1GerEst.setFont(fontmed(13));
         txtDet1GerEst.setBorder(null);
+        txtDet1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtDet1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDet1GerEstFocusGained(evt);
@@ -5614,8 +5624,10 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(txtDet1GerEst);
         txtDet1GerEst.setBounds(1160, 20, 50, 20);
 
+        txtLoc1GerEst.setEditable(false);
         txtLoc1GerEst.setFont(fontmed(13));
         txtLoc1GerEst.setBorder(null);
+        txtLoc1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtLoc1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtLoc1GerEstFocusGained(evt);
@@ -5627,8 +5639,10 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(txtLoc1GerEst);
         txtLoc1GerEst.setBounds(1090, 20, 50, 20);
 
+        txtMat1GerEst.setEditable(false);
         txtMat1GerEst.setFont(fontmed(13));
         txtMat1GerEst.setBorder(null);
+        txtMat1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtMat1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMat1GerEstFocusGained(evt);
@@ -5640,8 +5654,10 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(txtMat1GerEst);
         txtMat1GerEst.setBounds(1020, 20, 50, 20);
 
+        txtCor1GerEst.setEditable(false);
         txtCor1GerEst.setFont(fontmed(13));
         txtCor1GerEst.setBorder(null);
+        txtCor1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtCor1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCor1GerEstFocusGained(evt);
@@ -5653,8 +5669,10 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(txtCor1GerEst);
         txtCor1GerEst.setBounds(950, 20, 50, 20);
 
+        txtChip1GerEst.setEditable(false);
         txtChip1GerEst.setFont(fontmed(13));
         txtChip1GerEst.setBorder(null);
+        txtChip1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtChip1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtChip1GerEstFocusGained(evt);
@@ -9323,6 +9341,16 @@ public final class main extends javax.swing.JFrame {
             chkAltGerEst.setVisible(false);
             chkAltGerEst.setSelected(false);
 
+            txtMar1GerEst.setVisible(false);
+            txtMod1GerEst.setVisible(false);
+            txtPre1GerEst.setVisible(false);
+            txtQua1GerEst.setVisible(false);
+            txtLoc1GerEst.setVisible(false);
+            txtDet1GerEst.setVisible(false);
+            txtCor1GerEst.setVisible(false);
+            txtChip1GerEst.setVisible(false);
+            txtMat1GerEst.setVisible(false);
+
             txtMarGerEst.setText(null);
             txtModGerEst.setText(null);
             txtQuaGerEst.setText(null);
@@ -9557,7 +9585,7 @@ public final class main extends javax.swing.JFrame {
 
                 ts.setDescricao(txtDesGerTipSer.getText());
                 ts.setIdtiposervico(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
-                   if (rbtnTimGerTipSer.isSelected()) {
+                if (rbtnTimGerTipSer.isSelected()) {
                     ts.setArea("1");
                 } else if (rbtnAssGerTipSer.isSelected()) {
                     ts.setArea("2");
@@ -9807,9 +9835,9 @@ public final class main extends javax.swing.JFrame {
 
                             for (int i = 0; i < rows; i++) {
 
-                                if (!txtMod1GerEst.getText().equals(txtModGerEst.getText())) {                     
+                                if (!txtMod1GerEst.getText().equals(txtModGerEst.getText())) {
                                     es.setModelo(txtModGerEst.getText());
-                                } else {                                 
+                                } else {
                                     es.setModelo(null);
                                 }
 
