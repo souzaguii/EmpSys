@@ -11,7 +11,9 @@ public class estoque {
     public String detalhes;
     public String localizacao;
     public Double preco;
-    public int quantidade;
+    public Integer quantidade;
+     public String precov;
+    public String quantidadev;
     public String tipochip;
 
     public int getId() {
@@ -86,12 +88,28 @@ public class estoque {
         this.preco = preco;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public String getPrecov() {
+        return precov;
+    }
+
+    public void setPrecov(String precov) {
+        this.precov = precov;
+    }
+
+    public String getQuantidadev() {
+        return quantidadev;
+    }
+
+    public void setQuantidadev(String quantidadev) {
+        this.quantidadev = quantidadev;
     }
 
     public String getTipochip() {
@@ -101,5 +119,6 @@ public class estoque {
     public void setTipochip(String tipochip) {
         this.tipochip = tipochip;
     }
-    
+
+
 }

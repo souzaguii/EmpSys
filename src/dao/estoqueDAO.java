@@ -57,6 +57,77 @@ public class estoqueDAO {
 
     }
     
+   public void alterarvarios(estoque es) throws SQLException {
+    // Criando a base da query SQL
+    StringBuilder SQL = new StringBuilder("UPDATE estoque SET ");
+
+    // Lista para os parâmetros da query
+    List<Object> params = new ArrayList<>();
+
+    // Verifica se o campo foi modificado e adiciona à query
+    if (es.getModelo() != null) {
+        SQL.append("modeloEst = ?, ");
+        params.add(es.getModelo());
+    }
+    if (es.getMarca() != null) {
+        SQL.append("marcaEst = ?, ");
+        params.add(es.getMarca());
+    }
+    if (es.getCor() != null) {
+        SQL.append("corEst = ?, ");
+        params.add(es.getCor());
+    }
+    if (es.getMaterial() != null) {
+        SQL.append("materialEst = ?, ");
+        params.add(es.getMaterial());
+    }
+    if (es.getDetalhes() != null) {
+        SQL.append("detalhesEst = ?, ");
+        params.add(es.getDetalhes());
+    }
+    if (es.getLocalizacao() != null) {
+        SQL.append("localizacaoEst = ?, ");
+        params.add(es.getLocalizacao());
+    }
+    if (es.getPreco() != null) {
+        SQL.append("precoEst = ?, ");
+        params.add(es.getPreco());
+    }
+    if (es.getQuantidade() != null) {
+        SQL.append("quantidadeEst = ?, ");
+        params.add(es.getQuantidade());
+    }
+    if (es.getTipochip() != null) {
+        SQL.append("tipochipEst = ?, ");
+        params.add(es.getTipochip());
+    }
+
+    // Remover a última vírgula e espaço da query
+    SQL.delete(SQL.length() - 2, SQL.length());
+
+    // Adiciona a cláusula WHERE para garantir que o registro correto será atualizado
+    SQL.append(" WHERE idEst = ?");
+
+    // Preparar a query final
+    PreparedStatement stmt = connection.Connect().prepareStatement(SQL.toString());
+
+    // Adiciona o id do produto
+    params.add(es.getId());
+
+    // Define os parâmetros na query
+    for (int i = 0; i < params.size(); i++) {
+        stmt.setObject(i + 1, params.get(i)); // Adiciona o valor do parâmetro
+    }
+
+    // Executa a query
+    stmt.executeUpdate();
+
+    // Fecha a statement e a conexão
+    stmt.close();
+    connection.Close();
+}
+
+    
      public void excluir(estoque es) throws SQLException {
 
         String SQL = "UPDATE estoque SET quantidadeEst = 0 WHERE idEst = ?";
