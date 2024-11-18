@@ -79,8 +79,6 @@ import java.awt.datatransfer.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.TableModel;
 import org.apache.pdfbox.Loader;
 
 public final class main extends javax.swing.JFrame {
@@ -90,59 +88,6 @@ public final class main extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         loading();
-
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-
-                try {
-                    if (connection.connection != null) {
-                        entrada en = new entrada();
-                        entradaDAO endao = new entradaDAO();
-
-                        if (tblSelIteCadEnt.getRowCount() != 0) {
-
-                            for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
-
-                                en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
-                                en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
-
-                                endao.atualizarestoque(en, 1);
-
-                            }
-                        }
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                try {
-                    if (connection.connection != null) {
-                        entrada en = new entrada();
-                        entradaDAO endao = new entradaDAO();
-
-                        if (tblSelIteCadEnt.getRowCount() != 0) {
-
-                            for (int i = 0; i <= tblSelIteCadEnt.getRowCount(); i++) {
-
-                                en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i, 0).toString()));
-                                en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i, 1).toString()));
-
-                                endao.atualizarestoque(en, 1);
-
-                            }
-                        }
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-        });
-
     }
 
     public void loading() {
@@ -2535,6 +2480,75 @@ public final class main extends javax.swing.JFrame {
     }
 
     @SuppressWarnings({"unchecked"})
+
+    public void copiarcontrato() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Escolha um arquivo PDF");
+
+        // Definindo o diretório de Downloads
+        String userHome = System.getProperty("user.home");
+        File downloadsFolder = new File(userHome, "Downloads");
+        fileChooser.setCurrentDirectory(downloadsFolder);
+
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("PDF Files", "pdf"));
+
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            try (PDDocument document = Loader.loadPDF(selectedFile)) {
+                // Cria o renderizador para o PDF
+                PDFRenderer pdfRenderer = new PDFRenderer(document);
+
+                // Renderiza a primeira página do PDF com DPI 150 (ajustável)
+                BufferedImage image = pdfRenderer.renderImageWithDPI(0, 150); // Usando 150 DPI para reduzir o uso de memória
+
+                // Copia a imagem para a área de transferência
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                ImageTransferable transferable = new ImageTransferable(image);
+                clipboard.setContents(transferable, null);
+
+                // Libera recursos da imagem
+                image.flush();
+
+                // Exibe a mensagem de sucesso
+                JOptionPane.showMessageDialog(null, "Contrato copiado!", "Máscara", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Erro ao abrir o PDF: " + ex.getMessage());
+            }
+        }
+    }
+
+    // Classe auxiliar para transferir a imagem para a área de transferência
+    static class ImageTransferable implements Transferable {
+
+        private final BufferedImage image;
+
+        public ImageTransferable(BufferedImage image) {
+            this.image = image;
+        }
+
+        @Override
+        public DataFlavor[] getTransferDataFlavors() {
+            return new DataFlavor[]{DataFlavor.imageFlavor};
+        }
+
+        @Override
+        public boolean isDataFlavorSupported(DataFlavor flavor) {
+            return DataFlavor.imageFlavor.equals(flavor);
+        }
+
+        @Override
+        public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
+            if (!isDataFlavorSupported(flavor)) {
+                throw new UnsupportedFlavorException(flavor);
+            }
+            return image;
+        }
+    }
 
     public void comboboxentrada(JComboBox cmb, int op) {
 
@@ -17665,69 +17679,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnParMasActionPerformed
 
     private void btnConMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConMasActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Escolha um arquivo PDF");
-
-        // Definindo o diretório de Downloads
-        String userHome = System.getProperty("user.home");
-        File downloadsFolder = new File(userHome, "Downloads");
-        fileChooser.setCurrentDirectory(downloadsFolder);
-
-        fileChooser.setFileFilter(new FileNameExtensionFilter("PDF Files", "pdf"));
-
-        int result = fileChooser.showOpenDialog(this);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            try {
-
-                PDDocument document = Loader.loadPDF(selectedFile);
-
-                PDFRenderer pdfRenderer = new PDFRenderer(document);
-                BufferedImage image = pdfRenderer.renderImageWithDPI(0, 300); // Renderiza a primeira página com 300 DPI
-
-                // Copia a imagem para a área de transferência
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                ImageTransferable transferable = new ImageTransferable(image);
-                clipboard.setContents(transferable, null);
-
-                document.close();
-                JOptionPane.showMessageDialog(this, "Contrato copiado!", "Máscara", JOptionPane.INFORMATION_MESSAGE);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Erro ao abrir o PDF: " + ex.getMessage());
-            }
-        }
-    }
-
-// Classe auxiliar para transferir a imagem para a área de transferência
-    class ImageTransferable implements Transferable {
-
-        private final BufferedImage image;
-
-        public ImageTransferable(BufferedImage image) {
-            this.image = image;
-        }
-
-        @Override
-        public DataFlavor[] getTransferDataFlavors() {
-            return new DataFlavor[]{DataFlavor.imageFlavor};
-        }
-
-        @Override
-        public boolean isDataFlavorSupported(DataFlavor flavor) {
-            return DataFlavor.imageFlavor.equals(flavor);
-        }
-
-        @Override
-        public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
-            if (!isDataFlavorSupported(flavor)) {
-                throw new UnsupportedFlavorException(flavor);
-            }
-            return image;
-        }
-
-
+        copiarcontrato();
     }//GEN-LAST:event_btnConMasActionPerformed
 
     private void tblVarCorCadEstMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVarCorCadEstMouseClicked
