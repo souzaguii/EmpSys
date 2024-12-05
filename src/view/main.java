@@ -2671,6 +2671,7 @@ public final class main extends javax.swing.JFrame {
         btnGroup2 = new javax.swing.ButtonGroup();
         btnGroup3 = new javax.swing.ButtonGroup();
         btnGroup4 = new javax.swing.ButtonGroup();
+        btnGroup5 = new javax.swing.ButtonGroup();
         pnlPri = new javax.swing.JPanel();
         btnRecBan = new javax.swing.JLabel();
         imgLogo = new javax.swing.JLabel();
@@ -2709,6 +2710,8 @@ public final class main extends javax.swing.JFrame {
         rbtnSerCadEnt = new javax.swing.JRadioButton();
         rbtnVenCadEnt = new javax.swing.JRadioButton();
         rbtnAssCadEnt = new javax.swing.JRadioButton();
+        rbtnTroPreCadEnt = new javax.swing.JRadioButton();
+        rbtnTroPlaCadEnt = new javax.swing.JRadioButton();
         lblDatCadEnt = new javax.swing.JLabel();
         txtDatCadEnt = new javax.swing.JTextField();
         sepDatCadEnt = new javax.swing.JSeparator();
@@ -3792,6 +3795,34 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(rbtnAssCadEnt);
         rbtnAssCadEnt.setBounds(690, 0, 100, 21);
 
+        btnGroup5.add(rbtnTroPreCadEnt);
+        rbtnTroPreCadEnt.setFont(fontmed(12));
+        rbtnTroPreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnTroPreCadEnt.setText("Troca Pré");
+        rbtnTroPreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnTroPreCadEnt.setEnabled(false);
+        rbtnTroPreCadEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTroPreCadEntActionPerformed(evt);
+            }
+        });
+        pnlCadEnt.add(rbtnTroPreCadEnt);
+        rbtnTroPreCadEnt.setBounds(630, 280, 90, 21);
+
+        btnGroup5.add(rbtnTroPlaCadEnt);
+        rbtnTroPlaCadEnt.setFont(fontmed(12));
+        rbtnTroPlaCadEnt.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnTroPlaCadEnt.setText("Troca Plano");
+        rbtnTroPlaCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnTroPlaCadEnt.setEnabled(false);
+        rbtnTroPlaCadEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTroPlaCadEntActionPerformed(evt);
+            }
+        });
+        pnlCadEnt.add(rbtnTroPlaCadEnt);
+        rbtnTroPlaCadEnt.setBounds(630, 310, 110, 21);
+
         lblDatCadEnt.setFont(fontmed(12));
         lblDatCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDatCadEnt.setText("Data");
@@ -3862,6 +3893,14 @@ public final class main extends javax.swing.JFrame {
         cmbVezCar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
         cmbVezCar.setToolTipText("");
         cmbVezCar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbVezCar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbVezCarMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cmbVezCarMouseReleased(evt);
+            }
+        });
         cmbVezCar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbVezCarActionPerformed(evt);
@@ -10940,7 +10979,12 @@ public final class main extends javax.swing.JFrame {
 
                                 planosdiaDAO pddao = new planosdiaDAO();
                                 pddao.zerar();
-                                pddao.adicionar(3);
+
+                                if (rbtnTroPreCadEnt.isSelected()) {
+                                    pddao.adicionar(3);
+                                } else {
+                                    pddao.adicionar(4);
+                                }
 
                             }
 
@@ -15275,7 +15319,27 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnDebCadEntActionPerformed
 
     private void cmbVezCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVezCarActionPerformed
+        if (cmbVezCar.getSelectedIndex() != 0 && cmbVezCar.isEnabled() && cmbVezCar.getSelectedItem() != null) {
 
+            itens selectedItem = (itens) cmbVezCar.getSelectedItem();
+            String textoSelecionado = selectedItem.getDescricao();
+
+            if (textoSelecionado.equals("Troca de Chip")
+                    || textoSelecionado.equals("Ativação eSIM")) {
+
+                rbtnTroPreCadEnt.setEnabled(true);
+                rbtnTroPlaCadEnt.setEnabled(true);
+
+                rbtnTroPreCadEnt.setSelected(true);
+
+            } else {
+                rbtnTroPreCadEnt.setEnabled(false);
+                rbtnTroPlaCadEnt.setEnabled(false);
+
+                btnGroup5.clearSelection();
+
+            }
+        }
     }//GEN-LAST:event_cmbVezCarActionPerformed
 
     private void spnParCadEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParCadEntKeyTyped
@@ -17660,13 +17724,16 @@ public final class main extends javax.swing.JFrame {
 
             String con = String.valueOf(pdDAO.buscar(1));
             String pos = String.valueOf(pdDAO.buscar(2));
-            String troca = String.valueOf(pdDAO.buscar(3));
+            String trocapre = String.valueOf(pdDAO.buscar(3));
+            String trocapla = String.valueOf(pdDAO.buscar(4));
 
             txtAreMas.setText(
                     "*PARCIAL DO DIA " + data + "*\n\n"
                     + "Plano Controle: " + con
                     + "\nPlano Black: " + pos
-                    + "\nTroca de chip: " + troca
+                    + "\n*Troca de Chip*"
+                    + "\nPré-pago: " + trocapre
+                    + "\nPlano: " + trocapla
             );
 
             txtAreMas.setCaretPosition(0);
@@ -17824,6 +17891,22 @@ public final class main extends javax.swing.JFrame {
     private void txtCor1GerEstFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCor1GerEstFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCor1GerEstFocusLost
+
+    private void rbtnTroPlaCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTroPlaCadEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnTroPlaCadEntActionPerformed
+
+    private void rbtnTroPreCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTroPreCadEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnTroPreCadEntActionPerformed
+
+    private void cmbVezCarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbVezCarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbVezCarMouseClicked
+
+    private void cmbVezCarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbVezCarMouseReleased
+
+    }//GEN-LAST:event_cmbVezCarMouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -17893,6 +17976,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroup2;
     private javax.swing.ButtonGroup btnGroup3;
     private javax.swing.ButtonGroup btnGroup4;
+    private javax.swing.ButtonGroup btnGroup5;
     private javax.swing.JButton btnIteCadEnt;
     private javax.swing.JButton btnIteGerEnt;
     private javax.swing.JLabel btnJurPri;
@@ -18137,6 +18221,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnSerTimTipSer;
     private javax.swing.JRadioButton rbtnTimGerTipSer;
     private javax.swing.JRadioButton rbtnTodRel;
+    private javax.swing.JRadioButton rbtnTroPlaCadEnt;
+    private javax.swing.JRadioButton rbtnTroPreCadEnt;
     private javax.swing.JRadioButton rbtnVenCadEnt;
     private javax.swing.JRadioButton rbtnVenRel;
     private javax.swing.JRadioButton rbtnVenRel1;

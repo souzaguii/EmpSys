@@ -39,50 +39,43 @@
 	<title>
 		<band height="108" splitType="Stretch">
 			<image vAlign="Middle">
-				<reportElement x="13" y="3" width="109" height="70" uuid="d69890af-85a4-411b-8339-ecf62791a32b">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<reportElement x="415" y="5" width="109" height="70" uuid="d69890af-85a4-411b-8339-ecf62791a32b">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA[$P{LogoLoja}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="170" y="12" width="220" height="33" uuid="3632bfe5-0f0f-45c2-a730-c5a17014b4d9">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<reportElement x="20" y="12" width="290" height="33" uuid="3632bfe5-0f0f-45c2-a730-c5a17014b4d9">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Left">
 					<font fontName="Poppins ExtraBold" size="15"/>
 				</textElement>
-				<text><![CDATA[Empório Cell - TIM]]></text>
+				<text><![CDATA[Empório Cell - Assistência Técnica]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="34" width="220" height="18" uuid="9314c364-417e-471b-bc58-7e011ff15600">
+				<reportElement x="20" y="34" width="220" height="18" uuid="9314c364-417e-471b-bc58-7e011ff15600">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Left">
 					<font fontName="Poppins Medium" size="10"/>
 				</textElement>
 				<text><![CDATA[Rua Bias Fortes, 485 | Centro | Frutal - MG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="49" width="220" height="18" uuid="70abaa3d-c2b6-4d1f-a5cc-370e33cf788a">
+				<reportElement x="20" y="49" width="220" height="18" uuid="70abaa3d-c2b6-4d1f-a5cc-370e33cf788a">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Left">
 					<font fontName="Poppins Medium"/>
 				</textElement>
-				<text><![CDATA[(34) 99298-4848 | (34) 99192-9394]]></text>
+				<text><![CDATA[(34) 99192-9394]]></text>
 			</staticText>
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="440" y="14" width="100" height="50" uuid="c6765c6b-4c19-4f67-bf5b-7049a24f33fe">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<imageExpression><![CDATA[$P{LogoTimold}]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="78" width="555" height="30" forecolor="#030303" backcolor="#E8E8E8" uuid="b80d19fc-0606-4f6b-962a-f2f2426a6406">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
