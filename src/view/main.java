@@ -11416,6 +11416,7 @@ public final class main extends javax.swing.JFrame {
             btnGroup1.clearSelection();
             btnGroup2.clearSelection();
             btnGroup3.clearSelection();
+            btnGroup5.clearSelection();
 
             spnParCadEnt.setVisible(false);
             lblParCadEnt.setVisible(false);
@@ -11434,6 +11435,9 @@ public final class main extends javax.swing.JFrame {
             rbtnDinCadEnt.setEnabled(false);
             rbtnCarCadEnt.setEnabled(false);
             rbtnPixCadEnt.setEnabled(false);
+            
+            rbtnTroPreCadEnt.setEnabled(false);
+            rbtnTroPlaCadEnt.setEnabled(false);
 
             lblEstIteCadEnt.setForeground(new Color(246, 246, 246));
             lblSelIteCadEnt.setForeground(new Color(246, 246, 246));
