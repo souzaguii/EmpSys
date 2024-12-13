@@ -10837,172 +10837,178 @@ public final class main extends javax.swing.JFrame {
 
             if (!(rbtnVenCadEnt.isSelected() && tblSelIteCadEnt.getRowCount() == 0)) {
 
-                if (!(cmbVezCar.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
+                if (!(rbtnTroPreCadEnt.isEnabled() && !rbtnTroPreCadEnt.isSelected()) || !(rbtnTroPlaCadEnt.isEnabled() && !rbtnTroPlaCadEnt.isSelected())) {
 
-                    try {
+                    if (!(cmbVezCar.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
 
-                        int idser = 0;
-                        int idpagamento = 1;
-                        double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
+                        try {
 
-                        if (rbtnCarCadEnt.isSelected()) {
+                            int idser = 0;
+                            int idpagamento = 1;
+                            double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
 
-                            if (rbtnDebCadEnt.isSelected()) {
+                            if (rbtnCarCadEnt.isSelected()) {
 
-                                preco = preco - (preco * juros(0) / 100);
+                                if (rbtnDebCadEnt.isSelected()) {
 
-                            } else if (rbtnCreCadEnt.isSelected()) {
+                                    preco = preco - (preco * juros(0) / 100);
 
-                                switch ((int) spnParCadEnt.getValue()) {
-                                    case 1:
-                                        preco = preco - (preco * juros(1) / 100);
-                                        break;
-                                    case 2:
-                                        preco = preco - (preco * juros(2) / 100);
-                                        break;
-                                    case 3:
-                                        preco = preco - (preco * juros(3) / 100);
-                                        break;
-                                    case 4:
-                                        preco = preco - (preco * juros(4) / 100);
-                                        break;
-                                    case 5:
-                                        preco = preco - (preco * juros(5) / 100);
-                                        break;
-                                    case 6:
-                                        preco = preco - (preco * juros(6) / 100);
-                                        break;
-                                    case 7:
-                                        preco = preco - (preco * juros(7) / 100);
-                                        break;
-                                    case 8:
-                                        preco = preco - (preco * juros(8) / 100);
-                                        break;
-                                    case 9:
-                                        preco = preco - (preco * juros(9) / 100);
-                                        break;
-                                    case 10:
-                                        preco = preco - (preco * juros(10) / 100);
-                                        break;
-                                    case 11:
-                                        preco = preco - (preco * juros(11) / 100);
-                                        break;
-                                    case 12:
-                                        preco = preco - (preco * juros(12) / 100);
-                                        break;
-                                    default:
-                                        break;
+                                } else if (rbtnCreCadEnt.isSelected()) {
+
+                                    switch ((int) spnParCadEnt.getValue()) {
+                                        case 1:
+                                            preco = preco - (preco * juros(1) / 100);
+                                            break;
+                                        case 2:
+                                            preco = preco - (preco * juros(2) / 100);
+                                            break;
+                                        case 3:
+                                            preco = preco - (preco * juros(3) / 100);
+                                            break;
+                                        case 4:
+                                            preco = preco - (preco * juros(4) / 100);
+                                            break;
+                                        case 5:
+                                            preco = preco - (preco * juros(5) / 100);
+                                            break;
+                                        case 6:
+                                            preco = preco - (preco * juros(6) / 100);
+                                            break;
+                                        case 7:
+                                            preco = preco - (preco * juros(7) / 100);
+                                            break;
+                                        case 8:
+                                            preco = preco - (preco * juros(8) / 100);
+                                            break;
+                                        case 9:
+                                            preco = preco - (preco * juros(9) / 100);
+                                            break;
+                                        case 10:
+                                            preco = preco - (preco * juros(10) / 100);
+                                            break;
+                                        case 11:
+                                            preco = preco - (preco * juros(11) / 100);
+                                            break;
+                                        case 12:
+                                            preco = preco - (preco * juros(12) / 100);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
                                 }
 
                             }
 
-                        }
+                            if (rbtnCarCadEnt.isSelected()) {
+                                idpagamento = 2;
+                            } else if (rbtnPixCadEnt.isSelected()) {
+                                idpagamento = 3;
+                            }
 
-                        if (rbtnCarCadEnt.isSelected()) {
-                            idpagamento = 2;
-                        } else if (rbtnPixCadEnt.isSelected()) {
-                            idpagamento = 3;
-                        }
+                            if (cmbVezCar.getSelectedIndex() != 0) {
+                                itens selectedItem = (itens) cmbVezCar.getSelectedItem();
+                                idser = selectedItem.getId();
+                            }
 
-                        if (cmbVezCar.getSelectedIndex() != 0) {
-                            itens selectedItem = (itens) cmbVezCar.getSelectedItem();
-                            idser = selectedItem.getId();
-                        }
+                            if (tblSelIteCadEnt.getRowCount() != 0) {
 
-                        if (tblSelIteCadEnt.getRowCount() != 0) {
+                                for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
 
-                            for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
+                                    entrada en = new entrada();
+                                    entradaDAO endao = new entradaDAO();
+
+                                    en.setCodigo(txtCodCadEnt.getText());
+                                    en.setData(formatterbanco.format(((formatter.parse(txtDatCadEnt.getText())))));
+                                    en.setPreco(preco);
+                                    en.setDetalhes(txtDetCadEnt.getText());
+                                    en.setFormapagamento(idpagamento);
+
+                                    if (rbtnSerCadEnt.isSelected()) {
+
+                                        en.setIdtiposervico(idser);
+                                        en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
+                                        en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+
+                                        endao.inserir(en, 1);
+
+                                    } else if (rbtnVenCadEnt.isSelected()) {
+
+                                        en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
+                                        en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+
+                                        endao.inserir(en, 2);
+                                    }
+
+                                }
+
+                            } else {
 
                                 entrada en = new entrada();
                                 entradaDAO endao = new entradaDAO();
 
                                 en.setCodigo(txtCodCadEnt.getText());
-                                en.setData(formatterbanco.format(((formatter.parse(txtDatCadEnt.getText())))));
+                                en.setData(formatterbanco.format((formatter.parse(txtDatCadEnt.getText()))));
                                 en.setPreco(preco);
                                 en.setDetalhes(txtDetCadEnt.getText());
+                                en.setIdtiposervico(idser);
+                                en.setIdestoque(1);
                                 en.setFormapagamento(idpagamento);
 
                                 if (rbtnSerCadEnt.isSelected()) {
 
-                                    en.setIdtiposervico(idser);
-                                    en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
-                                    en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
-
                                     endao.inserir(en, 1);
 
-                                } else if (rbtnVenCadEnt.isSelected()) {
+                                } else if (rbtnAssCadEnt.isSelected()) {
 
-                                    en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
-                                    en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+                                    en.setCliente(txtCliCadEnt.getText());
+                                    en.setCusto((!txtCusCadEnt.getText().isEmpty()) ? Double.valueOf(txtCusCadEnt.getText().replace(".", "").replace(",", ".")) : null);
+                                    en.setFornecedor(txtForCadEnt.getText());
 
-                                    endao.inserir(en, 2);
+                                    endao.inserir(en, 3);
+
                                 }
 
                             }
 
-                        } else {
+                            //INSERIR CONTADOR DE TROCAS 
+                            if (cmbVezCar.isEnabled()) {
+                                itens selectedItem = (itens) cmbVezCar.getSelectedItem();
 
-                            entrada en = new entrada();
-                            entradaDAO endao = new entradaDAO();
+                                String textoSelecionado = selectedItem.getDescricao();
 
-                            en.setCodigo(txtCodCadEnt.getText());
-                            en.setData(formatterbanco.format((formatter.parse(txtDatCadEnt.getText()))));
-                            en.setPreco(preco);
-                            en.setDetalhes(txtDetCadEnt.getText());
-                            en.setIdtiposervico(idser);
-                            en.setIdestoque(1);
-                            en.setFormapagamento(idpagamento);
+                                if (textoSelecionado.equals("Troca de Chip") || textoSelecionado.equals("Ativação eSIM")) {
 
-                            if (rbtnSerCadEnt.isSelected()) {
+                                    planosdiaDAO pddao = new planosdiaDAO();
+                                    pddao.zerar();
 
-                                endao.inserir(en, 1);
+                                    if (rbtnTroPreCadEnt.isSelected()) {
+                                        pddao.adicionar(3);
+                                    } else {
+                                        pddao.adicionar(4);
+                                    }
 
-                            } else if (rbtnAssCadEnt.isSelected()) {
-
-                                en.setCliente(txtCliCadEnt.getText());
-                                en.setCusto((!txtCusCadEnt.getText().isEmpty()) ? Double.valueOf(txtCusCadEnt.getText().replace(".", "").replace(",", ".")) : null);
-                                en.setFornecedor(txtForCadEnt.getText());
-
-                                endao.inserir(en, 3);
-
-                            }
-
-                        }
-
-                        //INSERIR CONTADOR DE TROCAS 
-                        if (cmbVezCar.isEnabled()) {
-                            itens selectedItem = (itens) cmbVezCar.getSelectedItem();
-
-                            String textoSelecionado = selectedItem.getDescricao();
-
-                            if (textoSelecionado.equals("Troca de Chip") || textoSelecionado.equals("Ativação eSIM")) {
-
-                                planosdiaDAO pddao = new planosdiaDAO();
-                                pddao.zerar();
-
-                                if (rbtnTroPreCadEnt.isSelected()) {
-                                    pddao.adicionar(3);
-                                } else {
-                                    pddao.adicionar(4);
                                 }
 
                             }
 
+                            JOptionPane.showMessageDialog(null, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                            pnlCadEnt.setVisible(false);
+
+                        } catch (SQLException | ParseException ex) {
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
-                        JOptionPane.showMessageDialog(null, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-                        pnlCadEnt.setVisible(false);
-
-                    } catch (SQLException | ParseException ex) {
-                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
                     }
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
-                }
+                    lblTitPri.setVisible(false);
 
-                lblTitPri.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione o tipo de troca de chip!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                }
 
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
@@ -11435,7 +11441,7 @@ public final class main extends javax.swing.JFrame {
             rbtnDinCadEnt.setEnabled(false);
             rbtnCarCadEnt.setEnabled(false);
             rbtnPixCadEnt.setEnabled(false);
-            
+
             rbtnTroPreCadEnt.setEnabled(false);
             rbtnTroPlaCadEnt.setEnabled(false);
 
@@ -15333,8 +15339,6 @@ public final class main extends javax.swing.JFrame {
 
                 rbtnTroPreCadEnt.setEnabled(true);
                 rbtnTroPlaCadEnt.setEnabled(true);
-
-                rbtnTroPreCadEnt.setSelected(true);
 
             } else {
                 rbtnTroPreCadEnt.setEnabled(false);
