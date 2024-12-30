@@ -78,7 +78,7 @@ public class osDAO {
 
         List<String[]> lista = new ArrayList<>();
 
-        String SQL = "SELECT * FROM os ORDER BY clienteOs";
+        String SQL = "SELECT * FROM os ORDER BY STR_TO_DATE(dataentradaOs, '%d/%m/%Y') DESC";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -120,7 +120,7 @@ public class osDAO {
                 + "OR telefoneOs LIKE '%" + os.telefone + "%' OR enderecoOs LIKE '%" + os.endereco + "%' "
                 + "OR dataentradaOs LIKE '%" + os.dataentrada + "%' OR datasaidaOs LIKE '%" + os.datasaida + "%' "
                 + "OR precoOs LIKE '%" + os.preco + "%' OR equipamentoOs LIKE '%" + os.equipamento + "%' OR marcaOs LIKE '%" + os.marca + "%'"
-               + " OR modeloOs LIKE '%" + os.modelo + "%' OR defeitoOs LIKE '%" + os.defeito + "%' OR reparoOs LIKE '%" + os.reparo + "%' OR garantiaOs LIKE '%" + os.garantia + "%' ORDER BY clienteOs";
+               + " OR modeloOs LIKE '%" + os.modelo + "%' OR defeitoOs LIKE '%" + os.defeito + "%' OR reparoOs LIKE '%" + os.reparo + "%' OR garantiaOs LIKE '%" + os.garantia + "%' ORDER BY STR_TO_DATE(dataentradaOs, '%d/%m/%Y') DESC";
       
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 

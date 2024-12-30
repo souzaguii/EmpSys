@@ -1624,6 +1624,10 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(12).setMinWidth(0);
                 tbl.getColumnModel().getColumn(12).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(12).setWidth(0);
+               
+                tbl.getColumnModel().getColumn(11).setMinWidth(0);
+                tbl.getColumnModel().getColumn(11).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(11).setWidth(0);
 
                 tbl.setVisible(true);
                 scr.setVisible(true);
@@ -1711,7 +1715,11 @@ public final class main extends javax.swing.JFrame {
 
                 tbl.getColumnModel().getColumn(12).setMinWidth(0);
                 tbl.getColumnModel().getColumn(12).setMaxWidth(0);
-                tbl.getColumnModel().getColumn(12).setWidth(0);
+                tbl.getColumnModel().getColumn(12).setWidth(0);             
+                
+                tbl.getColumnModel().getColumn(11).setMinWidth(0);
+                tbl.getColumnModel().getColumn(11).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(11).setWidth(0);
 
                 tbl.setVisible(true);
                 scr.setVisible(true);
