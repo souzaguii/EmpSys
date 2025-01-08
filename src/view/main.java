@@ -518,53 +518,56 @@ public final class main extends javax.swing.JFrame {
 
     private boolean verificavencimento() {
 
-        try {
-
-            if (timerven != null) {
-
-                ((Timer) timerven.getSource()).stop();
-
-            }
-
-            vencimentoDAO ve = new vencimentoDAO();
-
-            if (ve.verificar()) {
-
-                btnVenPri.setVisible(true);
-
-                Timer timer = new Timer(700, new ActionListener() {
-
-                    int n = 0;
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        timerven = e;
-
-                        n++;
-
-                        if (n % 2 == 0) {
-
-                            btnVenPri.setText("Vencimento encontrado!");
-                        } else {
-
-                            btnVenPri.setText("");
-                        }
-                    }
-
-                });
-                timer.start();
-
-            } else {
-
-                btnVenPri.setVisible(false);
-
-            }
-
-        } catch (SQLException ex) {
-            return false;
-        }
+//        try {
+//
+//            if (timerven != null) {
+//
+//                ((Timer) timerven.getSource()).stop();
+//
+//            }
+//
+//            vencimentoDAO ve = new vencimentoDAO();
+//
+//            if (ve.verificar()) {
+//
+//                btnVenPri.setVisible(true);
+//
+//                Timer timer = new Timer(700, new ActionListener() {
+//
+//                    int n = 0;
+//
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//
+//                        timerven = e;
+//
+//                        n++;
+//
+//                        if (n % 2 == 0) {
+//
+//                            btnVenPri.setText("Vencimento encontrado!");
+//                        } else {
+//
+//                            btnVenPri.setText("");
+//                        }
+//                    }
+//
+//                });
+//                timer.start();
+//
+//            } else {
+//
+//                btnVenPri.setVisible(false);
+//
+//            }
+//
+//        } catch (SQLException ex) {
+//            return false;
+//        }
+//      return true;
+        btnVenPri.setVisible(false);
         return true;
+
     }
 
     private static String capitalizeFirstLetterOfEachWord(String text) {
@@ -1624,7 +1627,7 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(12).setMinWidth(0);
                 tbl.getColumnModel().getColumn(12).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(12).setWidth(0);
-               
+
                 tbl.getColumnModel().getColumn(11).setMinWidth(0);
                 tbl.getColumnModel().getColumn(11).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(11).setWidth(0);
@@ -1715,8 +1718,8 @@ public final class main extends javax.swing.JFrame {
 
                 tbl.getColumnModel().getColumn(12).setMinWidth(0);
                 tbl.getColumnModel().getColumn(12).setMaxWidth(0);
-                tbl.getColumnModel().getColumn(12).setWidth(0);             
-                
+                tbl.getColumnModel().getColumn(12).setWidth(0);
+
                 tbl.getColumnModel().getColumn(11).setMinWidth(0);
                 tbl.getColumnModel().getColumn(11).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(11).setWidth(0);
@@ -3140,6 +3143,7 @@ public final class main extends javax.swing.JFrame {
         lblBusVen = new javax.swing.JLabel();
         txtBusVen = new javax.swing.JTextField();
         sepBusVen = new javax.swing.JSeparator();
+        btnWppVen1 = new javax.swing.JButton();
         pnlCadVen = new javax.swing.JPanel();
         lblAceCadVen = new javax.swing.JLabel();
         txtAceCadVen = new javax.swing.JTextField();
@@ -8110,9 +8114,8 @@ public final class main extends javax.swing.JFrame {
 
         btnWppVen.setFont(fontmed(12));
         btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnWppVen.setText("WhatsApp");
+        btnWppVen.setText("Limpar");
         btnWppVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnWppVen.setEnabled(false);
         btnWppVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnWppVenActionPerformed(evt);
@@ -8204,6 +8207,19 @@ public final class main extends javax.swing.JFrame {
         sepBusVen.setForeground(new java.awt.Color(10, 60, 133));
         pnlVen.add(sepBusVen);
         sepBusVen.setBounds(310, 300, 200, 10);
+
+        btnWppVen1.setFont(fontmed(12));
+        btnWppVen1.setForeground(new java.awt.Color(10, 60, 133));
+        btnWppVen1.setText("WhatsApp");
+        btnWppVen1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnWppVen1.setEnabled(false);
+        btnWppVen1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWppVen1ActionPerformed(evt);
+            }
+        });
+        pnlVen.add(btnWppVen1);
+        btnWppVen1.setBounds(1040, 260, 100, 50);
 
         pnlPri.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
 
@@ -15434,7 +15450,7 @@ public final class main extends javax.swing.JFrame {
                 lblTitPri.setVisible(true);
 
                 btnExcVen.setEnabled(false);
-                btnWppVen.setEnabled(false);
+//                btnWppVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
@@ -15684,7 +15700,7 @@ public final class main extends javax.swing.JFrame {
 
     private void tblVenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVenMouseClicked
         btnExcVen.setEnabled(true);
-        btnWppVen.setEnabled(true);
+//        btnWppVen.setEnabled(true);
         btnAltVen.setEnabled(true);
         btnCopVen.setEnabled(true);
         btnCopAVen.setEnabled(true);
@@ -15696,158 +15712,171 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolVenActionPerformed
 
     private void btnWppVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWppVenActionPerformed
+//        try {
+//
+//            vencimentoDAO vendao = new vencimentoDAO();
+//
+//            List<String[]> listaverifica = vendao.buscarverificaplano();
+//
+//            Iterator<String[]> iterator = listaverifica.iterator();
+//
+//            while (iterator.hasNext()) {
+//
+//                String[] item = iterator.next();
+//
+//                if (!item[0].equals(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString())) {
+//                    iterator.remove();
+//                }
+//
+//            }
+//
+//            if (!listaverifica.isEmpty()) {
+//
+//                int c = 0;
+//                String plano = null;
+//
+//                if (listaverifica.size() != 1) {
+//
+//                    Map<String, Integer> contagemItens = new HashMap<>();
+//                    for (String[] array : listaverifica) {
+//                        String item = Arrays.toString(array);
+//                        contagemItens.put(item, contagemItens.getOrDefault(item, 0) + 1);
+//                    }
+//
+//                    for (Map.Entry<String, Integer> entry : contagemItens.entrySet()) {
+//
+//                        String[] array = entry.getKey().substring(1, entry.getKey().length() - 1).split(", ");
+//
+//                        c++;
+//
+//                        if (c == 1) {//o primeiro
+//
+//                            if (entry.getValue() == 1) {
+//                                plano = "dos seus planos *" + array[1] + "*";
+//                            } else {
+//                                plano = "dos seus *" + entry.getValue() + "* planos *" + array[1] + "*";
+//                            }
+//
+//                        } else {
+//
+//                            if (c == contagemItens.entrySet().size()) {//se for o ultimo
+//
+//                                if (entry.getValue() == 1) {
+//                                    plano = plano + " e o *" + array[1] + "*";
+//                                } else {
+//                                    plano = plano + " e os *" + entry.getValue() + " " + array[1] + "*";
+//                                }
+//                            } else {
+//
+//                                if (entry.getValue() == 1) {
+//                                    plano = plano + ", *" + array[1] + "*";
+//                                } else {
+//                                    plano = plano + ", dos *" + entry.getValue() + " " + array[1] + "*";
+//                                }
+//
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//                    plano = plano + ", contratados conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+//                            + "*.\n\n";
+//
+//                } else {//quando tiver so um
+//                    plano = "do seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*"
+//                            + ", contratado conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+//                            + "*.\n\n";
+//                }
+//
+//                String texto = "*Empório Cell - TIM*\n\n"
+//                        + "Olá, tudo bem? Esperamos que sim!\n\n"
+//                        + "Estamos aqui para lembrá-lo " + plano
+//                        + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
+//                        + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
+//
+//                String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
+//
+//                int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+//
+//                if (resp == JOptionPane.YES_OPTION) {
+//
+//                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "") + "&text=" + msg + "&app_absent=0";
+//
+//                    URI link = new URI(l);
+//
+//                    Desktop.getDesktop().browse(link);
+//
+//                    int resp1 = JOptionPane.showOptionDialog(null, "Navegador aberto para envio!\n\nMarcar como concluído?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+//
+//                    if (resp1 == JOptionPane.YES_OPTION) {
+//
+//                        try {
+//
+//                            vencimento ve = new vencimento();
+//                            vencimentoDAO vedao = new vencimentoDAO();
+//
+//                            ve.setCpf(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString());
+//
+//                            vedao.marcarok(ve);
+//
+//                            JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+//
+//                        } catch (SQLException ex) {
+//                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//
+//                    }
+//
+//                    if (tabelavencimento(tblVen, scrVen)) {
+//
+//                    } else {
+//
+//                        JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+//                        pnlVen.setVisible(false);
+//                        lblTitPri.setVisible(false);
+//                    }
+//
+//                    verificavencimento();
+//
+//                    btnWppVen.setEnabled(false);
+//                    btnExcVen.setEnabled(false);
+//                    btnAltVen.setEnabled(false);
+//                    btnCopVen.setEnabled(false);
+//                    btnCopAVen.setEnabled(false);
+//
+//                }
+//
+//            } else {
+//
+//                int resp = JOptionPane.showOptionDialog(null, "Atenção, mensagem de aviso indisponível para este cliente!\n\nAbrir o WhatsApp mesmo assim?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+//
+//                if (resp == JOptionPane.YES_OPTION) {
+//
+//                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "");
+//
+//                    URI link = new URI(l);
+//
+//                    Desktop.getDesktop().browse(link);
+//
+//                }
+//
+//            }
+//
+//        } catch (URISyntaxException | IOException | SQLException ex) {
+//            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
         try {
 
-            vencimentoDAO vendao = new vencimentoDAO();
+            vencimento ve = new vencimento();
+            vencimentoDAO vedao = new vencimentoDAO();
 
-            List<String[]> listaverifica = vendao.buscarverificaplano();
+            vedao.limparverde(ve);
 
-            Iterator<String[]> iterator = listaverifica.iterator();
+            tabelavencimento(tblVen, scrVen);
 
-            while (iterator.hasNext()) {
-
-                String[] item = iterator.next();
-
-                if (!item[0].equals(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString())) {
-                    iterator.remove();
-                }
-
-            }
-
-            if (!listaverifica.isEmpty()) {
-
-                int c = 0;
-                String plano = null;
-
-                if (listaverifica.size() != 1) {
-
-                    Map<String, Integer> contagemItens = new HashMap<>();
-                    for (String[] array : listaverifica) {
-                        String item = Arrays.toString(array);
-                        contagemItens.put(item, contagemItens.getOrDefault(item, 0) + 1);
-                    }
-
-                    for (Map.Entry<String, Integer> entry : contagemItens.entrySet()) {
-
-                        String[] array = entry.getKey().substring(1, entry.getKey().length() - 1).split(", ");
-
-                        c++;
-
-                        if (c == 1) {//o primeiro
-
-                            if (entry.getValue() == 1) {
-                                plano = "dos seus planos *" + array[1] + "*";
-                            } else {
-                                plano = "dos seus *" + entry.getValue() + "* planos *" + array[1] + "*";
-                            }
-
-                        } else {
-
-                            if (c == contagemItens.entrySet().size()) {//se for o ultimo
-
-                                if (entry.getValue() == 1) {
-                                    plano = plano + " e o *" + array[1] + "*";
-                                } else {
-                                    plano = plano + " e os *" + entry.getValue() + " " + array[1] + "*";
-                                }
-                            } else {
-
-                                if (entry.getValue() == 1) {
-                                    plano = plano + ", *" + array[1] + "*";
-                                } else {
-                                    plano = plano + ", dos *" + entry.getValue() + " " + array[1] + "*";
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                    plano = plano + ", contratados conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
-                            + "*.\n\n";
-
-                } else {//quando tiver so um
-                    plano = "do seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*"
-                            + ", contratado conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
-                            + "*.\n\n";
-                }
-
-                String texto = "*Empório Cell - TIM*\n\n"
-                        + "Olá, tudo bem? Esperamos que sim!\n\n"
-                        + "Estamos aqui para lembrá-lo " + plano
-                        + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
-                        + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
-
-                String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
-
-                int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
-                if (resp == JOptionPane.YES_OPTION) {
-
-                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "") + "&text=" + msg + "&app_absent=0";
-
-                    URI link = new URI(l);
-
-                    Desktop.getDesktop().browse(link);
-
-                    int resp1 = JOptionPane.showOptionDialog(null, "Navegador aberto para envio!\n\nMarcar como concluído?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
-                    if (resp1 == JOptionPane.YES_OPTION) {
-
-                        try {
-
-                            vencimento ve = new vencimento();
-                            vencimentoDAO vedao = new vencimentoDAO();
-
-                            ve.setCpf(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString());
-
-                            vedao.marcarok(ve);
-
-                            JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Planos", JOptionPane.INFORMATION_MESSAGE);
-
-                        } catch (SQLException ex) {
-                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                    }
-
-                    if (tabelavencimento(tblVen, scrVen)) {
-
-                    } else {
-
-                        JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
-                        pnlVen.setVisible(false);
-                        lblTitPri.setVisible(false);
-                    }
-
-                    verificavencimento();
-
-                    btnWppVen.setEnabled(false);
-                    btnExcVen.setEnabled(false);
-                    btnAltVen.setEnabled(false);
-                    btnCopVen.setEnabled(false);
-                    btnCopAVen.setEnabled(false);
-
-                }
-
-            } else {
-
-                int resp = JOptionPane.showOptionDialog(null, "Atenção, mensagem de aviso indisponível para este cliente!\n\nAbrir o WhatsApp mesmo assim?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-
-                if (resp == JOptionPane.YES_OPTION) {
-
-                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "");
-
-                    URI link = new URI(l);
-
-                    Desktop.getDesktop().browse(link);
-
-                }
-
-            }
-
-        } catch (URISyntaxException | IOException | SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnWppVenActionPerformed
@@ -15891,7 +15920,7 @@ public final class main extends javax.swing.JFrame {
 
                 verificavencimento();
 
-                btnWppVen.setEnabled(false);
+//              btnWppVen.setEnabled(false);
                 btnExcVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
@@ -15971,7 +16000,7 @@ public final class main extends javax.swing.JFrame {
                 lblTitPri.setVisible(true);
 
                 btnExcVen.setEnabled(false);
-                btnWppVen.setEnabled(false);
+//              btnWppVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
                 btnCopVen.setEnabled(false);
                 btnCopAVen.setEnabled(false);
@@ -17923,6 +17952,10 @@ public final class main extends javax.swing.JFrame {
     private void cmbVezCarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbVezCarMouseReleased
 
     }//GEN-LAST:event_cmbVezCarMouseReleased
+
+    private void btnWppVen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWppVen1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnWppVen1ActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -18026,6 +18059,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnVolRel;
     private javax.swing.JButton btnVolVen;
     private javax.swing.JButton btnWppVen;
+    private javax.swing.JButton btnWppVen1;
     private javax.swing.JCheckBox chkAltGerEst;
     private javax.swing.JCheckBox chkAppMas;
     private javax.swing.JRadioButton chkBolMas;

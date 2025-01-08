@@ -81,6 +81,18 @@ public class vencimentoDAO {
         connection.Close();
 
     }
+    
+    public void limparverde(vencimento ve) throws SQLException {
+
+        String SQL = "UPDATE vencimento SET okVen = 1 WHERE vencimentoVen <= CURDATE()";
+
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        stmt.executeUpdate();
+        stmt.close();
+        connection.Close();
+
+    }
 
     public List<String[]> buscar() throws SQLException {
 
