@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public final class loading extends javax.swing.JFrame {
 
@@ -36,7 +39,7 @@ public final class loading extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblLoa = new javax.swing.JLabel();
+        txtLoaPan = new javax.swing.JTextPane();
         imgLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,11 +49,16 @@ public final class loading extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblLoa.setFont(fontbold(14));
-        lblLoa.setForeground(corforeazul);
-        lblLoa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLoa.setText("Iniciando sistema...");
-        getContentPane().add(lblLoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 278, 370, 20));
+        txtLoaPan.setEditable(false);
+        txtLoaPan.setFont(fontbold(14));
+        txtLoaPan.setForeground(corforeazul);
+        txtLoaPan.setFocusable(false);
+        txtLoaPan.setOpaque(false);
+        getContentPane().add(txtLoaPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 260, 30));
+        StyledDocument documentStyle = txtLoaPan.getStyledDocument();
+        SimpleAttributeSet centerAttribute = new SimpleAttributeSet();
+        StyleConstants.setAlignment(centerAttribute, StyleConstants.ALIGN_CENTER);
+        documentStyle.setParagraphAttributes(0, documentStyle.getLength(), centerAttribute, false);
 
         imgLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loading.png"))); // NOI18N
@@ -61,6 +69,6 @@ public final class loading extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel imgLogo;
-    public javax.swing.JLabel lblLoa;
+    public javax.swing.JTextPane txtLoaPan;
     // End of variables declaration//GEN-END:variables
 }

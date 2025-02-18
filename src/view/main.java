@@ -104,7 +104,7 @@ public final class main extends javax.swing.JFrame {
 
                 if (connection.connection == null) {
 
-                    publish("Erro na conexão ao banco de dados!");
+                    publish("Erro na conexão!");
 
                     Thread.sleep(3000);
 
@@ -126,15 +126,15 @@ public final class main extends javax.swing.JFrame {
 
                         publish("Fazendo backup automático...");
                         if (backupdatabase()) {
-                            publish("Backup concluído com sucesso! Iniciando...");
+                            publish("Backup concluído! Iniciando...");
                             lblBakPri.setVisible(false);
                         } else {
 
-                            publish("Atenção, erro na conclusão do backup!");
+                            publish("Erro na conclusão do backup!");
 
                             lblBakPri.setVisible(true);
                             btnTenPri.setVisible(true);
-                            lblBakPri.setText("Atenção, erro na conclusão do backup!");
+                            lblBakPri.setText("Erro na conclusão do backup!");
 
                         }
 
@@ -153,7 +153,7 @@ public final class main extends javax.swing.JFrame {
             protected void process(java.util.List<String> chunks) {
 
                 for (String mensagem : chunks) {
-                    lo.lblLoa.setText(mensagem);
+                    lo.txtLoaPan.setText(mensagem);
                 }
             }
 
