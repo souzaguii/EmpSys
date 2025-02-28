@@ -12,7 +12,6 @@ import dao.tiposervicoDAO;
 import dao.vencimentoDAO;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Toolkit;
@@ -22,8 +21,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 import model.estoque;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -33,12 +30,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -114,7 +109,7 @@ public final class main extends javax.swing.JFrame {
 
                     publish("Verificando dados...");
 
-                    if (!verificavencimento()) {
+                    if (!verificaafazeres()) {
 
                         publish("Erro na verificação!");
 
@@ -516,56 +511,57 @@ public final class main extends javax.swing.JFrame {
         return true;
     }
 
-    private boolean verificavencimento() {
+    private boolean verificaafazeres() {
 
-//        try {
-//
-//            if (timerven != null) {
-//
-//                ((Timer) timerven.getSource()).stop();
-//
-//            }
-//
-//            vencimentoDAO ve = new vencimentoDAO();
-//
-//            if (ve.verificar()) {
-//
-//                btnVenPri.setVisible(true);
-//
-//                Timer timer = new Timer(700, new ActionListener() {
-//
-//                    int n = 0;
-//
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//
-//                        timerven = e;
-//
-//                        n++;
-//
-//                        if (n % 2 == 0) {
-//
-//                            btnVenPri.setText("Vencimento encontrado!");
-//                        } else {
-//
-//                            btnVenPri.setText("");
-//                        }
-//                    }
-//
-//                });
-//                timer.start();
-//
-//            } else {
-//
-//                btnVenPri.setVisible(false);
-//
-//            }
-//
-//        } catch (SQLException ex) {
-//            return false;
-//        }
-//      return true;
-        btnVenPri.setVisible(false);
+        try {
+
+            if (timerven != null) {
+
+                ((Timer) timerven.getSource()).stop();
+
+            }
+
+            despezasDAO dedao = new despezasDAO();
+
+            if (dedao.verificar()) {
+
+                btnVenPri.setVisible(true);
+
+                Timer timer = new Timer(700, new ActionListener() {
+
+                    int n = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        timerven = e;
+
+                        n++;
+
+                        if (n % 2 == 0) {
+
+                            btnVenPri.setText("Afazer encontrado!");
+                        } else {
+
+                            btnVenPri.setText("");
+                        }
+                    }
+
+                });
+                timer.start();
+
+            } else {
+
+                btnVenPri.setVisible(false);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+
+            return false;
+        }
+
         return true;
 
     }
@@ -12663,6 +12659,8 @@ public final class main extends javax.swing.JFrame {
         txtAreMas.setCaretPosition(0);
 
         btnCopMas.setVisible(true);
+        jScrollPane1.setVisible(true);
+        txtAreMas.setVisible(true);
     }//GEN-LAST:event_btnGerMasActionPerformed
 
     private void btnCanMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanMasActionPerformed
@@ -15498,7 +15496,23 @@ public final class main extends javax.swing.JFrame {
                     vedao.inserir(ve, "0");
                 }
 
-                JOptionPane.showMessageDialog(null, "Plano cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                int resp = JOptionPane.showOptionDialog(null, "Plano cadastrado! Deseja cadastrar mais planos para o mesmo cliente?", "Cadastrar Plano", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                if (resp == JOptionPane.YES_OPTION) {
+
+                    btnCopMas.setVisible(false);
+                    txtAreMas.setText(null);
+                    txtAreMas.setVisible(false);
+                    jScrollPane1.setVisible(false);
+                    pnlMas.setVisible(true);
+                    pnlCadVen.setVisible(false);
+                    lblTitPri.setText("Máscara de Plano");
+                    lblTitPri.setVisible(true);
+
+                } else {
+                    pnlCadVen.setVisible(false);
+                    lblTitPri.setVisible(false);
+                }
 
             } else {
 
@@ -15522,10 +15536,7 @@ public final class main extends javax.swing.JFrame {
 
             }
 
-            pnlCadVen.setVisible(false);
-            lblTitPri.setVisible(false);
-
-            verificavencimento();
+            verificaafazeres();
 
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -15918,7 +15929,7 @@ public final class main extends javax.swing.JFrame {
                     lblTitPri.setVisible(false);
                 }
 
-                verificavencimento();
+                verificaafazeres();
 
 //              btnWppVen.setEnabled(false);
                 btnExcVen.setEnabled(false);
@@ -15984,44 +15995,67 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVenPriMouseExited
 
     private void btnVenPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseReleased
-        if (!pnlVen.isVisible()) {
+//        if (!pnlVen.isVisible()) {
+//
+//            if (tabelavencimento(tblVen, scrVen)) {
+//
+//                planosDAO pladao = new planosDAO();
+//
+//                try {
+//                    lblConPlaVen.setText(String.valueOf(pladao.buscar()));
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//
+//                lblTitPri.setText("Planos");
+//                lblTitPri.setVisible(true);
+//
+//                btnExcVen.setEnabled(false);
+////              btnWppVen.setEnabled(false);
+//                btnAltVen.setEnabled(false);
+//                btnCopVen.setEnabled(false);
+//                btnCopAVen.setEnabled(false);
+//
+//                lblBusVen.setLocation(310, 280);
+//                txtBusVen.setText(null);
+//                lblErrVen.setVisible(false);
+//
+//                pnlbtn();
+//                pnlVen.setVisible(true);
+//
+//            } else {
+//
+//                JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+//
+//            }
+//
+//        } else {
+//
+//            pnlbtn();
+//            pnlVen.setVisible(true);
+//
+//        }
 
-            if (tabelavencimento(tblVen, scrVen)) {
+        if (!pnlDes.isVisible()) {
 
-                planosDAO pladao = new planosDAO();
+            if (tabeladespezas(tblConDes, scrConDes)) {
 
-                try {
-                    lblConPlaVen.setText(String.valueOf(pladao.buscar()));
-                } catch (SQLException ex) {
-                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                lblTitPri.setText("Planos");
+                lblTitPri.setText("Afazeres");
                 lblTitPri.setVisible(true);
 
-                btnExcVen.setEnabled(false);
-//              btnWppVen.setEnabled(false);
-                btnAltVen.setEnabled(false);
-                btnCopVen.setEnabled(false);
-                btnCopAVen.setEnabled(false);
-
-                lblBusVen.setLocation(310, 280);
-                txtBusVen.setText(null);
-                lblErrVen.setVisible(false);
-
                 pnlbtn();
-                pnlVen.setVisible(true);
+                pnlDes.setVisible(true);
 
             } else {
 
-                JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sem afazeres. Cadastre-as primeiro!", "Gerenciar Afazeres", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
         } else {
 
             pnlbtn();
-            pnlVen.setVisible(true);
+            pnlDes.setVisible(true);
 
         }
     }//GEN-LAST:event_btnVenPriMouseReleased

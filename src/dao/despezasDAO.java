@@ -72,6 +72,27 @@ public class despezasDAO {
 
     }
 
+    public boolean verificar() throws SQLException {
+
+        String SQL = "SELECT idDes FROM despezas WHERE dataDes <=  CURRENT_DATE() AND dataconclusaoDes < CURRENT_DATE()";
+        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+
+            return true;
+
+        }
+
+        rs.close();
+        stmt.close();
+        connection.Close();
+
+        return false;
+
+    }
+
     public List<String[]> buscar() throws SQLException {
 
         List<String[]> lista = new ArrayList<>();
