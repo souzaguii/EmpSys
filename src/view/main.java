@@ -13186,11 +13186,24 @@ public final class main extends javax.swing.JFrame {
 
     private void tblGerDesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGerDesMouseClicked
         txtDesGerDes.setText(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 1).toString());
-        txtPreGerDes.setText((tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString()).substring(3, tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString().length()));
+
+        if (!(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString()).equals("Não Aplicável")) {
+
+            txtPreGerDes.setText((tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString()).substring(3, tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString().length()));
+            lblPreGerDes.setLocation(870, 80);
+            lblR$GerDes.setVisible(true);
+            
+        } else {
+
+            txtPreGerDes.setText(null);
+            lblPreGerDes.setLocation(870, 100);           
+            lblR$GerDes.setVisible(false);
+            
+        }
+
         txtDatGerDes.setText(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 3).toString());
 
         lblDesGerDes.setLocation(870, 20);
-        lblPreGerDes.setLocation(870, 80);
         lblDatGerDes.setLocation(870, 140);
 
         sepDesGerDes.setForeground(corforeazul);
@@ -13204,11 +13217,8 @@ public final class main extends javax.swing.JFrame {
         lblDatGerDes.setEnabled(true);
         txtDatGerDes.setEnabled(true);
 
-        lblR$GerDes.setVisible(true);
-
         btnExcGerDes.setEnabled(true);
         btnAltGerDes.setEnabled(true);
-
     }//GEN-LAST:event_tblGerDesMouseClicked
 
     private void txtDatGerDesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatGerDesFocusGained
