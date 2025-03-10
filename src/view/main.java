@@ -444,7 +444,7 @@ public final class main extends javax.swing.JFrame {
                     @Override
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                         Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, 0);
-                        int atvValue = (int) table.getValueAt(row, 3); // Assumindo que a coluna 1 contém o valor de getAtv
+                        int atvValue = (int) table.getValueAt(row, 3);
 
                         if (atvValue == 0) {
                             comp.setForeground(new Color(200, 200, 200));
@@ -476,7 +476,7 @@ public final class main extends javax.swing.JFrame {
 
                 tblTipSer.setModel(modelo);
 
-                tblTipSer.getColumnModel().getColumn(2).setCellRenderer(centerRenderer); // Aplicando o renderer à coluna 1
+                tblTipSer.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 
                 tblTipSer.setRowHeight(25);
 
@@ -569,24 +569,19 @@ public final class main extends javax.swing.JFrame {
     private static String capitalizeFirstLetterOfEachWord(String text) {
         StringBuilder sb = new StringBuilder();
 
-        // Dividir o texto em palavras
         String[] words = text.split("\\s+");
 
-        // Capitalizar a primeira letra de cada palavra
         for (String word : words) {
             if (!word.isEmpty()) {
                 if (word.length() > 2) {
-                    // Para palavras com mais de duas letras, capitalizar a primeira letra e concatenar com o restante da palavra em minúsculas
                     sb.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1).toLowerCase());
                 } else {
-                    // Para palavras com duas ou menos letras, manter a palavra em minúsculas
                     sb.append(word.toLowerCase());
                 }
                 sb.append(" ");
             }
         }
 
-        // Remover o espaço extra no final e retornar o texto capitalizado
         return sb.toString().trim();
     }
 
@@ -647,6 +642,7 @@ public final class main extends javax.swing.JFrame {
 //        } else if (parcela == 12) {
 //            return 17.99;
 //        }
+
         return parcela;
 
     }
@@ -1940,7 +1936,7 @@ public final class main extends javax.swing.JFrame {
                             component.setFont(fontmed(12));
 
                             if (isSelected) {
-                                component.setBackground(new Color(211, 211, 211)); // Defina a cor de fundo da linha selecionada como vermelho
+                                component.setBackground(new Color(211, 211, 211));
                                 component.setForeground(Color.BLACK);
                             }
 
@@ -2489,10 +2485,10 @@ public final class main extends javax.swing.JFrame {
     @SuppressWarnings({"unchecked"})
 
     public void copiarcontrato() {
+
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Escolha um arquivo PDF");
 
-        // Definindo o diretório de Downloads
         String userHome = System.getProperty("user.home");
         File downloadsFolder = new File(userHome, "Downloads");
         fileChooser.setCurrentDirectory(downloadsFolder);
@@ -2504,23 +2500,39 @@ public final class main extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
 
-            try (PDDocument document = Loader.loadPDF(selectedFile)) {
-                // Cria o renderizador para o PDF
+            String novoNome = txtNomMas.getText().toUpperCase();
+            if (novoNome == null || novoNome.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O nome do arquivo não pode ser vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            File renamedFile = new File(selectedFile.getParent(), novoNome + ".pdf");
+
+            int counter = 1;
+            while (renamedFile.exists()) {
+                String newName = novoNome + " " + counter + ".pdf";
+                renamedFile = new File(selectedFile.getParent(), newName);
+                counter++;
+            }
+
+            boolean renamed = selectedFile.renameTo(renamedFile);
+            if (!renamed) {
+                JOptionPane.showMessageDialog(null, "Não foi possível renomear o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            try (PDDocument document = Loader.loadPDF(renamedFile)) {
+
                 PDFRenderer pdfRenderer = new PDFRenderer(document);
+                BufferedImage image = pdfRenderer.renderImageWithDPI(0, 150);
 
-                // Renderiza a primeira página do PDF com DPI 150 (ajustável)
-                BufferedImage image = pdfRenderer.renderImageWithDPI(0, 150); // Usando 150 DPI para reduzir o uso de memória
-
-                // Copia a imagem para a área de transferência
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 ImageTransferable transferable = new ImageTransferable(image);
                 clipboard.setContents(transferable, null);
 
-                // Libera recursos da imagem
                 image.flush();
 
-                // Exibe a mensagem de sucesso
-                JOptionPane.showMessageDialog(null, "Contrato copiado!", "Máscara", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Contrato copiado com sucesso!", "Máscara", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -2529,7 +2541,6 @@ public final class main extends javax.swing.JFrame {
         }
     }
 
-    // Classe auxiliar para transferir a imagem para a área de transferência
     static class ImageTransferable implements Transferable {
 
         private final BufferedImage image;
@@ -13192,13 +13203,13 @@ public final class main extends javax.swing.JFrame {
             txtPreGerDes.setText((tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString()).substring(3, tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString().length()));
             lblPreGerDes.setLocation(870, 80);
             lblR$GerDes.setVisible(true);
-            
+
         } else {
 
             txtPreGerDes.setText(null);
-            lblPreGerDes.setLocation(870, 100);           
+            lblPreGerDes.setLocation(870, 100);
             lblR$GerDes.setVisible(false);
-            
+
         }
 
         txtDatGerDes.setText(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 3).toString());
