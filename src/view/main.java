@@ -16966,14 +16966,14 @@ public final class main extends javax.swing.JFrame {
                 txtPlaMas.setText("TIM Black C Ultra");
                 break;
             case '0':
-                txtPlaMas.setText("TIM Black A Express");
-                break;
-            case '-':
                 txtPlaMas.setText("TIM Black B Express");
                 break;
-            case '=':
+            case '-':
                 txtPlaMas.setText("TIM Black C Express");
                 break;
+//            case '=':
+//                txtPlaMas.setText("TIM Black C Express");
+//                break;
             default:
                 break;
         }
