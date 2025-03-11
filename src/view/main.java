@@ -16948,10 +16948,10 @@ public final class main extends javax.swing.JFrame {
                 txtPlaMas.setText("TIM Controle Premium");
                 break;
             case '4':
-                txtPlaMas.setText("TIM Controle J Express");
+                txtPlaMas.setText("TIM Controle B Express");
                 break;
             case '5':
-                txtPlaMas.setText("TIM Controle L Express");
+                txtPlaMas.setText("TIM Controle C Express");
                 break;
             case '6':
                 txtPlaMas.setText("TIM Black");
@@ -16966,14 +16966,14 @@ public final class main extends javax.swing.JFrame {
                 txtPlaMas.setText("TIM Black C Ultra");
                 break;
             case '0':
-                txtPlaMas.setText("TIM Black B Express");
+                txtPlaMas.setText("TIM Black A Express");
                 break;
             case '-':
+                txtPlaMas.setText("TIM Black B Express");
+                break;
+            case '=':
                 txtPlaMas.setText("TIM Black C Express");
                 break;
-//            case '=':
-//                txtPlaMas.setText("TIM Black C Express");
-//                break;
             default:
                 break;
         }
