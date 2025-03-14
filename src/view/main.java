@@ -5554,7 +5554,7 @@ public final class main extends javax.swing.JFrame {
 
         chkAltGerEst.setFont(fontmed(12));
         chkAltGerEst.setForeground(new java.awt.Color(10, 60, 133));
-        chkAltGerEst.setText("Fazer alterações para todas as linhas da tabela");
+        chkAltGerEst.setText("Alterar todas as linhas");
         chkAltGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         chkAltGerEst.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -5567,7 +5567,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(chkAltGerEst);
-        chkAltGerEst.setBounds(20, 350, 380, 20);
+        chkAltGerEst.setBounds(727, 320, 200, 20);
 
         btnGroup.add(rbtnCapGerEst);
         rbtnCapGerEst.setFont(fontmed(12));
