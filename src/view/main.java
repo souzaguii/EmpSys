@@ -642,7 +642,6 @@ public final class main extends javax.swing.JFrame {
 //        } else if (parcela == 12) {
 //            return 17.99;
 //        }
-
         return parcela;
 
     }
@@ -13080,9 +13079,10 @@ public final class main extends javax.swing.JFrame {
 
             }
 
+            verificaafazeres();
+
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tblConDesMouseClicked
 
@@ -15557,8 +15557,7 @@ public final class main extends javax.swing.JFrame {
 
             }
 
-            verificaafazeres();
-
+//            verificaafazeres();
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -15950,8 +15949,7 @@ public final class main extends javax.swing.JFrame {
                     lblTitPri.setVisible(false);
                 }
 
-                verificaafazeres();
-
+//                verificaafazeres();
 //              btnWppVen.setEnabled(false);
                 btnExcVen.setEnabled(false);
                 btnAltVen.setEnabled(false);
