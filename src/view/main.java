@@ -3090,7 +3090,6 @@ public final class main extends javax.swing.JFrame {
         lblPlaMas = new javax.swing.JLabel();
         sepDesGerTipSer7 = new javax.swing.JSeparator();
         txtPlaMas = new javax.swing.JTextField();
-        chkC6Mas = new javax.swing.JCheckBox();
         lblVenMas = new javax.swing.JLabel();
         sepDesGerTipSer8 = new javax.swing.JSeparator();
         txtVenMas = new javax.swing.JTextField();
@@ -7303,13 +7302,13 @@ public final class main extends javax.swing.JFrame {
         chkAppMas.setForeground(new java.awt.Color(10, 60, 133));
         chkAppMas.setText("APP MEU TIM");
         pnlMas.add(chkAppMas);
-        chkAppMas.setBounds(610, 290, 150, 20);
+        chkAppMas.setBounds(610, 250, 150, 20);
 
         chkMelMas.setFont(fontmed(12));
         chkMelMas.setForeground(new java.awt.Color(10, 60, 133));
         chkMelMas.setText("Melhor Data");
         pnlMas.add(chkMelMas);
-        chkMelMas.setBounds(610, 250, 150, 20);
+        chkMelMas.setBounds(610, 210, 150, 20);
 
         btnConMas.setFont(fontmed(12));
         btnConMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -7620,12 +7619,6 @@ public final class main extends javax.swing.JFrame {
         });
         pnlMas.add(txtPlaMas);
         txtPlaMas.setBounds(350, 210, 170, 20);
-
-        chkC6Mas.setFont(fontmed(12));
-        chkC6Mas.setForeground(new java.awt.Color(10, 60, 133));
-        chkC6Mas.setText("Conta C6 Bank");
-        pnlMas.add(chkC6Mas);
-        chkC6Mas.setBounds(610, 210, 130, 20);
 
         lblVenMas.setFont(fontmed(12));
         lblVenMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -9533,7 +9526,6 @@ public final class main extends javax.swing.JFrame {
             btnGroup.clearSelection();
             btnGroup1.clearSelection();
 
-            chkC6Mas.setSelected(false);
             chkMelMas.setSelected(false);
             chkAppMas.setSelected(false);
             chkBolMas.setSelected(true);
@@ -12605,7 +12597,6 @@ public final class main extends javax.swing.JFrame {
         String servico = "( X ) Ativação\n(    ) Migração (Pré P/Ctrl)\n(    ) Conversão (Troca Pré P/Controle)\n";
         String port = "(    ) Sim\n( X ) Não\n";
         String plano = txtPlaMas.getText();
-        String c6 = "(    ) Sim\n( X ) Não\n";
         String pago = "(    ) DACC (Débito em Conta)\n( X ) Boleto\n(    ) Cartão de Crédito\n";
         String melhor = "(    ) Sim\n( X ) Não\n";
         String app = "(    ) Sim\n( X ) Não";
@@ -12615,10 +12606,6 @@ public final class main extends javax.swing.JFrame {
             servico = "(    ) Ativação\n( X ) Migração (Pré P/Ctrl)\n(    ) Conversão (Troca Pré P/Controle)\n";
         } else if (rbtnMigTroMas.isSelected()) {
             servico = "(    ) Ativação\n(    ) Migração (Pré P/Ctrl)\n( X ) Conversão (Troca Pré P/Controle)\n";
-        }
-
-        if (chkC6Mas.isSelected()) {
-            c6 = "( X ) Sim\n(    ) Não\n";
         }
 
         if (!"".equals(txtNumPorMas.getText())) {
@@ -12659,9 +12646,7 @@ public final class main extends javax.swing.JFrame {
                 + melhor
                 + "\n*Data de Vencimento:* " + venc + "\n"
                 + "\n*Sistema Utilizado*\n"
-                + "( X ) App TIM Vendas\n"
-                + "\n*Conta C6 Bank*\n"
-                + c6
+                + "( X ) App TIM Vendas\n"                
                 + "\n*Instalou e Acessou App Meu TIM no Celular do Cliente*\n"
                 + app
         );
@@ -12684,7 +12669,6 @@ public final class main extends javax.swing.JFrame {
         btnGroup.clearSelection();
         btnGroup1.clearSelection();
 
-        chkC6Mas.setSelected(false);
         chkMelMas.setSelected(false);
         chkAppMas.setSelected(false);
         chkDebMasa.setSelected(false);
@@ -16972,6 +16956,9 @@ public final class main extends javax.swing.JFrame {
             case '=':
                 txtPlaMas.setText("TIM Black C Express");
                 break;
+            case '[':
+                txtPlaMas.setText("TIM Controle Redes Sociais");
+                break;
             default:
                 break;
         }
@@ -18116,7 +18103,6 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkAltGerEst;
     private javax.swing.JCheckBox chkAppMas;
     private javax.swing.JRadioButton chkBolMas;
-    private javax.swing.JCheckBox chkC6Mas;
     private javax.swing.JRadioButton chkCarMas;
     private javax.swing.JCheckBox chkCarMasa;
     private javax.swing.JCheckBox chkCus;
