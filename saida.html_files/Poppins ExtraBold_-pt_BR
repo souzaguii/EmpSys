@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Poppins ExtraBold_-pt_BR';
+	src: local('☺'),
+		url('Poppins ExtraBold_-pt_BR.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+

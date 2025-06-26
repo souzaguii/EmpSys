@@ -74,6 +74,9 @@ import java.awt.datatransfer.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperReport;
 import org.apache.pdfbox.Loader;
 
 public final class main extends javax.swing.JFrame {
@@ -587,61 +590,61 @@ public final class main extends javax.swing.JFrame {
 
     private double juros(int parcela) {
 
-        if (parcela == 0) {
-            return 1.99;
-        } else if (parcela == 1) {
-            return 4.98;
-        } else if (parcela == 2) {
-            return 9.90;
-        } else if (parcela == 3) {
-            return 11.28;
-        } else if (parcela == 4) {
-            return 12.64;
-        } else if (parcela == 5) {
-            return 13.97;
-        } else if (parcela == 6) {
-            return 15.27;
-        } else if (parcela == 7) {
-            return 16.55;
-        } else if (parcela == 8) {
-            return 17.81;
-        } else if (parcela == 9) {
-            return 19.04;
-        } else if (parcela == 10) {
-            return 20.24;
-        } else if (parcela == 11) {
-            return 21.43;
-        } else if (parcela == 12) {
-            return 22.59;
-        }
-
 //        if (parcela == 0) {
-//            return 1.68;
+//            return 1.99;
 //        } else if (parcela == 1) {
-//            return 3.48;
+//            return 4.98;
 //        } else if (parcela == 2) {
-//            return 8.99;
+//            return 9.90;
 //        } else if (parcela == 3) {
-//            return 10.99;
+//            return 11.28;
 //        } else if (parcela == 4) {
-//            return 11.99;
+//            return 12.64;
 //        } else if (parcela == 5) {
-//            return 12.99;
+//            return 13.97;
 //        } else if (parcela == 6) {
-//            return 13.99;
+//            return 15.27;
 //        } else if (parcela == 7) {
-//            return 14.99;
+//            return 16.55;
 //        } else if (parcela == 8) {
-//            return 15.99;
+//            return 17.81;
 //        } else if (parcela == 9) {
-//            return 16.99;
+//            return 19.04;
 //        } else if (parcela == 10) {
-//            return 17.99;
+//            return 20.24;
 //        } else if (parcela == 11) {
-//            return 17.99;
+//            return 21.43;
 //        } else if (parcela == 12) {
-//            return 17.99;
+//            return 22.59;
 //        }
+
+        if (parcela == 0) {
+            return 1.68;
+        } else if (parcela == 1) {
+            return 3.48;
+        } else if (parcela == 2) {
+            return 8.99;
+        } else if (parcela == 3) {
+            return 10.99;
+        } else if (parcela == 4) {
+            return 11.99;
+        } else if (parcela == 5) {
+            return 12.99;
+        } else if (parcela == 6) {
+            return 13.99;
+        } else if (parcela == 7) {
+            return 14.99;
+        } else if (parcela == 8) {
+            return 15.99;
+        } else if (parcela == 9) {
+            return 16.99;
+        } else if (parcela == 10) {
+            return 17.99;
+        } else if (parcela == 11) {
+            return 17.99;
+        } else if (parcela == 12) {
+            return 17.99;
+        }
         return parcela;
 
     }
@@ -14447,6 +14450,14 @@ public final class main extends javax.swing.JFrame {
     private void btnGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerOsActionPerformed
         try {
 
+             
+       
+            
+            
+            
+            
+            
+            
             if (txtCliOs.getText().isEmpty() || txtEndOs.getText().isEmpty() || txtTelOs.getText().isEmpty() || txtEquOs.getText().isEmpty() || txtMarOs.getText().isEmpty() || txtModOs.getText().isEmpty() || txtDefOs.getText().isEmpty() || txtDatOs.getText().isEmpty() || txtRepOs.getText().isEmpty() || (txtDatSaiOs.getText().isEmpty() && chkGarOs.isSelected())) {
 
                 JOptionPane.showMessageDialog(null, "Preencha todos os dados!", "Atenção", JOptionPane.WARNING_MESSAGE);
@@ -14548,6 +14559,8 @@ public final class main extends javax.swing.JFrame {
 
                             JasperPrint print = JasperFillManager.fillReport(inputStream, parameters, new JREmptyDataSource(1));
 
+                            JasperExportManager.exportReportToHtmlFile(print, "saida.html");
+                            
                             JasperViewer jc = new JasperViewer(print, false);
                             jc.setVisible(true);
                             jc.toFront();
