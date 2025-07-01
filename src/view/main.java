@@ -3960,7 +3960,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(lblSerCadEnt);
         lblSerCadEnt.setBounds(390, 270, 90, 30);
         pnlCadEnt.add(txtCodCadEnt);
-        txtCodCadEnt.setBounds(190, 60, 64, 22);
+        txtCodCadEnt.setBounds(210, 60, 64, 22);
 
         btnGroup1.add(rbtnCarCadEnt);
         rbtnCarCadEnt.setFont(fontmed(12));
