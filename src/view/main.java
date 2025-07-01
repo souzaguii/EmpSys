@@ -3204,6 +3204,7 @@ public final class main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSys");
         setIconImage(new ImageIcon(getClass().getResource("/images/ICON.png")).getImage());
+        setPreferredSize(new java.awt.Dimension(1300, 720));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -3218,8 +3219,7 @@ public final class main extends javax.swing.JFrame {
         pnlPri.add(btnRecBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, 60, 20));
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoLoja580.png"))); // NOI18N
-        imgLogo.setText("jLabel1");
-        pnlPri.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 580, 190));
+        pnlPri.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 440, 140));
 
         btnEntPri.setFont(fontmed(14));
         btnEntPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -3239,7 +3239,7 @@ public final class main extends javax.swing.JFrame {
                 btnEntPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnEntPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 210, -1, 40));
+        pnlPri.add(btnEntPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, 40));
 
         btnCadEnt.setFont(fontmed(12));
         btnCadEnt.setForeground(corforeazul);
@@ -3258,7 +3258,7 @@ public final class main extends javax.swing.JFrame {
                 btnCadEntMouseReleased(evt);
             }
         });
-        pnlPri.add(btnCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 70, 20));
+        pnlPri.add(btnCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 80, 20));
 
         btnConEnt.setFont(fontmed(12));
         btnConEnt.setForeground(corforeazul);
@@ -3277,7 +3277,7 @@ public final class main extends javax.swing.JFrame {
                 btnConEntMouseReleased(evt);
             }
         });
-        pnlPri.add(btnConEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 70, 20));
+        pnlPri.add(btnConEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 80, 20));
 
         btnGerEnt.setFont(fontmed(12));
         btnGerEnt.setForeground(corforeazul);
@@ -3296,7 +3296,7 @@ public final class main extends javax.swing.JFrame {
                 btnGerEntMouseReleased(evt);
             }
         });
-        pnlPri.add(btnGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 70, 20));
+        pnlPri.add(btnGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 80, 20));
 
         btnEstPri.setFont(fontmed(14));
         btnEstPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -3316,7 +3316,7 @@ public final class main extends javax.swing.JFrame {
                 btnEstPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnEstPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 210, -1, 40));
+        pnlPri.add(btnEstPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, -1, 40));
 
         btnCadEst.setFont(fontmed(12));
         btnCadEst.setForeground(corforeazul);
@@ -3335,7 +3335,7 @@ public final class main extends javax.swing.JFrame {
                 btnCadEstMouseReleased(evt);
             }
         });
-        pnlPri.add(btnCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 70, 20));
+        pnlPri.add(btnCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 80, 20));
 
         btnConEst.setFont(fontmed(12));
         btnConEst.setForeground(corforeazul);
@@ -3354,7 +3354,7 @@ public final class main extends javax.swing.JFrame {
                 btnConEstMouseReleased(evt);
             }
         });
-        pnlPri.add(btnConEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 70, 20));
+        pnlPri.add(btnConEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 80, 20));
 
         btnGerEst.setFont(fontmed(12));
         btnGerEst.setForeground(corforeazul);
@@ -3373,7 +3373,7 @@ public final class main extends javax.swing.JFrame {
                 btnGerEstMouseReleased(evt);
             }
         });
-        pnlPri.add(btnGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 90, 20));
+        pnlPri.add(btnGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 100, 20));
 
         btnRelPri.setFont(fontmed(14));
         btnRelPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -3393,7 +3393,7 @@ public final class main extends javax.swing.JFrame {
                 btnRelPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnRelPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 210, -1, 40));
+        pnlPri.add(btnRelPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, -1, 40));
 
         btnOrdSerPri.setFont(fontmed(14));
         btnOrdSerPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -3416,7 +3416,7 @@ public final class main extends javax.swing.JFrame {
                 btnOrdSerPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnOrdSerPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, 170, 40));
+        pnlPri.add(btnOrdSerPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, 170, 40));
 
         btnCadOsPri.setFont(fontmed(12));
         btnCadOsPri.setForeground(corforeazul);
@@ -3435,7 +3435,7 @@ public final class main extends javax.swing.JFrame {
                 btnCadOsPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnCadOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 70, 20));
+        pnlPri.add(btnCadOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 70, 20));
 
         btnGerOsPri.setFont(fontmed(12));
         btnGerOsPri.setForeground(corforeazul);
@@ -3454,7 +3454,7 @@ public final class main extends javax.swing.JFrame {
                 btnGerOsPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnGerOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 280, 90, 20));
+        pnlPri.add(btnGerOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 230, 90, 20));
 
         btnTipSerPri.setFont(fontmed(14));
         btnTipSerPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -3474,7 +3474,7 @@ public final class main extends javax.swing.JFrame {
                 btnTipSerPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnTipSerPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 170, 40));
+        pnlPri.add(btnTipSerPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 160, 170, 40));
 
         btnCadTipSer.setFont(fontmed(12));
         btnCadTipSer.setForeground(corforeazul);
@@ -3493,7 +3493,7 @@ public final class main extends javax.swing.JFrame {
                 btnCadTipSerMouseReleased(evt);
             }
         });
-        pnlPri.add(btnCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 260, 70, 20));
+        pnlPri.add(btnCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 210, 70, 20));
 
         btnGerTipSer.setFont(fontmed(12));
         btnGerTipSer.setForeground(corforeazul);
@@ -3512,7 +3512,7 @@ public final class main extends javax.swing.JFrame {
                 btnGerTipSerMouseReleased(evt);
             }
         });
-        pnlPri.add(btnGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 280, 70, 20));
+        pnlPri.add(btnGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 230, 70, 20));
 
         btnOutPri.setFont(fontmed(14));
         btnOutPri.setForeground(new java.awt.Color(10, 60, 133));
@@ -3532,7 +3532,7 @@ public final class main extends javax.swing.JFrame {
                 btnOutPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnOutPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 210, 140, 40));
+        pnlPri.add(btnOutPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 160, 140, 40));
 
         btnMasPla.setFont(fontmed(12));
         btnMasPla.setForeground(corforeazul);
@@ -3551,7 +3551,7 @@ public final class main extends javax.swing.JFrame {
                 btnMasPlaMouseReleased(evt);
             }
         });
-        pnlPri.add(btnMasPla, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 260, 100, 20));
+        pnlPri.add(btnMasPla, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 210, 100, 20));
 
         btnDes.setFont(fontmed(12));
         btnDes.setForeground(corforeazul);
@@ -3570,7 +3570,7 @@ public final class main extends javax.swing.JFrame {
                 btnDesMouseReleased(evt);
             }
         });
-        pnlPri.add(btnDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 280, 60, 20));
+        pnlPri.add(btnDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 230, 60, 20));
 
         btnCadDes.setFont(fontmed(12));
         btnCadDes.setForeground(corforeazul);
@@ -3589,7 +3589,7 @@ public final class main extends javax.swing.JFrame {
                 btnCadDesMouseReleased(evt);
             }
         });
-        pnlPri.add(btnCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 300, 140, 20));
+        pnlPri.add(btnCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 250, 140, 20));
 
         btnGerDes.setFont(fontmed(12));
         btnGerDes.setForeground(corforeazul);
@@ -3608,7 +3608,7 @@ public final class main extends javax.swing.JFrame {
                 btnGerDesMouseReleased(evt);
             }
         });
-        pnlPri.add(btnGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 320, 140, 20));
+        pnlPri.add(btnGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 270, 140, 20));
 
         btnVen.setFont(fontmed(12));
         btnVen.setForeground(corforeazul);
@@ -3630,7 +3630,7 @@ public final class main extends javax.swing.JFrame {
                 btnVenMouseReleased(evt);
             }
         });
-        pnlPri.add(btnVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 260, 140, 20));
+        pnlPri.add(btnVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 210, 60, 20));
 
         btnCadVen.setFont(fontmed(12));
         btnCadVen.setForeground(corforeazul);
@@ -3649,7 +3649,7 @@ public final class main extends javax.swing.JFrame {
                 btnCadVenMouseReleased(evt);
             }
         });
-        pnlPri.add(btnCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 280, 180, 20));
+        pnlPri.add(btnCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 230, 120, 20));
 
         btnJurPri.setFont(fontmed(12));
         btnJurPri.setForeground(corforeazul);
@@ -3668,7 +3668,7 @@ public final class main extends javax.swing.JFrame {
                 btnJurPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnJurPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 300, 140, 20));
+        pnlPri.add(btnJurPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 250, 100, 20));
 
         lblBakPri.setFont(fontmed(12));
         lblBakPri.setForeground(corforeazul);
@@ -3676,7 +3676,7 @@ public final class main extends javax.swing.JFrame {
         lblBakPri.setText("Backup automático em andamento...");
         lblBakPri.setToolTipText("");
         lblBakPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlPri.add(lblBakPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 280, 20));
+        pnlPri.add(lblBakPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 280, 20));
 
         btnTenPri.setFont(fontbold(10));
         btnTenPri.setForeground(corforeazul);
@@ -3696,7 +3696,7 @@ public final class main extends javax.swing.JFrame {
                 btnTenPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnTenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 150, 20));
+        pnlPri.add(btnTenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 20));
 
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(corforeazul);
@@ -3715,13 +3715,13 @@ public final class main extends javax.swing.JFrame {
                 btnVenPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnVenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, 170, 20));
+        pnlPri.add(btnVenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 10, 170, 20));
 
         lblTitPri.setFont(fontmed(17));
         lblTitPri.setForeground(corforeazul);
         lblTitPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitPri.setText("Cadastrar Estoque");
-        pnlPri.add(lblTitPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 300, 270, 30));
+        pnlPri.add(lblTitPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 270, 30));
 
         pnlCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadEnt.setLayout(null);
@@ -4128,7 +4128,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(lblParCadEnt);
         lblParCadEnt.setBounds(838, 59, 80, 20);
 
-        pnlPri.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 420));
+        pnlPri.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 420));
 
         pnlIteCadEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlIteCadEnt.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -4282,7 +4282,7 @@ public final class main extends javax.swing.JFrame {
         sepBusIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlIteCadEnt.add(sepBusIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 200, 10));
 
-        pnlPri.add(pnlIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlConEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlConEnt.setLayout(null);
@@ -4369,7 +4369,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEnt.add(scrConEnt);
         scrConEnt.setBounds(60, 100, 1180, 200);
 
-        pnlPri.add(pnlConEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlConEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlGerEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlGerEnt.setLayout(null);
@@ -4741,7 +4741,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEnt.add(sepForGerEnt);
         sepForGerEnt.setBounds(1020, 200, 160, 10);
 
-        pnlPri.add(pnlGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
         pnlIteGerEnt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -4900,7 +4900,7 @@ public final class main extends javax.swing.JFrame {
         sepBusIteCadEnt1.setForeground(new java.awt.Color(10, 60, 133));
         pnlIteGerEnt.add(sepBusIteCadEnt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 200, 10));
 
-        pnlPri.add(pnlIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlCadEst.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadEst.setLayout(null);
@@ -5359,7 +5359,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(spnVarCorCadEst);
         spnVarCorCadEst.setBounds(1060, 120, 55, 30);
 
-        pnlPri.add(pnlCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlConEst.setBackground(new java.awt.Color(246, 246, 246));
         pnlConEst.setLayout(null);
@@ -5500,7 +5500,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEst.add(txtTipConEst);
         txtTipConEst.setBounds(180, 50, 64, 22);
 
-        pnlPri.add(pnlConEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlConEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlGerEst.setBackground(new java.awt.Color(246, 246, 246));
         pnlGerEst.setLayout(null);
@@ -6059,7 +6059,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(scrGerEst);
         scrGerEst.setBounds(20, 210, 600, 130);
 
-        pnlPri.add(pnlGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlRel.setBackground(new java.awt.Color(246, 246, 246));
         pnlRel.setLayout(null);
@@ -6547,7 +6547,7 @@ public final class main extends javax.swing.JFrame {
         pnlRel.add(chkCus);
         chkCus.setBounds(730, 30, 60, 20);
 
-        pnlPri.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlOs.setBackground(new java.awt.Color(246, 246, 246));
         pnlOs.setLayout(null);
@@ -6899,7 +6899,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(txtPreOs);
         txtPreOs.setBounds(390, 280, 70, 20);
 
-        pnlPri.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlGerOs.setBackground(new java.awt.Color(246, 246, 246));
         pnlGerOs.setLayout(null);
@@ -7032,7 +7032,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerOs.add(sepBusVen1);
         sepBusVen1.setBounds(310, 320, 200, 10);
 
-        pnlPri.add(pnlGerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlGerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlCadTipSer.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadTipSer.setLayout(null);
@@ -7130,7 +7130,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadTipSer.add(sepDesTipSer);
         sepDesTipSer.setBounds(505, 130, 280, 10);
 
-        pnlPri.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlGerTipSer.setBackground(new java.awt.Color(246, 246, 246));
         pnlGerTipSer.setLayout(null);
@@ -7289,7 +7289,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerTipSer.add(rbtnTimGerTipSer);
         rbtnTimGerTipSer.setBounds(450, 10, 80, 21);
 
-        pnlPri.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlMas.setBackground(new java.awt.Color(246, 246, 246));
         pnlMas.setLayout(null);
@@ -7703,7 +7703,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(chkBolMas);
         chkBolMas.setBounds(610, 110, 130, 21);
 
-        pnlPri.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlDes.setBackground(new java.awt.Color(246, 246, 246));
         pnlDes.setLayout(null);
@@ -7751,7 +7751,7 @@ public final class main extends javax.swing.JFrame {
         pnlDes.add(btnVolDes);
         btnVolDes.setBounds(270, 240, 90, 50);
 
-        pnlPri.add(pnlDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlCadDes.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadDes.setLayout(null);
@@ -7871,7 +7871,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadDes.add(btnCanDes);
         btnCanDes.setBounds(640, 260, 90, 50);
 
-        pnlPri.add(pnlCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlGerDes.setBackground(new java.awt.Color(246, 246, 246));
         pnlGerDes.setLayout(null);
@@ -8037,7 +8037,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerDes.add(scrGerDes);
         scrGerDes.setBounds(110, 80, 610, 160);
 
-        pnlPri.add(pnlGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlVen.setBackground(new java.awt.Color(246, 246, 246));
         pnlVen.setLayout(null);
@@ -8223,7 +8223,7 @@ public final class main extends javax.swing.JFrame {
         pnlVen.add(btnWppVen1);
         btnWppVen1.setBounds(1040, 260, 100, 50);
 
-        pnlPri.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlCadVen.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadVen.setLayout(null);
@@ -8489,7 +8489,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(txtCpfCadVen);
         txtCpfCadVen.setBounds(400, 130, 190, 20);
 
-        pnlPri.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         pnlJur.setBackground(new java.awt.Color(246, 246, 246));
         pnlJur.setLayout(null);
@@ -8772,7 +8772,7 @@ public final class main extends javax.swing.JFrame {
         pnlJur.add(spnParJur);
         spnParJur.setBounds(320, 93, 55, 30);
 
-        pnlPri.add(pnlJur, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 1300, 380));
+        pnlPri.add(pnlJur, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1300, 380));
 
         getContentPane().add(pnlPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
