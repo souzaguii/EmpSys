@@ -518,7 +518,6 @@ public class entradaDAO {
                     null,
                     rs.getString("formapagamentoEnt"),
                     null,
-                    rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
 
@@ -536,7 +535,6 @@ public class entradaDAO {
                     null,
                     rs.getString("formapagamentoEnt"),
                     null,
-                    rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
 
@@ -554,7 +552,6 @@ public class entradaDAO {
                     rs.getString("custoEnt"),
                     rs.getString("formapagamentoEnt"),
                     rs.getString("fornecedorEnt"),
-                    rs.getString("quantidadeEnt"),
                     rs.getString("detalhesEnt"),
                     rs.getString("codigoEnt")};
 

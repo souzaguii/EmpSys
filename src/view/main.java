@@ -1321,7 +1321,6 @@ public final class main extends javax.swing.JFrame {
                 modelo.addColumn("Custo");
                 modelo.addColumn("Pagamento");
                 modelo.addColumn("Fornecedor");
-                modelo.addColumn("Quantidade");
                 modelo.addColumn("Detalhes");
                 modelo.addColumn("Código Entrada");
 
@@ -1340,10 +1339,9 @@ public final class main extends javax.swing.JFrame {
                     rowData[6] = (row[6] != null) ? moedadoublereal(Double.valueOf(row[6])) : "Não Aplicável";
                     rowData[7] = ("1".equals(row[7])) ? "Dinheiro" : ("2".equals(row[7])) ? "Cartão" : ("3".equals(row[7])) ? "PIX" : null;
                     rowData[8] = ("Assistência".equals(row[1]) && "".equals(row[8])) ? "Não Informado"
-                            : (!"Assistência".equals(row[1]) && row[8] == null) ? "Não Aplicável" : row[8];
-                    rowData[9] = (row[9] == null || "0".equals(row[9])) ? "Não Aplicável" : row[9];
-                    rowData[10] = (row[10] != null && !"".equals(row[10])) ? row[10] : "Sem Detalhes";
-                    rowData[11] = row[11];
+                            : (!"Assistência".equals(row[1]) && row[8] == null) ? "Não Aplicável" : row[8];              
+                    rowData[9] = (row[9] != null && !"".equals(row[9])) ? row[9] : "Sem Detalhes";
+                    rowData[10] = row[10];
 
                     modelo.addRow(rowData);
 
@@ -1385,9 +1383,9 @@ public final class main extends javax.swing.JFrame {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(deheader);
                 }
 
-                tbl.getColumnModel().getColumn(11).setMinWidth(0);
-                tbl.getColumnModel().getColumn(11).setMaxWidth(0);
-                tbl.getColumnModel().getColumn(11).setWidth(0);
+                tbl.getColumnModel().getColumn(10).setMinWidth(0);
+                tbl.getColumnModel().getColumn(10).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(10).setWidth(0);
 
                 tbl.setVisible(true);
                 scr.setVisible(true);
@@ -3204,7 +3202,6 @@ public final class main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSys");
         setIconImage(new ImageIcon(getClass().getResource("/images/ICON.png")).getImage());
-        setPreferredSize(new java.awt.Dimension(1300, 720));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -3676,7 +3673,7 @@ public final class main extends javax.swing.JFrame {
         lblBakPri.setText("Backup automático em andamento...");
         lblBakPri.setToolTipText("");
         lblBakPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlPri.add(lblBakPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 280, 20));
+        pnlPri.add(lblBakPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 280, 20));
 
         btnTenPri.setFont(fontbold(10));
         btnTenPri.setForeground(corforeazul);
@@ -3696,7 +3693,7 @@ public final class main extends javax.swing.JFrame {
                 btnTenPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnTenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 20));
+        pnlPri.add(btnTenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 150, 20));
 
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(corforeazul);
@@ -3715,7 +3712,7 @@ public final class main extends javax.swing.JFrame {
                 btnVenPriMouseReleased(evt);
             }
         });
-        pnlPri.add(btnVenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 10, 170, 20));
+        pnlPri.add(btnVenPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, 170, 20));
 
         lblTitPri.setFont(fontmed(17));
         lblTitPri.setForeground(corforeazul);
@@ -3742,7 +3739,7 @@ public final class main extends javax.swing.JFrame {
 
         btnIteCadEnt.setFont(fontmed(12));
         btnIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
-        btnIteCadEnt.setText("Ítens");
+        btnIteCadEnt.setText("Estoque");
         btnIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIteCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3750,7 +3747,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnIteCadEnt);
-        btnIteCadEnt.setBounds(840, 150, 90, 50);
+        btnIteCadEnt.setBounds(840, 210, 90, 30);
 
         btnSalCadEnt.setFont(fontmed(12));
         btnSalCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -3762,7 +3759,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnSalCadEnt);
-        btnSalCadEnt.setBounds(840, 210, 90, 50);
+        btnSalCadEnt.setBounds(840, 250, 90, 30);
 
         btnCanCadEnt.setFont(fontmed(12));
         btnCanCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -3774,7 +3771,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEnt.add(btnCanCadEnt);
-        btnCanCadEnt.setBounds(840, 270, 90, 50);
+        btnCanCadEnt.setBounds(840, 290, 90, 30);
 
         btnGroup.add(rbtnSerCadEnt);
         rbtnSerCadEnt.setFont(fontmed(12));
@@ -4176,7 +4173,7 @@ public final class main extends javax.swing.JFrame {
         });
         scrEstIteCadEnt.setViewportView(tblEstIteCadEnt);
 
-        pnlIteCadEnt.add(scrEstIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 780, 120));
+        pnlIteCadEnt.add(scrEstIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 680, 120));
 
         scrSelIteCadEnt.setBackground(new java.awt.Color(250, 250, 250));
         scrSelIteCadEnt.setBorder(BorderFactory.createEmptyBorder());
@@ -4195,7 +4192,7 @@ public final class main extends javax.swing.JFrame {
         scrSelIteCadEnt.setViewportView(tblSelIteCadEnt);
         tabelaitensselecionados();
 
-        pnlIteCadEnt.add(scrSelIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 780, 120));
+        pnlIteCadEnt.add(scrSelIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 680, 120));
 
         lblSelIteCadEnt.setFont(fontmed(12));
         lblSelIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4384,7 +4381,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(btnExcGerEnt);
-        btnExcGerEnt.setBounds(1180, 230, 90, 50);
+        btnExcGerEnt.setBounds(1110, 270, 80, 30);
 
         btnBusGerEnt.setFont(fontmed(12));
         btnBusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4400,7 +4397,7 @@ public final class main extends javax.swing.JFrame {
 
         btnIteGerEnt.setFont(fontmed(12));
         btnIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        btnIteGerEnt.setText("Ítens");
+        btnIteGerEnt.setText("Estoque");
         btnIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4408,7 +4405,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(btnIteGerEnt);
-        btnIteGerEnt.setBounds(980, 230, 90, 50);
+        btnIteGerEnt.setBounds(1020, 230, 80, 30);
 
         btnCanGerEnt.setFont(fontmed(12));
         btnCanGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4606,7 +4603,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEnt.add(btnAltGerEnt);
-        btnAltGerEnt.setBounds(1080, 230, 90, 50);
+        btnAltGerEnt.setBounds(1110, 230, 80, 30);
 
         btnGroup.add(rbtnCarGerEnt);
         rbtnCarGerEnt.setFont(fontmed(12));
