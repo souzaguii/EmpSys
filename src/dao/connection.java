@@ -42,13 +42,13 @@ public class connection {
             }
 
         } catch (ClassNotFoundException e) {
-            if (main.pnlPri.isVisible()) {
+            if (main.pnlPrincipal.isVisible()) {
                 JOptionPane.showMessageDialog(null, "O driver especificado não foi encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
             status = "Erro na conexão com o banco de dados!";
 
         } catch (SQLException e) {
-            if (main.pnlPri.isVisible()) {
+            if (main.pnlPrincipal.isVisible()) {
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
             status = "Erro na conexão com o banco de dados!";
