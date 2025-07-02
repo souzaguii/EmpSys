@@ -91,9 +91,9 @@ public final class main extends javax.swing.JFrame {
 
         initComponents();
         setLocationRelativeTo(null);
-        loading();
-//        iniciasistema();
-//        pnlPrincipal.setVisible(true);
+//        loading();
+        iniciasistema();
+        pnlPrincipal.setVisible(true);
 
     }
 
@@ -3186,7 +3186,7 @@ public final class main extends javax.swing.JFrame {
         pnlPrincipal.setPreferredSize(new java.awt.Dimension(1200, 720));
         pnlPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnlHeader.setBackground(new java.awt.Color(30, 30, 91));
+        pnlHeader.setBackground(new java.awt.Color(23, 23, 59));
         pnlHeader.setLayout(null);
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoLojaBranco.png"))); // NOI18N
@@ -3625,7 +3625,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        pnlCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadEnt.setLayout(null);
 
         btnGroup1.add(rbtnPixCadEnt);
@@ -3678,6 +3678,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(btnCanCadEnt);
         btnCanCadEnt.setBounds(780, 390, 90, 30);
 
+        rbtnSerCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnSerCadEnt);
         rbtnSerCadEnt.setFont(fontmed(12));
         rbtnSerCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -3691,6 +3692,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(rbtnSerCadEnt);
         rbtnSerCadEnt.setBounds(460, 90, 90, 21);
 
+        rbtnVenCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnVenCadEnt);
         rbtnVenCadEnt.setFont(fontmed(12));
         rbtnVenCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -3704,6 +3706,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(rbtnVenCadEnt);
         rbtnVenCadEnt.setBounds(550, 90, 80, 21);
 
+        rbtnAssCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnAssCadEnt);
         rbtnAssCadEnt.setFont(fontmed(12));
         rbtnAssCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -3752,7 +3755,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(lblDatCadEnt);
         lblDatCadEnt.setBounds(330, 220, 40, 20);
 
-        txtDatCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtDatCadEnt.setFont(fontmed(13));
         txtDatCadEnt.setBorder(null);
         txtDatCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -3788,7 +3791,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(lblPreCadEnt);
         lblPreCadEnt.setBounds(330, 270, 40, 20);
 
-        txtPreCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtPreCadEnt.setFont(fontmed(13));
         txtPreCadEnt.setBorder(null);
         txtPreCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -3838,7 +3841,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(lblDetCadEnt);
         lblDetCadEnt.setBounds(330, 320, 70, 20);
 
-        txtDetCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtDetCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtDetCadEnt.setFont(fontmed(13));
         txtDetCadEnt.setBorder(null);
         txtDetCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -3905,7 +3908,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(lblCusCadEnt);
         lblCusCadEnt.setBounds(570, 270, 40, 20);
 
-        txtCusCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtCusCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtCusCadEnt.setFont(fontmed(13));
         txtCusCadEnt.setBorder(null);
         txtCusCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -3935,7 +3938,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(lblForCadEnt);
         lblForCadEnt.setBounds(570, 320, 90, 20);
 
-        txtForCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtForCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtForCadEnt.setFont(fontmed(13));
         txtForCadEnt.setBorder(null);
         txtForCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -3960,7 +3963,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(lblCliCadEnt);
         lblCliCadEnt.setBounds(570, 220, 90, 20);
 
-        txtCliCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtCliCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtCliCadEnt.setFont(fontmed(13));
         txtCliCadEnt.setBorder(null);
         txtCliCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4037,7 +4040,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlIteCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        pnlIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlIteCadEnt.setMinimumSize(new java.awt.Dimension(1200, 520));
         pnlIteCadEnt.setPreferredSize(new java.awt.Dimension(1200, 520));
         pnlIteCadEnt.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -4116,6 +4119,7 @@ public final class main extends javax.swing.JFrame {
         lblEstIteCadEnt.setText("Ítens do estoque");
         pnlIteCadEnt.add(lblEstIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 130, 20));
 
+        rbtnAssIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup2.add(rbtnAssIteCadEnt);
         rbtnAssIteCadEnt.setFont(fontmed(12));
         rbtnAssIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4128,6 +4132,7 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteCadEnt.add(rbtnAssIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 100, -1));
 
+        rbtnPelIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup2.add(rbtnPelIteCadEnt);
         rbtnPelIteCadEnt.setFont(fontmed(12));
         rbtnPelIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4140,6 +4145,7 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteCadEnt.add(rbtnPelIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 80, -1));
 
+        rbtnCapIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup2.add(rbtnCapIteCadEnt);
         rbtnCapIteCadEnt.setFont(fontmed(12));
         rbtnCapIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4152,6 +4158,7 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteCadEnt.add(rbtnCapIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 90, -1));
 
+        rbtnChiIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup2.add(rbtnChiIteCadEnt);
         rbtnChiIteCadEnt.setFont(fontmed(12));
         rbtnChiIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4170,7 +4177,7 @@ public final class main extends javax.swing.JFrame {
         lblBusIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlIteCadEnt.add(lblBusIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 50, 20));
 
-        txtBusIteCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtBusIteCadEnt.setFont(fontmed(13));
         txtBusIteCadEnt.setBorder(null);
         txtBusIteCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4198,7 +4205,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlConEnt.setBackground(new java.awt.Color(246, 246, 246));
+        pnlConEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlConEnt.setLayout(null);
 
         lblConsultarEntrada.setFont(fontbold(25));
@@ -4238,7 +4245,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEnt.add(lblBusConEnt);
         lblBusConEnt.setBounds(450, 100, 50, 20);
 
-        txtBusConEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusConEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtBusConEnt.setFont(fontmed(13));
         txtBusConEnt.setBorder(null);
         txtBusConEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4291,7 +4298,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlConEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        pnlGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerEnt.setMinimumSize(new java.awt.Dimension(1200, 520));
         pnlGerEnt.setPreferredSize(new java.awt.Dimension(1200, 520));
         pnlGerEnt.setLayout(null);
@@ -4359,7 +4366,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEnt.add(lblDatBusGerEnt);
         lblDatBusGerEnt.setBounds(500, 100, 50, 20);
 
-        txtDatBusGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatBusGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtDatBusGerEnt.setFont(fontmed(13));
         txtDatBusGerEnt.setBorder(null);
         txtDatBusGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4418,7 +4425,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlAlterarEntrada.setBackground(new java.awt.Color(246, 246, 246));
+        pnlAlterarEntrada.setBackground(new java.awt.Color(241, 241, 241));
         pnlAlterarEntrada.setMinimumSize(new java.awt.Dimension(1200, 520));
         pnlAlterarEntrada.setLayout(null);
 
@@ -4459,7 +4466,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(lblDatGerEnt);
         lblDatGerEnt.setBounds(390, 140, 40, 20);
 
-        txtDatGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtDatGerEnt.setFont(fontmed(13));
         txtDatGerEnt.setBorder(null);
         txtDatGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4496,7 +4503,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(lblPreGerEnt);
         lblPreGerEnt.setBounds(390, 190, 40, 20);
 
-        txtPreGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtPreGerEnt.setFont(fontmed(13));
         txtPreGerEnt.setBorder(null);
         txtPreGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4521,7 +4528,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(lblDetGerEnt);
         lblDetGerEnt.setBounds(390, 240, 70, 20);
 
-        txtDetGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtDetGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtDetGerEnt.setFont(fontmed(13));
         txtDetGerEnt.setBorder(null);
         txtDetGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4569,6 +4576,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(btnSalGerEnt);
         btnSalGerEnt.setBounds(720, 280, 80, 30);
 
+        rbtnCarGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnCarGerEnt);
         rbtnCarGerEnt.setFont(fontmed(12));
         rbtnCarGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4582,6 +4590,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(rbtnCarGerEnt);
         rbtnCarGerEnt.setBounds(490, 90, 90, 21);
 
+        rbtnPixGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnPixGerEnt);
         rbtnPixGerEnt.setFont(fontmed(12));
         rbtnPixGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4595,6 +4604,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(rbtnPixGerEnt);
         rbtnPixGerEnt.setBounds(580, 90, 90, 21);
 
+        rbtnDinGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnDinGerEnt);
         rbtnDinGerEnt.setFont(fontmed(12));
         rbtnDinGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4615,7 +4625,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(lblCliGerEnt);
         lblCliGerEnt.setBounds(630, 140, 90, 20);
 
-        txtCliGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtCliGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtCliGerEnt.setFont(fontmed(13));
         txtCliGerEnt.setBorder(null);
         txtCliGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4646,7 +4656,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(lblR$CusGerEnt);
         lblR$CusGerEnt.setBounds(630, 190, 20, 20);
 
-        txtCusGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtCusGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtCusGerEnt.setFont(fontmed(13));
         txtCusGerEnt.setBorder(null);
         txtCusGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4681,7 +4691,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(lblForGerEnt);
         lblForGerEnt.setBounds(630, 240, 90, 20);
 
-        txtForGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtForGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtForGerEnt.setFont(fontmed(13));
         txtForGerEnt.setBorder(null);
         txtForGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4701,7 +4711,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlAlterarEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        pnlIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlIteGerEnt.setMinimumSize(new java.awt.Dimension(1200, 520));
         pnlIteGerEnt.setPreferredSize(new java.awt.Dimension(1200, 520));
         pnlIteGerEnt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -4792,6 +4802,7 @@ public final class main extends javax.swing.JFrame {
         lblEstIteGerEnt.setText("Ítens do estoque");
         pnlIteGerEnt.add(lblEstIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 130, 20));
 
+        rbtnAssIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup1.add(rbtnAssIteGerEnt);
         rbtnAssIteGerEnt.setFont(fontmed(12));
         rbtnAssIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4804,6 +4815,7 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteGerEnt.add(rbtnAssIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 100, -1));
 
+        rbtnPelIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup1.add(rbtnPelIteGerEnt);
         rbtnPelIteGerEnt.setFont(fontmed(12));
         rbtnPelIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4816,6 +4828,7 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteGerEnt.add(rbtnPelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 80, -1));
 
+        rbtnCapIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup1.add(rbtnCapIteGerEnt);
         rbtnCapIteGerEnt.setFont(fontmed(12));
         rbtnCapIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4828,6 +4841,7 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteGerEnt.add(rbtnCapIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 90, -1));
 
+        rbtnChiIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup1.add(rbtnChiIteGerEnt);
         rbtnChiIteGerEnt.setFont(fontmed(12));
         rbtnChiIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4846,7 +4860,7 @@ public final class main extends javax.swing.JFrame {
         lblBusIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlIteGerEnt.add(lblBusIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 50, 20));
 
-        txtBusIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtBusIteGerEnt.setFont(fontmed(13));
         txtBusIteGerEnt.setBorder(null);
         txtBusIteGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -4869,7 +4883,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        pnlCadEst.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadEst.setLayout(null);
 
         lblNovaEntradaItens2.setFont(fontbold(25));
@@ -4914,6 +4928,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(btnCanCadEst);
         btnCanCadEst.setBounds(460, 370, 90, 30);
 
+        rbtnCapCadEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnCapCadEst);
         rbtnCapCadEst.setFont(fontmed(12));
         rbtnCapCadEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -4927,6 +4942,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(rbtnCapCadEst);
         rbtnCapCadEst.setBounds(410, 90, 90, 21);
 
+        rbtnPelCadEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnPelCadEst);
         rbtnPelCadEst.setFont(fontmed(12));
         rbtnPelCadEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -4940,6 +4956,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(rbtnPelCadEst);
         rbtnPelCadEst.setBounds(520, 90, 80, 21);
 
+        rbtnChiCadEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnChiCadEst);
         rbtnChiCadEst.setFont(fontmed(12));
         rbtnChiCadEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -4953,6 +4970,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(rbtnChiCadEst);
         rbtnChiCadEst.setBounds(620, 90, 60, 21);
 
+        rbtnAceCadEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnAceCadEst);
         rbtnAceCadEst.setFont(fontmed(12));
         rbtnAceCadEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5048,7 +5066,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(lblVarCorCadEst);
         lblVarCorCadEst.setBounds(890, 220, 60, 20);
 
-        txtVarCorCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtVarCorCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtVarCorCadEst.setFont(fontmed(13));
         txtVarCorCadEst.setBorder(null);
         txtVarCorCadEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5080,7 +5098,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(lblModCadEst);
         lblModCadEst.setBounds(360, 200, 70, 20);
 
-        txtModCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtModCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtModCadEst.setFont(fontmed(13));
         txtModCadEst.setBorder(null);
         txtModCadEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5115,7 +5133,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(lblMarCadEst);
         lblMarCadEst.setBounds(360, 150, 40, 20);
 
-        txtMarCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtMarCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtMarCadEst.setFont(fontmed(13));
         txtMarCadEst.setBorder(null);
         txtMarCadEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5140,7 +5158,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(lblCorCadEst);
         lblCorCadEst.setBounds(650, 150, 30, 20);
 
-        txtCorCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtCorCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtCorCadEst.setFont(fontmed(13));
         txtCorCadEst.setBorder(null);
         txtCorCadEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5165,7 +5183,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(lblMatCadEst);
         lblMatCadEst.setBounds(650, 200, 70, 20);
 
-        txtMatCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtMatCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtMatCadEst.setFont(fontmed(13));
         txtMatCadEst.setBorder(null);
         txtMatCadEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5190,7 +5208,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(lblQuaCadEst);
         lblQuaCadEst.setBounds(360, 250, 80, 20);
 
-        txtQuaCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtQuaCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtQuaCadEst.setFont(fontmed(13));
         txtQuaCadEst.setBorder(null);
         txtQuaCadEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5226,7 +5244,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(lblPreCadEst);
         lblPreCadEst.setBounds(360, 300, 40, 20);
 
-        txtPreCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtPreCadEst.setFont(fontmed(13));
         txtPreCadEst.setBorder(null);
         txtPreCadEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5269,7 +5287,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(lblLocCadEst);
         lblLocCadEst.setBounds(650, 250, 40, 20);
 
-        txtLocCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtLocCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtLocCadEst.setFont(fontmed(13));
         txtLocCadEst.setBorder(null);
         txtLocCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -5295,7 +5313,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(lblDetCadEst);
         lblDetCadEst.setBounds(650, 300, 70, 20);
 
-        txtDetCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtDetCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtDetCadEst.setFont(fontmed(13));
         txtDetCadEst.setBorder(null);
         txtDetCadEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5333,7 +5351,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlConEst.setBackground(new java.awt.Color(246, 246, 246));
+        pnlConEst.setBackground(new java.awt.Color(241, 241, 241));
         pnlConEst.setLayout(null);
 
         lblNovaEntradaItens3.setFont(fontbold(25));
@@ -5366,6 +5384,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEst.add(btnBusConEst);
         btnBusConEst.setBounds(500, 190, 90, 30);
 
+        rbtnCapConEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnCapConEst);
         rbtnCapConEst.setFont(fontmed(12));
         rbtnCapConEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5379,6 +5398,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEst.add(rbtnCapConEst);
         rbtnCapConEst.setBounds(420, 90, 90, 21);
 
+        rbtnPelConEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnPelConEst);
         rbtnPelConEst.setFont(fontmed(12));
         rbtnPelConEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5392,6 +5412,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEst.add(rbtnPelConEst);
         rbtnPelConEst.setBounds(530, 90, 80, 21);
 
+        rbtnChiConEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnChiConEst);
         rbtnChiConEst.setFont(fontmed(12));
         rbtnChiConEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5405,6 +5426,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEst.add(rbtnChiConEst);
         rbtnChiConEst.setBounds(630, 90, 60, 21);
 
+        rbtnAceConEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnAceConEst);
         rbtnAceConEst.setFont(fontmed(12));
         rbtnAceConEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5425,7 +5447,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEst.add(lblBusConEst);
         lblBusConEst.setBounds(450, 150, 50, 20);
 
-        txtBusConEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusConEst.setBackground(new java.awt.Color(241, 241, 241));
         txtBusConEst.setFont(fontmed(13));
         txtBusConEst.setBorder(null);
         txtBusConEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5480,7 +5502,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlConEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        pnlGerEst.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerEst.setMinimumSize(new java.awt.Dimension(1200, 520));
         pnlGerEst.setLayout(null);
 
@@ -5749,7 +5771,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(lblModGerEst);
         lblModGerEst.setBounds(710, 180, 70, 20);
 
-        txtModGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtModGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtModGerEst.setFont(fontmed(13));
         txtModGerEst.setBorder(null);
         txtModGerEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5774,7 +5796,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(lblMarGerEst);
         lblMarGerEst.setBounds(710, 130, 40, 20);
 
-        txtMarGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtMarGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtMarGerEst.setFont(fontmed(13));
         txtMarGerEst.setBorder(null);
         txtMarGerEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5799,7 +5821,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(lblCorGerEst);
         lblCorGerEst.setBounds(950, 130, 30, 20);
 
-        txtCorGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtCorGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtCorGerEst.setFont(fontmed(13));
         txtCorGerEst.setBorder(null);
         txtCorGerEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5824,7 +5846,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(lblMatGerEst);
         lblMatGerEst.setBounds(950, 180, 80, 20);
 
-        txtMatGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtMatGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtMatGerEst.setFont(fontmed(13));
         txtMatGerEst.setBorder(null);
         txtMatGerEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5849,7 +5871,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(lblQuaGerEst);
         lblQuaGerEst.setBounds(710, 230, 80, 20);
 
-        txtQuaGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtQuaGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtQuaGerEst.setFont(fontmed(13));
         txtQuaGerEst.setBorder(null);
         txtQuaGerEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5885,7 +5907,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(lblPreGerEst);
         lblPreGerEst.setBounds(710, 280, 40, 20);
 
-        txtPreGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtPreGerEst.setFont(fontmed(13));
         txtPreGerEst.setBorder(null);
         txtPreGerEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5927,7 +5949,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(lblLocGerEst);
         lblLocGerEst.setBounds(950, 230, 40, 20);
 
-        txtLocGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtLocGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtLocGerEst.setFont(fontmed(13));
         txtLocGerEst.setBorder(null);
         txtLocGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -5953,7 +5975,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(lblDetGerEst);
         lblDetGerEst.setBounds(950, 280, 70, 20);
 
-        txtDetGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtDetGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtDetGerEst.setFont(fontmed(13));
         txtDetGerEst.setBorder(null);
         txtDetGerEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -5982,7 +6004,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(lblBusGerEst);
         lblBusGerEst.setBounds(220, 160, 50, 20);
 
-        txtBusGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtBusGerEst.setFont(fontmed(13));
         txtBusGerEst.setBorder(null);
         txtBusGerEst.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6041,7 +6063,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlRel.setBackground(new java.awt.Color(246, 246, 246));
+        pnlRel.setBackground(new java.awt.Color(241, 241, 241));
         pnlRel.setLayout(null);
 
         lblNovaEntradaItens5.setFont(fontbold(25));
@@ -6198,7 +6220,7 @@ public final class main extends javax.swing.JFrame {
         pnlRel.add(lblDatIniRel);
         lblDatIniRel.setBounds(300, 220, 90, 20);
 
-        txtDatIniRel.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatIniRel.setBackground(new java.awt.Color(241, 241, 241));
         txtDatIniRel.setFont(fontmed(13));
         txtDatIniRel.setBorder(null);
         txtDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6272,7 +6294,7 @@ public final class main extends javax.swing.JFrame {
         pnlRel.add(lblDatFinRel);
         lblDatFinRel.setBounds(440, 220, 80, 20);
 
-        txtDatFinRel.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatFinRel.setBackground(new java.awt.Color(241, 241, 241));
         txtDatFinRel.setFont(fontmed(13));
         txtDatFinRel.setBorder(null);
         txtDatFinRel.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6530,7 +6552,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlOs.setBackground(new java.awt.Color(246, 246, 246));
+        pnlOs.setBackground(new java.awt.Color(241, 241, 241));
         pnlOs.setLayout(null);
 
         lblNovaEntradaItens6.setFont(fontbold(25));
@@ -6583,7 +6605,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblEndOs);
         lblEndOs.setBounds(310, 210, 60, 20);
 
-        txtEndOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtEndOs.setBackground(new java.awt.Color(241, 241, 241));
         txtEndOs.setFont(fontmed(13));
         txtEndOs.setBorder(null);
         txtEndOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6608,7 +6630,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblCliOs);
         lblCliOs.setBounds(310, 110, 60, 20);
 
-        txtCliOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtCliOs.setBackground(new java.awt.Color(241, 241, 241));
         txtCliOs.setFont(fontmed(13));
         txtCliOs.setBorder(null);
         txtCliOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6633,7 +6655,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblEquOs);
         lblEquOs.setBounds(640, 110, 130, 20);
 
-        txtEquOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtEquOs.setBackground(new java.awt.Color(241, 241, 241));
         txtEquOs.setFont(fontmed(13));
         txtEquOs.setBorder(null);
         txtEquOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6658,7 +6680,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblMarOs);
         lblMarOs.setBounds(640, 160, 50, 20);
 
-        txtMarOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtMarOs.setBackground(new java.awt.Color(241, 241, 241));
         txtMarOs.setFont(fontmed(13));
         txtMarOs.setBorder(null);
         txtMarOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6683,7 +6705,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblTelOs);
         lblTelOs.setBounds(310, 160, 80, 20);
 
-        txtTelOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtTelOs.setBackground(new java.awt.Color(241, 241, 241));
         txtTelOs.setFont(fontmed(13));
         txtTelOs.setBorder(null);
         txtTelOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6716,7 +6738,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblModOs);
         lblModOs.setBounds(640, 210, 60, 20);
 
-        txtModOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtModOs.setBackground(new java.awt.Color(241, 241, 241));
         txtModOs.setFont(fontmed(13));
         txtModOs.setBorder(null);
         txtModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -6742,7 +6764,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblConOs);
         lblConOs.setBounds(640, 260, 130, 20);
 
-        txtDefOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtDefOs.setBackground(new java.awt.Color(241, 241, 241));
         txtDefOs.setFont(fontmed(13));
         txtDefOs.setBorder(null);
         txtDefOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6767,7 +6789,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblDefOs);
         lblDefOs.setBounds(640, 310, 100, 20);
 
-        txtRepOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtRepOs.setBackground(new java.awt.Color(241, 241, 241));
         txtRepOs.setFont(fontmed(13));
         txtRepOs.setBorder(null);
         txtRepOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6790,9 +6812,9 @@ public final class main extends javax.swing.JFrame {
         lblDatEntOs.setText("Data entrada");
         lblDatEntOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlOs.add(lblDatEntOs);
-        lblDatEntOs.setBounds(310, 260, 110, 20);
+        lblDatEntOs.setBounds(310, 260, 70, 20);
 
-        txtDatOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatOs.setBackground(new java.awt.Color(241, 241, 241));
         txtDatOs.setFont(fontmed(13));
         txtDatOs.setBorder(null);
         txtDatOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6822,7 +6844,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblHorOs);
         lblHorOs.setBounds(310, 310, 80, 20);
 
-        txtDatSaiOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatSaiOs.setBackground(new java.awt.Color(241, 241, 241));
         txtDatSaiOs.setFont(fontmed(13));
         txtDatSaiOs.setBorder(null);
         txtDatSaiOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6862,7 +6884,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(lblR$Os);
         lblR$Os.setBounds(310, 360, 20, 20);
 
-        txtPreOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreOs.setBackground(new java.awt.Color(241, 241, 241));
         txtPreOs.setFont(fontmed(13));
         txtPreOs.setBorder(null);
         txtPreOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -6888,7 +6910,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlGerOs.setBackground(new java.awt.Color(246, 246, 246));
+        pnlGerOs.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerOs.setLayout(null);
 
         lblGerarOS.setFont(fontbold(25));
@@ -6994,7 +7016,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerOs.add(lblBusGerOs);
         lblBusGerOs.setBounds(260, 390, 80, 20);
 
-        txtBusGerOs.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusGerOs.setBackground(new java.awt.Color(241, 241, 241));
         txtBusGerOs.setFont(fontmed(13));
         txtBusGerOs.setBorder(null);
         txtBusGerOs.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7027,7 +7049,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlGerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlCadTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        pnlCadTipSer.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadTipSer.setLayout(null);
 
         lblNovaEntradaItens8.setFont(fontbold(25));
@@ -7107,7 +7129,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadTipSer.add(lblDesTipSer);
         lblDesTipSer.setBounds(460, 170, 70, 20);
 
-        txtDesTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        txtDesTipSer.setBackground(new java.awt.Color(241, 241, 241));
         txtDesTipSer.setFont(fontmed(13));
         txtDesTipSer.setBorder(null);
         txtDesTipSer.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7132,7 +7154,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlGerTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        pnlGerTipSer.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerTipSer.setLayout(null);
 
         lblNovaEntradaItens9.setFont(fontbold(25));
@@ -7203,7 +7225,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerTipSer.add(lblDesGerTipSer);
         lblDesGerTipSer.setBounds(470, 330, 70, 20);
 
-        txtDesGerTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        txtDesGerTipSer.setBackground(new java.awt.Color(241, 241, 241));
         txtDesGerTipSer.setFont(fontmed(13));
         txtDesGerTipSer.setBorder(null);
         txtDesGerTipSer.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7297,7 +7319,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlMas.setBackground(new java.awt.Color(246, 246, 246));
+        pnlMas.setBackground(new java.awt.Color(241, 241, 241));
         pnlMas.setLayout(null);
 
         lblNovaEntradaItens10.setFont(fontbold(25));
@@ -7417,7 +7439,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(chkDebMasa);
         chkDebMasa.setBounds(340, 360, 150, 20);
 
-        txtNomMas.setBackground(new java.awt.Color(246, 246, 246));
+        txtNomMas.setBackground(new java.awt.Color(241, 241, 241));
         txtNomMas.setFont(fontmed(13));
         txtNomMas.setBorder(null);
         txtNomMas.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7455,7 +7477,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(sepDesGerTipSer3);
         sepDesGerTipSer3.setBounds(340, 180, 170, 10);
 
-        txtNumConMas.setBackground(new java.awt.Color(246, 246, 246));
+        txtNumConMas.setBackground(new java.awt.Color(241, 241, 241));
         txtNumConMas.setFont(fontmed(13));
         txtNumConMas.setBorder(null);
         txtNumConMas.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7488,7 +7510,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(sepDesGerTipSer4);
         sepDesGerTipSer4.setBounds(80, 230, 150, 10);
 
-        txtCpfMas.setBackground(new java.awt.Color(246, 246, 246));
+        txtCpfMas.setBackground(new java.awt.Color(241, 241, 241));
         txtCpfMas.setFont(fontmed(13));
         txtCpfMas.setBorder(null);
         txtCpfMas.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7524,7 +7546,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(sepDesGerTipSer5);
         sepDesGerTipSer5.setBounds(340, 230, 170, 10);
 
-        txtNumAceMas.setBackground(new java.awt.Color(246, 246, 246));
+        txtNumAceMas.setBackground(new java.awt.Color(241, 241, 241));
         txtNumAceMas.setFont(fontmed(13));
         txtNumAceMas.setBorder(null);
         txtNumAceMas.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7557,7 +7579,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(sepDesGerTipSer6);
         sepDesGerTipSer6.setBounds(340, 280, 170, 10);
 
-        txtNumPorMas.setBackground(new java.awt.Color(246, 246, 246));
+        txtNumPorMas.setBackground(new java.awt.Color(241, 241, 241));
         txtNumPorMas.setFont(fontmed(13));
         txtNumPorMas.setBorder(null);
         txtNumPorMas.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7616,7 +7638,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(sepDesGerTipSer7);
         sepDesGerTipSer7.setBounds(760, 110, 10, 260);
 
-        txtPlaMas.setBackground(new java.awt.Color(246, 246, 246));
+        txtPlaMas.setBackground(new java.awt.Color(241, 241, 241));
         txtPlaMas.setFont(fontmed(13));
         txtPlaMas.setBorder(null);
         txtPlaMas.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7635,18 +7657,19 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(txtPlaMas);
         txtPlaMas.setBounds(340, 310, 170, 20);
 
+        lblVenMas.setBackground(new java.awt.Color(241, 241, 241));
         lblVenMas.setFont(fontmed(12));
         lblVenMas.setForeground(new java.awt.Color(10, 60, 133));
         lblVenMas.setText("Vencimento");
         lblVenMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlMas.add(lblVenMas);
-        lblVenMas.setBounds(80, 260, 110, 20);
+        lblVenMas.setBounds(80, 260, 80, 20);
 
         sepDesGerTipSer8.setForeground(new java.awt.Color(10, 60, 133));
         pnlMas.add(sepDesGerTipSer8);
         sepDesGerTipSer8.setBounds(80, 280, 110, 10);
 
-        txtVenMas.setBackground(new java.awt.Color(246, 246, 246));
+        txtVenMas.setBackground(new java.awt.Color(241, 241, 241));
         txtVenMas.setFont(fontmed(13));
         txtVenMas.setBorder(null);
         txtVenMas.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7678,7 +7701,7 @@ public final class main extends javax.swing.JFrame {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         txtAreMas.setEditable(false);
-        txtAreMas.setBackground(new java.awt.Color(246, 246, 246));
+        txtAreMas.setBackground(new java.awt.Color(241, 241, 241));
         txtAreMas.setColumns(20);
         txtAreMas.setFont(fontmed(10));
         txtAreMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -7717,7 +7740,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlDes.setBackground(new java.awt.Color(246, 246, 246));
+        pnlDes.setBackground(new java.awt.Color(241, 241, 241));
         pnlDes.setLayout(null);
 
         lblNovaEntradaItens11.setFont(fontbold(25));
@@ -7771,7 +7794,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlCadDes.setBackground(new java.awt.Color(246, 246, 246));
+        pnlCadDes.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadDes.setLayout(null);
 
         lblNovaEntradaItens12.setFont(fontbold(25));
@@ -7799,7 +7822,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadDes.add(lblDatDes);
         lblDatDes.setBounds(500, 230, 50, 20);
 
-        txtDatDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatDes.setBackground(new java.awt.Color(241, 241, 241));
         txtDatDes.setFont(fontmed(13));
         txtDatDes.setBorder(null);
         txtDatDes.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7829,7 +7852,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadDes.add(lblDesDes);
         lblDesDes.setBounds(500, 110, 90, 20);
 
-        txtDesDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtDesDes.setBackground(new java.awt.Color(241, 241, 241));
         txtDesDes.setFont(fontmed(13));
         txtDesDes.setBorder(null);
         txtDesDes.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7860,7 +7883,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadDes.add(lblPreDes);
         lblPreDes.setBounds(500, 170, 50, 20);
 
-        txtPreDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreDes.setBackground(new java.awt.Color(241, 241, 241));
         txtPreDes.setFont(fontmed(13));
         txtPreDes.setBorder(null);
         txtPreDes.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7897,7 +7920,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        pnlGerDes.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerDes.setLayout(null);
 
         lblNovaEntradaItens13.setFont(fontbold(25));
@@ -7933,7 +7956,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerDes.add(lblR$GerDes);
         lblR$GerDes.setBounds(890, 180, 20, 21);
 
-        txtDatGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatGerDes.setBackground(new java.awt.Color(241, 241, 241));
         txtDatGerDes.setFont(fontmed(13));
         txtDatGerDes.setBorder(null);
         txtDatGerDes.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7952,7 +7975,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerDes.add(txtDatGerDes);
         txtDatGerDes.setBounds(890, 240, 130, 20);
 
-        txtDesGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtDesGerDes.setBackground(new java.awt.Color(241, 241, 241));
         txtDesGerDes.setFont(fontmed(13));
         txtDesGerDes.setBorder(null);
         txtDesGerDes.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -7978,7 +8001,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerDes.add(sepDesGerDes);
         sepDesGerDes.setBounds(890, 140, 190, 10);
 
-        txtPreGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        txtPreGerDes.setBackground(new java.awt.Color(241, 241, 241));
         txtPreGerDes.setFont(fontmed(13));
         txtPreGerDes.setBorder(null);
         txtPreGerDes.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -8069,7 +8092,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlVen.setBackground(new java.awt.Color(246, 246, 246));
+        pnlVen.setBackground(new java.awt.Color(241, 241, 241));
         pnlVen.setLayout(null);
 
         lblNovaEntradaItens14.setFont(fontbold(25));
@@ -8215,7 +8238,7 @@ public final class main extends javax.swing.JFrame {
         pnlVen.add(lblBusVen);
         lblBusVen.setBounds(270, 350, 90, 20);
 
-        txtBusVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtBusVen.setBackground(new java.awt.Color(241, 241, 241));
         txtBusVen.setFont(fontmed(13));
         txtBusVen.setBorder(null);
         txtBusVen.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -8248,7 +8271,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        pnlCadVen.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadVen.setLayout(null);
 
         lblCadastrarPlano.setFont(fontbold(25));
@@ -8264,7 +8287,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(lblAceCadVen);
         lblAceCadVen.setBounds(350, 260, 60, 20);
 
-        txtAceCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtAceCadVen.setBackground(new java.awt.Color(241, 241, 241));
         txtAceCadVen.setFont(fontmed(13));
         txtAceCadVen.setBorder(null);
         txtAceCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -8297,7 +8320,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(lblVenCadVen);
         lblVenCadVen.setBounds(650, 210, 90, 20);
 
-        txtVenCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtVenCadVen.setBackground(new java.awt.Color(241, 241, 241));
         txtVenCadVen.setFont(fontmed(13));
         txtVenCadVen.setBorder(null);
         txtVenCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -8351,7 +8374,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(lblPlaCadVen);
         lblPlaCadVen.setBounds(650, 110, 50, 20);
 
-        txtPlaCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtPlaCadVen.setBackground(new java.awt.Color(241, 241, 241));
         txtPlaCadVen.setFont(fontmed(13));
         txtPlaCadVen.setBorder(null);
         txtPlaCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -8381,7 +8404,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(lblCliCadVen);
         lblCliCadVen.setBounds(350, 110, 60, 20);
 
-        txtCliCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtCliCadVen.setBackground(new java.awt.Color(241, 241, 241));
         txtCliCadVen.setFont(fontmed(13));
         txtCliCadVen.setBorder(null);
         txtCliCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -8411,7 +8434,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(lblTelCadVen);
         lblTelCadVen.setBounds(350, 210, 60, 20);
 
-        txtTelCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtTelCadVen.setBackground(new java.awt.Color(241, 241, 241));
         txtTelCadVen.setFont(fontmed(13));
         txtTelCadVen.setBorder(null);
         txtTelCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -8444,7 +8467,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(lblDatCadVen);
         lblDatCadVen.setBounds(650, 160, 50, 20);
 
-        txtDatCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtDatCadVen.setBackground(new java.awt.Color(241, 241, 241));
         txtDatCadVen.setFont(fontmed(13));
         txtDatCadVen.setBorder(null);
         txtDatCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -8493,7 +8516,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(sepCadVen);
         sepCadVen.setBounds(350, 180, 190, 10);
 
-        txtCpfCadVen.setBackground(new java.awt.Color(246, 246, 246));
+        txtCpfCadVen.setBackground(new java.awt.Color(241, 241, 241));
         txtCpfCadVen.setFont(fontmed(13));
         txtCpfCadVen.setBorder(null);
         txtCpfCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -8520,7 +8543,7 @@ public final class main extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlJur.setBackground(new java.awt.Color(246, 246, 246));
+        pnlJur.setBackground(new java.awt.Color(241, 241, 241));
         pnlJur.setLayout(null);
 
         lblCadastrarPlano1.setFont(fontbold(25));
@@ -8622,7 +8645,7 @@ public final class main extends javax.swing.JFrame {
         pnlJur.add(lblR$Jur);
         lblR$Jur.setBounds(180, 180, 20, 21);
 
-        txtValJur.setBackground(new java.awt.Color(246, 246, 246));
+        txtValJur.setBackground(new java.awt.Color(241, 241, 241));
         txtValJur.setFont(fontmed(13));
         txtValJur.setBorder(null);
         txtValJur.addFocusListener(new java.awt.event.FocusAdapter() {
