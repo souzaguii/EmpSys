@@ -208,7 +208,7 @@ public final class main extends javax.swing.JFrame {
 
         DefaultTableModel model1 = (DefaultTableModel) tblSelIteCadEnt.getModel();
         model1.setRowCount(0);
-        
+
     }
 
     ActionEvent timerven = null;
@@ -359,7 +359,7 @@ public final class main extends javax.swing.JFrame {
         return true;
     }
 
-     public class RoundedLabel extends JLabel {
+    public class RoundedLabel extends JLabel {
 
         private int cornerRadius;
 
@@ -407,7 +407,7 @@ public final class main extends javax.swing.JFrame {
             super.paintComponent(g);
         }
     }
-    
+
     public void autocoluna(JTable table) {
         final TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {
@@ -613,32 +613,35 @@ public final class main extends javax.swing.JFrame {
 //        } else if (parcela == 12) {
 //            return 22.59;
 //        }
-        if (parcela == 0) {
-            return 1.68;
-        } else if (parcela == 1) {
-            return 3.48;
-        } else if (parcela == 2) {
-            return 8.99;
-        } else if (parcela == 3) {
-            return 10.99;
-        } else if (parcela == 4) {
-            return 11.99;
-        } else if (parcela == 5) {
-            return 12.99;
-        } else if (parcela == 6) {
-            return 13.99;
-        } else if (parcela == 7) {
-            return 14.99;
-        } else if (parcela == 8) {
-            return 15.99;
-        } else if (parcela == 9) {
-            return 16.99;
-        } else if (parcela == 10) {
-            return 17.99;
-        } else if (parcela == 11) {
-            return 17.99;
-        } else if (parcela == 12) {
-            return 17.99;
+        switch (parcela) {
+            case 0:
+                return 1.68;
+            case 1:
+                return 3.48;
+            case 2:
+                return 8.99;
+            case 3:
+                return 10.99;
+            case 4:
+                return 11.99;
+            case 5:
+                return 12.99;
+            case 6:
+                return 13.99;
+            case 7:
+                return 14.99;
+            case 8:
+                return 15.99;
+            case 9:
+                return 16.99;
+            case 10:
+                return 17.99;
+            case 11:
+                return 17.99;
+            case 12:
+                return 17.99;
+            default:
+                break;
         }
         return parcela;
 
@@ -715,7 +718,7 @@ public final class main extends javax.swing.JFrame {
                 deheader.setFont(fontmed(14));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
@@ -795,7 +798,7 @@ public final class main extends javax.swing.JFrame {
                 deheader.setFont(fontmed(11));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(11));
                 header.setReorderingAllowed(false);
@@ -896,7 +899,7 @@ public final class main extends javax.swing.JFrame {
                 deheader.setFont(fontmed(11));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(12));
                 header.setReorderingAllowed(false);
@@ -1013,7 +1016,7 @@ public final class main extends javax.swing.JFrame {
                 deheader.setFont(fontmed(11));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
                 header.setFont(fontbold(12));
                 header.setReorderingAllowed(false);
 
@@ -1191,7 +1194,7 @@ public final class main extends javax.swing.JFrame {
                 cellRenderer.setFont(fontmed(4));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
                 header.setFont(fontbold(12));
                 header.setReorderingAllowed(false);
 
@@ -1293,6 +1296,8 @@ public final class main extends javax.swing.JFrame {
 
     }
 
+    int LinhaGerenciarEntradaClicada = -1;
+
     private boolean tabelagerenciarentrada(JTable tbl, JScrollPane scr, String data) {
 
         try {
@@ -1347,15 +1352,25 @@ public final class main extends javax.swing.JFrame {
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-                        if ("Saída Caixa".equals(table.getValueAt(row, 2))) {
+                        if ("Saída Caixa".equals(table.getValueAt(row, 2)) && LinhaGerenciarEntradaClicada != row) {
                             c.setBackground(new Color(255, 246, 246));
-                        } else if ("Entrada Caixa".equals(table.getValueAt(row, 2))) {
+                        } else if ("Entrada Caixa".equals(table.getValueAt(row, 2)) && LinhaGerenciarEntradaClicada != row) {
                             c.setBackground(new Color(246, 255, 246));
                         } else {
-                            c.setBackground(table.getBackground());
+
+                            if (LinhaGerenciarEntradaClicada == row) {
+                                c.setBackground(new Color(23, 23, 59));
+                                c.setForeground(new Color(255, 255, 255));
+                            } else {
+                                c.setBackground(table.getBackground());
+                                c.setForeground(table.getForeground());
+                            }
+
                         }
+
                         return c;
                     }
+
                 };
 
                 deheader.setHorizontalAlignment(JLabel.CENTER);
@@ -1364,7 +1379,7 @@ public final class main extends javax.swing.JFrame {
                 deheader.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(12));
                 header.setReorderingAllowed(false);
@@ -1494,7 +1509,8 @@ public final class main extends javax.swing.JFrame {
                             return component;
 
                         } catch (ParseException ex) {
-                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(main.class
+                                    .getName()).log(Level.SEVERE, null, ex);
                         }
                         return null;
                     }
@@ -1507,14 +1523,16 @@ public final class main extends javax.swing.JFrame {
                 cellRenderer.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl.setDefaultEditor(Object.class, null);
+                tbl
+                        .setDefaultEditor(Object.class,
+                                null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -1535,7 +1553,8 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -1597,14 +1616,16 @@ public final class main extends javax.swing.JFrame {
                 cellRenderer.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl.setDefaultEditor(Object.class, null);
+                tbl
+                        .setDefaultEditor(Object.class,
+                                null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -1624,10 +1645,12 @@ public final class main extends javax.swing.JFrame {
 
             } else {
                 return false;
+
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -1689,14 +1712,16 @@ public final class main extends javax.swing.JFrame {
                 cellRenderer.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl.setDefaultEditor(Object.class, null);
+                tbl
+                        .setDefaultEditor(Object.class,
+                                null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -1716,10 +1741,12 @@ public final class main extends javax.swing.JFrame {
 
             } else {
                 return false;
+
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -1796,7 +1823,7 @@ public final class main extends javax.swing.JFrame {
                                 component.setBackground(new Color(182, 222, 170));
 
                             } else {
-                                component.setBackground(new Color(246, 246, 246));
+                                component.setBackground(new Color(241, 241, 241));
                             }
 
                             component.setFont(fontmed(12));
@@ -1809,7 +1836,8 @@ public final class main extends javax.swing.JFrame {
                             return component;
 
                         } catch (ParseException ex) {
-                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(main.class
+                                    .getName()).log(Level.SEVERE, null, ex);
                         }
                         return null;
                     }
@@ -1820,14 +1848,16 @@ public final class main extends javax.swing.JFrame {
                 cellRenderer.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl.setDefaultEditor(Object.class, null);
+                tbl
+                        .setDefaultEditor(Object.class,
+                                null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -1847,10 +1877,12 @@ public final class main extends javax.swing.JFrame {
 
             } else {
                 return false;
+
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -1925,7 +1957,7 @@ public final class main extends javax.swing.JFrame {
                             if (comparacao1 >= 0 && ok == 0) {
                                 component.setBackground(new Color(182, 222, 170)); // verde
                             } else {
-                                component.setBackground(new Color(246, 246, 246)); // vermelho
+                                component.setBackground(new Color(241, 241, 241)); // vermelho
                             }
 
                             component.setFont(fontmed(12));
@@ -1938,7 +1970,8 @@ public final class main extends javax.swing.JFrame {
                             return component;
 
                         } catch (ParseException ex) {
-                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(main.class
+                                    .getName()).log(Level.SEVERE, null, ex);
                         }
                         return null;
                     }
@@ -1949,14 +1982,16 @@ public final class main extends javax.swing.JFrame {
                 cellRenderer.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl.setDefaultEditor(Object.class, null);
+                tbl
+                        .setDefaultEditor(Object.class,
+                                null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -1975,10 +2010,12 @@ public final class main extends javax.swing.JFrame {
 
             } else {
                 return false;
+
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -2034,14 +2071,16 @@ public final class main extends javax.swing.JFrame {
                 cellRenderer.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
 
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl.setDefaultEditor(Object.class, null);
+                tbl
+                        .setDefaultEditor(Object.class,
+                                null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -2062,7 +2101,8 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -2093,14 +2133,16 @@ public final class main extends javax.swing.JFrame {
         deheader.setFont(fontmed(11));
 
         header.setForeground(corforeazul);
-        header.setBackground(new Color(246, 246, 246));
+        header.setBackground(new Color(241, 241, 241));
 
         header.setFont(fontbold(12));
         header.setReorderingAllowed(false);
 
         tblVarCorCadEst.setModel(modelo);
         tblVarCorCadEst.setRowHeight(25);
-        tblVarCorCadEst.setDefaultEditor(Object.class, null);
+        tblVarCorCadEst
+                .setDefaultEditor(Object.class,
+                        null);
         scrVarCorCadEst.getVerticalScrollBar().setValue(0);
 
         for (int i = 0; i < tblVarCorCadEst.getColumnCount(); i++) {
@@ -2139,14 +2181,16 @@ public final class main extends javax.swing.JFrame {
         deheader.setFont(fontmed(11));
 
         header.setForeground(corforeazul);
-        header.setBackground(new Color(246, 246, 246));
+        header.setBackground(new Color(241, 241, 241));
 
         header.setFont(fontbold(12));
         header.setReorderingAllowed(false);
 
         tblSelIteCadEnt.setModel(modelo);
         tblSelIteCadEnt.setRowHeight(25);
-        tblSelIteCadEnt.setDefaultEditor(Object.class, null);
+        tblSelIteCadEnt
+                .setDefaultEditor(Object.class,
+                        null);
         scrSelIteCadEnt.getVerticalScrollBar().setValue(0);
 
         for (int i = 0; i < tblSelIteCadEnt.getColumnCount(); i++) {
@@ -2209,14 +2253,16 @@ public final class main extends javax.swing.JFrame {
                     deheader.setFont(fontmed(12));
 
                     header.setForeground(corforeazul);
-                    header.setBackground(new Color(246, 246, 246));
+                    header.setBackground(new Color(241, 241, 241));
 
                     header.setFont(fontbold(11));
                     header.setReorderingAllowed(false);
 
                     tblSelIteGerEnt.setModel(modelo);
                     tblSelIteGerEnt.setRowHeight(25);
-                    tblSelIteGerEnt.setDefaultEditor(Object.class, null);
+                    tblSelIteGerEnt
+                            .setDefaultEditor(Object.class,
+                                    null);
 
                     scrSelIteGerEnt.getVerticalScrollBar().setValue(0);
 
@@ -2242,14 +2288,16 @@ public final class main extends javax.swing.JFrame {
                     deheader.setFont(fontmed(12));
 
                     header.setForeground(corforeazul);
-                    header.setBackground(new Color(246, 246, 246));
+                    header.setBackground(new Color(241, 241, 241));
 
                     header.setFont(fontbold(11));
                     header.setReorderingAllowed(false);
 
                     tblSelIteGerEnt.setModel(modelo);
                     tblSelIteGerEnt.setRowHeight(25);
-                    tblSelIteGerEnt.setDefaultEditor(Object.class, null);
+                    tblSelIteGerEnt
+                            .setDefaultEditor(Object.class,
+                                    null);
 
                     scrSelIteGerEnt.getVerticalScrollBar().setValue(0);
 
@@ -2277,10 +2325,12 @@ public final class main extends javax.swing.JFrame {
                 tblSelIteGerEnt.setVisible(false);
                 scrSelIteGerEnt.setVisible(false);
                 lblSelIteGerEnt.setVisible(false);
+
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -2346,10 +2396,12 @@ public final class main extends javax.swing.JFrame {
                 header.getColumnModel().getColumn(1).setWidth(0);
 
                 tabelaDestino.setModel(modelo);
+
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -2420,14 +2472,16 @@ public final class main extends javax.swing.JFrame {
 
                 deheader.setHorizontalAlignment(JLabel.CENTER);
 
-                header.setBackground(new Color(246, 246, 246));
+                header.setBackground(new Color(241, 241, 241));
                 header.setFont(fontbold(11));
                 header.setForeground(corforeazul);
                 header.setReorderingAllowed(false);
 
                 tblGerEst.setModel(modelo);
                 tblGerEst.setRowHeight(25);
-                tblGerEst.setDefaultEditor(Object.class, null);
+                tblGerEst
+                        .setDefaultEditor(Object.class,
+                                null);
                 scrGerEst.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tblGerEst.getColumnCount(); i++) {
@@ -2440,9 +2494,11 @@ public final class main extends javax.swing.JFrame {
 
             } else {
                 return false;
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -2531,6 +2587,7 @@ public final class main extends javax.swing.JFrame {
 
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao abrir o PDF: " + ex.getMessage());
+
             }
         }
     }
@@ -2595,7 +2652,8 @@ public final class main extends javax.swing.JFrame {
             cmb.setSelectedIndex(0);
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
 
         }
 
@@ -2691,7 +2749,7 @@ public final class main extends javax.swing.JFrame {
         lblPreCadEnt = new javax.swing.JLabel();
         txtPreCadEnt = new javax.swing.JTextField();
         sepPreCadEnt = new javax.swing.JSeparator();
-        cmbVezCar = new javax.swing.JComboBox<>();
+        cmbSerCadEnt = new javax.swing.JComboBox<>();
         lblDetCadEnt = new javax.swing.JLabel();
         txtDetCadEnt = new javax.swing.JTextField();
         sepDetCadEnt = new javax.swing.JSeparator();
@@ -2711,9 +2769,9 @@ public final class main extends javax.swing.JFrame {
         sepCliCadEnt = new javax.swing.JSeparator();
         rbtnCreCadEnt = new javax.swing.JRadioButton();
         rbtnDebCadEnt = new javax.swing.JRadioButton();
-        spnParCadEnt = new javax.swing.JSpinner();
         lblParCadEnt = new javax.swing.JLabel();
         lblNovaEntrada = new javax.swing.JLabel();
+        spnParCadEnt = new javax.swing.JSpinner();
         pnlIteCadEnt = new javax.swing.JPanel();
         btnVolIteCadEnt = new javax.swing.JButton();
         scrEstIteCadEnt = new javax.swing.JScrollPane();
@@ -2754,6 +2812,7 @@ public final class main extends javax.swing.JFrame {
         lblAlterarEntrada = new javax.swing.JLabel();
         btnCanAltEnt = new javax.swing.JButton();
         btnIteGerEnt = new javax.swing.JButton();
+        btnSalGerEnt = new javax.swing.JButton();
         lblDatGerEnt = new javax.swing.JLabel();
         txtDatGerEnt = new javax.swing.JTextField();
         sepDatGerEnt = new javax.swing.JSeparator();
@@ -2766,7 +2825,6 @@ public final class main extends javax.swing.JFrame {
         sepDetGerEnt = new javax.swing.JSeparator();
         cmbSerGerEnt = new javax.swing.JComboBox<>();
         lblSerGerEnt = new javax.swing.JLabel();
-        btnSalGerEnt = new javax.swing.JButton();
         rbtnCarGerEnt = new javax.swing.JRadioButton();
         rbtnPixGerEnt = new javax.swing.JRadioButton();
         rbtnDinGerEnt = new javax.swing.JRadioButton();
@@ -3191,7 +3249,7 @@ public final class main extends javax.swing.JFrame {
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoLojaBranco.png"))); // NOI18N
         pnlHeader.add(imgLogo);
-        imgLogo.setBounds(400, 50, 390, 100);
+        imgLogo.setBounds(420, 50, 390, 100);
 
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(new java.awt.Color(255, 255, 255));
@@ -3301,7 +3359,7 @@ public final class main extends javax.swing.JFrame {
                 btnCadTipSerMouseReleased(evt);
             }
         });
-        pnlOutros.add(btnCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 130, 20));
+        pnlOutros.add(btnCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 150, 20));
 
         btnCadDes.setFont(fontmed(13));
         btnCadDes.setForeground(corforeazul);
@@ -3320,7 +3378,7 @@ public final class main extends javax.swing.JFrame {
                 btnCadDesMouseReleased(evt);
             }
         });
-        pnlOutros.add(btnCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 130, 20));
+        pnlOutros.add(btnCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 150, 20));
 
         btnGerDes.setFont(fontmed(13));
         btnGerDes.setForeground(corforeazul);
@@ -3339,7 +3397,7 @@ public final class main extends javax.swing.JFrame {
                 btnGerDesMouseReleased(evt);
             }
         });
-        pnlOutros.add(btnGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 130, 20));
+        pnlOutros.add(btnGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 150, 20));
 
         btnJurPri.setFont(fontmed(13));
         btnJurPri.setForeground(corforeazul);
@@ -3461,7 +3519,7 @@ public final class main extends javax.swing.JFrame {
                 btnVenMouseReleased(evt);
             }
         });
-        pnlPlanos.add(btnVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 70, 20));
+        pnlPlanos.add(btnVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 90, 20));
 
         btnCadVen.setFont(fontmed(13));
         btnCadVen.setForeground(corforeazul);
@@ -3814,25 +3872,25 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(sepPreCadEnt);
         sepPreCadEnt.setBounds(330, 290, 100, 10);
 
-        cmbVezCar.setFont(fontmed(13));
-        cmbVezCar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
-        cmbVezCar.setToolTipText("");
-        cmbVezCar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cmbVezCar.addMouseListener(new java.awt.event.MouseAdapter() {
+        cmbSerCadEnt.setFont(fontmed(13));
+        cmbSerCadEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
+        cmbSerCadEnt.setToolTipText("");
+        cmbSerCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbSerCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmbVezCarMouseClicked(evt);
+                cmbSerCadEntMouseClicked(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                cmbVezCarMouseReleased(evt);
+                cmbSerCadEntMouseReleased(evt);
             }
         });
-        cmbVezCar.addActionListener(new java.awt.event.ActionListener() {
+        cmbSerCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbVezCarActionPerformed(evt);
+                cmbSerCadEntActionPerformed(evt);
             }
         });
-        pnlCadEnt.add(cmbVezCar);
-        cmbVezCar.setBounds(330, 390, 190, 30);
+        pnlCadEnt.add(cmbSerCadEnt);
+        cmbSerCadEnt.setBounds(330, 390, 190, 30);
 
         lblDetCadEnt.setFont(fontmed(12));
         lblDetCadEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4009,28 +4067,12 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(rbtnDebCadEnt);
         rbtnDebCadEnt.setBounds(550, 150, 80, 20);
 
-        spnParCadEnt.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        spnParCadEnt.setFont(fontmed(13));
-        spnParCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        spnParCadEnt.setEditor(new javax.swing.JSpinner.NumberEditor(spnParCadEnt, ""));
-        spnParCadEnt.setEnabled(false);
-        spnParCadEnt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                spnParCadEntKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                spnParCadEntKeyTyped(evt);
-            }
-        });
-        pnlCadEnt.add(spnParCadEnt);
-        spnParCadEnt.setBounds(710, 140, 55, 30);
-
         lblParCadEnt.setFont(fontmed(12));
         lblParCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblParCadEnt.setText("parcela(s)");
         lblParCadEnt.setEnabled(false);
         pnlCadEnt.add(lblParCadEnt);
-        lblParCadEnt.setBounds(770, 150, 80, 20);
+        lblParCadEnt.setBounds(780, 150, 80, 20);
 
         lblNovaEntrada.setFont(fontbold(25));
         lblNovaEntrada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -4038,16 +4080,22 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(lblNovaEntrada);
         lblNovaEntrada.setBounds(0, 30, 1200, 30);
 
+        spnParCadEnt.setFont(fontmed(13));
+        spnParCadEnt.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        spnParCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        spnParCadEnt.setEditor(new javax.swing.JSpinner.NumberEditor(spnParCadEnt, ""));
+        spnParCadEnt.setEnabled(false);
+        spnParCadEnt.setFocusable(false);
+        JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) spnParCadEnt.getEditor();
+        editor.getTextField().setEditable(false);
+        pnlCadEnt.add(spnParCadEnt);
+        spnParCadEnt.setBounds(710, 140, 60, 30);
+
         pnlPrincipal.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
         pnlIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlIteCadEnt.setMinimumSize(new java.awt.Dimension(1200, 520));
         pnlIteCadEnt.setPreferredSize(new java.awt.Dimension(1200, 520));
-        pnlIteCadEnt.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                pnlIteCadEntComponentShown(evt);
-            }
-        });
         pnlIteCadEnt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnVolIteCadEnt.setFont(fontmed(12));
@@ -4064,7 +4112,7 @@ public final class main extends javax.swing.JFrame {
         scrEstIteCadEnt.setBackground(new java.awt.Color(250, 250, 250));
         scrEstIteCadEnt.setBorder(BorderFactory.createEmptyBorder());
 
-        tblEstIteCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblEstIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         tblEstIteCadEnt.setBorder(null);
         tblEstIteCadEnt.setFont(fontmed(10));
         tblEstIteCadEnt.setModel(new javax.swing.table.DefaultTableModel(
@@ -4093,7 +4141,7 @@ public final class main extends javax.swing.JFrame {
         scrSelIteCadEnt.setBackground(new java.awt.Color(250, 250, 250));
         scrSelIteCadEnt.setBorder(BorderFactory.createEmptyBorder());
 
-        tblSelIteCadEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblSelIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         tblSelIteCadEnt.setBorder(null);
         tblSelIteCadEnt.setFont(fontmed(10));
         tblSelIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -4107,14 +4155,14 @@ public final class main extends javax.swing.JFrame {
         scrSelIteCadEnt.setViewportView(tblSelIteCadEnt);
         tabelaitensselecionados();
 
-        pnlIteCadEnt.add(scrSelIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 660, 120));
+        pnlIteCadEnt.add(scrSelIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, 660, 120));
 
-        lblSelIteCadEnt.setFont(fontmed(12));
+        lblSelIteCadEnt.setFont(fontmed(11));
         lblSelIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblSelIteCadEnt.setText("Ítens selecionados");
-        pnlIteCadEnt.add(lblSelIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, 170, 20));
+        pnlIteCadEnt.add(lblSelIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, 170, 20));
 
-        lblEstIteCadEnt.setFont(fontmed(12));
+        lblEstIteCadEnt.setFont(fontmed(11));
         lblEstIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblEstIteCadEnt.setText("Ítens do estoque");
         pnlIteCadEnt.add(lblEstIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 130, 20));
@@ -4181,11 +4229,18 @@ public final class main extends javax.swing.JFrame {
         txtBusIteCadEnt.setFont(fontmed(13));
         txtBusIteCadEnt.setBorder(null);
         txtBusIteCadEnt.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtBusIteCadEntFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtBusIteCadEntFocusLost(evt);
+            }
+        });
+        txtBusIteCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtBusIteCadEntMousePressed(evt);
+            }
+        });
+        txtBusIteCadEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBusIteCadEntActionPerformed(evt);
             }
         });
         txtBusIteCadEnt.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -4271,10 +4326,10 @@ public final class main extends javax.swing.JFrame {
         pnlConEnt.add(sepBusConEst1);
         sepBusConEst1.setBounds(450, 120, 290, 10);
 
-        scrConEnt.setBackground(new java.awt.Color(250, 250, 250));
+        scrConEnt.setBackground(new java.awt.Color(241, 241, 241));
         scrConEnt.setBorder(BorderFactory.createEmptyBorder());
 
-        tblConEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblConEnt.setBackground(new java.awt.Color(241, 241, 241));
         tblConEnt.setBorder(null);
         tblConEnt.setFont(fontmed(10));
         tblConEnt.setModel(new javax.swing.table.DefaultTableModel(
@@ -4396,7 +4451,7 @@ public final class main extends javax.swing.JFrame {
         scrGerEnt.setBorder(BorderFactory.createEmptyBorder());
 
         tblConEst.setEnabled(false);
-        tblGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         tblGerEnt.setBorder(null);
         tblGerEnt.setFont(fontmed(10));
         tblGerEnt.setModel(new javax.swing.table.DefaultTableModel(
@@ -4445,7 +4500,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(btnCanAltEnt);
-        btnCanAltEnt.setBounds(720, 320, 80, 30);
+        btnCanAltEnt.setBounds(720, 330, 90, 30);
 
         btnIteGerEnt.setFont(fontmed(12));
         btnIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4457,14 +4512,26 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(btnIteGerEnt);
-        btnIteGerEnt.setBounds(630, 280, 80, 30);
+        btnIteGerEnt.setBounds(620, 290, 90, 30);
+
+        btnSalGerEnt.setFont(fontmed(12));
+        btnSalGerEnt.setForeground(new java.awt.Color(10, 60, 133));
+        btnSalGerEnt.setText("Salvar");
+        btnSalGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalGerEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalGerEntActionPerformed(evt);
+            }
+        });
+        pnlAlterarEntrada.add(btnSalGerEnt);
+        btnSalGerEnt.setBounds(720, 290, 90, 30);
 
         lblDatGerEnt.setFont(fontmed(12));
         lblDatGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDatGerEnt.setText("Data");
         lblDatGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlAlterarEntrada.add(lblDatGerEnt);
-        lblDatGerEnt.setBounds(390, 140, 40, 20);
+        lblDatGerEnt.setBounds(380, 150, 40, 20);
 
         txtDatGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtDatGerEnt.setFont(fontmed(13));
@@ -4483,25 +4550,25 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(txtDatGerEnt);
-        txtDatGerEnt.setBounds(390, 140, 130, 20);
+        txtDatGerEnt.setBounds(380, 150, 130, 20);
 
         sepDatGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlAlterarEntrada.add(sepDatGerEnt);
-        sepDatGerEnt.setBounds(390, 160, 130, 10);
+        sepDatGerEnt.setBounds(380, 170, 130, 10);
 
         lblR$GerEnt.setFont(fontmed(13));
         lblR$GerEnt.setText("R$");
         lblR$GerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         lblR$GerEnt.setFocusable(false);
         pnlAlterarEntrada.add(lblR$GerEnt);
-        lblR$GerEnt.setBounds(390, 190, 20, 21);
+        lblR$GerEnt.setBounds(380, 200, 20, 21);
 
         lblPreGerEnt.setFont(fontmed(12));
         lblPreGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblPreGerEnt.setText("Preço");
         lblPreGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlAlterarEntrada.add(lblPreGerEnt);
-        lblPreGerEnt.setBounds(390, 190, 40, 20);
+        lblPreGerEnt.setBounds(380, 200, 40, 20);
 
         txtPreGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtPreGerEnt.setFont(fontmed(13));
@@ -4515,18 +4582,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(txtPreGerEnt);
-        txtPreGerEnt.setBounds(410, 190, 80, 20);
+        txtPreGerEnt.setBounds(400, 200, 80, 20);
 
         sepPreGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlAlterarEntrada.add(sepPreGerEnt);
-        sepPreGerEnt.setBounds(390, 210, 100, 10);
+        sepPreGerEnt.setBounds(380, 220, 100, 10);
 
         lblDetGerEnt.setFont(fontmed(12));
         lblDetGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDetGerEnt.setText("Detalhes");
         lblDetGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlAlterarEntrada.add(lblDetGerEnt);
-        lblDetGerEnt.setBounds(390, 240, 70, 20);
+        lblDetGerEnt.setBounds(380, 250, 70, 20);
 
         txtDetGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtDetGerEnt.setFont(fontmed(13));
@@ -4545,36 +4612,24 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(txtDetGerEnt);
-        txtDetGerEnt.setBounds(390, 240, 190, 20);
+        txtDetGerEnt.setBounds(380, 250, 190, 20);
 
         sepDetGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlAlterarEntrada.add(sepDetGerEnt);
-        sepDetGerEnt.setBounds(390, 260, 190, 10);
+        sepDetGerEnt.setBounds(380, 270, 190, 10);
 
         cmbSerGerEnt.setFont(fontmed(13));
         cmbSerGerEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
         cmbSerGerEnt.setToolTipText("");
         cmbSerGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlAlterarEntrada.add(cmbSerGerEnt);
-        cmbSerGerEnt.setBounds(390, 310, 190, 30);
+        cmbSerGerEnt.setBounds(380, 320, 190, 30);
 
         lblSerGerEnt.setFont(fontmed(12));
         lblSerGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblSerGerEnt.setText("Serviço");
         pnlAlterarEntrada.add(lblSerGerEnt);
-        lblSerGerEnt.setBounds(390, 280, 90, 30);
-
-        btnSalGerEnt.setFont(fontmed(12));
-        btnSalGerEnt.setForeground(new java.awt.Color(10, 60, 133));
-        btnSalGerEnt.setText("Salvar");
-        btnSalGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalGerEnt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalGerEntActionPerformed(evt);
-            }
-        });
-        pnlAlterarEntrada.add(btnSalGerEnt);
-        btnSalGerEnt.setBounds(720, 280, 80, 30);
+        lblSerGerEnt.setBounds(380, 290, 90, 30);
 
         rbtnCarGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnCarGerEnt);
@@ -4588,7 +4643,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(rbtnCarGerEnt);
-        rbtnCarGerEnt.setBounds(490, 90, 90, 21);
+        rbtnCarGerEnt.setBounds(582, 90, 90, 21);
 
         rbtnPixGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnPixGerEnt);
@@ -4602,7 +4657,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(rbtnPixGerEnt);
-        rbtnPixGerEnt.setBounds(580, 90, 90, 21);
+        rbtnPixGerEnt.setBounds(672, 90, 90, 21);
 
         rbtnDinGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnDinGerEnt);
@@ -4616,14 +4671,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(rbtnDinGerEnt);
-        rbtnDinGerEnt.setBounds(390, 90, 90, 21);
+        rbtnDinGerEnt.setBounds(482, 90, 90, 21);
 
         lblCliGerEnt.setFont(fontmed(12));
         lblCliGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblCliGerEnt.setText("Cliente");
         lblCliGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlAlterarEntrada.add(lblCliGerEnt);
-        lblCliGerEnt.setBounds(630, 140, 90, 20);
+        lblCliGerEnt.setBounds(620, 150, 90, 20);
 
         txtCliGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtCliGerEnt.setFont(fontmed(13));
@@ -4637,24 +4692,24 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(txtCliGerEnt);
-        txtCliGerEnt.setBounds(630, 140, 170, 20);
+        txtCliGerEnt.setBounds(620, 150, 190, 20);
 
         sepCliGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlAlterarEntrada.add(sepCliGerEnt);
-        sepCliGerEnt.setBounds(630, 160, 170, 10);
+        sepCliGerEnt.setBounds(620, 170, 190, 10);
 
         lblCusGerEnt.setFont(fontmed(12));
         lblCusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblCusGerEnt.setText("Custo");
         lblCusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlAlterarEntrada.add(lblCusGerEnt);
-        lblCusGerEnt.setBounds(630, 190, 40, 20);
+        lblCusGerEnt.setBounds(620, 200, 40, 20);
 
         lblR$CusGerEnt.setFont(fontmed(13));
         lblR$CusGerEnt.setText("R$");
         lblR$CusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlAlterarEntrada.add(lblR$CusGerEnt);
-        lblR$CusGerEnt.setBounds(630, 190, 20, 20);
+        lblR$CusGerEnt.setBounds(620, 200, 20, 20);
 
         txtCusGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtCusGerEnt.setFont(fontmed(13));
@@ -4678,18 +4733,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(txtCusGerEnt);
-        txtCusGerEnt.setBounds(650, 190, 80, 20);
+        txtCusGerEnt.setBounds(640, 200, 80, 20);
 
         sepCusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlAlterarEntrada.add(sepCusGerEnt);
-        sepCusGerEnt.setBounds(630, 210, 100, 10);
+        sepCusGerEnt.setBounds(620, 220, 100, 10);
 
         lblForGerEnt.setFont(fontmed(12));
         lblForGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblForGerEnt.setText("Fornecedor");
         lblForGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlAlterarEntrada.add(lblForGerEnt);
-        lblForGerEnt.setBounds(630, 240, 90, 20);
+        lblForGerEnt.setBounds(620, 250, 90, 20);
 
         txtForGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         txtForGerEnt.setFont(fontmed(13));
@@ -4703,11 +4758,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlAlterarEntrada.add(txtForGerEnt);
-        txtForGerEnt.setBounds(630, 240, 170, 20);
+        txtForGerEnt.setBounds(620, 250, 190, 20);
 
         sepForGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         pnlAlterarEntrada.add(sepForGerEnt);
-        sepForGerEnt.setBounds(630, 260, 170, 10);
+        sepForGerEnt.setBounds(620, 270, 190, 10);
 
         pnlPrincipal.add(pnlAlterarEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
@@ -4725,7 +4780,7 @@ public final class main extends javax.swing.JFrame {
         scrEstIteGerEnt.setBorder(BorderFactory.createEmptyBorder());
         scrEstIteGerEnt.setPreferredSize(new java.awt.Dimension(300, 80));
 
-        tblEstIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblEstIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         tblEstIteGerEnt.setBorder(null);
         tblEstIteGerEnt.setFont(fontmed(10));
         tblEstIteGerEnt.setModel(new javax.swing.table.DefaultTableModel(
@@ -4755,7 +4810,7 @@ public final class main extends javax.swing.JFrame {
         scrSelIteGerEnt.setBorder(BorderFactory.createEmptyBorder());
         scrSelIteGerEnt.setPreferredSize(new java.awt.Dimension(300, 80));
 
-        tblSelIteGerEnt.setBackground(new java.awt.Color(246, 246, 246));
+        tblSelIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         tblSelIteGerEnt.setBorder(null);
         tblSelIteGerEnt.setFont(fontmed(10));
         tblSelIteGerEnt.setModel(new javax.swing.table.DefaultTableModel(
@@ -4779,7 +4834,7 @@ public final class main extends javax.swing.JFrame {
         });
         scrSelIteGerEnt.setViewportView(tblSelIteGerEnt);
 
-        pnlIteGerEnt.add(scrSelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 660, 120));
+        pnlIteGerEnt.add(scrSelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, 660, 120));
 
         btnVolIteGerEnt.setFont(fontmed(12));
         btnVolIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
@@ -4792,12 +4847,12 @@ public final class main extends javax.swing.JFrame {
         });
         pnlIteGerEnt.add(btnVolIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 30));
 
-        lblSelIteGerEnt.setFont(fontmed(12));
+        lblSelIteGerEnt.setFont(fontmed(11));
         lblSelIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblSelIteGerEnt.setText("Ítens selecionados");
-        pnlIteGerEnt.add(lblSelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, 170, 20));
+        pnlIteGerEnt.add(lblSelIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, 170, 20));
 
-        lblEstIteGerEnt.setFont(fontmed(12));
+        lblEstIteGerEnt.setFont(fontmed(11));
         lblEstIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblEstIteGerEnt.setText("Ítens do estoque");
         pnlIteGerEnt.add(lblEstIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 130, 20));
@@ -4864,11 +4919,13 @@ public final class main extends javax.swing.JFrame {
         txtBusIteGerEnt.setFont(fontmed(13));
         txtBusIteGerEnt.setBorder(null);
         txtBusIteGerEnt.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtBusIteGerEntFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtBusIteGerEntFocusLost(evt);
+            }
+        });
+        txtBusIteGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtBusIteGerEntMousePressed(evt);
             }
         });
         txtBusIteGerEnt.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -5004,7 +5061,7 @@ public final class main extends javax.swing.JFrame {
         scrVarCorCadEst.setBackground(new java.awt.Color(250, 250, 250));
         scrVarCorCadEst.setBorder(BorderFactory.createEmptyBorder());
 
-        tblVarCorCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        tblVarCorCadEst.setBackground(new java.awt.Color(241, 241, 241));
         tblVarCorCadEst.setBorder(null);
         tblVarCorCadEst.setFont(fontmed(10));
         tblVarCorCadEst.setModel(new javax.swing.table.DefaultTableModel(
@@ -5033,7 +5090,7 @@ public final class main extends javax.swing.JFrame {
         scrCadEst.setBackground(new java.awt.Color(250, 250, 250));
         scrCadEst.setBorder(BorderFactory.createEmptyBorder());
 
-        tblCadEst.setBackground(new java.awt.Color(246, 246, 246));
+        tblCadEst.setBackground(new java.awt.Color(241, 241, 241));
         tblCadEst.setBorder(null);
         tblCadEst.setFont(fontmed(10));
         tblCadEst.setModel(new javax.swing.table.DefaultTableModel(
@@ -5078,11 +5135,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEst.add(txtVarCorCadEst);
-        txtVarCorCadEst.setBounds(890, 220, 130, 20);
+        txtVarCorCadEst.setBounds(890, 220, 120, 20);
 
         sepVarCorCadEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEst.add(sepVarCorCadEst);
-        sepVarCorCadEst.setBounds(890, 240, 130, 10);
+        sepVarCorCadEst.setBounds(890, 240, 120, 10);
 
         lblProCadEst.setFont(fontbold(12));
         lblProCadEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5335,19 +5392,15 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(txtTipCadEst);
         txtTipCadEst.setBounds(340, 90, 40, 22);
 
-        spnVarCorCadEst.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spnVarCorCadEst.setFont(fontmed(13));
+        spnVarCorCadEst.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
         spnVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         spnVarCorCadEst.setEditor(new javax.swing.JSpinner.NumberEditor(spnVarCorCadEst, ""));
-        spnVarCorCadEst.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                spnVarCorCadEstKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                spnVarCorCadEstKeyTyped(evt);
-            }
-        });
+        spnVarCorCadEst.setFocusable(false);
+        JSpinner.DefaultEditor editorr = (JSpinner.DefaultEditor) spnVarCorCadEst.getEditor();
+        editorr.getTextField().setEditable(false);
         pnlCadEst.add(spnVarCorCadEst);
-        spnVarCorCadEst.setBounds(1030, 210, 55, 30);
+        spnVarCorCadEst.setBounds(1020, 210, 60, 30);
 
         pnlPrincipal.add(pnlCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
@@ -5476,7 +5529,7 @@ public final class main extends javax.swing.JFrame {
         scrConEst.setBackground(new java.awt.Color(250, 250, 250));
         scrConEst.setBorder(BorderFactory.createEmptyBorder());
 
-        tblConEst.setBackground(new java.awt.Color(246, 246, 246));
+        tblConEst.setBackground(new java.awt.Color(241, 241, 241));
         tblConEst.setBorder(null);
         tblConEst.setFont(fontmed(10));
         tblConEst.setModel(new javax.swing.table.DefaultTableModel(
@@ -6034,7 +6087,7 @@ public final class main extends javax.swing.JFrame {
         scrGerEst.setBorder(BorderFactory.createEmptyBorder());
 
         tblConEst.setEnabled(false);
-        tblGerEst.setBackground(new java.awt.Color(246, 246, 246));
+        tblGerEst.setBackground(new java.awt.Color(241, 241, 241));
         tblGerEst.setBorder(null);
         tblGerEst.setFont(fontmed(10));
         tblGerEst.setModel(new javax.swing.table.DefaultTableModel(
@@ -6106,7 +6159,7 @@ public final class main extends javax.swing.JFrame {
         scrRel.setBackground(new java.awt.Color(250, 250, 250));
         scrRel.setBorder(BorderFactory.createEmptyBorder());
 
-        tblRel.setBackground(new java.awt.Color(246, 246, 246));
+        tblRel.setBackground(new java.awt.Color(241, 241, 241));
         tblRel.setBorder(null);
         tblRel.setFont(fontmed(10));
         tblRel.setModel(new javax.swing.table.DefaultTableModel(
@@ -6812,7 +6865,7 @@ public final class main extends javax.swing.JFrame {
         lblDatEntOs.setText("Data entrada");
         lblDatEntOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlOs.add(lblDatEntOs);
-        lblDatEntOs.setBounds(310, 260, 70, 20);
+        lblDatEntOs.setBounds(310, 260, 90, 20);
 
         txtDatOs.setBackground(new java.awt.Color(241, 241, 241));
         txtDatOs.setFont(fontmed(13));
@@ -6922,7 +6975,7 @@ public final class main extends javax.swing.JFrame {
         scrOs.setBackground(new java.awt.Color(250, 250, 250));
         scrOs.setBorder(BorderFactory.createEmptyBorder());
 
-        tblOs.setBackground(new java.awt.Color(246, 246, 246));
+        tblOs.setBackground(new java.awt.Color(241, 241, 241));
         tblOs.setBorder(null);
         tblOs.setFont(fontmed(10));
         tblOs.setForeground(new java.awt.Color(229, 192, 191));
@@ -7248,7 +7301,7 @@ public final class main extends javax.swing.JFrame {
         scrTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         tblTipSer.setTableHeader(null);
-        tblTipSer.setBackground(new java.awt.Color(246, 246, 246));
+        tblTipSer.setBackground(new java.awt.Color(241, 241, 241));
         tblTipSer.setBorder(null);
         tblTipSer.setFont(fontmed(10));
         tblTipSer.setModel(new javax.swing.table.DefaultTableModel(
@@ -7752,7 +7805,7 @@ public final class main extends javax.swing.JFrame {
         scrConDes.setBackground(new java.awt.Color(250, 250, 250));
         scrConDes.setBorder(BorderFactory.createEmptyBorder());
 
-        tblConDes.setBackground(new java.awt.Color(246, 246, 246));
+        tblConDes.setBackground(new java.awt.Color(241, 241, 241));
         tblConDes.setBorder(null);
         tblConDes.setFont(fontmed(10));
         tblConDes.setForeground(new java.awt.Color(229, 192, 191));
@@ -7778,7 +7831,7 @@ public final class main extends javax.swing.JFrame {
         scrConDes.setViewportView(tblConDes);
 
         pnlDes.add(scrConDes);
-        scrConDes.setBounds(190, 110, 820, 220);
+        scrConDes.setBounds(190, 110, 820, 240);
 
         btnVolDes.setFont(fontmed(12));
         btnVolDes.setForeground(new java.awt.Color(10, 60, 133));
@@ -7790,7 +7843,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlDes.add(btnVolDes);
-        btnVolDes.setBounds(190, 350, 90, 30);
+        btnVolDes.setBounds(190, 370, 90, 30);
 
         pnlPrincipal.add(pnlDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
@@ -7916,7 +7969,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadDes.add(btnCanDes);
-        btnCanDes.setBounds(600, 290, 80, 30);
+        btnCanDes.setBounds(600, 290, 90, 30);
 
         pnlPrincipal.add(pnlCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
@@ -8063,7 +8116,7 @@ public final class main extends javax.swing.JFrame {
         scrGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         tblTipSer.setTableHeader(null);
-        tblGerDes.setBackground(new java.awt.Color(246, 246, 246));
+        tblGerDes.setBackground(new java.awt.Color(241, 241, 241));
         tblGerDes.setBorder(null);
         tblGerDes.setFont(fontmed(10));
         tblGerDes.setModel(new javax.swing.table.DefaultTableModel(
@@ -8101,10 +8154,10 @@ public final class main extends javax.swing.JFrame {
         pnlVen.add(lblNovaEntradaItens14);
         lblNovaEntradaItens14.setBounds(0, 30, 1200, 30);
 
-        scrVen.setBackground(new java.awt.Color(250, 250, 250));
+        scrVen.setBackground(new java.awt.Color(241, 241, 241));
         scrVen.setBorder(BorderFactory.createEmptyBorder());
 
-        tblVen.setBackground(new java.awt.Color(246, 246, 246));
+        tblVen.setBackground(new java.awt.Color(241, 241, 241));
         tblVen.setBorder(null);
         tblVen.setFont(fontmed(10));
         tblVen.setForeground(new java.awt.Color(229, 192, 191));
@@ -8122,6 +8175,7 @@ public final class main extends javax.swing.JFrame {
         tblVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblVen.setFocusable(false);
         tblVen.setGridColor(new java.awt.Color(192, 211, 250));
+        tblVen.setOpaque(false);
         tblVen.setSelectionBackground(new java.awt.Color(255, 51, 0));
         tblVen.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblVen.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -8145,7 +8199,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopAVen);
-        btnCopAVen.setBounds(660, 340, 100, 30);
+        btnCopAVen.setBounds(660, 360, 100, 30);
 
         btnCopVen.setFont(fontmed(12));
         btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -8158,7 +8212,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopVen);
-        btnCopVen.setBounds(550, 340, 100, 30);
+        btnCopVen.setBounds(550, 360, 100, 30);
 
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -8171,7 +8225,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnAltVen);
-        btnAltVen.setBounds(770, 340, 100, 30);
+        btnAltVen.setBounds(770, 360, 100, 30);
 
         btnWppVen.setFont(fontmed(12));
         btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -8183,7 +8237,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnWppVen);
-        btnWppVen.setBounds(990, 340, 100, 30);
+        btnWppVen.setBounds(990, 360, 100, 30);
 
         btnVolVen.setFont(fontmed(12));
         btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -8195,7 +8249,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnVolVen);
-        btnVolVen.setBounds(110, 340, 100, 30);
+        btnVolVen.setBounds(110, 360, 100, 30);
 
         btnExcVen.setFont(fontmed(12));
         btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -8208,35 +8262,35 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnExcVen);
-        btnExcVen.setBounds(880, 340, 100, 30);
+        btnExcVen.setBounds(880, 360, 100, 30);
 
         lblConPlaVen.setFont(fontbold(12));
         lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
         lblConPlaVen.setText("0");
         lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblConPlaVen);
-        lblConPlaVen.setBounds(270, 390, 50, 40);
+        lblConPlaVen.setBounds(270, 320, 50, 40);
 
         lblBusVen2.setFont(fontmed(11));
         lblBusVen2.setForeground(new java.awt.Color(10, 60, 133));
         lblBusVen2.setText("Planos ativados este mês:");
         lblBusVen2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblBusVen2);
-        lblBusVen2.setBounds(110, 400, 160, 20);
+        lblBusVen2.setBounds(110, 330, 160, 20);
 
         lblErrVen.setFont(fontbold(10));
         lblErrVen.setForeground(new java.awt.Color(204, 51, 0));
         lblErrVen.setText("Nenhum registro encontrado!");
         lblErrVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlVen.add(lblErrVen);
-        lblErrVen.setBounds(270, 370, 200, 30);
+        lblErrVen.setBounds(270, 390, 200, 30);
 
         lblBusVen.setFont(fontmed(12));
         lblBusVen.setForeground(new java.awt.Color(10, 60, 133));
         lblBusVen.setText("Buscar");
         lblBusVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlVen.add(lblBusVen);
-        lblBusVen.setBounds(270, 350, 90, 20);
+        lblBusVen.setBounds(270, 370, 90, 20);
 
         txtBusVen.setBackground(new java.awt.Color(241, 241, 241));
         txtBusVen.setFont(fontmed(13));
@@ -8263,11 +8317,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(txtBusVen);
-        txtBusVen.setBounds(270, 350, 210, 20);
+        txtBusVen.setBounds(270, 370, 210, 20);
 
         sepBusVen.setForeground(new java.awt.Color(10, 60, 133));
         pnlVen.add(sepBusVen);
-        sepBusVen.setBounds(270, 370, 210, 10);
+        sepBusVen.setBounds(270, 390, 210, 10);
 
         pnlPrincipal.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
@@ -9187,24 +9241,34 @@ public final class main extends javax.swing.JFrame {
     private void btnCadEstMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadEstMouseReleased
         txtModCadEst.setEnabled(false);
         lblModCadEst.setEnabled(false);
+
         txtMarCadEst.setEnabled(false);
         lblMarCadEst.setEnabled(false);
+
         txtCorCadEst.setEnabled(false);
         lblCorCadEst.setEnabled(false);
+
         txtMatCadEst.setEnabled(false);
         lblMatCadEst.setEnabled(false);
+
         txtQuaCadEst.setEnabled(false);
         lblQuaCadEst.setEnabled(false);
+
         txtPreCadEst.setEnabled(false);
         lblPreCadEst.setEnabled(false);
         lblR$CadEst.setVisible(false);
+
         lblChiCadEst.setEnabled(false);
         cmbChiCadEst.setEnabled(false);
+
         txtLocCadEst.setEnabled(false);
         lblLocCadEst.setEnabled(false);
+
         txtDetCadEst.setEnabled(false);
         lblDetCadEst.setEnabled(false);
+
         chkVarCorCadEst.setEnabled(false);
+
         sepModCadEst.setForeground(Color.GRAY);
         sepMarCadEst.setForeground(Color.GRAY);
         sepCorCadEst.setForeground(Color.GRAY);
@@ -9224,15 +9288,16 @@ public final class main extends javax.swing.JFrame {
         txtLocCadEst.setText(null);
         txtDetCadEst.setText(null);
 
-//            lblMarCadEst.setLocation(410, 80);
-//            lblModCadEst.setLocation(410, 130);
-//            lblQuaCadEst.setLocation(410, 180);
-//            lblPreCadEst.setLocation(410, 230);
-//            lblCorCadEst.setLocation(700, 80);
-//            lblMatCadEst.setLocation(700, 130);
-//            lblLocCadEst.setLocation(700, 180);
-//            lblDetCadEst.setLocation(700, 230);
-//            lblVarCorCadEst.setLocation(920, 130);
+        lblMarCadEst.setLocation(360, 150);
+        lblModCadEst.setLocation(360, 200);
+        lblQuaCadEst.setLocation(360, 250);
+        lblPreCadEst.setLocation(360, 300);
+        lblCorCadEst.setLocation(650, 150);
+        lblMatCadEst.setLocation(650, 200);
+        lblLocCadEst.setLocation(650, 250);
+        lblDetCadEst.setLocation(650, 300);
+        lblVarCorCadEst.setLocation(890, 220);
+
         lblProCadEst.setVisible(false);
         tblCadEst.setVisible(false);
         scrCadEst.setVisible(false);
@@ -10394,7 +10459,8 @@ public final class main extends javax.swing.JFrame {
                     pnlContent.setVisible(true);
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(main.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -10704,7 +10770,7 @@ public final class main extends javax.swing.JFrame {
 
                 if (!(rbtnTroPreCadEnt.isEnabled() && !rbtnTroPreCadEnt.isSelected()) || !(rbtnTroPlaCadEnt.isEnabled() && !rbtnTroPlaCadEnt.isSelected())) {
 
-                    if (!(cmbVezCar.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
+                    if (!(cmbSerCadEnt.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
 
                         try {
 
@@ -10771,8 +10837,8 @@ public final class main extends javax.swing.JFrame {
                                 idpagamento = 3;
                             }
 
-                            if (cmbVezCar.getSelectedIndex() != 0) {
-                                itens selectedItem = (itens) cmbVezCar.getSelectedItem();
+                            if (cmbSerCadEnt.getSelectedIndex() != 0) {
+                                itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
                                 idser = selectedItem.getId();
                             }
 
@@ -10837,8 +10903,8 @@ public final class main extends javax.swing.JFrame {
                             }
 
                             //INSERIR CONTADOR DE TROCAS 
-                            if (cmbVezCar.isEnabled()) {
-                                itens selectedItem = (itens) cmbVezCar.getSelectedItem();
+                            if (cmbSerCadEnt.isEnabled()) {
+                                itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
 
                                 String textoSelecionado = selectedItem.getDescricao();
 
@@ -10859,11 +10925,17 @@ public final class main extends javax.swing.JFrame {
 
                             JOptionPane.showMessageDialog(null, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
+                            DefaultTableModel model = (DefaultTableModel) tblSelIteCadEnt.getModel();
+                            model.setRowCount(0);
+                            DefaultTableModel model1 = (DefaultTableModel) tblEstIteCadEnt.getModel();
+                            model1.setRowCount(0);
+
                             pnlCadEnt.setVisible(false);
                             pnlContent.setVisible(true);
 
                         } catch (SQLException | ParseException ex) {
-                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(main.class
+                                    .getName()).log(Level.SEVERE, null, ex);
                         }
 
                     } else {
@@ -10908,11 +10980,16 @@ public final class main extends javax.swing.JFrame {
                     }
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(main.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
 
+                DefaultTableModel model = (DefaultTableModel) tblSelIteCadEnt.getModel();
+                model.setRowCount(0);
+                DefaultTableModel model1 = (DefaultTableModel) tblEstIteCadEnt.getModel();
+                model1.setRowCount(0);
+
                 pnlCadEnt.setVisible(false);
-                pnlIteCadEnt.setVisible(false);
                 pnlContent.setVisible(true);
 
             }
@@ -10920,7 +10997,6 @@ public final class main extends javax.swing.JFrame {
         } else {
 
             pnlCadEnt.setVisible(false);
-            pnlIteCadEnt.setVisible(false);
             pnlContent.setVisible(true);
 
         }
@@ -10939,119 +11015,148 @@ public final class main extends javax.swing.JFrame {
         txtDetCadEnt.setEnabled(true);
         sepDetCadEnt.setForeground(corforeazul);
 
+        lblCliCadEnt.setLocation(570, 220);
+        lblCusCadEnt.setLocation(570, 270);
+        lblForCadEnt.setLocation(570, 320);
+
         lblSerCadEnt.setEnabled(true);
+        cmbSerCadEnt.setEnabled(true);
+        cmbSerCadEnt.setSelectedIndex(0);
 
-        txtCliCadEnt.setEnabled(false);
-        txtCliCadEnt.setText(null);
-        sepCliCadEnt.setForeground(Color.GRAY);
-        lblCliCadEnt.setEnabled(false);
-        lblR$CusCadEnt.setVisible(false);
-        lblCliCadEnt.setLocation(630, 130);
-        lblCusCadEnt.setLocation(630, 180);
-        lblForCadEnt.setLocation(630, 230);
-
-        txtCusCadEnt.setEnabled(false);
-        txtCusCadEnt.setText(null);
-        sepCusCadEnt.setForeground(Color.GRAY);
-        lblCusCadEnt.setEnabled(false);
-
-        txtForCadEnt.setEnabled(false);
-        txtForCadEnt.setText(null);
-        sepForCadEnt.setForeground(Color.GRAY);
-        lblForCadEnt.setEnabled(false);
-        cmbVezCar.setEnabled(true);
-        btnSalCadEnt.setEnabled(true);
-        btnIteCadEnt.setEnabled(true);
         rbtnDinCadEnt.setEnabled(true);
         rbtnCarCadEnt.setEnabled(true);
         rbtnPixCadEnt.setEnabled(true);
 
-        comboboxentrada(cmbVezCar, 1);
+        lblCliCadEnt.setEnabled(false);
+        txtCliCadEnt.setEnabled(false);
+        txtCliCadEnt.setText(null);
+        sepCliCadEnt.setForeground(Color.GRAY);
+
+        lblCusCadEnt.setEnabled(false);
+        txtCusCadEnt.setEnabled(false);
+        txtCusCadEnt.setText(null);
+        sepCusCadEnt.setForeground(Color.GRAY);
+        lblR$CusCadEnt.setVisible(false);
+
+        lblForCadEnt.setEnabled(false);
+        txtForCadEnt.setEnabled(false);
+        txtForCadEnt.setText(null);
+        sepForCadEnt.setForeground(Color.GRAY);
+
+        btnSalCadEnt.setEnabled(true);
+        btnIteCadEnt.setEnabled(true);
+
+        comboboxentrada(cmbSerCadEnt, 1);
 
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
 
-        lblDatCadEnt.setLocation(390, 110);
+        lblDatCadEnt.setLocation(330, 200);
     }//GEN-LAST:event_rbtnSerCadEntActionPerformed
 
     private void rbtnVenCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVenCadEntActionPerformed
         lblDatCadEnt.setEnabled(true);
         txtDatCadEnt.setEnabled(true);
         sepDatCadEnt.setForeground(corforeazul);
+
         lblPreCadEnt.setEnabled(true);
         txtPreCadEnt.setEnabled(true);
         sepPreCadEnt.setForeground(corforeazul);
+
         lblDetCadEnt.setEnabled(true);
         txtDetCadEnt.setEnabled(true);
         sepDetCadEnt.setForeground(corforeazul);
+
+        lblCliCadEnt.setLocation(570, 220);
+        lblCusCadEnt.setLocation(570, 270);
+        lblForCadEnt.setLocation(570, 320);
+
         lblSerCadEnt.setEnabled(false);
-        txtCliCadEnt.setEnabled(false);
-        txtCliCadEnt.setText(null);
-        sepCliCadEnt.setForeground(Color.GRAY);
-        lblCliCadEnt.setEnabled(false);
-        lblR$CusCadEnt.setVisible(false);
-        lblCliCadEnt.setLocation(630, 130);
-        lblCusCadEnt.setLocation(630, 180);
-        lblForCadEnt.setLocation(630, 230);
+        cmbSerCadEnt.setEnabled(false);
+        cmbSerCadEnt.setSelectedIndex(0);
 
-        txtCusCadEnt.setEnabled(false);
-        txtCusCadEnt.setText(null);
-        sepCusCadEnt.setForeground(Color.GRAY);
-        lblCusCadEnt.setEnabled(false);
-
-        txtForCadEnt.setEnabled(false);
-        txtForCadEnt.setText(null);
-        sepForCadEnt.setForeground(Color.GRAY);
-        lblForCadEnt.setEnabled(false);
-        cmbVezCar.setEnabled(false);
-        btnSalCadEnt.setEnabled(true);
-        btnIteCadEnt.setEnabled(true);
         rbtnDinCadEnt.setEnabled(true);
         rbtnCarCadEnt.setEnabled(true);
         rbtnPixCadEnt.setEnabled(true);
 
-        comboboxentrada(cmbVezCar, 1);
+        lblCliCadEnt.setEnabled(false);
+        txtCliCadEnt.setEnabled(false);
+        txtCliCadEnt.setText(null);
+        sepCliCadEnt.setForeground(Color.GRAY);
+
+        lblCusCadEnt.setEnabled(false);
+        txtCusCadEnt.setEnabled(false);
+        txtCusCadEnt.setText(null);
+        sepCusCadEnt.setForeground(Color.GRAY);
+        lblR$CusCadEnt.setVisible(false);
+
+        lblForCadEnt.setEnabled(false);
+        txtForCadEnt.setEnabled(false);
+        txtForCadEnt.setText(null);
+        sepForCadEnt.setForeground(Color.GRAY);
+
+        rbtnTroPreCadEnt.setEnabled(false);
+        rbtnTroPlaCadEnt.setEnabled(false);
+        btnGroup5.clearSelection();
+
+        btnSalCadEnt.setEnabled(true);
+        btnIteCadEnt.setEnabled(true);
+
+        comboboxentrada(cmbSerCadEnt, 1);
 
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
 
-        lblDatCadEnt.setLocation(390, 110);
+        lblDatCadEnt.setLocation(330, 200);
     }//GEN-LAST:event_rbtnVenCadEntActionPerformed
 
     private void rbtnAssCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAssCadEntActionPerformed
         lblDatCadEnt.setEnabled(true);
         txtDatCadEnt.setEnabled(true);
         sepDatCadEnt.setForeground(corforeazul);
+
         lblPreCadEnt.setEnabled(true);
         txtPreCadEnt.setEnabled(true);
         sepPreCadEnt.setForeground(corforeazul);
+
         lblDetCadEnt.setEnabled(true);
         txtDetCadEnt.setEnabled(true);
         sepDetCadEnt.setForeground(corforeazul);
+
         lblSerCadEnt.setEnabled(true);
-        txtCliCadEnt.setEnabled(true);
-        sepCliCadEnt.setForeground(corforeazul);
-        lblCliCadEnt.setEnabled(true);
+        cmbSerCadEnt.setEnabled(true);
+        cmbSerCadEnt.setSelectedIndex(0);
 
-        txtCusCadEnt.setEnabled(true);
-        sepCusCadEnt.setForeground(corforeazul);
-        lblCusCadEnt.setEnabled(true);
-
-        txtForCadEnt.setEnabled(true);
-        sepForCadEnt.setForeground(corforeazul);
-        lblForCadEnt.setEnabled(true);
-        cmbVezCar.setEnabled(true);
-        btnSalCadEnt.setEnabled(true);
-        btnIteCadEnt.setEnabled(false);
         rbtnDinCadEnt.setEnabled(true);
         rbtnCarCadEnt.setEnabled(true);
         rbtnPixCadEnt.setEnabled(true);
 
-        comboboxentrada(cmbVezCar, 2);
+        lblCliCadEnt.setEnabled(true);
+        txtCliCadEnt.setEnabled(true);
+        sepCliCadEnt.setForeground(corforeazul);
+
+        lblCusCadEnt.setEnabled(true);
+        txtCusCadEnt.setEnabled(true);
+        sepCusCadEnt.setForeground(corforeazul);
+        lblR$CusCadEnt.setVisible(false);
+
+        lblForCadEnt.setEnabled(true);
+        txtForCadEnt.setEnabled(true);
+        sepForCadEnt.setForeground(corforeazul);
+
+        rbtnTroPreCadEnt.setEnabled(false);
+        rbtnTroPlaCadEnt.setEnabled(false);
+        btnGroup5.clearSelection();
+
+        btnSalCadEnt.setEnabled(true);
+        btnIteCadEnt.setEnabled(true);
+
+        comboboxentrada(cmbSerCadEnt, 1);
 
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
-        lblDatCadEnt.setLocation(390, 110);
+
+        lblDatCadEnt.setLocation(330, 200);
     }//GEN-LAST:event_rbtnAssCadEntActionPerformed
 
     private void txtDatCadEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDatCadEntFocusGained
@@ -11124,7 +11229,7 @@ public final class main extends javax.swing.JFrame {
 
                 tblSelIteCadEnt.setVisible(false);
                 scrSelIteCadEnt.setVisible(false);
-                lblSelIteCadEnt.setForeground(new Color(246, 246, 246));
+                lblSelIteCadEnt.setForeground(new Color(241, 241, 241));
 
             }
         } catch (SQLException ex) {
@@ -11172,7 +11277,7 @@ public final class main extends javax.swing.JFrame {
 
                             adicionarprodutos(tblEstIteCadEnt, tblSelIteCadEnt, opc, rbtnChiIteCadEnt);
 
-                            lblSelIteCadEnt.setForeground(corforeazul);
+                            lblSelIteCadEnt.setVisible(true);
                             scrSelIteCadEnt.setVisible(true);
                             tblSelIteCadEnt.setVisible(true);
 
@@ -11188,7 +11293,7 @@ public final class main extends javax.swing.JFrame {
 
                             adicionarprodutos(tblEstIteCadEnt, tblSelIteCadEnt, opc, rbtnChiIteCadEnt);
 
-                            lblSelIteCadEnt.setForeground(corforeazul);
+                            lblSelIteCadEnt.setVisible(true);
                             scrSelIteCadEnt.setVisible(true);
                             tblSelIteCadEnt.setVisible(true);
 
@@ -11218,6 +11323,99 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadEntMouseExited
 
     private void btnCadEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadEntMouseReleased
+        lblDatCadEnt.setLocation(330, 220);
+        lblPreCadEnt.setLocation(330, 270);
+        lblDetCadEnt.setLocation(330, 320);
+        lblCliCadEnt.setLocation(570, 220);
+        lblCusCadEnt.setLocation(570, 270);
+        lblForCadEnt.setLocation(570, 320);
+
+        lblDatCadEnt.setEnabled(false);
+        txtDatCadEnt.setEnabled(false);
+        txtDatCadEnt.setText(null);
+        sepDatCadEnt.setForeground(Color.GRAY);
+
+        lblPreCadEnt.setEnabled(false);
+        txtPreCadEnt.setEnabled(false);
+        txtPreCadEnt.setText(null);
+        sepPreCadEnt.setForeground(Color.GRAY);
+
+        lblDetCadEnt.setEnabled(false);
+        txtDetCadEnt.setEnabled(false);
+        txtDetCadEnt.setText(null);
+        txtDetCadEnt.setForeground(Color.GRAY);
+
+        lblCliCadEnt.setEnabled(false);
+        txtCliCadEnt.setEnabled(false);
+        txtCliCadEnt.setText(null);
+        sepCliCadEnt.setForeground(Color.GRAY);
+
+        lblCusCadEnt.setEnabled(false);
+        txtCusCadEnt.setEnabled(false);
+        txtCusCadEnt.setText(null);
+        sepCusCadEnt.setForeground(Color.GRAY);
+
+        lblForCadEnt.setEnabled(false);
+        txtForCadEnt.setEnabled(false);
+        txtForCadEnt.setText(null);
+        sepForCadEnt.setForeground(Color.GRAY);
+
+        lblSerCadEnt.setEnabled(false);
+        cmbSerCadEnt.setEnabled(false);
+        cmbSerCadEnt.setSelectedIndex(0);
+
+        spnParCadEnt.setVisible(false);
+        lblParCadEnt.setVisible(false);
+        spnParCadEnt.setValue(1);
+
+        lblR$CadEnt.setVisible(false);
+        lblR$CusCadEnt.setVisible(false);
+
+        rbtnDinCadEnt.setEnabled(false);
+        rbtnCarCadEnt.setEnabled(false);
+        rbtnPixCadEnt.setEnabled(false);
+
+        rbtnCreCadEnt.setEnabled(false);
+        rbtnDebCadEnt.setEnabled(false);
+        rbtnCreCadEnt.setVisible(false);
+        rbtnDebCadEnt.setVisible(false);
+
+        btnGroup.clearSelection();
+        btnGroup1.clearSelection();
+        btnGroup3.clearSelection();
+        btnGroup5.clearSelection();
+
+        rbtnTroPreCadEnt.setEnabled(false);
+        rbtnTroPlaCadEnt.setEnabled(false);
+
+        btnIteCadEnt.setEnabled(false);
+        btnSalCadEnt.setEnabled(false);
+
+        //TELA ESCOLHER PRODUTO
+        btnGroup2.clearSelection();
+
+        lblEstIteCadEnt.setVisible(false);
+        lblSelIteCadEnt.setVisible(false);
+
+        scrEstIteCadEnt.setVisible(false);
+        scrSelIteCadEnt.setVisible(false);
+        tblEstIteCadEnt.setVisible(false);
+        tblSelIteCadEnt.setVisible(false);
+
+        DefaultTableModel model = (DefaultTableModel) tblSelIteCadEnt.getModel();
+        model.setRowCount(0);
+        DefaultTableModel model1 = (DefaultTableModel) tblEstIteCadEnt.getModel();
+        model1.setRowCount(0);
+
+        lblBusIteCadEnt.setEnabled(false);
+        txtBusIteCadEnt.setEnabled(false);
+        txtBusIteCadEnt.setText(null);
+        sepBusIteCadEnt.setForeground(Color.GRAY);
+        //---
+
+        pnlContent.setVisible(false);
+        pnlCadEnt.setVisible(true);
+
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < 3; i++) {
@@ -11231,112 +11429,11 @@ public final class main extends javax.swing.JFrame {
         }
 
         txtCodCadEnt.setText(sb.toString());
-
-//            lblDatCadEnt.setLocation(390, 130);
-//            lblPreCadEnt.setLocation(390, 180);
-//            lblDetCadEnt.setLocation(390, 230);
-//
-//            lblCliCadEnt.setLocation(630, 130);
-//            lblCusCadEnt.setLocation(630, 180);
-//            lblForCadEnt.setLocation(630, 230);
-        lblDatCadEnt.setEnabled(false);
-        txtDatCadEnt.setEnabled(false);
-        txtDatCadEnt.setText(null);
-        sepDatCadEnt.setForeground(Color.GRAY);
-        lblPreCadEnt.setEnabled(false);
-
-        txtPreCadEnt.setEnabled(false);
-        txtPreCadEnt.setText(null);
-
-        sepPreCadEnt.setForeground(Color.GRAY);
-        lblDetCadEnt.setEnabled(false);
-
-        txtDetCadEnt.setEnabled(false);
-        txtDetCadEnt.setText(null);
-
-        txtCliCadEnt.setEnabled(false);
-        txtCliCadEnt.setText(null);
-        sepCliCadEnt.setForeground(Color.GRAY);
-        lblCliCadEnt.setEnabled(false);
-
-        txtCusCadEnt.setEnabled(false);
-        txtCusCadEnt.setText(null);
-        sepCusCadEnt.setForeground(Color.GRAY);
-        lblCusCadEnt.setEnabled(false);
-
-        txtForCadEnt.setEnabled(false);
-        txtForCadEnt.setText(null);
-        sepForCadEnt.setForeground(Color.GRAY);
-        lblForCadEnt.setEnabled(false);
-
-        sepDetCadEnt.setForeground(Color.GRAY);
-        lblSerCadEnt.setEnabled(false);
-        cmbVezCar.setEnabled(false);
-        cmbVezCar.setSelectedIndex(0);
-        lblR$CadEnt.setVisible(false);
-        lblR$CusCadEnt.setVisible(false);
-
-        btnGroup.clearSelection();
-        btnGroup1.clearSelection();
-        btnGroup2.clearSelection();
-        btnGroup3.clearSelection();
-        btnGroup5.clearSelection();
-
-        spnParCadEnt.setVisible(false);
-        lblParCadEnt.setVisible(false);
-
-        JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) spnParCadEnt.getEditor();
-        editor.getTextField().setEditable(false);
-
-        spnParCadEnt.setValue(0);
-        spnParCadEnt.setEnabled(false);
-        lblParCadEnt.setEnabled(false);
-        rbtnCreCadEnt.setEnabled(false);
-        rbtnDebCadEnt.setEnabled(false);
-        rbtnCreCadEnt.setVisible(false);
-        rbtnDebCadEnt.setVisible(false);
-
-        rbtnDinCadEnt.setEnabled(false);
-        rbtnCarCadEnt.setEnabled(false);
-        rbtnPixCadEnt.setEnabled(false);
-
-        rbtnTroPreCadEnt.setEnabled(false);
-        rbtnTroPlaCadEnt.setEnabled(false);
-
-        lblEstIteCadEnt.setForeground(new Color(246, 246, 246));
-        lblSelIteCadEnt.setForeground(new Color(246, 246, 246));
-        tblEstIteCadEnt.setVisible(false);
-        tblSelIteCadEnt.setVisible(false);
-        DefaultTableModel model = (DefaultTableModel) tblSelIteCadEnt.getModel();
-        DefaultTableModel model1 = (DefaultTableModel) tblEstIteCadEnt.getModel();
-        model.setRowCount(0);
-        model1.setRowCount(0);
-        scrEstIteCadEnt.setVisible(false);
-        scrSelIteCadEnt.setVisible(false);
-
-        txtBusIteCadEnt.setEnabled(false);
-        txtBusIteCadEnt.setText(null);
-        lblBusIteCadEnt.setEnabled(false);
-        sepBusIteCadEnt.setForeground(Color.GRAY);
-
-        btnIteCadEnt.setEnabled(false);
-        btnSalCadEnt.setEnabled(false);
-        cmbVezCar.setEnabled(false);
-
-        pnlContent.setVisible(false);
-        pnlCadEnt.setVisible(true);
     }//GEN-LAST:event_btnCadEntMouseReleased
 
-    private void txtBusIteCadEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusIteCadEntFocusGained
-        if (txtBusIteCadEnt.getText().isEmpty()) {
-            anitxtin(lblBusIteCadEnt);
-        }
-    }//GEN-LAST:event_txtBusIteCadEntFocusGained
-
     private void txtBusIteCadEntFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusIteCadEntFocusLost
-        if (txtBusIteCadEnt.getText().isEmpty()) {
-            anitxtout(lblBusIteCadEnt);
-        }
+        if (txtBusIteCadEnt.getText().isEmpty())
+            lblBusIteCadEnt.setLocation(60, 160);
     }//GEN-LAST:event_txtBusIteCadEntFocusLost
 
     private void rbtnAssIteCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAssIteCadEntActionPerformed
@@ -11364,8 +11461,12 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnChiIteCadEntActionPerformed
 
     private void btnIteCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIteCadEntActionPerformed
-        pnlIteCadEnt.setVisible(true);
+        if (!txtBusIteCadEnt.getText().isEmpty()) {
+            anitxtin(lblBusIteCadEnt);
+        }
+
         pnlCadEnt.setVisible(false);
+        pnlIteCadEnt.setVisible(true);
     }//GEN-LAST:event_btnIteCadEntActionPerformed
 
     private void btnVolIteCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolIteCadEntActionPerformed
@@ -11432,15 +11533,21 @@ public final class main extends javax.swing.JFrame {
 
                 tblEstIteCadEnt.setVisible(true);
                 scrEstIteCadEnt.setVisible(true);
-                lblEstIteCadEnt.setForeground(corforeazul);
+                lblEstIteCadEnt.setVisible(true);
 
             } else {
+
+                txtBusIteCadEnt.setText(null);
 
                 JOptionPane.showMessageDialog(null, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
             tblEstIteCadEnt.getTableHeader().setFont(fontbold(11));
+
+            btnVolIteCadEnt.grabFocus();
+
+            txtBusIteCadEnt.setText(null);
 
         }
     }//GEN-LAST:event_txtBusIteCadEntKeyPressed
@@ -11491,10 +11598,12 @@ public final class main extends javax.swing.JFrame {
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
+
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnSerRelActionPerformed
 
@@ -11539,10 +11648,12 @@ public final class main extends javax.swing.JFrame {
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
+
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnVenRelActionPerformed
 
@@ -11588,10 +11699,12 @@ public final class main extends javax.swing.JFrame {
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
+
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnTodRelActionPerformed
 
@@ -11725,10 +11838,12 @@ public final class main extends javax.swing.JFrame {
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
+
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnAssRelActionPerformed
 
@@ -12282,7 +12397,8 @@ public final class main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -12302,7 +12418,8 @@ public final class main extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(main.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -12339,7 +12456,8 @@ public final class main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -12749,7 +12867,8 @@ public final class main extends javax.swing.JFrame {
             pnlContent.setVisible(true);
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
 
         }
     }//GEN-LAST:event_btnSalDesActionPerformed
@@ -12819,7 +12938,8 @@ public final class main extends javax.swing.JFrame {
             verificaafazeres();
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tblConDesMouseClicked
 
@@ -13106,11 +13226,14 @@ public final class main extends javax.swing.JFrame {
                         entrada en = new entrada();
                         entradaDAO endao = new entradaDAO();
 
-                        en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
+                        en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString());
 
                         endao.excluir(en);
 
                         JOptionPane.showMessageDialog(null, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
+
+                        DefaultTableModel model = (DefaultTableModel) tblGerEnt.getModel();
+                        model.setRowCount(0);
 
                         pnlGerEnt.setVisible(false);
                         pnlContent.setVisible(true);
@@ -13121,7 +13244,7 @@ public final class main extends javax.swing.JFrame {
 
                     entrada en = new entrada();
                     entradaDAO endao = new entradaDAO();
-                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
+                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString());
                     endao.excluir(en);
 
                     JOptionPane.showMessageDialog(null, "Entrada excluída com sucesso!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
@@ -13143,6 +13266,18 @@ public final class main extends javax.swing.JFrame {
 
             String data = formatterbanco.format(formatter.parse(txtDatBusGerEnt.getText()));
 
+            btnExcGerEnt.setVisible(false);
+            btnAltGerEnt.setVisible(false);
+
+            btnAltGerEnt.setEnabled(false);
+            btnExcGerEnt.setEnabled(false);
+
+            tblGerEnt.setVisible(false);
+            scrGerEnt.setVisible(false);
+
+            LinhaGerenciarEntradaClicada = -1;
+            tblGerEnt.repaint();
+
             if (tabelagerenciarentrada(tblGerEnt, scrGerEnt, data)) {
 
                 tblGerEnt.setVisible(true);
@@ -13153,19 +13288,12 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                tblGerEnt.setVisible(false);
-                scrGerEnt.setVisible(false);
-
-                btnExcGerEnt.setVisible(false);
-                btnAltGerEnt.setVisible(false);
-
                 JOptionPane.showMessageDialog(null, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBusGerEntActionPerformed
 
@@ -13184,15 +13312,16 @@ public final class main extends javax.swing.JFrame {
         scrEstIteGerEnt.setVisible(false);
         lblEstIteGerEnt.setVisible(false);
 
-        lblEstIteGerEnt.setForeground(corforeazul);
-        btnVolIteGerEnt.grabFocus();
         tblSelIteGerEnt.getTableHeader().setFont(fontbold(11));
-        pnlIteGerEnt.setVisible(true);
-        pnlGerEnt.setVisible(false);
+
+        btnVolIteGerEnt.grabFocus();
 
         if (!txtBusIteGerEnt.getText().isEmpty()) {
             anitxtin(lblBusIteGerEnt);
         }
+
+        pnlAlterarEntrada.setVisible(false);
+        pnlIteGerEnt.setVisible(true);
     }//GEN-LAST:event_btnIteGerEntActionPerformed
 
     private void btnCanGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanGerEntActionPerformed
@@ -13284,6 +13413,9 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDatBusGerEntKeyTyped
 
     private void tblGerEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGerEntMouseClicked
+        LinhaGerenciarEntradaClicada = tblGerEnt.rowAtPoint(evt.getPoint());
+        tblGerEnt.repaint();
+
         btnAltGerEnt.setEnabled(true);
         btnExcGerEnt.setEnabled(true);
     }//GEN-LAST:event_tblGerEntMouseClicked
@@ -13298,7 +13430,7 @@ public final class main extends javax.swing.JFrame {
                 entrada en = new entrada();
                 entradaDAO endao = new entradaDAO();
 
-                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
+                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString());
 
                 endao.excluir(en);
 
@@ -13327,7 +13459,7 @@ public final class main extends javax.swing.JFrame {
 
                                 for (int i = 1; i <= tblSelIteGerEnt.getRowCount(); i++) {
 
-                                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
+                                    en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString());
                                     en.setData(formatterbanco.format(((formatter.parse(txtDatGerEnt.getText())))));
                                     en.setPreco(Double.valueOf(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
                                     en.setDetalhes(txtDetGerEnt.getText());
@@ -13353,7 +13485,7 @@ public final class main extends javax.swing.JFrame {
 
                             } else {
 
-                                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
+                                en.setCodigo(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString());
                                 en.setData(formatterbanco.format((formatter.parse(txtDatGerEnt.getText()))));
                                 en.setPreco(Double.valueOf(txtPreGerEnt.getText().replace(".", "").replace(",", ".")));
                                 en.setDetalhes(txtDetGerEnt.getText());
@@ -13379,12 +13511,18 @@ public final class main extends javax.swing.JFrame {
 
                             JOptionPane.showMessageDialog(null, "Entrada alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
+                            DefaultTableModel model = (DefaultTableModel) tblGerEnt.getModel();
+                            model.setRowCount(0);
+                            DefaultTableModel model1 = (DefaultTableModel) tblEstIteGerEnt.getModel();
+                            model1.setRowCount(0);
+                            DefaultTableModel model2 = (DefaultTableModel) tblSelIteGerEnt.getModel();
+                            model2.setRowCount(0);
+
                             pnlAlterarEntrada.setVisible(false);
                             pnlContent.setVisible(true);
 
                         } catch (SQLException | ParseException ex) {
-                            Logger.getLogger(main.class
-                                    .getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
                     } else {
@@ -13418,6 +13556,9 @@ public final class main extends javax.swing.JFrame {
         btnExcGerEnt.setVisible(false);
         btnAltGerEnt.setVisible(false);
         btnBusGerEnt.setEnabled(false);
+
+        lblDatBusGerEnt.setLocation(500, 100);
+        txtDatBusGerEnt.setText(null);
 
         pnlContent.setVisible(false);
         pnlGerEnt.setVisible(true);
@@ -13504,16 +13645,9 @@ public final class main extends javax.swing.JFrame {
         tblEstIteGerEnt.clearSelection();
     }//GEN-LAST:event_tblEstIteGerEntMouseClicked
 
-    private void txtBusIteGerEntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusIteGerEntFocusGained
-        if (txtBusIteGerEnt.getText().isEmpty()) {
-            anitxtin(lblBusIteGerEnt);
-        }
-    }//GEN-LAST:event_txtBusIteGerEntFocusGained
-
     private void txtBusIteGerEntFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusIteGerEntFocusLost
-        if (txtBusIteGerEnt.getText().isEmpty()) {
-            anitxtout(lblBusIteGerEnt);
-        }
+        if (txtBusIteGerEnt.getText().isEmpty())
+            lblBusIteGerEnt.setLocation(60, 160);
     }//GEN-LAST:event_txtBusIteGerEntFocusLost
 
     private void txtBusIteGerEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusIteGerEntKeyPressed
@@ -13571,12 +13705,11 @@ public final class main extends javax.swing.JFrame {
 
                 tblSelIteGerEnt.setVisible(false);
                 scrSelIteGerEnt.setVisible(false);
-                lblSelIteGerEnt.setForeground(new Color(246, 246, 246));
+                lblSelIteGerEnt.setForeground(new Color(241, 241, 241));
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tblSelIteGerEntMouseClicked
 
@@ -13673,14 +13806,15 @@ public final class main extends javax.swing.JFrame {
         lblR$CadEst.setVisible(false);
         cmbChiCadEst.setSelectedIndex(0);
 
-        lblMarCadEst.setLocation(410, 80);
-        lblModCadEst.setLocation(410, 130);
-        lblQuaCadEst.setLocation(410, 180);
-        lblPreCadEst.setLocation(410, 230);
-        lblCorCadEst.setLocation(700, 80);
-        lblMatCadEst.setLocation(700, 130);
-        lblLocCadEst.setLocation(700, 180);
-        lblDetCadEst.setLocation(700, 230);
+        lblMarCadEst.setLocation(360, 150);
+        lblModCadEst.setLocation(360, 200);
+        lblQuaCadEst.setLocation(360, 250);
+        lblPreCadEst.setLocation(360, 300);
+        lblCorCadEst.setLocation(650, 150);
+        lblMatCadEst.setLocation(650, 200);
+        lblLocCadEst.setLocation(650, 250);
+        lblDetCadEst.setLocation(650, 300);
+        lblVarCorCadEst.setLocation(890, 220);
 
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
@@ -13740,14 +13874,15 @@ public final class main extends javax.swing.JFrame {
         lblR$CadEst.setVisible(false);
         cmbChiCadEst.setSelectedIndex(0);
 
-        lblMarCadEst.setLocation(410, 80);
-        lblModCadEst.setLocation(410, 130);
-        lblQuaCadEst.setLocation(410, 180);
-        lblPreCadEst.setLocation(410, 230);
-        lblCorCadEst.setLocation(700, 80);
-        lblMatCadEst.setLocation(700, 130);
-        lblLocCadEst.setLocation(700, 180);
-        lblDetCadEst.setLocation(700, 230);
+        lblMarCadEst.setLocation(360, 150);
+        lblModCadEst.setLocation(360, 200);
+        lblQuaCadEst.setLocation(360, 250);
+        lblPreCadEst.setLocation(360, 300);
+        lblCorCadEst.setLocation(650, 150);
+        lblMatCadEst.setLocation(650, 200);
+        lblLocCadEst.setLocation(650, 250);
+        lblDetCadEst.setLocation(650, 300);
+        lblVarCorCadEst.setLocation(890, 220);
 
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
@@ -13808,14 +13943,15 @@ public final class main extends javax.swing.JFrame {
         lblR$CadEst.setVisible(false);
         cmbChiCadEst.setSelectedIndex(0);
 
-        lblMarCadEst.setLocation(410, 80);
-        lblModCadEst.setLocation(410, 130);
-        lblQuaCadEst.setLocation(410, 180);
-        lblPreCadEst.setLocation(410, 230);
-        lblCorCadEst.setLocation(700, 80);
-        lblMatCadEst.setLocation(700, 130);
-        lblLocCadEst.setLocation(700, 180);
-        lblDetCadEst.setLocation(700, 230);
+        lblMarCadEst.setLocation(360, 150);
+        lblModCadEst.setLocation(360, 200);
+        lblQuaCadEst.setLocation(360, 250);
+        lblPreCadEst.setLocation(360, 300);
+        lblCorCadEst.setLocation(650, 150);
+        lblMatCadEst.setLocation(650, 200);
+        lblLocCadEst.setLocation(650, 250);
+        lblDetCadEst.setLocation(650, 300);
+        lblVarCorCadEst.setLocation(890, 220);
 
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
@@ -13879,14 +14015,15 @@ public final class main extends javax.swing.JFrame {
         lblR$CadEst.setVisible(false);
         cmbChiCadEst.setSelectedIndex(0);
 
-        lblMarCadEst.setLocation(410, 80);
-        lblModCadEst.setLocation(410, 130);
-        lblQuaCadEst.setLocation(410, 180);
-        lblPreCadEst.setLocation(410, 230);
-        lblCorCadEst.setLocation(700, 80);
-        lblMatCadEst.setLocation(700, 130);
-        lblLocCadEst.setLocation(700, 180);
-        lblDetCadEst.setLocation(700, 230);
+        lblMarCadEst.setLocation(360, 150);
+        lblModCadEst.setLocation(360, 200);
+        lblQuaCadEst.setLocation(360, 250);
+        lblPreCadEst.setLocation(360, 300);
+        lblCorCadEst.setLocation(650, 150);
+        lblMatCadEst.setLocation(650, 200);
+        lblLocCadEst.setLocation(650, 250);
+        lblDetCadEst.setLocation(650, 300);
+        lblVarCorCadEst.setLocation(890, 220);
 
         txtTipCadEst.setText("Capinha");
     }//GEN-LAST:event_rbtnCapCadEstActionPerformed
@@ -14074,7 +14211,8 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (JRException | SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Erro ao calcular garantia!", "Erro", JOptionPane.WARNING_MESSAGE);
         }
@@ -14313,6 +14451,18 @@ public final class main extends javax.swing.JFrame {
 
                 String data = formatterbanco.format(formatter.parse(txtDatBusGerEnt.getText()));
 
+                btnExcGerEnt.setVisible(false);
+                btnAltGerEnt.setVisible(false);
+
+                btnAltGerEnt.setEnabled(false);
+                btnExcGerEnt.setEnabled(false);
+
+                tblGerEnt.setVisible(false);
+                scrGerEnt.setVisible(false);
+
+                LinhaGerenciarEntradaClicada = -1;
+                tblGerEnt.repaint();
+
                 if (tabelagerenciarentrada(tblGerEnt, scrGerEnt, data)) {
 
                     tblGerEnt.setVisible(true);
@@ -14322,12 +14472,6 @@ public final class main extends javax.swing.JFrame {
                     btnAltGerEnt.setVisible(true);
 
                 } else {
-
-                    tblGerEnt.setVisible(false);
-                    scrGerEnt.setVisible(false);
-
-                    btnExcGerEnt.setVisible(false);
-                    btnAltGerEnt.setVisible(false);
 
                     JOptionPane.showMessageDialog(null, "Nenhum ítem encontrado!", "Entrada", JOptionPane.INFORMATION_MESSAGE);
 
@@ -14542,6 +14686,8 @@ public final class main extends javax.swing.JFrame {
         pnlConEnt.setVisible(false);
         pnlContent.setVisible(true);
 
+        DefaultTableModel model = (DefaultTableModel) tblConEnt.getModel();
+        model.setRowCount(0);
     }//GEN-LAST:event_btnCanConEntActionPerformed
 
     private void btnBusConEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusConEntActionPerformed
@@ -14643,14 +14789,16 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConEntMouseExited
 
     private void btnConEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEntMouseReleased
+        btnBusConEnt.setEnabled(false);
         txtBusConEnt.setText(null);
+        lblBusConEnt.setLocation(450, 100);
 
         tblConEnt.setVisible(false);
         scrConEnt.setVisible(false);
 
-        btnBusConEnt.setEnabled(false);
+        DefaultTableModel model = (DefaultTableModel) tblConEnt.getModel();
+        model.setRowCount(0);
 
-        //lblBusConEnt.setLocation(450, 30);
         pnlContent.setVisible(false);
         pnlConEnt.setVisible(true);
     }//GEN-LAST:event_btnConEntMouseReleased
@@ -14744,12 +14892,14 @@ public final class main extends javax.swing.JFrame {
 
                 if (cmbRel.getItemCount() >= 2) {
                     tabelacmbrelatorio(tblRel, scrRel, cmbRel);
+
                 }
 
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_chkCusActionPerformed
 
@@ -14794,10 +14944,10 @@ public final class main extends javax.swing.JFrame {
         spnParCadEnt.setValue(0);
     }//GEN-LAST:event_rbtnDebCadEntActionPerformed
 
-    private void cmbVezCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVezCarActionPerformed
-        if (cmbVezCar.getSelectedIndex() != 0 && cmbVezCar.isEnabled() && cmbVezCar.getSelectedItem() != null) {
+    private void cmbSerCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSerCadEntActionPerformed
+        if (cmbSerCadEnt.getSelectedIndex() != 0 && cmbSerCadEnt.isEnabled() && cmbSerCadEnt.getSelectedItem() != null) {
 
-            itens selectedItem = (itens) cmbVezCar.getSelectedItem();
+            itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
             String textoSelecionado = selectedItem.getDescricao();
 
             if (textoSelecionado.equals("Troca de Chip")
@@ -14814,15 +14964,7 @@ public final class main extends javax.swing.JFrame {
 
             }
         }
-    }//GEN-LAST:event_cmbVezCarActionPerformed
-
-    private void spnParCadEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParCadEntKeyTyped
-
-    }//GEN-LAST:event_spnParCadEntKeyTyped
-
-    private void spnParCadEntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParCadEntKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spnParCadEntKeyPressed
+    }//GEN-LAST:event_cmbSerCadEntActionPerformed
 
     private void btnCadVenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadVenMouseEntered
         btnCadVen.setForeground(corforeazulenter);
@@ -14870,8 +15012,10 @@ public final class main extends javax.swing.JFrame {
 
             try {
                 lblConPlaVen.setText(String.valueOf(pladao.buscar()));
+
             } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
             btnExcVen.setEnabled(false);
@@ -14957,7 +15101,8 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSalCadVenActionPerformed
 
@@ -15306,7 +15451,8 @@ public final class main extends javax.swing.JFrame {
             tabelavencimento(tblVen, scrVen);
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnWppVenActionPerformed
 
@@ -15342,7 +15488,8 @@ public final class main extends javax.swing.JFrame {
                 pnlContent.setVisible(true);
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnExcVenActionPerformed
@@ -15607,10 +15754,12 @@ public final class main extends javax.swing.JFrame {
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
+
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnVenRel1ActionPerformed
 
@@ -16147,7 +16296,8 @@ public final class main extends javax.swing.JFrame {
                     ve.setData(formatterbanco.format(formatter.parse(txtBusVen.getText())));
 
                 } catch (ParseException ex) {
-                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(main.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 lblErrVen.setVisible(false);
 
@@ -16248,14 +16398,6 @@ public final class main extends javax.swing.JFrame {
 
         clipboard.setContents(selecao, null);
     }//GEN-LAST:event_btnCopAVenActionPerformed
-
-    private void pnlIteCadEntComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnlIteCadEntComponentShown
-        if (!txtBusIteCadEnt.getText().isEmpty()) {
-            lblBusIteCadEnt.setLocation(60, 70);
-        }
-
-        lblBusIteCadEnt.requestFocus();
-    }//GEN-LAST:event_pnlIteCadEntComponentShown
 
     private void txtPlaMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaMasKeyReleased
         switch (evt.getKeyChar()) {
@@ -16393,7 +16535,8 @@ public final class main extends javax.swing.JFrame {
             txtDesGerTipSer.requestFocus();
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAtvGerTipSerActionPerformed
 
@@ -16906,9 +17049,12 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (JRException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGerGerOsActionPerformed
 
@@ -16943,14 +17089,15 @@ public final class main extends javax.swing.JFrame {
                 btnAltGerOs.setEnabled(false);
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnExcGerOsActionPerformed
 
     private void btnVolGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolGerOsActionPerformed
-
-
+        pnlGerOs.setVisible(false);
+        pnlContent.setVisible(true);
     }//GEN-LAST:event_btnVolGerOsActionPerformed
 
     private void txtBusGerOsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusGerOsFocusGained
@@ -17135,7 +17282,8 @@ public final class main extends javax.swing.JFrame {
             btnCopMas.setVisible(true);
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnParMasActionPerformed
 
@@ -17158,14 +17306,6 @@ public final class main extends javax.swing.JFrame {
             anitxtout(lblVarCorCadEst);
         }
     }//GEN-LAST:event_txtVarCorCadEstFocusLost
-
-    private void spnVarCorCadEstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnVarCorCadEstKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spnVarCorCadEstKeyPressed
-
-    private void spnVarCorCadEstKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnVarCorCadEstKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spnVarCorCadEstKeyTyped
 
     private void btnAdiCadEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdiCadEstActionPerformed
         adicionarcor(tblVarCorCadEst, txtVarCorCadEst.getText(), (int) spnVarCorCadEst.getValue());
@@ -17294,13 +17434,13 @@ public final class main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtnTroPreCadEntActionPerformed
 
-    private void cmbVezCarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbVezCarMouseClicked
+    private void cmbSerCadEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbSerCadEntMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbVezCarMouseClicked
+    }//GEN-LAST:event_cmbSerCadEntMouseClicked
 
-    private void cmbVezCarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbVezCarMouseReleased
+    private void cmbSerCadEntMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbSerCadEntMouseReleased
 
-    }//GEN-LAST:event_cmbVezCarMouseReleased
+    }//GEN-LAST:event_cmbSerCadEntMouseReleased
 
     private void btnRelatorioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelatorioMouseEntered
         btnRelatorio.setForeground(corforeazulenter);
@@ -17348,27 +17488,33 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRelatorioMouseReleased
 
     private void btnAltGerEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerEntActionPerformed
-        lblR$CusGerEnt.setVisible(false);
-
         txtDatGerEnt.setText(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 0).toString());
         txtPreGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString())) ? (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString().length()) : null);
-        txtDetGerEnt.setText((!"Sem Detalhes".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString() : null);
-
-        txtCliGerEnt.setEnabled(false);
-        sepCliGerEnt.setForeground(Color.GRAY);
-        lblCliGerEnt.setEnabled(false);
-
-        txtCusGerEnt.setEnabled(false);
-        sepCusGerEnt.setForeground(Color.GRAY);
-        lblCusGerEnt.setEnabled(false);
-
-        txtForGerEnt.setEnabled(false);
-        sepForGerEnt.setForeground(Color.GRAY);
-        lblForGerEnt.setEnabled(false);
-
+        txtDetGerEnt.setText((!"Sem Detalhes".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 9).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 9).toString() : null);
         txtCliGerEnt.setText(null);
         txtCusGerEnt.setText(null);
         txtForGerEnt.setText(null);
+
+        lblR$GerEnt.setVisible(false);
+        lblR$CusGerEnt.setVisible(false);
+
+        txtBusIteGerEnt.setEnabled(false);
+        lblBusIteGerEnt.setEnabled(false);
+        sepBusIteCadEnt1.setForeground(Color.GRAY);
+        txtBusIteGerEnt.setText(null);
+        lblBusIteGerEnt.setLocation(60, 160);
+
+        txtCliGerEnt.setEnabled(false);
+        lblCliGerEnt.setEnabled(false);
+        sepCliGerEnt.setForeground(Color.GRAY);
+
+        txtCusGerEnt.setEnabled(false);
+        lblCusGerEnt.setEnabled(false);
+        sepCusGerEnt.setForeground(Color.GRAY);
+
+        txtForGerEnt.setEnabled(false);
+        lblForGerEnt.setEnabled(false);
+        sepForGerEnt.setForeground(Color.GRAY);
 
         estoque es = new estoque();
 
@@ -17378,28 +17524,14 @@ public final class main extends javax.swing.JFrame {
 
         tabelaestoqueconsulta(es, tblEstIteGerEnt, scrEstIteGerEnt);
 
-        tabelaitensselecionadosgerenciar(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 11).toString());
-
-        txtBusIteGerEnt.setEnabled(false);
-        txtBusIteGerEnt.setText(null);
-        lblBusIteGerEnt.setEnabled(false);
-        sepBusIteCadEnt1.setForeground(Color.GRAY);
-        btnGroup1.clearSelection();
-
-        tblEstIteGerEnt.requestFocus();
+        tabelaitensselecionadosgerenciar(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 10).toString());
 
         if ("Dinheiro".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString())) {
-
             rbtnDinGerEnt.setSelected(true);
-
         } else if ("Cartão".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 7).toString())) {
-
             rbtnCarGerEnt.setSelected(true);
-
         } else {
-
             rbtnPixGerEnt.setSelected(true);
-
         }
 
         if ("Venda".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
@@ -17412,51 +17544,53 @@ public final class main extends javax.swing.JFrame {
         } else if ("Assistência".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 1).toString())) {
 
             btnIteGerEnt.setEnabled(false);
-
             cmbSerGerEnt.setEnabled(true);
-
             lblSerGerEnt.setEnabled(true);
 
             comboboxentrada(cmbSerGerEnt, 2);
-
-            txtCliGerEnt.setEnabled(true);
-            sepCliGerEnt.setForeground(corforeazul);
-            lblCliGerEnt.setEnabled(true);
-
-            txtCusGerEnt.setEnabled(true);
-            sepCusGerEnt.setForeground(corforeazul);
-            lblCusGerEnt.setEnabled(true);
-
-            txtForGerEnt.setEnabled(true);
-            sepForGerEnt.setForeground(corforeazul);
-            lblForGerEnt.setEnabled(true);
 
             txtCliGerEnt.setText((!"Não Informado".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 3).toString() : null);
             txtCusGerEnt.setText((!"Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString())) ? (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString()).substring(3, tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 6).toString().length()) : null);
             txtForGerEnt.setText((!"Não Informado".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString())) ? tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 8).toString() : null);
 
-            for (int i = 1; i <= cmbSerGerEnt.getItemCount(); i++) {
+            txtCliGerEnt.setEnabled(true);
+            lblCliGerEnt.setEnabled(true);
+            sepCliGerEnt.setForeground(corforeazul);
 
-                cmbSerGerEnt.setSelectedIndex(i);
+            txtCusGerEnt.setEnabled(true);
+            lblCusGerEnt.setEnabled(true);
+            sepCusGerEnt.setForeground(corforeazul);
 
-                itens selectedItem = (itens) cmbSerGerEnt.getSelectedItem();
+            txtForGerEnt.setEnabled(true);
+            lblForGerEnt.setEnabled(true);
+            sepForGerEnt.setForeground(corforeazul);
 
-                String textoSelecionado = selectedItem.getDescricao();
+            try {
 
-                if (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 2).toString().equals(textoSelecionado)) {
+                for (int i = 1; i <= cmbSerGerEnt.getItemCount(); i++) {
 
-                    break;
+                    cmbSerGerEnt.setSelectedIndex(i);
+
+                    itens selectedItem = (itens) cmbSerGerEnt.getSelectedItem();
+
+                    String textoSelecionado = selectedItem.getDescricao();
+
+                    if (tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 2).toString().equals(textoSelecionado)) {
+
+                        break;
+
+                    }
 
                 }
 
+            } catch (Exception e) {
+                cmbSerGerEnt.setSelectedIndex(0);
             }
 
         } else {
 
-            btnIteGerEnt.setEnabled(false);
-
+            btnIteGerEnt.setEnabled(true);
             cmbSerGerEnt.setEnabled(true);
-
             lblSerGerEnt.setEnabled(true);
 
             comboboxentrada(cmbSerGerEnt, 1);
@@ -17480,61 +17614,49 @@ public final class main extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-
                 cmbSerGerEnt.setSelectedIndex(0);
-
             }
 
-            btnIteGerEnt.setEnabled(true);
-
         }
-
-        txtDatGerEnt.setEnabled(true);
-        txtPreGerEnt.setEnabled(true);
-        if ("Não Aplicável".equals(tblGerEnt.getValueAt(tblGerEnt.getSelectedRow(), 5).toString())) {
-            lblR$GerEnt.setVisible(false);
-        } else {
-            lblR$GerEnt.setVisible(true);
-        }
-        txtDetGerEnt.setEnabled(true);
-
-        lblDatGerEnt.setEnabled(true);
-        lblPreGerEnt.setEnabled(true);
-        lblDetGerEnt.setEnabled(true);
-
-        rbtnDinGerEnt.setEnabled(true);
-        rbtnCarGerEnt.setEnabled(true);
-        rbtnPixGerEnt.setEnabled(true);
-
-        sepDatGerEnt.setForeground(corforeazul);
-        sepPreGerEnt.setForeground(corforeazul);
-        sepDetGerEnt.setForeground(corforeazul);
-
-        btnSalGerEnt.setEnabled(true);
-        btnExcGerEnt.setEnabled(true);
 
         if (!txtDatGerEnt.getText().isEmpty()) {
-            anitxtin(lblDatGerEnt);
+            lblDatGerEnt.setLocation(380, 130);
+        } else {
+            lblDatGerEnt.setLocation(380, 150);
         }
 
         if (!txtPreGerEnt.getText().isEmpty()) {
-            anitxtin(lblPreGerEnt);
+            lblPreGerEnt.setLocation(380, 180);
+            lblR$GerEnt.setVisible(true);
+        } else {
+            lblPreGerEnt.setLocation(380, 200);
+            lblR$GerEnt.setVisible(false);
         }
 
         if (!txtDetGerEnt.getText().isEmpty()) {
-            anitxtin(lblDetGerEnt);
+            lblDetGerEnt.setLocation(380, 230);
+        } else {
+            lblDetGerEnt.setLocation(380, 250);
         }
+
         if (!txtCliGerEnt.getText().isEmpty()) {
-            anitxtin(lblCliGerEnt);
+            lblCliGerEnt.setLocation(620, 130);
+        } else {
+            lblCliGerEnt.setLocation(620, 150);
         }
+
         if (!txtCusGerEnt.getText().isEmpty()) {
-            anitxtin(lblCusGerEnt);
+            lblCusGerEnt.setLocation(620, 180);
             lblR$CusGerEnt.setVisible(true);
         } else {
+            lblCusGerEnt.setLocation(620, 200);
             lblR$CusGerEnt.setVisible(false);
         }
+
         if (!txtForGerEnt.getText().isEmpty()) {
-            anitxtin(lblForGerEnt);
+            lblForGerEnt.setLocation(620, 230);
+        } else {
+            lblForGerEnt.setLocation(620, 250);
         }
 
         pnlGerEnt.setVisible(false);
@@ -17547,8 +17669,25 @@ public final class main extends javax.swing.JFrame {
         if (resp == JOptionPane.YES_OPTION) {
             pnlAlterarEntrada.setVisible(false);
             pnlGerEnt.setVisible(true);
+
         }
     }//GEN-LAST:event_btnCanAltEntActionPerformed
+
+    private void txtBusIteCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusIteCadEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBusIteCadEntActionPerformed
+
+    private void txtBusIteCadEntMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBusIteCadEntMousePressed
+        if (txtBusIteCadEnt.getText().isEmpty() && txtBusIteCadEnt.isEnabled() && !txtBusIteCadEnt.hasFocus()) {
+            anitxtin(lblBusIteCadEnt);
+        }
+    }//GEN-LAST:event_txtBusIteCadEntMousePressed
+
+    private void txtBusIteGerEntMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBusIteGerEntMousePressed
+        if (txtBusIteGerEnt.getText().isEmpty() && txtBusIteGerEnt.isEnabled() && !txtBusIteGerEnt.hasFocus()) {
+            anitxtin(lblBusIteGerEnt);
+        }
+    }//GEN-LAST:event_txtBusIteGerEntMousePressed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -17661,8 +17800,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbChiCadEst;
     private javax.swing.JComboBox<String> cmbChiGerEst;
     private javax.swing.JComboBox<String> cmbRel;
+    private javax.swing.JComboBox<String> cmbSerCadEnt;
     private javax.swing.JComboBox<String> cmbSerGerEnt;
-    private javax.swing.JComboBox<String> cmbVezCar;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
