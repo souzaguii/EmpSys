@@ -1543,8 +1543,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -1639,8 +1638,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -1787,54 +1785,11 @@ public final class main extends javax.swing.JFrame {
 
                 }
 
-                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
-                    @Override
-                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-                        try {
-
-                            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                            Date dataatu = new Date();
-
-                            String dataat = formatterbanco.format(dataatu);
-
-                            Date dataatual = formatterbanco.parse(dataat);
-
-                            String vens = formatterbanco.format(((formatter.parse(table.getValueAt(row, 6).toString()))));
-
-                            int ok = Integer.parseInt(table.getValueAt(row, 7).toString());
-
-                            Date vencimento = formatterbanco.parse(vens);
-
-                            int comparacao1 = dataatual.compareTo(vencimento);
-
-                            if (comparacao1 >= 0 && ok == 0) {
-                                component.setBackground(new Color(182, 222, 170));
-                                btnWppVen.setEnabled(true);
-                            } else {
-                                component.setBackground(new Color(241, 241, 241));
-                            }
-
-                            component.setFont(fontmed(11));
-
-                            if (isSelected) {
-                                component.setBackground(new Color(211, 211, 211));
-                                component.setForeground(Color.BLACK);
-                            }
-
-                            return component;
-
-                        } catch (ParseException ex) {
-                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        return null;
-                    }
-                };
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
 
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
-                cellRenderer.setFont(fontmed(11));
+                cellRenderer.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(241, 241, 241));
@@ -1917,48 +1872,7 @@ public final class main extends javax.swing.JFrame {
 
                 }
 
-                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
-                    @Override
-                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-                        try {
-                            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                            Date dataatu = new Date();
-
-                            String dataat = formatterbanco.format(dataatu);
-
-                            Date dataatual = formatterbanco.parse(dataat);
-
-                            String vens = formatterbanco.format(((formatter.parse(table.getValueAt(row, 6).toString()))));
-
-                            int ok = Integer.parseInt(table.getValueAt(row, 7).toString());
-
-                            Date vencimento = formatterbanco.parse(vens);
-
-                            int comparacao1 = dataatual.compareTo(vencimento);
-
-                            if (comparacao1 >= 0 && ok == 0) {
-                                component.setBackground(new Color(182, 222, 170)); // verde
-                            } else {
-                                component.setBackground(new Color(241, 241, 241)); // vermelho
-                            }
-
-                            component.setFont(fontmed(12));
-
-                            if (isSelected) {
-                                component.setBackground(new Color(211, 211, 211));
-                                component.setForeground(Color.BLACK);
-                            }
-
-                            return component;
-
-                        } catch (ParseException ex) {
-                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        return null;
-                    }
-                };
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
 
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
@@ -1972,14 +1886,13 @@ public final class main extends javax.swing.JFrame {
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl
-                        .setDefaultEditor(Object.class,
-                                null);
+                tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
                     tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
                 }
+
                 tbl.getColumnModel().getColumn(7).setMinWidth(0);
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
@@ -1993,7 +1906,6 @@ public final class main extends javax.swing.JFrame {
 
             } else {
                 return false;
-
             }
 
         } catch (SQLException | ParseException ex) {
@@ -3212,14 +3124,15 @@ public final class main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSys");
         setIconImage(new ImageIcon(getClass().getResource("/images/ICON.png")).getImage());
-        setMinimumSize(new java.awt.Dimension(1200, 720));
+        setMinimumSize(new java.awt.Dimension(1200, 710));
+        setPreferredSize(new java.awt.Dimension(1200, 710));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlPrincipal.setVisible(false);
         pnlPrincipal.setBackground(new java.awt.Color(246, 246, 246));
-        pnlPrincipal.setMinimumSize(new java.awt.Dimension(1200, 720));
-        pnlPrincipal.setPreferredSize(new java.awt.Dimension(1200, 720));
+        pnlPrincipal.setMinimumSize(new java.awt.Dimension(1200, 710));
+        pnlPrincipal.setPreferredSize(new java.awt.Dimension(1200, 710));
         pnlPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlHeader.setBackground(new java.awt.Color(23, 23, 59));
@@ -3397,7 +3310,7 @@ public final class main extends javax.swing.JFrame {
         pnlOutros.add(btnJurPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 110, 20));
 
         pnlContent.add(pnlOutros);
-        pnlOutros.setBounds(770, 30, 270, 300);
+        pnlOutros.setBounds(760, 30, 270, 300);
 
         pnlOS.setBackground(new java.awt.Color(236, 236, 236));
         pnlOS.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -3447,7 +3360,7 @@ public final class main extends javax.swing.JFrame {
         pnlOS.add(btnGerOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 90, 20));
 
         pnlContent.add(pnlOS);
-        pnlOS.setBounds(470, 240, 270, 150);
+        pnlOS.setBounds(470, 230, 270, 150);
 
         pnlPlanos.setBackground(new java.awt.Color(236, 236, 236));
         pnlPlanos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -3588,7 +3501,7 @@ public final class main extends javax.swing.JFrame {
         pnlEstoque.add(btnGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 110, 20));
 
         pnlContent.add(pnlEstoque);
-        pnlEstoque.setBounds(170, 240, 270, 180);
+        pnlEstoque.setBounds(180, 230, 270, 180);
 
         pnlEntrada.setBackground(new java.awt.Color(236, 236, 236));
         pnlEntrada.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -3657,9 +3570,9 @@ public final class main extends javax.swing.JFrame {
         pnlEntrada.add(btnGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 90, 20));
 
         pnlContent.add(pnlEntrada);
-        pnlEntrada.setBounds(170, 30, 270, 180);
+        pnlEntrada.setBounds(180, 30, 270, 180);
 
-        pnlPrincipal.add(pnlContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadEnt.setLayout(null);
@@ -4069,7 +3982,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEnt.add(spnParCadEnt);
         spnParCadEnt.setBounds(710, 140, 60, 30);
 
-        pnlPrincipal.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlIteCadEnt.setMinimumSize(new java.awt.Dimension(1200, 520));
@@ -4236,7 +4149,7 @@ public final class main extends javax.swing.JFrame {
         lblNovaEntradaItens.setText("Nova Entrada | Ítens do Estoque");
         pnlIteCadEnt.add(lblNovaEntradaItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1200, 30));
 
-        pnlPrincipal.add(pnlIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlConEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlConEnt.setLayout(null);
@@ -4329,7 +4242,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEnt.add(scrConEnt);
         scrConEnt.setBounds(60, 200, 1080, 240);
 
-        pnlPrincipal.add(pnlConEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlConEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerEnt.setMinimumSize(new java.awt.Dimension(1200, 520));
@@ -4457,7 +4370,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEnt.add(scrGerEnt);
         scrGerEnt.setBounds(80, 210, 1090, 170);
 
-        pnlPrincipal.add(pnlGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlAlterarEntrada.setBackground(new java.awt.Color(241, 241, 241));
         pnlAlterarEntrada.setMinimumSize(new java.awt.Dimension(1200, 520));
@@ -4743,7 +4656,7 @@ public final class main extends javax.swing.JFrame {
         pnlAlterarEntrada.add(sepForGerEnt);
         sepForGerEnt.setBounds(620, 270, 190, 10);
 
-        pnlPrincipal.add(pnlAlterarEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlAlterarEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
         pnlIteGerEnt.setMinimumSize(new java.awt.Dimension(1200, 520));
@@ -4917,7 +4830,7 @@ public final class main extends javax.swing.JFrame {
         sepBusIteCadEnt1.setForeground(new java.awt.Color(10, 60, 133));
         pnlIteGerEnt.add(sepBusIteCadEnt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 200, 10));
 
-        pnlPrincipal.add(pnlIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlCadEst.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadEst.setLayout(null);
@@ -5376,7 +5289,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadEst.add(spnVarCorCadEst);
         spnVarCorCadEst.setBounds(1010, 210, 60, 30);
 
-        pnlPrincipal.add(pnlCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlConEst.setBackground(new java.awt.Color(241, 241, 241));
         pnlConEst.setLayout(null);
@@ -5527,7 +5440,7 @@ public final class main extends javax.swing.JFrame {
         pnlConEst.add(txtTipConEst);
         txtTipConEst.setBounds(100, 230, 64, 22);
 
-        pnlPrincipal.add(pnlConEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlConEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlGerEst.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerEst.setMinimumSize(new java.awt.Dimension(1200, 520));
@@ -6105,7 +6018,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerEst.add(scrGerEst);
         scrGerEst.setBounds(40, 270, 650, 170);
 
-        pnlPrincipal.add(pnlGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlCadVen.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadVen.setLayout(null);
@@ -6383,7 +6296,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadVen.add(txtCpfCadVen);
         txtCpfCadVen.setBounds(350, 160, 190, 20);
 
-        pnlPrincipal.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlVen.setBackground(new java.awt.Color(241, 241, 241));
         pnlVen.setLayout(null);
@@ -6400,7 +6313,6 @@ public final class main extends javax.swing.JFrame {
         tblVen.setBackground(new java.awt.Color(241, 241, 241));
         tblVen.setBorder(null);
         tblVen.setFont(fontmed(10));
-        tblVen.setForeground(new java.awt.Color(229, 192, 191));
         tblVen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -6415,8 +6327,6 @@ public final class main extends javax.swing.JFrame {
         tblVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblVen.setFocusable(false);
         tblVen.setGridColor(new java.awt.Color(192, 211, 250));
-        tblVen.setOpaque(false);
-        tblVen.setSelectionBackground(new java.awt.Color(255, 51, 0));
         tblVen.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblVen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -6439,7 +6349,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopAVen);
-        btnCopAVen.setBounds(700, 343, 100, 30);
+        btnCopAVen.setBounds(810, 343, 100, 30);
 
         btnCopVen.setFont(fontmed(12));
         btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6452,7 +6362,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopVen);
-        btnCopVen.setBounds(590, 343, 100, 30);
+        btnCopVen.setBounds(700, 343, 100, 30);
 
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6465,8 +6375,9 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnAltVen);
-        btnAltVen.setBounds(810, 343, 100, 30);
+        btnAltVen.setBounds(920, 343, 100, 30);
 
+        btnWppVen.setVisible(false);
         btnWppVen.setFont(fontmed(12));
         btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
         btnWppVen.setText("Limpar");
@@ -6477,7 +6388,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnWppVen);
-        btnWppVen.setBounds(1030, 343, 100, 30);
+        btnWppVen.setBounds(1030, 390, 100, 30);
 
         btnVolVen.setFont(fontmed(12));
         btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6502,7 +6413,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnExcVen);
-        btnExcVen.setBounds(920, 343, 100, 30);
+        btnExcVen.setBounds(1030, 343, 100, 30);
 
         lblConPlaVen.setFont(fontbold(12));
         lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6563,7 +6474,7 @@ public final class main extends javax.swing.JFrame {
         pnlVen.add(sepBusVen);
         sepBusVen.setBounds(350, 370, 210, 10);
 
-        pnlPrincipal.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlMas.setBackground(new java.awt.Color(241, 241, 241));
         pnlMas.setLayout(null);
@@ -6970,7 +6881,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(chkBolMas);
         chkBolMas.setBounds(570, 220, 130, 21);
 
-        pnlPrincipal.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlOs.setBackground(new java.awt.Color(241, 241, 241));
         pnlOs.setLayout(null);
@@ -7333,7 +7244,7 @@ public final class main extends javax.swing.JFrame {
         pnlOs.add(txtPreOs);
         txtPreOs.setBounds(330, 360, 70, 20);
 
-        pnlPrincipal.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlGerOs.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerOs.setLayout(null);
@@ -7469,7 +7380,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerOs.add(sepBusVen1);
         sepBusVen1.setBounds(580, 410, 200, 10);
 
-        pnlPrincipal.add(pnlGerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlGerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlRel.setBackground(new java.awt.Color(241, 241, 241));
         pnlRel.setLayout(null);
@@ -7526,7 +7437,7 @@ public final class main extends javax.swing.JFrame {
         scrRel.setViewportView(tblRel);
 
         pnlRel.add(scrRel);
-        scrRel.setBounds(60, 260, 780, 200);
+        scrRel.setBounds(60, 260, 780, 180);
 
         btnVolRel.setFont(fontmed(12));
         btnVolRel.setForeground(new java.awt.Color(10, 60, 133));
@@ -7860,78 +7771,78 @@ public final class main extends javax.swing.JFrame {
         lblValDinRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblValDinRel.setText("R$0,00");
         pnlRel.add(lblValDinRel);
-        lblValDinRel.setBounds(1020, 300, 120, 30);
+        lblValDinRel.setBounds(1020, 290, 120, 30);
 
         jLabel7.setFont(fontmed(12));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Dinheiro");
         pnlRel.add(jLabel7);
-        jLabel7.setBounds(1020, 280, 120, 20);
+        jLabel7.setBounds(1020, 270, 120, 20);
 
         lblTotEntRel.setFont(fontbold(14));
         lblTotEntRel.setForeground(new java.awt.Color(10, 60, 133));
         lblTotEntRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotEntRel.setText("0");
         pnlRel.add(lblTotEntRel);
-        lblTotEntRel.setBounds(890, 300, 120, 30);
+        lblTotEntRel.setBounds(890, 290, 120, 30);
 
         jLabel2.setFont(fontmed(12));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Total de entradas");
         pnlRel.add(jLabel2);
-        jLabel2.setBounds(890, 280, 120, 20);
+        jLabel2.setBounds(890, 270, 120, 20);
 
         lblValTotRel.setFont(fontbold(14));
         lblValTotRel.setForeground(new java.awt.Color(10, 60, 133));
         lblValTotRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblValTotRel.setText("R$0,00");
         pnlRel.add(lblValTotRel);
-        lblValTotRel.setBounds(890, 360, 120, 30);
+        lblValTotRel.setBounds(890, 350, 120, 30);
 
         jLabel4.setFont(fontmed(12));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Valor total");
         pnlRel.add(jLabel4);
-        jLabel4.setBounds(890, 340, 120, 20);
+        jLabel4.setBounds(890, 330, 120, 20);
 
         lblValMedRel.setFont(fontbold(14));
         lblValMedRel.setForeground(new java.awt.Color(10, 60, 133));
         lblValMedRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblValMedRel.setText("R$0,00");
         pnlRel.add(lblValMedRel);
-        lblValMedRel.setBounds(890, 420, 120, 30);
+        lblValMedRel.setBounds(890, 410, 120, 30);
 
         jLabel6.setFont(fontmed(12));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Custo");
         pnlRel.add(jLabel6);
-        jLabel6.setBounds(890, 400, 120, 20);
+        jLabel6.setBounds(890, 390, 120, 20);
 
         jLabel8.setFont(fontmed(12));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Cartão");
         pnlRel.add(jLabel8);
-        jLabel8.setBounds(1020, 340, 120, 20);
+        jLabel8.setBounds(1020, 330, 120, 20);
 
         lblValCarRel.setFont(fontbold(14));
         lblValCarRel.setForeground(new java.awt.Color(10, 60, 133));
         lblValCarRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblValCarRel.setText("R$0,00");
         pnlRel.add(lblValCarRel);
-        lblValCarRel.setBounds(1020, 360, 120, 30);
+        lblValCarRel.setBounds(1020, 350, 120, 30);
 
         jLabel9.setFont(fontmed(12));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("PIX");
         pnlRel.add(jLabel9);
-        jLabel9.setBounds(1020, 400, 120, 20);
+        jLabel9.setBounds(1020, 390, 120, 20);
 
         lblValPixRel.setFont(fontbold(14));
         lblValPixRel.setForeground(new java.awt.Color(10, 60, 133));
         lblValPixRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblValPixRel.setText("R$0,00");
         pnlRel.add(lblValPixRel);
-        lblValPixRel.setBounds(1020, 420, 120, 30);
+        lblValPixRel.setBounds(1020, 410, 120, 30);
 
         chkCus.setFont(fontmed(12));
         chkCus.setForeground(new java.awt.Color(10, 60, 133));
@@ -7947,7 +7858,7 @@ public final class main extends javax.swing.JFrame {
         pnlRel.add(chkCus);
         chkCus.setBounds(680, 100, 60, 20);
 
-        pnlPrincipal.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlCadTipSer.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadTipSer.setLayout(null);
@@ -8052,7 +7963,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadTipSer.add(sepDesTipSer);
         sepDesTipSer.setBounds(460, 190, 280, 10);
 
-        pnlPrincipal.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlGerTipSer.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerTipSer.setLayout(null);
@@ -8206,7 +8117,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerTipSer.add(rbtnTimGerTipSer);
         rbtnTimGerTipSer.setBounds(410, 90, 80, 21);
 
-        pnlPrincipal.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlDes.setBackground(new java.awt.Color(241, 241, 241));
         pnlDes.setLayout(null);
@@ -8260,7 +8171,7 @@ public final class main extends javax.swing.JFrame {
         pnlDes.add(btnVolDes);
         btnVolDes.setBounds(190, 350, 90, 30);
 
-        pnlPrincipal.add(pnlDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlCadDes.setBackground(new java.awt.Color(241, 241, 241));
         pnlCadDes.setLayout(null);
@@ -8386,7 +8297,7 @@ public final class main extends javax.swing.JFrame {
         pnlCadDes.add(btnCanDes);
         btnCanDes.setBounds(600, 260, 90, 30);
 
-        pnlPrincipal.add(pnlCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlGerDes.setBackground(new java.awt.Color(241, 241, 241));
         pnlGerDes.setLayout(null);
@@ -8558,7 +8469,7 @@ public final class main extends javax.swing.JFrame {
         pnlGerDes.add(scrGerDes);
         scrGerDes.setBounds(140, 140, 570, 250);
 
-        pnlPrincipal.add(pnlGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlJur.setBackground(new java.awt.Color(241, 241, 241));
         pnlJur.setLayout(null);
@@ -8839,9 +8750,9 @@ public final class main extends javax.swing.JFrame {
         pnlJur.add(spnParJur);
         spnParJur.setBounds(290, 190, 60, 30);
 
-        pnlPrincipal.add(pnlJur, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlJur, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
-        getContentPane().add(pnlPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
+        getContentPane().add(pnlPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -17377,7 +17288,13 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConMasActionPerformed
 
     private void tblVarCorCadEstMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVarCorCadEstMouseClicked
-        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) tblVarCorCadEst.getModel();
+        modelo.removeRow(tblVarCorCadEst.getSelectedRow());
+           
+        if(modelo.getRowCount()==0){
+            tblVarCorCadEst.setVisible(false);   
+            scrVarCorCadEst.setVisible(false); 
+        }
     }//GEN-LAST:event_tblVarCorCadEstMouseClicked
 
     private void txtVarCorCadEstFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVarCorCadEstFocusGained
