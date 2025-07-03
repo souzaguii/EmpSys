@@ -12763,11 +12763,19 @@ public final class main extends javax.swing.JFrame {
 
             try {
 
+                double preco;
+
+                if (!txtPreDes.getText().isEmpty()) {
+                    preco = Double.parseDouble(txtPreDes.getText().replace(".", "").replace(",", "."));
+                } else {
+                    preco = 0;
+                }                             
+                
                 despezas de = new despezas();
                 despezasDAO dedao = new despezasDAO();
 
                 de.setDescricao(txtDesDes.getText());
-                de.setValor(Double.valueOf(txtPreDes.getText().replaceAll(",", ".")));
+                de.setValor(preco);
                 de.setData(formatterbanco.format(formatter.parse(txtDatDes.getText())));
                 de.setStatus(0);
 
