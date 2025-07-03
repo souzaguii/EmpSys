@@ -8811,7 +8811,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblJurJur1);
-        lblJurJur1.setBounds(750, 310, 300, 20);
+        lblJurJur1.setBounds(720, 310, 360, 20);
 
         lblJurJur.setFont(fontbold(16));
         lblJurJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
