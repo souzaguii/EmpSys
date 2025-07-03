@@ -13853,13 +13853,13 @@ public final class main extends javax.swing.JFrame {
         lblLocCadEst.setLocation(650, 250);
         lblDetCadEst.setLocation(650, 300);
         lblVarCorCadEst.setLocation(880, 220);
-        
+
         DefaultTableModel model = (DefaultTableModel) tblVarCorCadEst.getModel();
-            model.setRowCount(0);
+        model.setRowCount(0);
 
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
-        
+
         txtTipCadEst.setText("Acessório");
     }//GEN-LAST:event_rbtnAceCadEstActionPerformed
 
@@ -13925,9 +13925,9 @@ public final class main extends javax.swing.JFrame {
         lblLocCadEst.setLocation(650, 250);
         lblDetCadEst.setLocation(650, 300);
         lblVarCorCadEst.setLocation(880, 220);
-        
+
         DefaultTableModel model = (DefaultTableModel) tblVarCorCadEst.getModel();
-            model.setRowCount(0);
+        model.setRowCount(0);
 
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
@@ -13997,9 +13997,9 @@ public final class main extends javax.swing.JFrame {
         lblLocCadEst.setLocation(650, 250);
         lblDetCadEst.setLocation(650, 300);
         lblVarCorCadEst.setLocation(880, 220);
-        
+
         DefaultTableModel model = (DefaultTableModel) tblVarCorCadEst.getModel();
-            model.setRowCount(0);
+        model.setRowCount(0);
 
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
@@ -14072,9 +14072,9 @@ public final class main extends javax.swing.JFrame {
         lblLocCadEst.setLocation(650, 250);
         lblDetCadEst.setLocation(650, 300);
         lblVarCorCadEst.setLocation(880, 220);
-        
+
         DefaultTableModel model = (DefaultTableModel) tblVarCorCadEst.getModel();
-            model.setRowCount(0);
+        model.setRowCount(0);
 
         txtTipCadEst.setText("Capinha");
     }//GEN-LAST:event_rbtnCapCadEstActionPerformed
