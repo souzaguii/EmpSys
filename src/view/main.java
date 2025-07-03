@@ -90,8 +90,8 @@ public final class main extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         loading();
-//        iniciasistema();
-//        pnlPrincipal.setVisible(true);
+//      iniciasistema();
+//      pnlPrincipal.setVisible(true);
 
     }
 
@@ -104,24 +104,19 @@ public final class main extends javax.swing.JFrame {
             @Override
             protected Void doInBackground() throws Exception {
 
-                publish("Conectando ao banco de dados...");
-                connection.Connect();
-                Thread.sleep(1000);
-                
-                if (connection.connection == null) {
+                try {
 
-                    publish("Erro na conexão!");
-                    Thread.sleep(3000);
-                    System.exit(0);
+                    publish("Conectando ao banco de dados...");
+                    Thread.sleep(1000);
 
-                } else {
-
+                    connection.getConnection();
+                    
                     publish("Conectado com sucesso!");
                     Thread.sleep(1000);
 
                     publish("Verificando afazeres...");
                     Thread.sleep(1000);
-                    
+
                     if (!verificaafazeres()) {
                         publish("Atenção! Erro na verificação de afazeres!");
                         Thread.sleep(3000);
@@ -132,6 +127,7 @@ public final class main extends javax.swing.JFrame {
 
                     publish("Fazendo backup automático...");
                     Thread.sleep(1000);
+                    
                     if (backupdatabase()) {
                         publish("Backup concluído! Iniciando...");
                     } else {
@@ -141,6 +137,11 @@ public final class main extends javax.swing.JFrame {
                     Thread.sleep(3000);
 
                     lo.dispose();
+
+                } catch (SQLException e) {
+                    publish("Erro na conexão ao banco de dados!");
+                    Thread.sleep(3000);
+                    System.exit(0);
 
                 }
 
@@ -6513,7 +6514,7 @@ public final class main extends javax.swing.JFrame {
         lblConPlaVen.setText("0");
         lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblConPlaVen);
-        lblConPlaVen.setBounds(220, 380, 50, 20);
+        lblConPlaVen.setBounds(220, 381, 50, 20);
 
         lblBusVen2.setFont(fontmed(11));
         lblBusVen2.setForeground(new java.awt.Color(10, 60, 133));
@@ -12857,6 +12858,8 @@ public final class main extends javax.swing.JFrame {
 
                 pnlCadDes.setVisible(false);
                 pnlContent.setVisible(true);
+                
+                verificaafazeres();
 
             } catch (SQLException | ParseException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -12924,7 +12927,7 @@ public final class main extends javax.swing.JFrame {
             int resp = JOptionPane.showOptionDialog(null, "Ao confirmar a conclusão, a data será definida para o próximo mês e será considerado a data de hoje como a conclusão. Atualize somente se tiver feito o acerto! Deseja prosseguir?", "Conclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
-
+        
                 despezas de = new despezas();
                 despezasDAO dedao = new despezasDAO();
 
@@ -12933,15 +12936,16 @@ public final class main extends javax.swing.JFrame {
 
                 dedao.conclusao(de);
 
+                JOptionPane.showMessageDialog(null, "Concluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                
                 tabeladespezas(tblConDes, scrConDes);
-
+          
+                verificaafazeres();
+                
             }
 
-            verificaafazeres();
-
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tblConDesMouseClicked
 
@@ -13020,6 +13024,8 @@ public final class main extends javax.swing.JFrame {
                 pnlGerDes.setVisible(false);
                 pnlContent.setVisible(true);
 
+                verificaafazeres();
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -13058,8 +13064,11 @@ public final class main extends javax.swing.JFrame {
 
                 pnlGerDes.setVisible(false);
                 pnlContent.setVisible(true);
+                
+                verificaafazeres();
 
             }
+            
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }

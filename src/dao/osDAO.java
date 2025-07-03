@@ -13,7 +13,7 @@ public class osDAO {
 
         String SQL = "INSERT INTO os(clienteOs, telefoneOs, enderecoOs, dataentradaOs, datasaidaOs, precoOs, equipamentoOs, marcaOs, modeloOs, defeitoOs, reparoOs, garantiaOs) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, os.getCliente());
         stmt.setString(2, os.getTelefone());
@@ -38,7 +38,7 @@ public class osDAO {
 
         String SQL = "UPDATE os SET clienteOs = ?, telefoneOs = ?, enderecoOs = ?, dataentradaOs = ?, datasaidaOs = ?, precoOs = ?, equipamentoOs = ?, marcaOs = ?, modeloOs = ?, defeitoOs = ?, reparoOs = ?, garantiaOs = ? WHERE idOs = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
        stmt.setString(1, os.getCliente());
         stmt.setString(2, os.getTelefone());
@@ -64,7 +64,7 @@ public class osDAO {
 
         String SQL = "DELETE FROM os WHERE idOs = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, os.getId());
 
@@ -79,7 +79,7 @@ public class osDAO {
         List<String[]> lista = new ArrayList<>();
 
         String SQL = "SELECT * FROM os ORDER BY STR_TO_DATE(dataentradaOs, '%d/%m/%Y') DESC";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -122,7 +122,7 @@ public class osDAO {
                 + "OR precoOs LIKE '%" + os.preco + "%' OR equipamentoOs LIKE '%" + os.equipamento + "%' OR marcaOs LIKE '%" + os.marca + "%'"
                + " OR modeloOs LIKE '%" + os.modelo + "%' OR defeitoOs LIKE '%" + os.defeito + "%' OR reparoOs LIKE '%" + os.reparo + "%' OR garantiaOs LIKE '%" + os.garantia + "%' ORDER BY STR_TO_DATE(dataentradaOs, '%d/%m/%Y') DESC";
       
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 

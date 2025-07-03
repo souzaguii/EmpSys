@@ -13,15 +13,14 @@ public class despezasDAO {
 
         String SQL = "INSERT INTO despezas(descricaoDes, precoDes, dataDes, dataconclusaoDes) VALUES (?, ?, ?, ?)";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-
-        stmt.setString(1, de.getDescricao());
-        stmt.setDouble(2, de.getValor());
-        stmt.setString(3, de.getData());
-        stmt.setString(4, de.getDataconclusao());
-
-        stmt.executeUpdate();
-        stmt.close();
+        try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
+            stmt.setString(1, de.getDescricao());
+            stmt.setDouble(2, de.getValor());
+            stmt.setString(3, de.getData());
+            stmt.setString(4, de.getDataconclusao());
+            
+            stmt.executeUpdate();
+        }
         connection.Close();
 
     }
@@ -30,15 +29,14 @@ public class despezasDAO {
 
         String SQL = "UPDATE despezas SET descricaoDes = ?, precoDes = ?, dataDes = ? WHERE idDes = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-
-        stmt.setString(1, de.getDescricao());
-        stmt.setDouble(2, de.getValor());
-        stmt.setString(3, de.getData());
-        stmt.setInt(4, de.getId());
-
-        stmt.executeUpdate();
-        stmt.close();
+        try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
+            stmt.setString(1, de.getDescricao());
+            stmt.setDouble(2, de.getValor());
+            stmt.setString(3, de.getData());
+            stmt.setInt(4, de.getId());
+            
+            stmt.executeUpdate();
+        }
         connection.Close();
 
     }
@@ -47,12 +45,11 @@ public class despezasDAO {
 
         String SQL = "DELETE FROM despezas WHERE idDes = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-
-        stmt.setInt(1, de.getId());
-
-        stmt.executeUpdate();
-        stmt.close();
+        try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
+            stmt.setInt(1, de.getId());
+            
+            stmt.executeUpdate();
+        }
         connection.Close();
 
     }
@@ -61,30 +58,28 @@ public class despezasDAO {
 
         String SQL = "UPDATE despezas SET dataDes = DATE_ADD(dataDes, INTERVAL 1 MONTH), dataconclusaoDes = ? WHERE idDes = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-
-        stmt.setString(1, de.getDataconclusao());
-        stmt.setInt(2, de.getId());
-
-        stmt.executeUpdate();
-        stmt.close();
+        try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
+            stmt.setString(1, de.getDataconclusao());
+            stmt.setInt(2, de.getId());
+            
+            stmt.executeUpdate();
+        }
         connection.Close();
 
     }
 
     public boolean verificar() throws SQLException {
 
-        String SQL = "SELECT * FROM despezas WHERE dataDes BETWEEN CURDATE()  AND DATE_ADD(CURDATE(), INTERVAL 3 DAY)";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-
-        ResultSet rs = stmt.executeQuery();
-
-        if (rs.next()) {
-            return true;
+        String SQL = "SELECT * FROM despezas WHERE dataDes <= DATE_ADD(CURDATE(), INTERVAL 3 DAY)";
+        try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return true;
+            }
+            
+            rs.close();
         }
-
-        rs.close();
-        stmt.close();
         connection.Close();
 
         return false;
@@ -96,25 +91,24 @@ public class despezasDAO {
         List<String[]> lista = new ArrayList<>();
 
         String SQL = "SELECT * FROM despezas ORDER BY dataDes";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-
-            String[] rowData = {
-                rs.getString("idDes"),
-                rs.getString("descricaoDes"),
-                rs.getString("precoDes"),
-                rs.getString("dataDes"),
-                rs.getString("dataconclusaoDes")};
-
-            lista.add(rowData);
-
+        try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                String[] rowData = {
+                    rs.getString("idDes"),
+                    rs.getString("descricaoDes"),
+                    rs.getString("precoDes"),
+                    rs.getString("dataDes"),
+                    rs.getString("dataconclusaoDes")};
+                
+                lista.add(rowData);
+                
+            }
+            
+            rs.close();
         }
-
-        rs.close();
-        stmt.close();
         connection.Close();
 
         return lista;

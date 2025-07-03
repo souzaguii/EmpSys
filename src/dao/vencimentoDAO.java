@@ -13,7 +13,7 @@ public class vencimentoDAO {
 
         String SQL = "INSERT INTO vencimento(clienteVen, telefoneVen, acessoVen, cpfVen, dataVen, planoVen, vencimentoVen, okVen) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, ve.getCliente());
         stmt.setString(2, ve.getTelefone());
@@ -36,7 +36,7 @@ public class vencimentoDAO {
                 + "CASE WHEN okVen = 1 THEN 1 ELSE ? END"
                 + " WHERE idVen = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, ve.getCliente());
         stmt.setString(2, ve.getTelefone());
@@ -58,7 +58,7 @@ public class vencimentoDAO {
 
         String SQL = "DELETE FROM vencimento WHERE idVen = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, ve.getId());
 
@@ -72,7 +72,7 @@ public class vencimentoDAO {
 
         String SQL = "UPDATE vencimento SET okVen = 1 WHERE vencimentoVen <= CURDATE() AND cpfVen = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, ve.getCpf());
 
@@ -86,7 +86,7 @@ public class vencimentoDAO {
 
         String SQL = "UPDATE vencimento SET okVen = 1 WHERE vencimentoVen <= CURDATE()";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.executeUpdate();
         stmt.close();
@@ -99,7 +99,7 @@ public class vencimentoDAO {
         List<String[]> lista = new ArrayList<>();
 
         String SQL = "SELECT * FROM vencimento ORDER BY OkVen, vencimentoVen <= CURDATE() DESC, vencimentoVen >= CURDATE() DESC, ABS(DATEDIFF(vencimentoVen, CURDATE()))";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -135,7 +135,7 @@ public class vencimentoDAO {
                 + "OR telefoneVen LIKE '%" + ve.telefone + "%' OR cpfVen LIKE '%" + ve.cpf + "%' "
                 + "OR planoVen LIKE '%" + ve.plano + "%' OR dataVen LIKE '%" + ve.data + "%' "
                 + "OR vencimentoVen LIKE '%" + ve.vencimento + "%' OR acessoVen LIKE '%" + ve.acesso + "%' ORDER BY vencimentoVen >= CURDATE() DESC, ABS(DATEDIFF(vencimentoVen, CURDATE()))";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -168,7 +168,7 @@ public class vencimentoDAO {
         List<String[]> lista = new ArrayList<>();
 
         String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <= CURDATE() AND okVen = 0 ORDER BY planoVen";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -192,7 +192,7 @@ public class vencimentoDAO {
     public boolean verificar() throws SQLException {
 
         String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <=  CURRENT_DATE() AND okVen = 0";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 

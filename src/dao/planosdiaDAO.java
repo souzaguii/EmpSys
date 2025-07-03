@@ -10,7 +10,7 @@ public class planosdiaDAO {
 
         String SQL = "UPDATE planosdia SET numPlaDia = numPlaDia + 1 WHERE diaPlaDia = DAY(NOW()) AND tipPlaDia = "+tip+"";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.executeUpdate();
         stmt.close();
@@ -23,7 +23,7 @@ public class planosdiaDAO {
         int num;
 
         String SQL = "SELECT numPlaDia FROM planosdia WHERE diaPlaDia = DAY(NOW()) AND tipPlaDia = "+tip+"";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -43,7 +43,7 @@ public class planosdiaDAO {
 
         String SQL = "UPDATE planosdia set numPlaDia = 0, diaPlaDia = DAY(NOW()) WHERE diaPlaDia != DAY(NOW())";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.executeUpdate();
         stmt.close();

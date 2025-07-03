@@ -15,7 +15,7 @@ public class estoqueDAO {
 
         String SQL = "INSERT INTO estoque(tipoprodutoEst, modeloEst, marcaEst, corEst, materialEst, detalhesEst, localizacaoEst, precoEst, quantidadeEst, tipochipEst) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, es.getTipoproduto());
         stmt.setString(2, es.getModelo());
@@ -38,7 +38,7 @@ public class estoqueDAO {
 
         String SQL = "UPDATE estoque SET modeloEst = ?, marcaEst = ?, corEst = ?, materialEst = ?, detalhesEst = ?, localizacaoEst = ?, precoEst = ?, quantidadeEst = ?, tipochipEst = ? WHERE idEst = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, es.getModelo());
         stmt.setString(2, es.getMarca());
@@ -109,7 +109,7 @@ public class estoqueDAO {
     SQL.append(" WHERE idEst = ?");
 
     // Preparar a query final
-    PreparedStatement stmt = connection.Connect().prepareStatement(SQL.toString());
+    PreparedStatement stmt = connection.getConnection().prepareStatement(SQL.toString());
 
     // Adiciona o id do produto
     params.add(es.getId());
@@ -131,7 +131,7 @@ public class estoqueDAO {
      public void excluir(estoque es) throws SQLException {
 
         String SQL = "UPDATE estoque SET quantidadeEst = 0 WHERE idEst = ?";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setInt(1, es.getId());
 
@@ -144,7 +144,7 @@ public class estoqueDAO {
        public void excluirum(estoque es) throws SQLException {
 
         String SQL = "UPDATE estoque SET quantidadeEst = quantidadeEst - 1 WHERE idEst = ?";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setInt(1, es.getId());
 
@@ -159,7 +159,7 @@ public class estoqueDAO {
         List<estoque> listaes = new ArrayList<>();
 
         String SQL = "SELECT * FROM estoque WHERE tipoprodutoEst = '" + es.getTipoproduto() + "' AND quantidadeEst != 0 AND (modeloEst LIKE '%" + es.getModelo() + "%' OR marcaEst LIKE '%" + es.getModelo() + "%' OR corEst LIKE '%" + es.getModelo() + "%' OR materialEst LIKE '%" + es.getModelo() + "%' OR detalhesEst LIKE '%" + es.getModelo() + "%' OR localizacaoEst LIKE '%" + es.getModelo() + "%' OR precoEst LIKE '%" + es.getModelo() + "%' OR tipochipEst LIKE '%" + es.getModelo() + "%')";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -195,7 +195,7 @@ public class estoqueDAO {
         List<estoque> listaes = new ArrayList<>();
 
         String SQL = "SELECT * FROM estoque WHERE modeloEst LIKE '%" + es.getModelo() + "%' AND marcaEst LIKE '%" + es.getMarca() + "%' AND tipoprodutoEst = '"+es.getTipoproduto()+"'";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -236,7 +236,7 @@ public class estoqueDAO {
 
             SQL = SQL + " WHERE tipochipEst = ?";
 
-            stmt = connection.Connect().prepareStatement(SQL);
+            stmt = connection.getConnection().prepareStatement(SQL);
 
             stmt.setString(1, es.getTipochip());
 
@@ -244,7 +244,7 @@ public class estoqueDAO {
 
             SQL = SQL + " WHERE modeloEst = ? AND marcaEst = ? AND tipoprodutoEst = ? AND corEst = ? AND materialEst = ? AND localizacaoEst = ?";
 
-            stmt = connection.Connect().prepareStatement(SQL);
+            stmt = connection.getConnection().prepareStatement(SQL);
 
             stmt.setString(1, es.getModelo());
             stmt.setString(2, es.getMarca());
@@ -276,7 +276,7 @@ public class estoqueDAO {
     public void acrescentar(estoque es) throws SQLException {
 
         String SQL = "UPDATE estoque SET quantidadeEst = quantidadeEst + ? WHERE idEst = ?";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setInt(1, es.getQuantidade());
         stmt.setInt(2, es.getId());

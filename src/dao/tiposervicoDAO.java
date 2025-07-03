@@ -12,7 +12,7 @@ public class tiposervicoDAO {
     public void inserir(tiposervico ts) throws SQLException {
 
         String SQL = "INSERT INTO tiposervico(descricaoTipSer, areaTipSer) VALUES (?, ?)";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, ts.getDescricao());
         stmt.setString(2, ts.getArea());
@@ -28,7 +28,7 @@ public class tiposervicoDAO {
         List<tiposervico> listats = new ArrayList<>();
 
         String SQL = "SELECT * FROM tiposervico ORDER BY atvTipSer DESC, areaTipSer, descricaoTipSer";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -57,7 +57,7 @@ public class tiposervicoDAO {
         List<tiposervico> listats = new ArrayList<>();
 
         String SQL = "SELECT * FROM tiposervico WHERE areaTipSer != '1' AND atvTipSer = '1' ORDER BY descricaoTipSer";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -85,7 +85,7 @@ public class tiposervicoDAO {
         List<tiposervico> listats = new ArrayList<>();
 
         String SQL = "SELECT * FROM tiposervico WHERE areaTipSer != '2' AND atvTipSer = '1' ORDER BY descricaoTipSer";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -111,7 +111,7 @@ public class tiposervicoDAO {
     public void excluir(tiposervico ts) throws SQLException {
 
         String SQL = "DELETE FROM tiposervico WHERE idTipSer = ?";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setInt(1, ts.getIdtiposervico());
 
@@ -124,7 +124,7 @@ public class tiposervicoDAO {
     public void alterar(tiposervico ts) throws SQLException {
 
         String SQL = "UPDATE tiposervico SET descricaoTipSer = ?, areaTipSer = ? WHERE idTipSer = ?";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, ts.getDescricao());
         stmt.setString(2, ts.getArea());
@@ -139,7 +139,7 @@ public class tiposervicoDAO {
     public void atvdes(tiposervico ts) throws SQLException {
 
         String SQL = "UPDATE tiposervico SET atvTipSer = ? WHERE idTipSer = ?";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         
         stmt.setInt(1, ts.getAtv());

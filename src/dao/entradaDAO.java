@@ -26,7 +26,7 @@ public class entradaDAO {
             case 1 -> {
                 SQL = "INSERT INTO entradas(idEst, idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, quantidadeEnt, idTip, formapagamentoEnt) VALUES (" + id + ", ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                stmt = connection.Connect().prepareStatement(SQL);
+                stmt = connection.getConnection().prepareStatement(SQL);
 
                 stmt.setInt(1, en.getIdtiposervico());
                 stmt.setString(2, en.getCodigo());
@@ -41,7 +41,7 @@ public class entradaDAO {
             case 2 -> {
                 SQL = "INSERT INTO entradas(idEst, codigoEnt, dataEnt, precoEnt, detalhesEnt, quantidadeEnt, idTip, formapagamentoEnt) VALUES (" + id + ", ?, ?, ?, ?, ?, ?, ?)";
 
-                stmt = connection.Connect().prepareStatement(SQL);
+                stmt = connection.getConnection().prepareStatement(SQL);
 
                 stmt.setString(1, en.getCodigo());
                 stmt.setString(2, en.getData());
@@ -58,7 +58,7 @@ public class entradaDAO {
 
                     SQL = "INSERT INTO entradas(idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, idTip, formapagamentoEnt, clienteEnt, fornecedorEnt, custoEnt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                    stmt = connection.Connect().prepareStatement(SQL);
+                    stmt = connection.getConnection().prepareStatement(SQL);
 
                     stmt.setInt(1, en.getIdtiposervico());
                     stmt.setString(2, en.getCodigo());
@@ -75,7 +75,7 @@ public class entradaDAO {
 
                     SQL = "INSERT INTO entradas(idTipSer, codigoEnt, dataEnt, precoEnt, detalhesEnt, idTip, formapagamentoEnt, clienteEnt, fornecedorEnt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                    stmt = connection.Connect().prepareStatement(SQL);
+                    stmt = connection.getConnection().prepareStatement(SQL);
 
                     stmt.setInt(1, en.getIdtiposervico());
                     stmt.setString(2, en.getCodigo());
@@ -107,13 +107,12 @@ public class entradaDAO {
 
         }
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-
-        stmt.setInt(1, en.getQuantidade());
-        stmt.setInt(2, en.getIdestoque());
-
-        stmt.executeUpdate();
-        stmt.close();
+        try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
+            stmt.setInt(1, en.getQuantidade());
+            stmt.setInt(2, en.getIdestoque());
+            
+            stmt.executeUpdate();
+        }
         connection.Close();
 
     }
@@ -122,12 +121,11 @@ public class entradaDAO {
 
         String SQL = "DELETE FROM entradas WHERE codigoEnt = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
-
-        stmt.setString(1, en.getCodigo());
-
-        stmt.executeUpdate();
-        stmt.close();
+        try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
+            stmt.setString(1, en.getCodigo());
+            
+            stmt.executeUpdate();
+        }
         connection.Close();
 
     }
@@ -286,7 +284,7 @@ public class entradaDAO {
                 break;
         }
 
-        stmt = connection.Connect().prepareStatement(SQL);
+        stmt = connection.getConnection().prepareStatement(SQL);
 
         // SE FOR 6 DA DATA ELE COLOCA A DATA ESCOLHIDA NA STRING SQL
         if (opc1 == 6) {
@@ -469,7 +467,7 @@ public class entradaDAO {
 
         String SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE dataEnt = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, data);
 
@@ -574,7 +572,7 @@ public class entradaDAO {
 
         String SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE codigoEnt = ?";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.setString(1, codigo);
 
@@ -633,7 +631,7 @@ public class entradaDAO {
         List<String[]> listaen = new ArrayList<>();
 
         String SQL = "SELECT * FROM entradas LEFT JOIN tiposervico ON tiposervico.idTipSer = entradas.idTipSer LEFT JOIN estoque ON estoque.idEst = entradas.idEst WHERE dataEnt LIKE '%" + busca + "%' OR precoEnt LIKE '%" + busca + "%' OR detalhesEnt LIKE '%" + busca + "%' OR formapagamentoEnt LIKE '%" + busca + "%' OR clienteEnt LIKE '%" + busca + "%' OR custoEnt LIKE '%" + busca + "%' OR fornecedorEnt LIKE '%" + busca + "%' OR codigoEnt LIKE '%" + busca + "%' OR estoque.tipoprodutoEst LIKE '%" + busca + "%' OR estoque.modeloEst LIKE '%" + busca + "%' OR estoque.marcaEst LIKE '%" + busca + "%' OR estoque.tipochipEst LIKE '%" + busca + "%' OR tiposervico.descricaoTipSer LIKE '%" + busca + "%' ORDER BY dataEnt DESC";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 

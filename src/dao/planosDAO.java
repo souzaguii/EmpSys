@@ -10,7 +10,7 @@ public class planosDAO {
 
         String SQL = "UPDATE planos SET numPla = numPla + 1 WHERE mesPla = MONTH(NOW())";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.executeUpdate();
         stmt.close();
@@ -22,7 +22,7 @@ public class planosDAO {
 
         String SQL = "UPDATE planos SET numPla = numPla - 1 WHERE mesPla = MONTH(NOW())";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.executeUpdate();
         stmt.close();
@@ -35,7 +35,7 @@ public class planosDAO {
         int num;
 
         String SQL = "SELECT numPla FROM planos WHERE mesPla = MONTH(NOW())";
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -55,7 +55,7 @@ public class planosDAO {
 
         String SQL = "UPDATE planos set numPla = 0, mesPla = MONTH(NOW()) WHERE mesPla != MONTH(NOW())";
 
-        PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         stmt.executeUpdate();
         stmt.close();
