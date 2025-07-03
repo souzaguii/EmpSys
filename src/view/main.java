@@ -2271,6 +2271,10 @@ public final class main extends javax.swing.JFrame {
                 chipt = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Chip"))).toString();
 
                 Object[] novaLinha = {qua, idt, produtot + " - " + chipt, precot};
+                
+                 header.getColumnModel().getColumn(1).setMinWidth(0);
+                header.getColumnModel().getColumn(1).setMaxWidth(0);
+                header.getColumnModel().getColumn(1).setWidth(0);
 
                 modelo.addRow(novaLinha);
 
@@ -2296,8 +2300,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -11147,8 +11150,7 @@ public final class main extends javax.swing.JFrame {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tblSelIteCadEntMouseClicked
 
