@@ -110,7 +110,7 @@ public final class main extends javax.swing.JFrame {
                     Thread.sleep(1000);
 
                     connection.getConnection();
-                    
+
                     publish("Conectado com sucesso!");
                     Thread.sleep(1000);
 
@@ -127,7 +127,7 @@ public final class main extends javax.swing.JFrame {
 
                     publish("Fazendo backup automático...");
                     Thread.sleep(1000);
-                    
+
                     if (backupdatabase()) {
                         publish("Backup concluído! Iniciando...");
                     } else {
@@ -5024,11 +5024,6 @@ public final class main extends javax.swing.JFrame {
         chkVarCorCadEst.setForeground(new java.awt.Color(10, 60, 133));
         chkVarCorCadEst.setText("Várias cores");
         chkVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chkVarCorCadEst.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                chkVarCorCadEstStateChanged(evt);
-            }
-        });
         chkVarCorCadEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkVarCorCadEstActionPerformed(evt);
@@ -6514,7 +6509,7 @@ public final class main extends javax.swing.JFrame {
         lblConPlaVen.setText("0");
         lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblConPlaVen);
-        lblConPlaVen.setBounds(220, 381, 50, 20);
+        lblConPlaVen.setBounds(225, 381, 50, 20);
 
         lblBusVen2.setFont(fontmed(11));
         lblBusVen2.setForeground(new java.awt.Color(10, 60, 133));
@@ -8852,74 +8847,67 @@ public final class main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalCadEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadEstActionPerformed
-        try {
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja salvar?", "Cadastrar Estoque", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-            estoque es = new estoque();
-            estoqueDAO esdao = new estoqueDAO();
+        if (resp == JOptionPane.YES_OPTION) {
 
-            if (!chkVarCorCadEst.isSelected()) {
+            try {
 
-                es.setTipoproduto(txtTipCadEst.getText());
-                es.setModelo(txtModCadEst.getText());
-                es.setMarca(txtMarCadEst.getText());
-                es.setCor(txtCorCadEst.getText());
-                es.setMaterial(txtMatCadEst.getText());
-                es.setDetalhes(txtDetCadEst.getText());
-                es.setLocalizacao(txtLocCadEst.getText());
-                es.setPreco(Double.valueOf(txtPreCadEst.getText().replace(".", "").replace(",", ".")));
-                es.setQuantidade(Integer.valueOf(txtQuaCadEst.getText()));
+                estoque es = new estoque();
+                estoqueDAO esdao = new estoqueDAO();
 
-                if (txtTipCadEst.getText().equals("Chip")) {
-                    es.setTipochip((String) cmbChiCadEst.getSelectedItem());
+                if (!chkVarCorCadEst.isSelected()) {
+
+                    es.setTipoproduto(txtTipCadEst.getText());
+                    es.setModelo(txtModCadEst.getText());
+                    es.setMarca(txtMarCadEst.getText());
+                    es.setCor(txtCorCadEst.getText());
+                    es.setMaterial(txtMatCadEst.getText());
+                    es.setDetalhes(txtDetCadEst.getText());
+                    es.setLocalizacao(txtLocCadEst.getText());
+                    es.setPreco(Double.valueOf(txtPreCadEst.getText().replace(".", "").replace(",", ".")));
+                    es.setQuantidade(Integer.valueOf(txtQuaCadEst.getText()));
+
+                    if (txtTipCadEst.getText().equals("Chip")) {
+                        es.setTipochip((String) cmbChiCadEst.getSelectedItem());
+                    } else {
+                        es.setTipochip(null);
+                    }
+
+                    if (!esdao.verifica(es)) {
+
+                        esdao.inserir(es);
+
+                        JOptionPane.showMessageDialog(null, "Novo ítem inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    } else {
+
+                        esdao.acrescentar(es);
+
+                        JOptionPane.showMessageDialog(null, "Inserido com sucesso! O ítem já existia no estoque e foi adicionado a nova quantidade!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    }
+
                 } else {
-                    es.setTipochip(null);
-                }
-
-                if (!esdao.verifica(es)) {
-
-                    esdao.inserir(es);
-
-                    JOptionPane.showMessageDialog(null, "Novo ítem inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-                } else {
-
-                    esdao.acrescentar(es);
-
-                    JOptionPane.showMessageDialog(null, "Inserido com sucesso! O ítem já existia no estoque e foi adicionado a nova quantidade!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-                }
-
-            } else {
 
 //SE TIVER VARIAS CORES
-                int rows = tblVarCorCadEst.getRowCount();
+                    int rows = tblVarCorCadEst.getRowCount();
 
-                es.setTipoproduto(txtTipCadEst.getText());
-                es.setModelo(txtModCadEst.getText());
-                es.setMarca(txtMarCadEst.getText());
-                es.setCor(txtCorCadEst.getText());
-                es.setMaterial(txtMatCadEst.getText());
-                es.setDetalhes(txtDetCadEst.getText());
-                es.setLocalizacao(txtLocCadEst.getText());
-                es.setPreco(Double.valueOf(txtPreCadEst.getText().replace(".", "").replace(",", ".")));
-                es.setQuantidade(Integer.valueOf(txtQuaCadEst.getText()));
+                    es.setTipoproduto(txtTipCadEst.getText());
+                    es.setModelo(txtModCadEst.getText());
+                    es.setMarca(txtMarCadEst.getText());
+                    es.setCor(txtCorCadEst.getText());
+                    es.setMaterial(txtMatCadEst.getText());
+                    es.setDetalhes(txtDetCadEst.getText());
+                    es.setLocalizacao(txtLocCadEst.getText());
+                    es.setPreco(Double.valueOf(txtPreCadEst.getText().replace(".", "").replace(",", ".")));
+                    es.setQuantidade(Integer.valueOf(txtQuaCadEst.getText()));
 
-                if (txtTipCadEst.getText().equals("Chip")) {
-                    es.setTipochip((String) cmbChiCadEst.getSelectedItem());
-                } else {
-                    es.setTipochip(null);
-                }
-
-                if (!esdao.verifica(es)) {
-                    esdao.inserir(es);
-                } else {
-                    esdao.acrescentar(es);
-                }
-
-                for (int i = 0; i < rows; i++) {
-
-                    es.setCor(tblVarCorCadEst.getValueAt(i, 0).toString());
-                    es.setQuantidade(Integer.valueOf(tblVarCorCadEst.getValueAt(i, 1).toString()));
+                    if (txtTipCadEst.getText().equals("Chip")) {
+                        es.setTipochip((String) cmbChiCadEst.getSelectedItem());
+                    } else {
+                        es.setTipochip(null);
+                    }
 
                     if (!esdao.verifica(es)) {
                         esdao.inserir(es);
@@ -8927,27 +8915,40 @@ public final class main extends javax.swing.JFrame {
                         esdao.acrescentar(es);
                     }
 
+                    for (int i = 0; i < rows; i++) {
+
+                        es.setCor(tblVarCorCadEst.getValueAt(i, 0).toString());
+                        es.setQuantidade(Integer.valueOf(tblVarCorCadEst.getValueAt(i, 1).toString()));
+
+                        if (!esdao.verifica(es)) {
+                            esdao.inserir(es);
+                        } else {
+                            esdao.acrescentar(es);
+                        }
+
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Novos ítens inseridos com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
                 }
 
-                JOptionPane.showMessageDialog(null, "Novos ítens inseridos com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                DefaultTableModel model = (DefaultTableModel) tblCadEst.getModel();
+                model.setRowCount(0);
+                DefaultTableModel model1 = (DefaultTableModel) tblVarCorCadEst.getModel();
+                model1.setRowCount(0);
+
+                pnlCadEst.setVisible(false);
+                pnlContent.setVisible(true);
+
+            } catch (SQLException ex) {
+
+                JOptionPane.showMessageDialog(null, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+
+            } catch (NumberFormatException n) {
+
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
             }
-
-            DefaultTableModel model = (DefaultTableModel) tblCadEst.getModel();
-            model.setRowCount(0);
-            DefaultTableModel model1 = (DefaultTableModel) tblVarCorCadEst.getModel();
-            model1.setRowCount(0);
-
-            pnlCadEst.setVisible(false);
-            pnlContent.setVisible(true);
-
-        } catch (SQLException ex) {
-
-            JOptionPane.showMessageDialog(null, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-
-        } catch (NumberFormatException n) {
-
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
         }
     }//GEN-LAST:event_btnSalCadEstActionPerformed
@@ -9274,7 +9275,7 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setLocation(650, 200);
         lblLocCadEst.setLocation(650, 250);
         lblDetCadEst.setLocation(650, 300);
-        lblVarCorCadEst.setLocation(890, 220);
+        lblVarCorCadEst.setLocation(880, 220);
 
         lblProCadEst.setVisible(false);
         tblCadEst.setVisible(false);
@@ -10761,194 +10762,200 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_tblGerEstMouseClicked
 
     private void btnSalCadEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadEntActionPerformed
-        if ((rbtnDinCadEnt.isSelected() || rbtnPixCadEnt.isSelected()) || (rbtnCarCadEnt.isSelected() && (rbtnCreCadEnt.isSelected() || rbtnDebCadEnt.isSelected()))) {
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja salvar?", "Nova Entrada", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-            if (!(rbtnVenCadEnt.isSelected() && tblSelIteCadEnt.getRowCount() == 0)) {
+        if (resp == JOptionPane.YES_OPTION) {
 
-                if (!(rbtnTroPreCadEnt.isEnabled() && !rbtnTroPreCadEnt.isSelected()) || !(rbtnTroPlaCadEnt.isEnabled() && !rbtnTroPlaCadEnt.isSelected())) {
+            if ((rbtnDinCadEnt.isSelected() || rbtnPixCadEnt.isSelected()) || (rbtnCarCadEnt.isSelected() && (rbtnCreCadEnt.isSelected() || rbtnDebCadEnt.isSelected()))) {
 
-                    if (!(cmbSerCadEnt.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
+                if (!(rbtnVenCadEnt.isSelected() && tblSelIteCadEnt.getRowCount() == 0)) {
 
-                        try {
+                    if (!(rbtnTroPreCadEnt.isEnabled() && !rbtnTroPreCadEnt.isSelected()) || !(rbtnTroPlaCadEnt.isEnabled() && !rbtnTroPlaCadEnt.isSelected())) {
 
-                            int idser = 0;
-                            int idpagamento = 1;
-                            double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
+                        if (!(cmbSerCadEnt.getSelectedIndex() == 0 && (rbtnAssCadEnt.isSelected() || rbtnSerCadEnt.isSelected()))) {
 
-                            if (rbtnCarCadEnt.isSelected()) {
+                            try {
 
-                                if (rbtnDebCadEnt.isSelected()) {
+                                int idser = 0;
+                                int idpagamento = 1;
+                                double preco = Double.parseDouble(txtPreCadEnt.getText().replace(".", "").replace(",", "."));
 
-                                    preco = preco - (preco * juros(0) / 100);
+                                if (rbtnCarCadEnt.isSelected()) {
 
-                                } else if (rbtnCreCadEnt.isSelected()) {
+                                    if (rbtnDebCadEnt.isSelected()) {
 
-                                    switch ((int) spnParCadEnt.getValue()) {
-                                        case 1:
-                                            preco = preco - (preco * juros(1) / 100);
-                                            break;
-                                        case 2:
-                                            preco = preco - (preco * juros(2) / 100);
-                                            break;
-                                        case 3:
-                                            preco = preco - (preco * juros(3) / 100);
-                                            break;
-                                        case 4:
-                                            preco = preco - (preco * juros(4) / 100);
-                                            break;
-                                        case 5:
-                                            preco = preco - (preco * juros(5) / 100);
-                                            break;
-                                        case 6:
-                                            preco = preco - (preco * juros(6) / 100);
-                                            break;
-                                        case 7:
-                                            preco = preco - (preco * juros(7) / 100);
-                                            break;
-                                        case 8:
-                                            preco = preco - (preco * juros(8) / 100);
-                                            break;
-                                        case 9:
-                                            preco = preco - (preco * juros(9) / 100);
-                                            break;
-                                        case 10:
-                                            preco = preco - (preco * juros(10) / 100);
-                                            break;
-                                        case 11:
-                                            preco = preco - (preco * juros(11) / 100);
-                                            break;
-                                        case 12:
-                                            preco = preco - (preco * juros(12) / 100);
-                                            break;
-                                        default:
-                                            break;
+                                        preco = preco - (preco * juros(0) / 100);
+
+                                    } else if (rbtnCreCadEnt.isSelected()) {
+
+                                        switch ((int) spnParCadEnt.getValue()) {
+                                            case 1:
+                                                preco = preco - (preco * juros(1) / 100);
+                                                break;
+                                            case 2:
+                                                preco = preco - (preco * juros(2) / 100);
+                                                break;
+                                            case 3:
+                                                preco = preco - (preco * juros(3) / 100);
+                                                break;
+                                            case 4:
+                                                preco = preco - (preco * juros(4) / 100);
+                                                break;
+                                            case 5:
+                                                preco = preco - (preco * juros(5) / 100);
+                                                break;
+                                            case 6:
+                                                preco = preco - (preco * juros(6) / 100);
+                                                break;
+                                            case 7:
+                                                preco = preco - (preco * juros(7) / 100);
+                                                break;
+                                            case 8:
+                                                preco = preco - (preco * juros(8) / 100);
+                                                break;
+                                            case 9:
+                                                preco = preco - (preco * juros(9) / 100);
+                                                break;
+                                            case 10:
+                                                preco = preco - (preco * juros(10) / 100);
+                                                break;
+                                            case 11:
+                                                preco = preco - (preco * juros(11) / 100);
+                                                break;
+                                            case 12:
+                                                preco = preco - (preco * juros(12) / 100);
+                                                break;
+                                            default:
+                                                break;
+                                        }
+
                                     }
 
                                 }
 
-                            }
+                                if (rbtnCarCadEnt.isSelected()) {
+                                    idpagamento = 2;
+                                } else if (rbtnPixCadEnt.isSelected()) {
+                                    idpagamento = 3;
+                                }
 
-                            if (rbtnCarCadEnt.isSelected()) {
-                                idpagamento = 2;
-                            } else if (rbtnPixCadEnt.isSelected()) {
-                                idpagamento = 3;
-                            }
+                                if (cmbSerCadEnt.getSelectedIndex() != 0) {
+                                    itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
+                                    idser = selectedItem.getId();
+                                }
 
-                            if (cmbSerCadEnt.getSelectedIndex() != 0) {
-                                itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
-                                idser = selectedItem.getId();
-                            }
+                                if (tblSelIteCadEnt.getRowCount() != 0) {
 
-                            if (tblSelIteCadEnt.getRowCount() != 0) {
+                                    for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
 
-                                for (int i = 1; i <= tblSelIteCadEnt.getRowCount(); i++) {
+                                        entrada en = new entrada();
+                                        entradaDAO endao = new entradaDAO();
+
+                                        en.setCodigo(txtCodCadEnt.getText());
+                                        en.setData(formatterbanco.format(((formatter.parse(txtDatCadEnt.getText())))));
+                                        en.setPreco(preco);
+                                        en.setDetalhes(txtDetCadEnt.getText());
+                                        en.setFormapagamento(idpagamento);
+
+                                        if (rbtnSerCadEnt.isSelected()) {
+
+                                            en.setIdtiposervico(idser);
+                                            en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
+                                            en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+
+                                            endao.inserir(en, 1);
+
+                                        } else if (rbtnVenCadEnt.isSelected()) {
+
+                                            en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
+                                            en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+
+                                            endao.inserir(en, 2);
+                                        }
+
+                                    }
+
+                                } else {
 
                                     entrada en = new entrada();
                                     entradaDAO endao = new entradaDAO();
 
                                     en.setCodigo(txtCodCadEnt.getText());
-                                    en.setData(formatterbanco.format(((formatter.parse(txtDatCadEnt.getText())))));
+                                    en.setData(formatterbanco.format((formatter.parse(txtDatCadEnt.getText()))));
                                     en.setPreco(preco);
                                     en.setDetalhes(txtDetCadEnt.getText());
+                                    en.setIdtiposervico(idser);
+                                    en.setIdestoque(1);
                                     en.setFormapagamento(idpagamento);
 
                                     if (rbtnSerCadEnt.isSelected()) {
 
-                                        en.setIdtiposervico(idser);
-                                        en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
-                                        en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
-
                                         endao.inserir(en, 1);
 
-                                    } else if (rbtnVenCadEnt.isSelected()) {
+                                    } else if (rbtnAssCadEnt.isSelected()) {
 
-                                        en.setIdestoque(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 1).toString()));
-                                        en.setQuantidade(Integer.parseInt(tblSelIteCadEnt.getValueAt(i - 1, 0).toString()));
+                                        en.setCliente(txtCliCadEnt.getText());
+                                        en.setCusto((!txtCusCadEnt.getText().isEmpty()) ? Double.valueOf(txtCusCadEnt.getText().replace(".", "").replace(",", ".")) : null);
+                                        en.setFornecedor(txtForCadEnt.getText());
 
-                                        endao.inserir(en, 2);
+                                        endao.inserir(en, 3);
+
                                     }
 
                                 }
 
-                            } else {
+                                //INSERIR CONTADOR DE TROCAS 
+                                if (cmbSerCadEnt.isEnabled()) {
+                                    itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
 
-                                entrada en = new entrada();
-                                entradaDAO endao = new entradaDAO();
+                                    String textoSelecionado = selectedItem.getDescricao();
 
-                                en.setCodigo(txtCodCadEnt.getText());
-                                en.setData(formatterbanco.format((formatter.parse(txtDatCadEnt.getText()))));
-                                en.setPreco(preco);
-                                en.setDetalhes(txtDetCadEnt.getText());
-                                en.setIdtiposervico(idser);
-                                en.setIdestoque(1);
-                                en.setFormapagamento(idpagamento);
+                                    if (textoSelecionado.equals("Troca de Chip") || textoSelecionado.equals("Ativação eSIM")) {
 
-                                if (rbtnSerCadEnt.isSelected()) {
+                                        planosdiaDAO pddao = new planosdiaDAO();
+                                        pddao.zerar();
 
-                                    endao.inserir(en, 1);
+                                        if (rbtnTroPreCadEnt.isSelected()) {
+                                            pddao.adicionar(3);
+                                        } else {
+                                            pddao.adicionar(4);
+                                        }
 
-                                } else if (rbtnAssCadEnt.isSelected()) {
-
-                                    en.setCliente(txtCliCadEnt.getText());
-                                    en.setCusto((!txtCusCadEnt.getText().isEmpty()) ? Double.valueOf(txtCusCadEnt.getText().replace(".", "").replace(",", ".")) : null);
-                                    en.setFornecedor(txtForCadEnt.getText());
-
-                                    endao.inserir(en, 3);
-
-                                }
-
-                            }
-
-                            //INSERIR CONTADOR DE TROCAS 
-                            if (cmbSerCadEnt.isEnabled()) {
-                                itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
-
-                                String textoSelecionado = selectedItem.getDescricao();
-
-                                if (textoSelecionado.equals("Troca de Chip") || textoSelecionado.equals("Ativação eSIM")) {
-
-                                    planosdiaDAO pddao = new planosdiaDAO();
-                                    pddao.zerar();
-
-                                    if (rbtnTroPreCadEnt.isSelected()) {
-                                        pddao.adicionar(3);
-                                    } else {
-                                        pddao.adicionar(4);
                                     }
 
                                 }
 
+                                JOptionPane.showMessageDialog(null, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                                DefaultTableModel model = (DefaultTableModel) tblSelIteCadEnt.getModel();
+                                model.setRowCount(0);
+                                DefaultTableModel model1 = (DefaultTableModel) tblEstIteCadEnt.getModel();
+                                model1.setRowCount(0);
+
+                                pnlCadEnt.setVisible(false);
+                                pnlContent.setVisible(true);
+
+                            } catch (SQLException | ParseException ex) {
+                                Logger.getLogger(main.class
+                                        .getName()).log(Level.SEVERE, null, ex);
                             }
 
-                            JOptionPane.showMessageDialog(null, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-                            DefaultTableModel model = (DefaultTableModel) tblSelIteCadEnt.getModel();
-                            model.setRowCount(0);
-                            DefaultTableModel model1 = (DefaultTableModel) tblEstIteCadEnt.getModel();
-                            model1.setRowCount(0);
-
-                            pnlCadEnt.setVisible(false);
-                            pnlContent.setVisible(true);
-
-                        } catch (SQLException | ParseException ex) {
-                            Logger.getLogger(main.class
-                                    .getName()).log(Level.SEVERE, null, ex);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
                         }
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "Selecione o serviço!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Selecione o tipo de troca de chip!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Selecione o tipo de troca de chip!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione os ítem do estoque!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Selecione o método de pagamento!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
 
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione o método de pagamento!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnSalCadEntActionPerformed
 
@@ -12858,7 +12865,7 @@ public final class main extends javax.swing.JFrame {
 
                 pnlCadDes.setVisible(false);
                 pnlContent.setVisible(true);
-                
+
                 verificaafazeres();
 
             } catch (SQLException | ParseException ex) {
@@ -12927,7 +12934,7 @@ public final class main extends javax.swing.JFrame {
             int resp = JOptionPane.showOptionDialog(null, "Ao confirmar a conclusão, a data será definida para o próximo mês e será considerado a data de hoje como a conclusão. Atualize somente se tiver feito o acerto! Deseja prosseguir?", "Conclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
-        
+
                 despezas de = new despezas();
                 despezasDAO dedao = new despezasDAO();
 
@@ -12937,11 +12944,11 @@ public final class main extends javax.swing.JFrame {
                 dedao.conclusao(de);
 
                 JOptionPane.showMessageDialog(null, "Concluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                
+
                 tabeladespezas(tblConDes, scrConDes);
-          
+
                 verificaafazeres();
-                
+
             }
 
         } catch (SQLException ex) {
@@ -13025,7 +13032,7 @@ public final class main extends javax.swing.JFrame {
                 pnlContent.setVisible(true);
 
                 verificaafazeres();
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -13064,11 +13071,11 @@ public final class main extends javax.swing.JFrame {
 
                 pnlGerDes.setVisible(false);
                 pnlContent.setVisible(true);
-                
+
                 verificaafazeres();
 
             }
-            
+
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -13845,10 +13852,14 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setLocation(650, 200);
         lblLocCadEst.setLocation(650, 250);
         lblDetCadEst.setLocation(650, 300);
-        lblVarCorCadEst.setLocation(890, 220);
+        lblVarCorCadEst.setLocation(880, 220);
+        
+        DefaultTableModel model = (DefaultTableModel) tblVarCorCadEst.getModel();
+            model.setRowCount(0);
 
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
+        
         txtTipCadEst.setText("Acessório");
     }//GEN-LAST:event_rbtnAceCadEstActionPerformed
 
@@ -13913,7 +13924,10 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setLocation(650, 200);
         lblLocCadEst.setLocation(650, 250);
         lblDetCadEst.setLocation(650, 300);
-        lblVarCorCadEst.setLocation(890, 220);
+        lblVarCorCadEst.setLocation(880, 220);
+        
+        DefaultTableModel model = (DefaultTableModel) tblVarCorCadEst.getModel();
+            model.setRowCount(0);
 
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
@@ -13982,7 +13996,10 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setLocation(650, 200);
         lblLocCadEst.setLocation(650, 250);
         lblDetCadEst.setLocation(650, 300);
-        lblVarCorCadEst.setLocation(890, 220);
+        lblVarCorCadEst.setLocation(880, 220);
+        
+        DefaultTableModel model = (DefaultTableModel) tblVarCorCadEst.getModel();
+            model.setRowCount(0);
 
         btnSalCadEst.setEnabled(true);
         btnCanCadEst.setEnabled(true);
@@ -14054,7 +14071,10 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setLocation(650, 200);
         lblLocCadEst.setLocation(650, 250);
         lblDetCadEst.setLocation(650, 300);
-        lblVarCorCadEst.setLocation(890, 220);
+        lblVarCorCadEst.setLocation(880, 220);
+        
+        DefaultTableModel model = (DefaultTableModel) tblVarCorCadEst.getModel();
+            model.setRowCount(0);
 
         txtTipCadEst.setText("Capinha");
     }//GEN-LAST:event_rbtnCapCadEstActionPerformed
@@ -17381,18 +17401,22 @@ public final class main extends javax.swing.JFrame {
         anitxtout(lblVarCorCadEst);
     }//GEN-LAST:event_btnAdiCadEstActionPerformed
 
-    private void chkVarCorCadEstStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkVarCorCadEstStateChanged
-
-    }//GEN-LAST:event_chkVarCorCadEstStateChanged
-
     private void chkVarCorCadEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkVarCorCadEstActionPerformed
         if (!chkVarCorCadEst.isSelected()) {
+
+            DefaultTableModel model = (DefaultTableModel) tblVarCorCadEst.getModel();
+            model.setRowCount(0);
 
             lblVarCorCadEst.setVisible(false);
             txtVarCorCadEst.setVisible(false);
             spnVarCorCadEst.setVisible(false);
             sepVarCorCadEst.setVisible(false);
             btnAdiCadEst.setVisible(false);
+            scrVarCorCadEst.setVisible(false);
+            tblVarCorCadEst.setVisible(false);
+            txtVarCorCadEst.setText(null);
+            spnVarCorCadEst.setValue(1);
+            lblVarCorCadEst.setLocation(880, 220);
 
         } else {
 
@@ -17405,10 +17429,6 @@ public final class main extends javax.swing.JFrame {
             btnAdiCadEst.setVisible(true);
 
         }
-        scrVarCorCadEst.setVisible(false);
-        tblVarCorCadEst.setVisible(false);
-        txtVarCorCadEst.setText(null);
-        spnVarCorCadEst.setValue(1);
     }//GEN-LAST:event_chkVarCorCadEstActionPerformed
 
     private void txtChip1GerEstFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtChip1GerEstFocusGained
