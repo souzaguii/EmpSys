@@ -74,15 +74,13 @@ public class despezasDAO {
 
     public boolean verificar() throws SQLException {
 
-        String SQL = "SELECT idDes FROM despezas WHERE dataDes <=  CURRENT_DATE() AND dataconclusaoDes < CURRENT_DATE()";
+        String SQL = "SELECT * FROM despezas WHERE dataDes BETWEEN CURDATE()  AND DATE_ADD(CURDATE(), INTERVAL 3 DAY)";
         PreparedStatement stmt = connection.Connect().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
-
             return true;
-
         }
 
         rs.close();

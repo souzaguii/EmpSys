@@ -50,11 +50,11 @@ public final class loading extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtLoaPan.setEditable(false);
-        txtLoaPan.setFont(fontbold(14));
+        txtLoaPan.setFont(fontbold(12));
         txtLoaPan.setForeground(corforeazul);
         txtLoaPan.setFocusable(false);
         txtLoaPan.setOpaque(false);
-        getContentPane().add(txtLoaPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 260, 30));
+        getContentPane().add(txtLoaPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 260, 60));
         StyledDocument documentStyle = txtLoaPan.getStyledDocument();
         SimpleAttributeSet centerAttribute = new SimpleAttributeSet();
         StyleConstants.setAlignment(centerAttribute, StyleConstants.ALIGN_CENTER);

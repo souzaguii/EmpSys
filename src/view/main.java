@@ -80,9 +80,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JPanel;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperReport;
 import org.apache.pdfbox.Loader;
 
 public final class main extends javax.swing.JFrame {
@@ -91,9 +89,9 @@ public final class main extends javax.swing.JFrame {
 
         initComponents();
         setLocationRelativeTo(null);
-//        loading();
-        iniciasistema();
-        pnlPrincipal.setVisible(true);
+        loading();
+//        iniciasistema();
+//        pnlPrincipal.setVisible(true);
 
     }
 
@@ -108,39 +106,41 @@ public final class main extends javax.swing.JFrame {
 
                 publish("Conectando ao banco de dados...");
                 connection.Connect();
-
+                Thread.sleep(1000);
+                
                 if (connection.connection == null) {
 
                     publish("Erro na conexão!");
-
                     Thread.sleep(3000);
-
                     System.exit(0);
 
                 } else {
 
-                    publish("Verificando dados...");
+                    publish("Conectado com sucesso!");
+                    Thread.sleep(1000);
 
+                    publish("Verificando afazeres...");
+                    Thread.sleep(1000);
+                    
                     if (!verificaafazeres()) {
-
-                        publish("Erro na verificação!");
-
+                        publish("Atenção! Erro na verificação de afazeres!");
                         Thread.sleep(3000);
-
-                        System.exit(0);
-
                     } else {
-
-                        publish("Fazendo backup automático...");
-                        if (backupdatabase()) {
-                            publish("Backup concluído! Iniciando...");
-                        }
-
-                        Thread.sleep(3000);
-
-                        lo.dispose();
-
+                        publish("Verificado com sucesso!");
+                        Thread.sleep(1000);
                     }
+
+                    publish("Fazendo backup automático...");
+                    Thread.sleep(1000);
+                    if (backupdatabase()) {
+                        publish("Backup concluído! Iniciando...");
+                    } else {
+                        publish("Atenção! Erro ao fazer backup. Iniciando...");
+                    }
+
+                    Thread.sleep(3000);
+
+                    lo.dispose();
 
                 }
 
@@ -196,7 +196,7 @@ public final class main extends javax.swing.JFrame {
         lblR$CadEst.setVisible(false);
         lblR$Des.setVisible(false);
         txtTipConEst.setVisible(false);
-        //
+
         txtCodCadEnt.setVisible(false);
 
         lblProCadEst.setVisible(false);
@@ -361,7 +361,7 @@ public final class main extends javax.swing.JFrame {
 
     public class RoundedLabel extends JLabel {
 
-        private int cornerRadius;
+        private final int cornerRadius;
 
         public RoundedLabel(String text, int radius) {
             super(text);
@@ -385,7 +385,7 @@ public final class main extends javax.swing.JFrame {
 
     public class RoundedPanel extends JPanel {
 
-        private int cornerRadius;
+        private final int cornerRadius;
 
         public RoundedPanel(int radius) {
             super();
@@ -420,6 +420,140 @@ public final class main extends javax.swing.JFrame {
             }
 
         }
+    }
+
+    private boolean verificaafazeres() {
+
+        try {
+
+            if (timerven != null) {
+
+                ((Timer) timerven.getSource()).stop();
+
+            }
+
+            despezasDAO dedao = new despezasDAO();
+
+            if (dedao.verificar()) {
+
+                btnVenPri.setVisible(true);
+
+                Timer timer = new Timer(700, new ActionListener() {
+
+                    int n = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        timerven = e;
+
+                        n++;
+
+                        if (n % 2 == 0) {
+                            btnVenPri.setForeground(corforeazulenter);
+                        } else {
+                            btnVenPri.setForeground(new Color(255, 255, 255));
+                        }
+                    }
+
+                });
+                timer.start();
+
+            } else {
+
+                btnVenPri.setVisible(false);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+        return true;
+
+    }
+
+    private static String capitalizeFirstLetterOfEachWord(String text) {
+        StringBuilder sb = new StringBuilder();
+
+        String[] words = text.split("\\s+");
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                if (word.length() > 2) {
+                    sb.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1).toLowerCase());
+                } else {
+                    sb.append(word.toLowerCase());
+                }
+                sb.append(" ");
+            }
+        }
+
+        return sb.toString().trim();
+    }
+
+    private double juros(int parcela) {
+
+//        if (parcela == 0) {
+//            return 1.99;
+//        } else if (parcela == 1) {
+//            return 4.98;
+//        } else if (parcela == 2) {
+//            return 9.90;
+//        } else if (parcela == 3) {
+//            return 11.28;
+//        } else if (parcela == 4) {
+//            return 12.64;
+//        } else if (parcela == 5) {
+//            return 13.97;
+//        } else if (parcela == 6) {
+//            return 15.27;
+//        } else if (parcela == 7) {
+//            return 16.55;
+//        } else if (parcela == 8) {
+//            return 17.81;
+//        } else if (parcela == 9) {
+//            return 19.04;
+//        } else if (parcela == 10) {
+//            return 20.24;
+//        } else if (parcela == 11) {
+//            return 21.43;
+//        } else if (parcela == 12) {
+//            return 22.59;
+//        }
+        switch (parcela) {
+            case 0:
+                return 1.68;
+            case 1:
+                return 3.48;
+            case 2:
+                return 8.99;
+            case 3:
+                return 10.99;
+            case 4:
+                return 11.99;
+            case 5:
+                return 12.99;
+            case 6:
+                return 13.99;
+            case 7:
+                return 14.99;
+            case 8:
+                return 15.99;
+            case 9:
+                return 16.99;
+            case 10:
+                return 17.99;
+            case 11:
+                return 17.99;
+            case 12:
+                return 17.99;
+            default:
+                break;
+        }
+        return parcela;
+
     }
 
     private boolean tabelatiposervico() {
@@ -508,143 +642,6 @@ public final class main extends javax.swing.JFrame {
         }
 
         return true;
-    }
-
-    private boolean verificaafazeres() {
-
-        try {
-
-            if (timerven != null) {
-
-                ((Timer) timerven.getSource()).stop();
-
-            }
-
-            despezasDAO dedao = new despezasDAO();
-
-            if (dedao.verificar()) {
-
-                btnVenPri.setVisible(true);
-
-                Timer timer = new Timer(700, new ActionListener() {
-
-                    int n = 0;
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        timerven = e;
-
-                        n++;
-
-                        if (n % 2 == 0) {
-
-                            btnVenPri.setText("Afazer encontrado!");
-                        } else {
-
-                            btnVenPri.setText("");
-                        }
-                    }
-
-                });
-                timer.start();
-
-            } else {
-
-                btnVenPri.setVisible(false);
-
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-
-            return false;
-        }
-
-        return true;
-
-    }
-
-    private static String capitalizeFirstLetterOfEachWord(String text) {
-        StringBuilder sb = new StringBuilder();
-
-        String[] words = text.split("\\s+");
-
-        for (String word : words) {
-            if (!word.isEmpty()) {
-                if (word.length() > 2) {
-                    sb.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1).toLowerCase());
-                } else {
-                    sb.append(word.toLowerCase());
-                }
-                sb.append(" ");
-            }
-        }
-
-        return sb.toString().trim();
-    }
-
-    private double juros(int parcela) {
-
-//        if (parcela == 0) {
-//            return 1.99;
-//        } else if (parcela == 1) {
-//            return 4.98;
-//        } else if (parcela == 2) {
-//            return 9.90;
-//        } else if (parcela == 3) {
-//            return 11.28;
-//        } else if (parcela == 4) {
-//            return 12.64;
-//        } else if (parcela == 5) {
-//            return 13.97;
-//        } else if (parcela == 6) {
-//            return 15.27;
-//        } else if (parcela == 7) {
-//            return 16.55;
-//        } else if (parcela == 8) {
-//            return 17.81;
-//        } else if (parcela == 9) {
-//            return 19.04;
-//        } else if (parcela == 10) {
-//            return 20.24;
-//        } else if (parcela == 11) {
-//            return 21.43;
-//        } else if (parcela == 12) {
-//            return 22.59;
-//        }
-        switch (parcela) {
-            case 0:
-                return 1.68;
-            case 1:
-                return 3.48;
-            case 2:
-                return 8.99;
-            case 3:
-                return 10.99;
-            case 4:
-                return 11.99;
-            case 5:
-                return 12.99;
-            case 6:
-                return 13.99;
-            case 7:
-                return 14.99;
-            case 8:
-                return 15.99;
-            case 9:
-                return 16.99;
-            case 10:
-                return 17.99;
-            case 11:
-                return 17.99;
-            case 12:
-                return 17.99;
-            default:
-                break;
-        }
-        return parcela;
-
     }
 
     private boolean tabelaestoqueconsulta(estoque es, JTable tbl, JScrollPane scr) {
@@ -921,7 +918,6 @@ public final class main extends javax.swing.JFrame {
                 scr.setVisible(true);
 
             } else {
-
                 return false;
             }
 
@@ -1090,14 +1086,11 @@ public final class main extends javax.swing.JFrame {
                 lblValCarRel.setText(moedadoublereal(somaCartao));
                 lblValPixRel.setText(moedadoublereal(somaPix));
 
-                if (somaCusto == 0) {
-
+                if (somaCusto > 0 && !rbtnTodRel.isSelected()) {
+                    chkCus.setEnabled(true);
+                } else {
                     chkCus.setEnabled(false);
                     chkCus.setSelected(false);
-
-                } else {
-
-                    chkCus.setEnabled(true);
                 }
 
             } else {
@@ -1206,8 +1199,8 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(7).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(7).setWidth(0);
 
-                tblRel.setVisible(true);
-                scrRel.setVisible(true);
+                tbl.setVisible(true);
+                scr.setVisible(true);
 
                 if (chkCus.isSelected()) {
                     lblValTotRel.setText(moedadoublereal(en.getPtotal() - en.getCtotal()));
@@ -1224,22 +1217,22 @@ public final class main extends javax.swing.JFrame {
                 lblValMedRel.setText(moedadoublereal(en.getCtotal()));
                 lblTotEntRel.setText(String.valueOf(en.getEnt()));
 
-                if (en.getCtotal() == 0) {
+                if (en.getCtotal() > 0 && !rbtnTodRel.isSelected()) {
+                    chkCus.setEnabled(true);
+                } else {
                     chkCus.setEnabled(false);
                     chkCus.setSelected(false);
-                } else {
-                    chkCus.setEnabled(true);
                 }
 
                 lblResRel.setVisible(false);
 
             } else {
 
-                tblRel.setVisible(false);
-                scrRel.setVisible(false);
-
                 DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
                 mol.setRowCount(0);
+
+                scr.setVisible(false);
+                tbl.setVisible(false);
 
                 lblResRel.setVisible(true);
 
@@ -1250,6 +1243,7 @@ public final class main extends javax.swing.JFrame {
                 lblValDinRel.setText("R$ 0,00");
                 lblValCarRel.setText("R$ 0,00");
                 lblValPixRel.setText("R$ 0,00");
+
             }
 
         } catch (SQLException | ParseException ex) {
@@ -1295,8 +1289,6 @@ public final class main extends javax.swing.JFrame {
         }
 
     }
-
-    int LinhaGerenciarEntradaClicada = -1;
 
     private boolean tabelagerenciarentrada(JTable tbl, JScrollPane scr, String data) {
 
@@ -1352,20 +1344,16 @@ public final class main extends javax.swing.JFrame {
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-                        if ("Saída Caixa".equals(table.getValueAt(row, 2)) && LinhaGerenciarEntradaClicada != row) {
-                            c.setBackground(new Color(255, 246, 246));
-                        } else if ("Entrada Caixa".equals(table.getValueAt(row, 2)) && LinhaGerenciarEntradaClicada != row) {
-                            c.setBackground(new Color(246, 255, 246));
+                        if (isSelected) {
+                            c.setBackground(new Color(211, 211, 211));
                         } else {
-
-                            if (LinhaGerenciarEntradaClicada == row) {
-                                c.setBackground(new Color(23, 23, 59));
-                                c.setForeground(new Color(255, 255, 255));
+                            if ("Saída Caixa".equals(table.getValueAt(row, 2))) {
+                                c.setBackground(new Color(255, 246, 246));
+                            } else if ("Entrada Caixa".equals(table.getValueAt(row, 2))) {
+                                c.setBackground(new Color(246, 255, 246));
                             } else {
-                                c.setBackground(table.getBackground());
-                                c.setForeground(table.getForeground());
+                                c.setBackground(new Color(241, 241, 241));
                             }
-
                         }
 
                         return c;
@@ -1481,7 +1469,7 @@ public final class main extends javax.swing.JFrame {
 
                                 comparacao2 = data.compareTo(formatter.parse(table.getValueAt(row, 4).toString()));
 
-                                if (comparacao1 < 0 && comparacao2 > 0 && diferencaDias > 4) { //dataatual menor data e data maior datacon
+                                if (comparacao1 < 0 && comparacao2 > 0 && diferencaDias > 2) { //dataatual menor data e data maior datacon
 
                                     component.setBackground(new Color(182, 222, 170));//verde
 
@@ -1493,7 +1481,7 @@ public final class main extends javax.swing.JFrame {
 
                             } else {
 
-                                if (comparacao1 < 0 && diferencaDias > 4) {
+                                if (comparacao1 < 0 && diferencaDias > 2) {
 
                                     component.setBackground(new Color(182, 222, 170));//verde
 
@@ -1509,8 +1497,7 @@ public final class main extends javax.swing.JFrame {
                             return component;
 
                         } catch (ParseException ex) {
-                            Logger.getLogger(main.class
-                                    .getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         return null;
                     }
@@ -1530,9 +1517,7 @@ public final class main extends javax.swing.JFrame {
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl
-                        .setDefaultEditor(Object.class,
-                                null);
+                tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -1542,6 +1527,10 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(0).setMinWidth(0);
                 tbl.getColumnModel().getColumn(0).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(0).setWidth(0);
+
+                tbl.getColumnModel().getColumn(4).setMinWidth(0);
+                tbl.getColumnModel().getColumn(4).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(4).setWidth(0);
 
                 tbl.setVisible(true);
                 scr.setVisible(true);
@@ -1821,12 +1810,12 @@ public final class main extends javax.swing.JFrame {
 
                             if (comparacao1 >= 0 && ok == 0) {
                                 component.setBackground(new Color(182, 222, 170));
-
+                                btnWppVen.setEnabled(true);
                             } else {
                                 component.setBackground(new Color(241, 241, 241));
                             }
 
-                            component.setFont(fontmed(12));
+                            component.setFont(fontmed(11));
 
                             if (isSelected) {
                                 component.setBackground(new Color(211, 211, 211));
@@ -1836,8 +1825,7 @@ public final class main extends javax.swing.JFrame {
                             return component;
 
                         } catch (ParseException ex) {
-                            Logger.getLogger(main.class
-                                    .getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         return null;
                     }
@@ -1845,7 +1833,7 @@ public final class main extends javax.swing.JFrame {
 
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
-                cellRenderer.setFont(fontmed(12));
+                cellRenderer.setFont(fontmed(11));
 
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(241, 241, 241));
@@ -1855,9 +1843,7 @@ public final class main extends javax.swing.JFrame {
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl
-                        .setDefaultEditor(Object.class,
-                                null);
+                tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -1877,14 +1863,11 @@ public final class main extends javax.swing.JFrame {
 
             } else {
                 return false;
-
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return true;
     }
 
@@ -1970,8 +1953,7 @@ public final class main extends javax.swing.JFrame {
                             return component;
 
                         } catch (ParseException ex) {
-                            Logger.getLogger(main.class
-                                    .getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         return null;
                     }
@@ -2078,9 +2060,7 @@ public final class main extends javax.swing.JFrame {
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
-                tbl
-                        .setDefaultEditor(Object.class,
-                                null);
+                tbl.setDefaultEditor(Object.class, null);
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
@@ -2090,6 +2070,10 @@ public final class main extends javax.swing.JFrame {
                 tbl.getColumnModel().getColumn(0).setMinWidth(0);
                 tbl.getColumnModel().getColumn(0).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(0).setWidth(0);
+
+                tbl.getColumnModel().getColumn(4).setMinWidth(0);
+                tbl.getColumnModel().getColumn(4).setMaxWidth(0);
+                tbl.getColumnModel().getColumn(4).setWidth(0);
 
                 tbl.setVisible(true);
                 scr.setVisible(true);
@@ -2101,8 +2085,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -2406,6 +2389,7 @@ public final class main extends javax.swing.JFrame {
     }
 
     private boolean tabelaestoquegerenciar(estoque es) {
+
         try {
             estoqueDAO esdao = new estoqueDAO();
             List<estoque> lista = esdao.buscar(es);
@@ -2479,9 +2463,7 @@ public final class main extends javax.swing.JFrame {
 
                 tblGerEst.setModel(modelo);
                 tblGerEst.setRowHeight(25);
-                tblGerEst
-                        .setDefaultEditor(Object.class,
-                                null);
+                tblGerEst.setDefaultEditor(Object.class, null);
                 scrGerEst.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tblGerEst.getColumnCount(); i++) {
@@ -2497,8 +2479,7 @@ public final class main extends javax.swing.JFrame {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;
@@ -2532,8 +2513,6 @@ public final class main extends javax.swing.JFrame {
                 null;
         };
     }
-
-    @SuppressWarnings({"unchecked"})
 
     public void copiarcontrato() {
 
@@ -2706,22 +2685,22 @@ public final class main extends javax.swing.JFrame {
         pnlContent = new javax.swing.JPanel();
         pnlOutros = new RoundedPanel(30);
         lblOutros = new javax.swing.JLabel();
-        btnDes = new javax.swing.JLabel();
-        btnGerTipSer = new javax.swing.JLabel();
         btnRelatorio = new javax.swing.JLabel();
         btnCadTipSer = new javax.swing.JLabel();
+        btnGerTipSer = new javax.swing.JLabel();
+        btnDes = new javax.swing.JLabel();
         btnCadDes = new javax.swing.JLabel();
         btnGerDes = new javax.swing.JLabel();
         btnJurPri = new javax.swing.JLabel();
         pnlOS = new RoundedPanel(30);
         lblPlanos1 = new javax.swing.JLabel();
-        btnGerOsPri = new javax.swing.JLabel();
         btnCadOsPri = new javax.swing.JLabel();
+        btnGerOsPri = new javax.swing.JLabel();
         pnlPlanos = new RoundedPanel(30);
         lblPlanos = new javax.swing.JLabel();
-        btnMasPla = new javax.swing.JLabel();
-        btnVen = new javax.swing.JLabel();
         btnCadVen = new javax.swing.JLabel();
+        btnVen = new javax.swing.JLabel();
+        btnMasPla = new javax.swing.JLabel();
         pnlEstoque = new RoundedPanel(30);
         lblEstoque = new javax.swing.JLabel();
         btnCadEst = new javax.swing.JLabel();
@@ -2968,46 +2947,91 @@ public final class main extends javax.swing.JFrame {
         sepBusGerEst = new javax.swing.JSeparator();
         scrGerEst = new javax.swing.JScrollPane();
         tblGerEst = new javax.swing.JTable();
-        pnlRel = new javax.swing.JPanel();
-        lblNovaEntradaItens5 = new javax.swing.JLabel();
-        lblResRel = new javax.swing.JLabel();
-        cmbRel = new javax.swing.JComboBox<>();
-        scrRel = new javax.swing.JScrollPane();
-        tblRel = new javax.swing.JTable();
-        btnVolRel = new javax.swing.JButton();
-        rbtnSerRel = new javax.swing.JRadioButton();
-        rbtnVenRel1 = new javax.swing.JRadioButton();
-        rbtnVenRel = new javax.swing.JRadioButton();
-        rbtnAssRel = new javax.swing.JRadioButton();
-        rbtnTodRel = new javax.swing.JRadioButton();
-        lblDatIniRel = new javax.swing.JLabel();
-        txtDatIniRel = new javax.swing.JTextField();
-        sepDatCadEnt1 = new javax.swing.JSeparator();
-        btnTodRel = new javax.swing.JLabel();
-        btnAnoRel = new javax.swing.JLabel();
-        lblDatFinRel = new javax.swing.JLabel();
-        txtDatFinRel = new javax.swing.JTextField();
-        lblDiaRel = new javax.swing.JLabel();
-        btnMenDiaRel = new javax.swing.JLabel();
-        btnNumDiaRel = new javax.swing.JLabel();
-        btnMaiDiaRel = new javax.swing.JLabel();
-        btnDiaRel = new javax.swing.JLabel();
-        btnMesRel = new javax.swing.JLabel();
-        btnSemRel = new javax.swing.JLabel();
-        sepDatCadEnt3 = new javax.swing.JSeparator();
-        lblValDinRel = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        lblTotEntRel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        lblValTotRel = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        lblValMedRel = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        lblValCarRel = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        lblValPixRel = new javax.swing.JLabel();
-        chkCus = new javax.swing.JCheckBox();
+        pnlCadVen = new javax.swing.JPanel();
+        lblCadastrarPlano = new javax.swing.JLabel();
+        lblAceCadVen = new javax.swing.JLabel();
+        txtAceCadVen = new javax.swing.JTextField();
+        sepTelCadVen1 = new javax.swing.JSeparator();
+        lblVenCadVen = new javax.swing.JLabel();
+        txtVenCadVen = new javax.swing.JTextField();
+        sepVenCadVen = new javax.swing.JSeparator();
+        btnSalCadVen = new javax.swing.JButton();
+        btnCanCadVen = new javax.swing.JButton();
+        lblPlaCadVen = new javax.swing.JLabel();
+        txtPlaCadVen = new javax.swing.JTextField();
+        sepPlaCadVen = new javax.swing.JSeparator();
+        lblCliCadVen = new javax.swing.JLabel();
+        txtCliCadVen = new javax.swing.JTextField();
+        sepCliCadVen = new javax.swing.JSeparator();
+        lblTelCadVen = new javax.swing.JLabel();
+        txtTelCadVen = new javax.swing.JTextField();
+        sepTelCadVen = new javax.swing.JSeparator();
+        lblDatCadVen = new javax.swing.JLabel();
+        txtDatCadVen = new javax.swing.JTextField();
+        sepDatCadVen = new javax.swing.JSeparator();
+        lblCli = new javax.swing.JLabel();
+        lblVen = new javax.swing.JLabel();
+        lblDat = new javax.swing.JLabel();
+        lblCpfCadVen = new javax.swing.JLabel();
+        sepCadVen = new javax.swing.JSeparator();
+        txtCpfCadVen = new javax.swing.JTextField();
+        pnlVen = new javax.swing.JPanel();
+        lblNovaEntradaItens14 = new javax.swing.JLabel();
+        scrVen = new javax.swing.JScrollPane();
+        tblVen = new javax.swing.JTable();
+        btnCopAVen = new javax.swing.JButton();
+        btnCopVen = new javax.swing.JButton();
+        btnAltVen = new javax.swing.JButton();
+        btnWppVen = new javax.swing.JButton();
+        btnVolVen = new javax.swing.JButton();
+        btnExcVen = new javax.swing.JButton();
+        lblConPlaVen = new javax.swing.JLabel();
+        lblBusVen2 = new javax.swing.JLabel();
+        lblErrVen = new javax.swing.JLabel();
+        lblBusVen = new javax.swing.JLabel();
+        txtBusVen = new javax.swing.JTextField();
+        sepBusVen = new javax.swing.JSeparator();
+        pnlMas = new javax.swing.JPanel();
+        lblNovaEntradaItens10 = new javax.swing.JLabel();
+        chkAppMas = new javax.swing.JCheckBox();
+        chkMelMas = new javax.swing.JCheckBox();
+        btnConMas = new javax.swing.JButton();
+        btnVenMas = new javax.swing.JButton();
+        btnGerMas = new javax.swing.JButton();
+        btnCanMas = new javax.swing.JButton();
+        btnParMas = new javax.swing.JButton();
+        btnCopMas = new javax.swing.JLabel();
+        lblNomMas = new javax.swing.JLabel();
+        txtNomMas = new javax.swing.JTextField();
+        sepDesGerTipSer1 = new javax.swing.JSeparator();
+        sepDesGerTipSer2 = new javax.swing.JSeparator();
+        lblNumConMas = new javax.swing.JLabel();
+        sepDesGerTipSer3 = new javax.swing.JSeparator();
+        txtNumConMas = new javax.swing.JTextField();
+        lblCpfMas = new javax.swing.JLabel();
+        sepDesGerTipSer4 = new javax.swing.JSeparator();
+        txtCpfMas = new javax.swing.JTextField();
+        lblNumAceMas = new javax.swing.JLabel();
+        sepDesGerTipSer5 = new javax.swing.JSeparator();
+        txtNumAceMas = new javax.swing.JTextField();
+        lblNumPorMas = new javax.swing.JLabel();
+        sepDesGerTipSer6 = new javax.swing.JSeparator();
+        txtNumPorMas = new javax.swing.JTextField();
+        rbtnMigTroMas = new javax.swing.JRadioButton();
+        rbtnAtiMas = new javax.swing.JRadioButton();
+        rbtnMigMas = new javax.swing.JRadioButton();
+        lblPlaMas = new javax.swing.JLabel();
+        sepDesGerTipSer7 = new javax.swing.JSeparator();
+        txtPlaMas = new javax.swing.JTextField();
+        lblVenMas = new javax.swing.JLabel();
+        sepDesGerTipSer8 = new javax.swing.JSeparator();
+        txtVenMas = new javax.swing.JTextField();
+        sepDesGerTipSer9 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAreMas = new javax.swing.JTextArea();
+        chkDebMas = new javax.swing.JRadioButton();
+        chkCarMas = new javax.swing.JRadioButton();
+        chkBolMas = new javax.swing.JRadioButton();
         pnlOs = new javax.swing.JPanel();
         lblNovaEntradaItens6 = new javax.swing.JLabel();
         btnGerOs = new javax.swing.JButton();
@@ -3059,6 +3083,46 @@ public final class main extends javax.swing.JFrame {
         lblBusGerOs = new javax.swing.JLabel();
         txtBusGerOs = new javax.swing.JTextField();
         sepBusVen1 = new javax.swing.JSeparator();
+        pnlRel = new javax.swing.JPanel();
+        lblNovaEntradaItens5 = new javax.swing.JLabel();
+        lblResRel = new javax.swing.JLabel();
+        cmbRel = new javax.swing.JComboBox<>();
+        scrRel = new javax.swing.JScrollPane();
+        tblRel = new javax.swing.JTable();
+        btnVolRel = new javax.swing.JButton();
+        rbtnSerRel = new javax.swing.JRadioButton();
+        rbtnVenRel1 = new javax.swing.JRadioButton();
+        rbtnVenRel = new javax.swing.JRadioButton();
+        rbtnAssRel = new javax.swing.JRadioButton();
+        rbtnTodRel = new javax.swing.JRadioButton();
+        lblDatIniRel = new javax.swing.JLabel();
+        txtDatIniRel = new javax.swing.JTextField();
+        sepDatCadEnt1 = new javax.swing.JSeparator();
+        btnTodRel = new javax.swing.JLabel();
+        btnAnoRel = new javax.swing.JLabel();
+        lblDatFinRel = new javax.swing.JLabel();
+        txtDatFinRel = new javax.swing.JTextField();
+        lblDiaRel = new javax.swing.JLabel();
+        btnMenDiaRel = new javax.swing.JLabel();
+        btnNumDiaRel = new javax.swing.JLabel();
+        btnMaiDiaRel = new javax.swing.JLabel();
+        btnDiaRel = new javax.swing.JLabel();
+        btnMesRel = new javax.swing.JLabel();
+        btnSemRel = new javax.swing.JLabel();
+        sepDatCadEnt3 = new javax.swing.JSeparator();
+        lblValDinRel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblTotEntRel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblValTotRel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblValMedRel = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblValCarRel = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lblValPixRel = new javax.swing.JLabel();
+        chkCus = new javax.swing.JCheckBox();
         pnlCadTipSer = new javax.swing.JPanel();
         lblNovaEntradaItens8 = new javax.swing.JLabel();
         btnSalTipSer = new javax.swing.JButton();
@@ -3084,49 +3148,6 @@ public final class main extends javax.swing.JFrame {
         rbtnOutGerTipSer = new javax.swing.JRadioButton();
         rbtnAssGerTipSer = new javax.swing.JRadioButton();
         rbtnTimGerTipSer = new javax.swing.JRadioButton();
-        pnlMas = new javax.swing.JPanel();
-        lblNovaEntradaItens10 = new javax.swing.JLabel();
-        chkCarMasa = new javax.swing.JCheckBox();
-        chkAppMas = new javax.swing.JCheckBox();
-        chkMelMas = new javax.swing.JCheckBox();
-        btnConMas = new javax.swing.JButton();
-        btnVenMas = new javax.swing.JButton();
-        btnGerMas = new javax.swing.JButton();
-        btnCanMas = new javax.swing.JButton();
-        btnParMas = new javax.swing.JButton();
-        btnCopMas = new javax.swing.JLabel();
-        lblNomMas = new javax.swing.JLabel();
-        chkDebMasa = new javax.swing.JCheckBox();
-        txtNomMas = new javax.swing.JTextField();
-        sepDesGerTipSer1 = new javax.swing.JSeparator();
-        sepDesGerTipSer2 = new javax.swing.JSeparator();
-        lblNumConMas = new javax.swing.JLabel();
-        sepDesGerTipSer3 = new javax.swing.JSeparator();
-        txtNumConMas = new javax.swing.JTextField();
-        lblCpfMas = new javax.swing.JLabel();
-        sepDesGerTipSer4 = new javax.swing.JSeparator();
-        txtCpfMas = new javax.swing.JTextField();
-        lblNumAceMas = new javax.swing.JLabel();
-        sepDesGerTipSer5 = new javax.swing.JSeparator();
-        txtNumAceMas = new javax.swing.JTextField();
-        lblNumPorMas = new javax.swing.JLabel();
-        sepDesGerTipSer6 = new javax.swing.JSeparator();
-        txtNumPorMas = new javax.swing.JTextField();
-        rbtnMigTroMas = new javax.swing.JRadioButton();
-        rbtnAtiMas = new javax.swing.JRadioButton();
-        rbtnMigMas = new javax.swing.JRadioButton();
-        lblPlaMas = new javax.swing.JLabel();
-        sepDesGerTipSer7 = new javax.swing.JSeparator();
-        txtPlaMas = new javax.swing.JTextField();
-        lblVenMas = new javax.swing.JLabel();
-        sepDesGerTipSer8 = new javax.swing.JSeparator();
-        txtVenMas = new javax.swing.JTextField();
-        sepDesGerTipSer9 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtAreMas = new javax.swing.JTextArea();
-        chkDebMas = new javax.swing.JRadioButton();
-        chkCarMas = new javax.swing.JRadioButton();
-        chkBolMas = new javax.swing.JRadioButton();
         pnlDes = new javax.swing.JPanel();
         lblNovaEntradaItens11 = new javax.swing.JLabel();
         scrConDes = new javax.swing.JScrollPane();
@@ -3164,50 +3185,6 @@ public final class main extends javax.swing.JFrame {
         lblDesTipSer3 = new javax.swing.JLabel();
         scrGerDes = new javax.swing.JScrollPane();
         tblGerDes = new javax.swing.JTable();
-        pnlVen = new javax.swing.JPanel();
-        lblNovaEntradaItens14 = new javax.swing.JLabel();
-        scrVen = new javax.swing.JScrollPane();
-        tblVen = new javax.swing.JTable();
-        btnCopAVen = new javax.swing.JButton();
-        btnCopVen = new javax.swing.JButton();
-        btnAltVen = new javax.swing.JButton();
-        btnWppVen = new javax.swing.JButton();
-        btnVolVen = new javax.swing.JButton();
-        btnExcVen = new javax.swing.JButton();
-        lblConPlaVen = new javax.swing.JLabel();
-        lblBusVen2 = new javax.swing.JLabel();
-        lblErrVen = new javax.swing.JLabel();
-        lblBusVen = new javax.swing.JLabel();
-        txtBusVen = new javax.swing.JTextField();
-        sepBusVen = new javax.swing.JSeparator();
-        pnlCadVen = new javax.swing.JPanel();
-        lblCadastrarPlano = new javax.swing.JLabel();
-        lblAceCadVen = new javax.swing.JLabel();
-        txtAceCadVen = new javax.swing.JTextField();
-        sepTelCadVen1 = new javax.swing.JSeparator();
-        lblVenCadVen = new javax.swing.JLabel();
-        txtVenCadVen = new javax.swing.JTextField();
-        sepVenCadVen = new javax.swing.JSeparator();
-        btnSalCadVen = new javax.swing.JButton();
-        btnCanCadVen = new javax.swing.JButton();
-        lblPlaCadVen = new javax.swing.JLabel();
-        txtPlaCadVen = new javax.swing.JTextField();
-        sepPlaCadVen = new javax.swing.JSeparator();
-        lblCliCadVen = new javax.swing.JLabel();
-        txtCliCadVen = new javax.swing.JTextField();
-        sepCliCadVen = new javax.swing.JSeparator();
-        lblTelCadVen = new javax.swing.JLabel();
-        txtTelCadVen = new javax.swing.JTextField();
-        sepTelCadVen = new javax.swing.JSeparator();
-        lblDatCadVen = new javax.swing.JLabel();
-        txtDatCadVen = new javax.swing.JTextField();
-        sepDatCadVen = new javax.swing.JSeparator();
-        lblCli = new javax.swing.JLabel();
-        lblVen = new javax.swing.JLabel();
-        lblDat = new javax.swing.JLabel();
-        lblCpfCadVen = new javax.swing.JLabel();
-        sepCadVen = new javax.swing.JSeparator();
-        txtCpfCadVen = new javax.swing.JTextField();
         pnlJur = new javax.swing.JPanel();
         lblCadastrarPlano1 = new javax.swing.JLabel();
         btnVolJur = new javax.swing.JButton();
@@ -3285,44 +3262,6 @@ public final class main extends javax.swing.JFrame {
         lblOutros.setText("Outros");
         pnlOutros.add(lblOutros, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 190, 30));
 
-        btnDes.setFont(fontmed(13));
-        btnDes.setForeground(corforeazul);
-        btnDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDes.setText("Afazeres");
-        btnDes.setToolTipText("");
-        btnDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDesMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnDesMouseReleased(evt);
-            }
-        });
-        pnlOutros.add(btnDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 70, 20));
-
-        btnGerTipSer.setFont(fontmed(13));
-        btnGerTipSer.setForeground(corforeazul);
-        btnGerTipSer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGerTipSer.setText("Gerenciar Serviço");
-        btnGerTipSer.setToolTipText("");
-        btnGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGerTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGerTipSerMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGerTipSerMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnGerTipSerMouseReleased(evt);
-            }
-        });
-        pnlOutros.add(btnGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 130, 20));
-
         btnRelatorio.setFont(fontmed(13));
         btnRelatorio.setForeground(corforeazul);
         btnRelatorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -3360,6 +3299,44 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlOutros.add(btnCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 150, 20));
+
+        btnGerTipSer.setFont(fontmed(13));
+        btnGerTipSer.setForeground(corforeazul);
+        btnGerTipSer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGerTipSer.setText("Gerenciar Serviço");
+        btnGerTipSer.setToolTipText("");
+        btnGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGerTipSerMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGerTipSerMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnGerTipSerMouseReleased(evt);
+            }
+        });
+        pnlOutros.add(btnGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 130, 20));
+
+        btnDes.setFont(fontmed(13));
+        btnDes.setForeground(corforeazul);
+        btnDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnDes.setText("Afazeres");
+        btnDes.setToolTipText("");
+        btnDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDesMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnDesMouseReleased(evt);
+            }
+        });
+        pnlOutros.add(btnDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 70, 20));
 
         btnCadDes.setFont(fontmed(13));
         btnCadDes.setForeground(corforeazul);
@@ -3430,25 +3407,6 @@ public final class main extends javax.swing.JFrame {
         lblPlanos1.setText("Ordem de Serviço");
         pnlOS.add(lblPlanos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 190, 30));
 
-        btnGerOsPri.setFont(fontmed(13));
-        btnGerOsPri.setForeground(corforeazul);
-        btnGerOsPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGerOsPri.setText("Gerenciar");
-        btnGerOsPri.setToolTipText("");
-        btnGerOsPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGerOsPri.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGerOsPriMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGerOsPriMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnGerOsPriMouseReleased(evt);
-            }
-        });
-        pnlOS.add(btnGerOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 90, 20));
-
         btnCadOsPri.setFont(fontmed(13));
         btnCadOsPri.setForeground(corforeazul);
         btnCadOsPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -3468,6 +3426,25 @@ public final class main extends javax.swing.JFrame {
         });
         pnlOS.add(btnCadOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 70, 20));
 
+        btnGerOsPri.setFont(fontmed(13));
+        btnGerOsPri.setForeground(corforeazul);
+        btnGerOsPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGerOsPri.setText("Gerenciar");
+        btnGerOsPri.setToolTipText("");
+        btnGerOsPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerOsPri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGerOsPriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGerOsPriMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnGerOsPriMouseReleased(evt);
+            }
+        });
+        pnlOS.add(btnGerOsPri, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 90, 20));
+
         pnlContent.add(pnlOS);
         pnlOS.setBounds(470, 240, 270, 150);
 
@@ -3480,24 +3457,24 @@ public final class main extends javax.swing.JFrame {
         lblPlanos.setText("Planos");
         pnlPlanos.add(lblPlanos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 210, 30));
 
-        btnMasPla.setFont(fontmed(13));
-        btnMasPla.setForeground(corforeazul);
-        btnMasPla.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnMasPla.setText("Máscara");
-        btnMasPla.setToolTipText("");
-        btnMasPla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMasPla.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCadVen.setFont(fontmed(13));
+        btnCadVen.setForeground(corforeazul);
+        btnCadVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCadVen.setText("Cadastrar");
+        btnCadVen.setToolTipText("");
+        btnCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadVen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMasPlaMouseEntered(evt);
+                btnCadVenMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMasPlaMouseExited(evt);
+                btnCadVenMouseExited(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnMasPlaMouseReleased(evt);
+                btnCadVenMouseReleased(evt);
             }
         });
-        pnlPlanos.add(btnMasPla, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 90, 20));
+        pnlPlanos.add(btnCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 90, 20));
 
         btnVen.setFont(fontmed(13));
         btnVen.setForeground(corforeazul);
@@ -3521,24 +3498,24 @@ public final class main extends javax.swing.JFrame {
         });
         pnlPlanos.add(btnVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 90, 20));
 
-        btnCadVen.setFont(fontmed(13));
-        btnCadVen.setForeground(corforeazul);
-        btnCadVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCadVen.setText("Cadastrar");
-        btnCadVen.setToolTipText("");
-        btnCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadVen.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnMasPla.setFont(fontmed(13));
+        btnMasPla.setForeground(corforeazul);
+        btnMasPla.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMasPla.setText("Máscara");
+        btnMasPla.setToolTipText("");
+        btnMasPla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMasPla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCadVenMouseEntered(evt);
+                btnMasPlaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCadVenMouseExited(evt);
+                btnMasPlaMouseExited(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnCadVenMouseReleased(evt);
+                btnMasPlaMouseReleased(evt);
             }
         });
-        pnlPlanos.add(btnCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 90, 20));
+        pnlPlanos.add(btnMasPla, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 90, 20));
 
         pnlContent.add(pnlPlanos);
         pnlPlanos.setBounds(470, 30, 270, 180);
@@ -4467,6 +4444,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblGerEnt.setFocusable(false);
+        tblGerEnt.setName(""); // NOI18N
         tblGerEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -4971,7 +4949,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEst.add(btnAdiCadEst);
-        btnAdiCadEst.setBounds(1090, 210, 90, 30);
+        btnAdiCadEst.setBounds(1080, 210, 90, 30);
 
         btnCanCadEst.setFont(fontmed(12));
         btnCanCadEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5056,7 +5034,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEst.add(chkVarCorCadEst);
-        chkVarCorCadEst.setBounds(890, 155, 150, 20);
+        chkVarCorCadEst.setBounds(880, 160, 150, 20);
 
         scrVarCorCadEst.setBackground(new java.awt.Color(250, 250, 250));
         scrVarCorCadEst.setBorder(BorderFactory.createEmptyBorder());
@@ -5085,7 +5063,7 @@ public final class main extends javax.swing.JFrame {
         scrVarCorCadEst.setViewportView(tblVarCorCadEst);
 
         pnlCadEst.add(scrVarCorCadEst);
-        scrVarCorCadEst.setBounds(890, 270, 290, 130);
+        scrVarCorCadEst.setBounds(880, 260, 290, 140);
 
         scrCadEst.setBackground(new java.awt.Color(250, 250, 250));
         scrCadEst.setBorder(BorderFactory.createEmptyBorder());
@@ -5114,14 +5092,14 @@ public final class main extends javax.swing.JFrame {
         scrCadEst.setViewportView(tblCadEst);
 
         pnlCadEst.add(scrCadEst);
-        scrCadEst.setBounds(40, 150, 260, 250);
+        scrCadEst.setBounds(40, 150, 270, 250);
 
         lblVarCorCadEst.setFont(fontmed(12));
         lblVarCorCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblVarCorCadEst.setText("Cor");
         lblVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadEst.add(lblVarCorCadEst);
-        lblVarCorCadEst.setBounds(890, 220, 60, 20);
+        lblVarCorCadEst.setBounds(880, 220, 60, 20);
 
         txtVarCorCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtVarCorCadEst.setFont(fontmed(13));
@@ -5135,11 +5113,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEst.add(txtVarCorCadEst);
-        txtVarCorCadEst.setBounds(890, 220, 120, 20);
+        txtVarCorCadEst.setBounds(880, 220, 120, 20);
 
         sepVarCorCadEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEst.add(sepVarCorCadEst);
-        sepVarCorCadEst.setBounds(890, 240, 120, 10);
+        sepVarCorCadEst.setBounds(880, 240, 120, 10);
 
         lblProCadEst.setFont(fontbold(12));
         lblProCadEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5282,11 +5260,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEst.add(txtQuaCadEst);
-        txtQuaCadEst.setBounds(360, 250, 100, 20);
+        txtQuaCadEst.setBounds(360, 250, 90, 20);
 
         sepQuaCadEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEst.add(sepQuaCadEst);
-        sepQuaCadEst.setBounds(360, 270, 100, 10);
+        sepQuaCadEst.setBounds(360, 270, 90, 10);
 
         lblR$CadEst.setFont(fontmed(13));
         lblR$CadEst.setText("R$");
@@ -5318,11 +5296,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadEst.add(txtPreCadEst);
-        txtPreCadEst.setBounds(380, 300, 80, 20);
+        txtPreCadEst.setBounds(380, 300, 70, 20);
 
         sepPreCadEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadEst.add(sepPreCadEst);
-        sepPreCadEst.setBounds(360, 320, 100, 10);
+        sepPreCadEst.setBounds(360, 320, 90, 10);
 
         lblChiCadEst.setFont(fontmed(12));
         lblChiCadEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5390,7 +5368,7 @@ public final class main extends javax.swing.JFrame {
 
         txtTipCadEst.setBackground(new java.awt.Color(246, 246, 246));
         pnlCadEst.add(txtTipCadEst);
-        txtTipCadEst.setBounds(340, 90, 40, 22);
+        txtTipCadEst.setBounds(250, 50, 40, 22);
 
         spnVarCorCadEst.setFont(fontmed(13));
         spnVarCorCadEst.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
@@ -5400,7 +5378,7 @@ public final class main extends javax.swing.JFrame {
         JSpinner.DefaultEditor editorr = (JSpinner.DefaultEditor) spnVarCorCadEst.getEditor();
         editorr.getTextField().setEditable(false);
         pnlCadEst.add(spnVarCorCadEst);
-        spnVarCorCadEst.setBounds(1020, 210, 60, 30);
+        spnVarCorCadEst.setBounds(1010, 210, 60, 30);
 
         pnlPrincipal.add(pnlCadEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
@@ -5449,7 +5427,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlConEst.add(rbtnCapConEst);
-        rbtnCapConEst.setBounds(420, 90, 90, 21);
+        rbtnCapConEst.setBounds(410, 90, 90, 21);
 
         rbtnPelConEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnPelConEst);
@@ -5463,7 +5441,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlConEst.add(rbtnPelConEst);
-        rbtnPelConEst.setBounds(530, 90, 80, 21);
+        rbtnPelConEst.setBounds(520, 90, 80, 21);
 
         rbtnChiConEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnChiConEst);
@@ -5477,7 +5455,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlConEst.add(rbtnChiConEst);
-        rbtnChiConEst.setBounds(630, 90, 60, 21);
+        rbtnChiConEst.setBounds(620, 90, 60, 21);
 
         rbtnAceConEst.setBackground(new java.awt.Color(241, 241, 241));
         btnGroup.add(rbtnAceConEst);
@@ -5491,7 +5469,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlConEst.add(rbtnAceConEst);
-        rbtnAceConEst.setBounds(710, 90, 100, 21);
+        rbtnAceConEst.setBounds(700, 90, 100, 21);
 
         lblBusConEst.setFont(fontmed(12));
         lblBusConEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5575,7 +5553,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(btnExcGerEst);
-        btnExcGerEst.setBounds(810, 350, 90, 30);
+        btnExcGerEst.setBounds(830, 350, 90, 30);
 
         btnBusGerEst.setFont(fontmed(12));
         btnBusGerEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5587,7 +5565,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(btnBusGerEst);
-        btnBusGerEst.setBounds(260, 200, 90, 30);
+        btnBusGerEst.setBounds(270, 200, 90, 30);
 
         btnAltGerEst.setFont(fontmed(12));
         btnAltGerEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5599,7 +5577,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(btnAltGerEst);
-        btnAltGerEst.setBounds(710, 350, 90, 30);
+        btnAltGerEst.setBounds(730, 350, 90, 30);
 
         btnCanGerEst.setFont(fontmed(12));
         btnCanGerEst.setForeground(new java.awt.Color(10, 60, 133));
@@ -5611,24 +5589,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(btnCanGerEst);
-        btnCanGerEst.setBounds(360, 200, 90, 30);
+        btnCanGerEst.setBounds(370, 200, 90, 30);
 
         chkAltGerEst.setFont(fontmed(12));
         chkAltGerEst.setForeground(new java.awt.Color(10, 60, 133));
         chkAltGerEst.setText("Alterar todas as linhas");
         chkAltGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chkAltGerEst.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                chkAltGerEstStateChanged(evt);
-            }
-        });
-        chkAltGerEst.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkAltGerEstActionPerformed(evt);
-            }
-        });
         pnlGerEst.add(chkAltGerEst);
-        chkAltGerEst.setBounds(710, 317, 200, 20);
+        chkAltGerEst.setBounds(727, 320, 200, 20);
 
         btnGroup.add(rbtnCapGerEst);
         rbtnCapGerEst.setFont(fontmed(12));
@@ -5641,7 +5609,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(rbtnCapGerEst);
-        rbtnCapGerEst.setBounds(180, 100, 90, 21);
+        rbtnCapGerEst.setBounds(190, 100, 90, 21);
 
         btnGroup.add(rbtnPelGerEst);
         rbtnPelGerEst.setFont(fontmed(12));
@@ -5654,7 +5622,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(rbtnPelGerEst);
-        rbtnPelGerEst.setBounds(285, 100, 80, 21);
+        rbtnPelGerEst.setBounds(300, 100, 80, 21);
 
         btnGroup.add(rbtnChiGerEst);
         rbtnChiGerEst.setFont(fontmed(12));
@@ -5667,7 +5635,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(rbtnChiGerEst);
-        rbtnChiGerEst.setBounds(385, 100, 60, 21);
+        rbtnChiGerEst.setBounds(400, 100, 60, 21);
 
         btnGroup.add(rbtnAceGerEst);
         rbtnAceGerEst.setFont(fontmed(12));
@@ -5680,12 +5648,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(rbtnAceGerEst);
-        rbtnAceGerEst.setBounds(465, 100, 100, 21);
+        rbtnAceGerEst.setBounds(480, 100, 100, 21);
 
         txtPre1GerEst.setEditable(false);
+        txtPre1GerEst.setBackground(new java.awt.Color(255, 255, 255));
         txtPre1GerEst.setFont(fontmed(13));
         txtPre1GerEst.setBorder(null);
         txtPre1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtPre1GerEst.setFocusable(false);
+        txtPre1GerEst.setOpaque(true);
         txtPre1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtPre1GerEstFocusGained(evt);
@@ -5695,12 +5666,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtPre1GerEst);
-        txtPre1GerEst.setBounds(330, 420, 50, 20);
+        txtPre1GerEst.setBounds(330, 460, 50, 20);
 
         txtQua1GerEst.setEditable(false);
+        txtQua1GerEst.setBackground(new java.awt.Color(255, 255, 255));
         txtQua1GerEst.setFont(fontmed(13));
         txtQua1GerEst.setBorder(null);
         txtQua1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtQua1GerEst.setFocusable(false);
+        txtQua1GerEst.setOpaque(true);
         txtQua1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtQua1GerEstFocusGained(evt);
@@ -5710,12 +5684,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtQua1GerEst);
-        txtQua1GerEst.setBounds(270, 420, 50, 20);
+        txtQua1GerEst.setBounds(270, 460, 50, 20);
 
         txtMod1GerEst.setEditable(false);
+        txtMod1GerEst.setBackground(new java.awt.Color(255, 255, 255));
         txtMod1GerEst.setFont(fontmed(13));
         txtMod1GerEst.setBorder(null);
         txtMod1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtMod1GerEst.setFocusable(false);
+        txtMod1GerEst.setOpaque(true);
         txtMod1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMod1GerEstFocusGained(evt);
@@ -5725,12 +5702,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtMod1GerEst);
-        txtMod1GerEst.setBounds(210, 420, 50, 20);
+        txtMod1GerEst.setBounds(210, 460, 50, 20);
 
         txtMar1GerEst.setEditable(false);
+        txtMar1GerEst.setBackground(new java.awt.Color(255, 255, 255));
         txtMar1GerEst.setFont(fontmed(13));
         txtMar1GerEst.setBorder(null);
         txtMar1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtMar1GerEst.setFocusable(false);
+        txtMar1GerEst.setOpaque(true);
         txtMar1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMar1GerEstFocusGained(evt);
@@ -5740,12 +5720,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtMar1GerEst);
-        txtMar1GerEst.setBounds(150, 420, 50, 20);
+        txtMar1GerEst.setBounds(150, 460, 50, 20);
 
         txtDet1GerEst.setEditable(false);
+        txtDet1GerEst.setBackground(new java.awt.Color(255, 255, 255));
         txtDet1GerEst.setFont(fontmed(13));
         txtDet1GerEst.setBorder(null);
         txtDet1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtDet1GerEst.setFocusable(false);
+        txtDet1GerEst.setOpaque(true);
         txtDet1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDet1GerEstFocusGained(evt);
@@ -5755,12 +5738,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtDet1GerEst);
-        txtDet1GerEst.setBounds(90, 420, 50, 20);
+        txtDet1GerEst.setBounds(90, 460, 50, 20);
 
         txtLoc1GerEst.setEditable(false);
+        txtLoc1GerEst.setBackground(new java.awt.Color(255, 255, 255));
         txtLoc1GerEst.setFont(fontmed(13));
         txtLoc1GerEst.setBorder(null);
         txtLoc1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtLoc1GerEst.setFocusable(false);
+        txtLoc1GerEst.setOpaque(true);
         txtLoc1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtLoc1GerEstFocusGained(evt);
@@ -5770,12 +5756,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtLoc1GerEst);
-        txtLoc1GerEst.setBounds(510, 420, 50, 20);
+        txtLoc1GerEst.setBounds(510, 460, 50, 20);
 
         txtMat1GerEst.setEditable(false);
+        txtMat1GerEst.setBackground(new java.awt.Color(255, 255, 255));
         txtMat1GerEst.setFont(fontmed(13));
         txtMat1GerEst.setBorder(null);
         txtMat1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtMat1GerEst.setFocusable(false);
+        txtMat1GerEst.setOpaque(true);
         txtMat1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMat1GerEstFocusGained(evt);
@@ -5785,12 +5774,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtMat1GerEst);
-        txtMat1GerEst.setBounds(450, 420, 50, 20);
+        txtMat1GerEst.setBounds(450, 460, 50, 20);
 
         txtCor1GerEst.setEditable(false);
+        txtCor1GerEst.setBackground(new java.awt.Color(255, 255, 255));
         txtCor1GerEst.setFont(fontmed(13));
         txtCor1GerEst.setBorder(null);
         txtCor1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtCor1GerEst.setFocusable(false);
+        txtCor1GerEst.setOpaque(true);
         txtCor1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCor1GerEstFocusGained(evt);
@@ -5800,12 +5792,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtCor1GerEst);
-        txtCor1GerEst.setBounds(390, 420, 50, 20);
+        txtCor1GerEst.setBounds(390, 460, 50, 20);
 
         txtChip1GerEst.setEditable(false);
+        txtChip1GerEst.setBackground(new java.awt.Color(255, 255, 255));
         txtChip1GerEst.setFont(fontmed(13));
         txtChip1GerEst.setBorder(null);
         txtChip1GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtChip1GerEst.setFocusable(false);
+        txtChip1GerEst.setOpaque(true);
         txtChip1GerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtChip1GerEstFocusGained(evt);
@@ -5815,14 +5810,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtChip1GerEst);
-        txtChip1GerEst.setBounds(570, 420, 50, 20);
+        txtChip1GerEst.setBounds(570, 460, 50, 20);
 
         lblModGerEst.setFont(fontmed(12));
         lblModGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblModGerEst.setText("Modelo ");
         lblModGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblModGerEst);
-        lblModGerEst.setBounds(710, 180, 70, 20);
+        lblModGerEst.setBounds(730, 180, 70, 20);
 
         txtModGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtModGerEst.setFont(fontmed(13));
@@ -5836,18 +5831,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtModGerEst);
-        txtModGerEst.setBounds(710, 180, 190, 20);
+        txtModGerEst.setBounds(730, 180, 190, 20);
 
         sepModGerEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEst.add(sepModGerEst);
-        sepModGerEst.setBounds(710, 200, 190, 10);
+        sepModGerEst.setBounds(730, 200, 190, 10);
 
         lblMarGerEst.setFont(fontmed(12));
         lblMarGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblMarGerEst.setText("Marca");
         lblMarGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblMarGerEst);
-        lblMarGerEst.setBounds(710, 130, 40, 20);
+        lblMarGerEst.setBounds(730, 130, 40, 20);
 
         txtMarGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtMarGerEst.setFont(fontmed(13));
@@ -5861,18 +5856,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtMarGerEst);
-        txtMarGerEst.setBounds(710, 130, 190, 20);
+        txtMarGerEst.setBounds(730, 130, 190, 20);
 
         sepMarGerEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEst.add(sepMarGerEst);
-        sepMarGerEst.setBounds(710, 150, 190, 10);
+        sepMarGerEst.setBounds(730, 150, 190, 10);
 
         lblCorGerEst.setFont(fontmed(12));
         lblCorGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblCorGerEst.setText("Cor");
         lblCorGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblCorGerEst);
-        lblCorGerEst.setBounds(950, 130, 30, 20);
+        lblCorGerEst.setBounds(970, 130, 30, 20);
 
         txtCorGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtCorGerEst.setFont(fontmed(13));
@@ -5886,18 +5881,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtCorGerEst);
-        txtCorGerEst.setBounds(950, 130, 190, 20);
+        txtCorGerEst.setBounds(970, 130, 190, 20);
 
         sepCorGerEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEst.add(sepCorGerEst);
-        sepCorGerEst.setBounds(950, 150, 190, 10);
+        sepCorGerEst.setBounds(970, 150, 190, 10);
 
         lblMatGerEst.setFont(fontmed(12));
         lblMatGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblMatGerEst.setText("Material");
         lblMatGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblMatGerEst);
-        lblMatGerEst.setBounds(950, 180, 80, 20);
+        lblMatGerEst.setBounds(970, 180, 80, 20);
 
         txtMatGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtMatGerEst.setFont(fontmed(13));
@@ -5911,18 +5906,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtMatGerEst);
-        txtMatGerEst.setBounds(950, 180, 190, 20);
+        txtMatGerEst.setBounds(970, 180, 190, 20);
 
         sepMatGerEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEst.add(sepMatGerEst);
-        sepMatGerEst.setBounds(950, 200, 190, 10);
+        sepMatGerEst.setBounds(970, 200, 190, 10);
 
         lblQuaGerEst.setFont(fontmed(12));
         lblQuaGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblQuaGerEst.setText("Quantidade");
         lblQuaGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblQuaGerEst);
-        lblQuaGerEst.setBounds(710, 230, 80, 20);
+        lblQuaGerEst.setBounds(730, 230, 80, 20);
 
         txtQuaGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtQuaGerEst.setFont(fontmed(13));
@@ -5941,24 +5936,24 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtQuaGerEst);
-        txtQuaGerEst.setBounds(710, 230, 100, 20);
+        txtQuaGerEst.setBounds(730, 230, 100, 20);
 
         sepQuaGerEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEst.add(sepQuaGerEst);
-        sepQuaGerEst.setBounds(710, 250, 100, 10);
+        sepQuaGerEst.setBounds(730, 250, 100, 10);
 
         lblR$GerEst.setFont(fontmed(13));
         lblR$GerEst.setText("R$");
         lblR$GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblR$GerEst);
-        lblR$GerEst.setBounds(710, 280, 20, 21);
+        lblR$GerEst.setBounds(730, 280, 20, 21);
 
         lblPreGerEst.setFont(fontmed(12));
         lblPreGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblPreGerEst.setText("Preço");
         lblPreGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblPreGerEst);
-        lblPreGerEst.setBounds(710, 280, 40, 20);
+        lblPreGerEst.setBounds(730, 280, 40, 20);
 
         txtPreGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtPreGerEst.setFont(fontmed(13));
@@ -5977,30 +5972,30 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtPreGerEst);
-        txtPreGerEst.setBounds(730, 280, 83, 20);
+        txtPreGerEst.setBounds(750, 280, 83, 20);
 
         sepPreGerEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEst.add(sepPreGerEst);
-        sepPreGerEst.setBounds(710, 300, 100, 10);
+        sepPreGerEst.setBounds(730, 300, 100, 10);
 
         lblChiGerEst.setFont(fontmed(12));
         lblChiGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblChiGerEst.setText("Chip");
         pnlGerEst.add(lblChiGerEst);
-        lblChiGerEst.setBounds(950, 320, 30, 30);
+        lblChiGerEst.setBounds(970, 320, 30, 30);
 
         cmbChiGerEst.setFont(fontmed(13));
         cmbChiGerEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o chip", "Triplo 4G HLR 230", "eSIM", "Naked" }));
         cmbChiGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlGerEst.add(cmbChiGerEst);
-        cmbChiGerEst.setBounds(950, 350, 190, 30);
+        cmbChiGerEst.setBounds(970, 350, 190, 30);
 
         lblLocGerEst.setFont(fontmed(12));
         lblLocGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblLocGerEst.setText("Local");
         lblLocGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblLocGerEst);
-        lblLocGerEst.setBounds(950, 230, 40, 20);
+        lblLocGerEst.setBounds(970, 230, 40, 20);
 
         txtLocGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtLocGerEst.setFont(fontmed(13));
@@ -6015,18 +6010,18 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtLocGerEst);
-        txtLocGerEst.setBounds(950, 230, 190, 20);
+        txtLocGerEst.setBounds(970, 230, 190, 20);
 
         sepLocGerEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEst.add(sepLocGerEst);
-        sepLocGerEst.setBounds(950, 250, 190, 10);
+        sepLocGerEst.setBounds(970, 250, 190, 10);
 
         lblDetGerEst.setFont(fontmed(12));
         lblDetGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblDetGerEst.setText("Detalhes");
         lblDetGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblDetGerEst);
-        lblDetGerEst.setBounds(950, 280, 70, 20);
+        lblDetGerEst.setBounds(970, 280, 70, 20);
 
         txtDetGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtDetGerEst.setFont(fontmed(13));
@@ -6040,22 +6035,22 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtDetGerEst);
-        txtDetGerEst.setBounds(950, 280, 190, 20);
+        txtDetGerEst.setBounds(970, 280, 190, 20);
 
         sepDetGerEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEst.add(sepDetGerEst);
-        sepDetGerEst.setBounds(950, 300, 190, 10);
+        sepDetGerEst.setBounds(970, 300, 190, 10);
 
         txtTipGerEst.setBackground(new java.awt.Color(246, 246, 246));
         pnlGerEst.add(txtTipGerEst);
-        txtTipGerEst.setBounds(60, 230, 40, 22);
+        txtTipGerEst.setBounds(40, 230, 40, 22);
 
         lblBusGerEst.setFont(fontmed(12));
         lblBusGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblBusGerEst.setText("Buscar");
         lblBusGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerEst.add(lblBusGerEst);
-        lblBusGerEst.setBounds(220, 160, 50, 20);
+        lblBusGerEst.setBounds(230, 160, 50, 20);
 
         txtBusGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtBusGerEst.setFont(fontmed(13));
@@ -6077,11 +6072,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerEst.add(txtBusGerEst);
-        txtBusGerEst.setBounds(220, 160, 280, 20);
+        txtBusGerEst.setBounds(230, 160, 280, 20);
 
         sepBusGerEst.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerEst.add(sepBusGerEst);
-        sepBusGerEst.setBounds(220, 180, 280, 10);
+        sepBusGerEst.setBounds(230, 180, 280, 10);
 
         scrGerEst.setBackground(new java.awt.Color(250, 250, 250));
         scrGerEst.setBorder(BorderFactory.createEmptyBorder());
@@ -6112,874 +6107,305 @@ public final class main extends javax.swing.JFrame {
         scrGerEst.setViewportView(tblGerEst);
 
         pnlGerEst.add(scrGerEst);
-        scrGerEst.setBounds(60, 270, 590, 130);
+        scrGerEst.setBounds(40, 270, 650, 170);
 
         pnlPrincipal.add(pnlGerEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
-        pnlRel.setBackground(new java.awt.Color(241, 241, 241));
-        pnlRel.setLayout(null);
+        pnlCadVen.setBackground(new java.awt.Color(241, 241, 241));
+        pnlCadVen.setLayout(null);
 
-        lblNovaEntradaItens5.setFont(fontbold(25));
-        lblNovaEntradaItens5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNovaEntradaItens5.setText("Relatório");
-        pnlRel.add(lblNovaEntradaItens5);
-        lblNovaEntradaItens5.setBounds(0, 30, 1200, 30);
+        lblCadastrarPlano.setFont(fontbold(25));
+        lblCadastrarPlano.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCadastrarPlano.setText("Cadastrar Plano");
+        pnlCadVen.add(lblCadastrarPlano);
+        lblCadastrarPlano.setBounds(0, 30, 1200, 30);
 
-        lblResRel.setFont(fontbold(14));
-        lblResRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblResRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblResRel.setText("Sem resultados para o período selecionado!");
-        lblResRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblResRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblResRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblResRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblResRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(lblResRel);
-        lblResRel.setBounds(60, 350, 710, 20);
+        lblAceCadVen.setFont(fontmed(12));
+        lblAceCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblAceCadVen.setText("Acesso");
+        lblAceCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblAceCadVen);
+        lblAceCadVen.setBounds(350, 260, 60, 20);
 
-        cmbRel.setFont(fontmed(13));
-        cmbRel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtrar resultados" }));
-        cmbRel.setToolTipText("");
-        cmbRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cmbRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(cmbRel);
-        cmbRel.setBounds(600, 220, 170, 30);
-
-        scrRel.setBackground(new java.awt.Color(250, 250, 250));
-        scrRel.setBorder(BorderFactory.createEmptyBorder());
-
-        tblRel.setBackground(new java.awt.Color(241, 241, 241));
-        tblRel.setBorder(null);
-        tblRel.setFont(fontmed(10));
-        tblRel.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblRel.setToolTipText("");
-        tblRel.setAutoscrolls(false);
-        tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblRel.setEnabled(false);
-        tblRel.setFocusable(false);
-        tblRel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scrRel.setViewportView(tblRel);
-
-        pnlRel.add(scrRel);
-        scrRel.setBounds(60, 270, 710, 190);
-
-        btnVolRel.setFont(fontmed(12));
-        btnVolRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnVolRel.setText("Voltar");
-        btnVolRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVolRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(btnVolRel);
-        btnVolRel.setBounds(60, 220, 90, 30);
-
-        btnGroup.add(rbtnSerRel);
-        rbtnSerRel.setFont(fontmed(12));
-        rbtnSerRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnSerRel.setText("Serviço");
-        rbtnSerRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnSerRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnSerRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnSerRel);
-        rbtnSerRel.setBounds(170, 100, 90, 21);
-
-        btnGroup.add(rbtnVenRel1);
-        rbtnVenRel1.setFont(fontmed(12));
-        rbtnVenRel1.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnVenRel1.setText("Serviço e Venda");
-        rbtnVenRel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnVenRel1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnVenRel1ActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnVenRel1);
-        rbtnVenRel1.setBounds(390, 100, 150, 21);
-
-        btnGroup.add(rbtnVenRel);
-        rbtnVenRel.setFont(fontmed(12));
-        rbtnVenRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnVenRel.setText("Venda");
-        rbtnVenRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnVenRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnVenRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnVenRel);
-        rbtnVenRel.setBounds(280, 100, 80, 21);
-
-        btnGroup.add(rbtnAssRel);
-        rbtnAssRel.setFont(fontmed(12));
-        rbtnAssRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnAssRel.setText("Assistência");
-        rbtnAssRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnAssRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnAssRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnAssRel);
-        rbtnAssRel.setBounds(550, 100, 100, 21);
-
-        btnGroup.add(rbtnTodRel);
-        rbtnTodRel.setFont(fontmed(12));
-        rbtnTodRel.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnTodRel.setText("Todos");
-        rbtnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnTodRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnTodRelActionPerformed(evt);
-            }
-        });
-        pnlRel.add(rbtnTodRel);
-        rbtnTodRel.setBounds(60, 100, 70, 21);
-
-        lblDatIniRel.setFont(fontmed(12));
-        lblDatIniRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatIniRel.setText("Data inicial");
-        lblDatIniRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        lblDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtAceCadVen.setBackground(new java.awt.Color(241, 241, 241));
+        txtAceCadVen.setFont(fontmed(13));
+        txtAceCadVen.setBorder(null);
+        txtAceCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                lblDatIniRelFocusGained(evt);
-            }
-        });
-        pnlRel.add(lblDatIniRel);
-        lblDatIniRel.setBounds(300, 220, 90, 20);
-
-        txtDatIniRel.setBackground(new java.awt.Color(241, 241, 241));
-        txtDatIniRel.setFont(fontmed(13));
-        txtDatIniRel.setBorder(null);
-        txtDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatIniRelFocusGained(evt);
+                txtAceCadVenFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatIniRelFocusLost(evt);
+                txtAceCadVenFocusLost(evt);
             }
         });
-        txtDatIniRel.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtAceCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAceCadVenKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAceCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtAceCadVen);
+        txtAceCadVen.setBounds(350, 260, 190, 20);
+
+        sepTelCadVen1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepTelCadVen1);
+        sepTelCadVen1.setBounds(350, 280, 190, 10);
+
+        lblVenCadVen.setFont(fontmed(12));
+        lblVenCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblVenCadVen.setText("Vencimento");
+        lblVenCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblVenCadVen);
+        lblVenCadVen.setBounds(650, 210, 90, 20);
+
+        txtVenCadVen.setBackground(new java.awt.Color(241, 241, 241));
+        txtVenCadVen.setFont(fontmed(13));
+        txtVenCadVen.setBorder(null);
+        txtVenCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtVenCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtVenCadVenFocusLost(evt);
+            }
+        });
+        txtVenCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtVenCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtVenCadVen);
+        txtVenCadVen.setBounds(650, 210, 190, 20);
+
+        sepVenCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepVenCadVen);
+        sepVenCadVen.setBounds(650, 230, 190, 10);
+
+        btnSalCadVen.setFont(fontmed(12));
+        btnSalCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnSalCadVen.setText("Salvar");
+        btnSalCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalCadVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalCadVenActionPerformed(evt);
+            }
+        });
+        pnlCadVen.add(btnSalCadVen);
+        btnSalCadVen.setBounds(650, 260, 90, 30);
+
+        btnCanCadVen.setFont(fontmed(12));
+        btnCanCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanCadVen.setText("Cancelar");
+        btnCanCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanCadVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanCadVenActionPerformed(evt);
+            }
+        });
+        pnlCadVen.add(btnCanCadVen);
+        btnCanCadVen.setBounds(750, 260, 90, 30);
+
+        lblPlaCadVen.setFont(fontmed(12));
+        lblPlaCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblPlaCadVen.setText("Plano");
+        lblPlaCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblPlaCadVen);
+        lblPlaCadVen.setBounds(650, 110, 50, 20);
+
+        txtPlaCadVen.setBackground(new java.awt.Color(241, 241, 241));
+        txtPlaCadVen.setFont(fontmed(13));
+        txtPlaCadVen.setBorder(null);
+        txtPlaCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPlaCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPlaCadVenFocusLost(evt);
+            }
+        });
+        txtPlaCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPlaCadVenKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPlaCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtPlaCadVen);
+        txtPlaCadVen.setBounds(650, 110, 190, 20);
+
+        sepPlaCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepPlaCadVen);
+        sepPlaCadVen.setBounds(650, 130, 190, 10);
+
+        lblCliCadVen.setFont(fontmed(12));
+        lblCliCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblCliCadVen.setText("Cliente");
+        lblCliCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblCliCadVen);
+        lblCliCadVen.setBounds(350, 110, 60, 20);
+
+        txtCliCadVen.setBackground(new java.awt.Color(241, 241, 241));
+        txtCliCadVen.setFont(fontmed(13));
+        txtCliCadVen.setBorder(null);
+        txtCliCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCliCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCliCadVenFocusLost(evt);
+            }
+        });
+        txtCliCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCliCadVenKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCliCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtCliCadVen);
+        txtCliCadVen.setBounds(350, 110, 190, 20);
+
+        sepCliCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepCliCadVen);
+        sepCliCadVen.setBounds(350, 130, 190, 10);
+
+        lblTelCadVen.setFont(fontmed(12));
+        lblTelCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblTelCadVen.setText("Telefone");
+        lblTelCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblTelCadVen);
+        lblTelCadVen.setBounds(350, 210, 60, 20);
+
+        txtTelCadVen.setBackground(new java.awt.Color(241, 241, 241));
+        txtTelCadVen.setFont(fontmed(13));
+        txtTelCadVen.setBorder(null);
+        txtTelCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTelCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTelCadVenFocusLost(evt);
+            }
+        });
+        txtTelCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelCadVenKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtTelCadVen);
+        txtTelCadVen.setBounds(350, 210, 190, 20);
+
+        sepTelCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepTelCadVen);
+        sepTelCadVen.setBounds(350, 230, 190, 10);
+
+        lblDatCadVen.setFont(fontmed(12));
+        lblDatCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatCadVen.setText("Data");
+        lblDatCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblDatCadVen);
+        lblDatCadVen.setBounds(650, 160, 50, 20);
+
+        txtDatCadVen.setBackground(new java.awt.Color(241, 241, 241));
+        txtDatCadVen.setFont(fontmed(13));
+        txtDatCadVen.setBorder(null);
+        txtDatCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatCadVenFocusLost(evt);
+            }
+        });
+        txtDatCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatCadVenKeyTyped(evt);
+            }
+        });
+        pnlCadVen.add(txtDatCadVen);
+        txtDatCadVen.setBounds(650, 160, 190, 20);
+
+        sepDatCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepDatCadVen);
+        sepDatCadVen.setBounds(650, 180, 190, 10);
+
+        lblCli.setText("jLabel1");
+        pnlCadVen.add(lblCli);
+        lblCli.setBounds(150, 160, 37, 16);
+        lblCli.setVisible(false);
+
+        lblVen.setText("jLabel3");
+        pnlCadVen.add(lblVen);
+        lblVen.setBounds(150, 220, 37, 16);
+        lblVen.setVisible(false);
+
+        lblDat.setText("jLabel5");
+        pnlCadVen.add(lblDat);
+        lblDat.setBounds(150, 190, 37, 16);
+        lblDat.setVisible(false);
+
+        lblCpfCadVen.setFont(fontmed(12));
+        lblCpfCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblCpfCadVen.setText("CPF");
+        lblCpfCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadVen.add(lblCpfCadVen);
+        lblCpfCadVen.setBounds(350, 160, 70, 20);
+
+        sepCadVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadVen.add(sepCadVen);
+        sepCadVen.setBounds(350, 180, 190, 10);
+
+        txtCpfCadVen.setBackground(new java.awt.Color(241, 241, 241));
+        txtCpfCadVen.setFont(fontmed(13));
+        txtCpfCadVen.setBorder(null);
+        txtCpfCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCpfCadVenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCpfCadVenFocusLost(evt);
+            }
+        });
+        txtCpfCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtDatIniRelKeyPressed(evt);
+                txtCpfCadVenKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDatIniRelKeyReleased(evt);
+                txtCpfCadVenKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatIniRelKeyTyped(evt);
+                txtCpfCadVenKeyTyped(evt);
             }
         });
-        pnlRel.add(txtDatIniRel);
-        txtDatIniRel.setBounds(300, 220, 100, 20);
-
-        sepDatCadEnt1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlRel.add(sepDatCadEnt1);
-        sepDatCadEnt1.setBounds(300, 240, 100, 10);
-
-        btnTodRel.setFont(fontbold(12));
-        btnTodRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnTodRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnTodRel.setText("Todos");
-        btnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnTodRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnTodRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTodRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnTodRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnTodRel);
-        btnTodRel.setBounds(250, 160, 50, 20);
-
-        btnAnoRel.setFont(fontmed(12));
-        btnAnoRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnAnoRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAnoRel.setText("Ano");
-        btnAnoRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAnoRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAnoRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAnoRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnAnoRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnAnoRel);
-        btnAnoRel.setBounds(550, 160, 30, 20);
-
-        lblDatFinRel.setFont(fontmed(12));
-        lblDatFinRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatFinRel.setText("Data final");
-        lblDatFinRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlRel.add(lblDatFinRel);
-        lblDatFinRel.setBounds(440, 220, 80, 20);
-
-        txtDatFinRel.setBackground(new java.awt.Color(241, 241, 241));
-        txtDatFinRel.setFont(fontmed(13));
-        txtDatFinRel.setBorder(null);
-        txtDatFinRel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatFinRelFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatFinRelFocusLost(evt);
-            }
-        });
-        txtDatFinRel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDatFinRelActionPerformed(evt);
-            }
-        });
-        txtDatFinRel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtDatFinRelKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatFinRelKeyTyped(evt);
-            }
-        });
-        pnlRel.add(txtDatFinRel);
-        txtDatFinRel.setBounds(440, 220, 100, 20);
-
-        lblDiaRel.setFont(fontbold(12));
-        lblDiaRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblDiaRel.setText("Este dia");
-        lblDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblDiaRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblDiaRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblDiaRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(lblDiaRel);
-        lblDiaRel.setBounds(60, 160, 120, 20);
-
-        btnMenDiaRel.setFont(fontbold(18));
-        btnMenDiaRel.setForeground(new java.awt.Color(255, 0, 0));
-        btnMenDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnMenDiaRel.setText("-");
-        btnMenDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMenDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMenDiaRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMenDiaRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnMenDiaRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnMenDiaRel);
-        btnMenDiaRel.setBounds(60, 140, 15, 20);
-
-        btnNumDiaRel.setFont(fontbold(14));
-        btnNumDiaRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnNumDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNumDiaRel.setText("10");
-        btnNumDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnNumDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnNumDiaRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnNumDiaRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnNumDiaRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnNumDiaRel);
-        btnNumDiaRel.setBounds(60, 150, 100, 20);
-
-        btnMaiDiaRel.setFont(fontbold(18));
-        btnMaiDiaRel.setForeground(new java.awt.Color(51, 204, 0));
-        btnMaiDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnMaiDiaRel.setText("+");
-        btnMaiDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMaiDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMaiDiaRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMaiDiaRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnMaiDiaRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnMaiDiaRel);
-        btnMaiDiaRel.setBounds(80, 140, 15, 20);
-
-        btnDiaRel.setFont(fontmed(12));
-        btnDiaRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDiaRel.setText("Dia");
-        btnDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDiaRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDiaRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnDiaRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnDiaRel);
-        btnDiaRel.setBounds(330, 160, 30, 20);
-
-        btnMesRel.setFont(fontmed(12));
-        btnMesRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnMesRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnMesRel.setText("Mês");
-        btnMesRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMesRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMesRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMesRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnMesRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnMesRel);
-        btnMesRel.setBounds(480, 160, 30, 20);
-
-        btnSemRel.setFont(fontmed(12));
-        btnSemRel.setForeground(new java.awt.Color(10, 60, 133));
-        btnSemRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnSemRel.setText("Semana");
-        btnSemRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSemRel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSemRelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSemRelMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnSemRelMouseReleased(evt);
-            }
-        });
-        pnlRel.add(btnSemRel);
-        btnSemRel.setBounds(380, 160, 80, 20);
-
-        sepDatCadEnt3.setForeground(new java.awt.Color(10, 60, 133));
-        pnlRel.add(sepDatCadEnt3);
-        sepDatCadEnt3.setBounds(440, 240, 100, 10);
-
-        lblValDinRel.setFont(fontmed(16));
-        lblValDinRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblValDinRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValDinRel.setText("R$0,00");
-        pnlRel.add(lblValDinRel);
-        lblValDinRel.setBounds(790, 400, 110, 30);
-
-        jLabel7.setFont(fontmed(14));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Dinheiro");
-        pnlRel.add(jLabel7);
-        jLabel7.setBounds(790, 380, 110, 20);
-
-        lblTotEntRel.setFont(fontmed(18));
-        lblTotEntRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblTotEntRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTotEntRel.setText("0");
-        pnlRel.add(lblTotEntRel);
-        lblTotEntRel.setBounds(910, 160, 160, 30);
-
-        jLabel2.setFont(fontbold(16));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Total de entradas");
-        pnlRel.add(jLabel2);
-        jLabel2.setBounds(910, 140, 160, 20);
-
-        lblValTotRel.setFont(fontmed(18));
-        lblValTotRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblValTotRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValTotRel.setText("R$0,00");
-        pnlRel.add(lblValTotRel);
-        lblValTotRel.setBounds(910, 240, 160, 30);
-
-        jLabel4.setFont(fontbold(16));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Valor total");
-        pnlRel.add(jLabel4);
-        jLabel4.setBounds(910, 220, 160, 20);
-
-        lblValMedRel.setFont(fontmed(18));
-        lblValMedRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblValMedRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValMedRel.setText("R$0,00");
-        pnlRel.add(lblValMedRel);
-        lblValMedRel.setBounds(910, 320, 160, 30);
-
-        jLabel6.setFont(fontbold(16));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Custo");
-        pnlRel.add(jLabel6);
-        jLabel6.setBounds(910, 300, 160, 20);
-
-        jLabel8.setFont(fontmed(14));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Cartão");
-        pnlRel.add(jLabel8);
-        jLabel8.setBounds(930, 380, 120, 20);
-
-        lblValCarRel.setFont(fontmed(16));
-        lblValCarRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblValCarRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValCarRel.setText("R$0,00");
-        pnlRel.add(lblValCarRel);
-        lblValCarRel.setBounds(930, 400, 120, 30);
-
-        jLabel9.setFont(fontmed(14));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("PIX");
-        pnlRel.add(jLabel9);
-        jLabel9.setBounds(1070, 380, 108, 20);
-
-        lblValPixRel.setFont(fontmed(16));
-        lblValPixRel.setForeground(new java.awt.Color(10, 60, 133));
-        lblValPixRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblValPixRel.setText("R$0,00");
-        pnlRel.add(lblValPixRel);
-        lblValPixRel.setBounds(1070, 400, 108, 30);
-
-        chkCus.setFont(fontmed(12));
-        chkCus.setForeground(new java.awt.Color(10, 60, 133));
-        chkCus.setText("Custo");
-        chkCus.setBorder(null);
-        chkCus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chkCus.setEnabled(false);
-        chkCus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkCusActionPerformed(evt);
-            }
-        });
-        pnlRel.add(chkCus);
-        chkCus.setBounds(670, 100, 60, 20);
-
-        pnlPrincipal.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
-
-        pnlOs.setBackground(new java.awt.Color(241, 241, 241));
-        pnlOs.setLayout(null);
-
-        lblNovaEntradaItens6.setFont(fontbold(25));
-        lblNovaEntradaItens6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNovaEntradaItens6.setText("Gerar OS");
-        pnlOs.add(lblNovaEntradaItens6);
-        lblNovaEntradaItens6.setBounds(0, 30, 1200, 30);
-
-        btnGerOs.setFont(fontmed(12));
-        btnGerOs.setForeground(new java.awt.Color(10, 60, 133));
-        btnGerOs.setText("Gerar");
-        btnGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGerOs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerOsActionPerformed(evt);
-            }
-        });
-        pnlOs.add(btnGerOs);
-        btnGerOs.setBounds(790, 360, 90, 30);
-
-        chkGarOs.setFont(fontmed(12));
-        chkGarOs.setForeground(new java.awt.Color(10, 60, 133));
-        chkGarOs.setText("Garantia");
-        chkGarOs.setBorder(null);
-        chkGarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chkGarOs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkGarOsActionPerformed(evt);
-            }
-        });
-        pnlOs.add(chkGarOs);
-        chkGarOs.setBounds(640, 350, 80, 30);
-
-        btnCanOs.setFont(fontmed(12));
-        btnCanOs.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanOs.setText("Cancelar");
-        btnCanOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanOs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanOsActionPerformed(evt);
-            }
-        });
-        pnlOs.add(btnCanOs);
-        btnCanOs.setBounds(790, 400, 90, 30);
-
-        lblEndOs.setFont(fontmed(12));
-        lblEndOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblEndOs.setText("Endereço");
-        lblEndOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblEndOs);
-        lblEndOs.setBounds(310, 210, 60, 20);
-
-        txtEndOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtEndOs.setFont(fontmed(13));
-        txtEndOs.setBorder(null);
-        txtEndOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEndOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtEndOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtEndOs);
-        txtEndOs.setBounds(310, 210, 240, 20);
-
-        sepModCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepModCadEst1);
-        sepModCadEst1.setBounds(310, 230, 240, 10);
-
-        lblCliOs.setFont(fontmed(12));
-        lblCliOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblCliOs.setText("Cliente");
-        lblCliOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblCliOs);
-        lblCliOs.setBounds(310, 110, 60, 20);
-
-        txtCliOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtCliOs.setFont(fontmed(13));
-        txtCliOs.setBorder(null);
-        txtCliOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCliOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCliOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtCliOs);
-        txtCliOs.setBounds(310, 110, 240, 20);
-
-        sepMarCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepMarCadEst1);
-        sepMarCadEst1.setBounds(310, 130, 240, 10);
-
-        lblEquOs.setFont(fontmed(12));
-        lblEquOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblEquOs.setText("Equipamento");
-        lblEquOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblEquOs);
-        lblEquOs.setBounds(640, 110, 130, 20);
-
-        txtEquOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtEquOs.setFont(fontmed(13));
-        txtEquOs.setBorder(null);
-        txtEquOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEquOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtEquOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtEquOs);
-        txtEquOs.setBounds(640, 110, 240, 20);
-
-        sepCorCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepCorCadEst1);
-        sepCorCadEst1.setBounds(640, 130, 240, 10);
-
-        lblMarOs.setFont(fontmed(12));
-        lblMarOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblMarOs.setText("Marca");
-        lblMarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblMarOs);
-        lblMarOs.setBounds(640, 160, 50, 20);
-
-        txtMarOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtMarOs.setFont(fontmed(13));
-        txtMarOs.setBorder(null);
-        txtMarOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtMarOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtMarOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtMarOs);
-        txtMarOs.setBounds(640, 160, 240, 20);
-
-        sepMatCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepMatCadEst1);
-        sepMatCadEst1.setBounds(640, 180, 240, 10);
-
-        lblTelOs.setFont(fontmed(12));
-        lblTelOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblTelOs.setText("Telefone");
-        lblTelOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblTelOs);
-        lblTelOs.setBounds(310, 160, 80, 20);
-
-        txtTelOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtTelOs.setFont(fontmed(13));
-        txtTelOs.setBorder(null);
-        txtTelOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtTelOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTelOsFocusLost(evt);
-            }
-        });
-        txtTelOs.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTelOsKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTelOsKeyTyped(evt);
-            }
-        });
-        pnlOs.add(txtTelOs);
-        txtTelOs.setBounds(310, 160, 130, 20);
-
-        sepQuaCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepQuaCadEst1);
-        sepQuaCadEst1.setBounds(310, 180, 130, 10);
-
-        lblModOs.setFont(fontmed(12));
-        lblModOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblModOs.setText("Modelo");
-        lblModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblModOs);
-        lblModOs.setBounds(640, 210, 60, 20);
-
-        txtModOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtModOs.setFont(fontmed(13));
-        txtModOs.setBorder(null);
-        txtModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtModOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtModOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtModOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtModOs);
-        txtModOs.setBounds(640, 210, 240, 20);
-
-        sepLocCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepLocCadEst1);
-        sepLocCadEst1.setBounds(640, 230, 240, 10);
-
-        lblConOs.setFont(fontmed(12));
-        lblConOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblConOs.setText("Defeito relatado");
-        lblConOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblConOs);
-        lblConOs.setBounds(640, 260, 130, 20);
-
-        txtDefOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtDefOs.setFont(fontmed(13));
-        txtDefOs.setBorder(null);
-        txtDefOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDefOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDefOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtDefOs);
-        txtDefOs.setBounds(640, 260, 240, 20);
-
-        sepDetCadEst1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepDetCadEst1);
-        sepDetCadEst1.setBounds(640, 280, 240, 10);
-
-        lblDefOs.setFont(fontmed(12));
-        lblDefOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblDefOs.setText("Reparo");
-        lblDefOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblDefOs);
-        lblDefOs.setBounds(640, 310, 100, 20);
-
-        txtRepOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtRepOs.setFont(fontmed(13));
-        txtRepOs.setBorder(null);
-        txtRepOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtRepOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtRepOsFocusLost(evt);
-            }
-        });
-        pnlOs.add(txtRepOs);
-        txtRepOs.setBounds(640, 310, 240, 20);
-
-        sepDetCadEst2.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepDetCadEst2);
-        sepDetCadEst2.setBounds(640, 330, 240, 10);
-
-        lblDatEntOs.setFont(fontmed(12));
-        lblDatEntOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatEntOs.setText("Data entrada");
-        lblDatEntOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblDatEntOs);
-        lblDatEntOs.setBounds(310, 260, 90, 20);
-
-        txtDatOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtDatOs.setFont(fontmed(13));
-        txtDatOs.setBorder(null);
-        txtDatOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatOsFocusLost(evt);
-            }
-        });
-        txtDatOs.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatOsKeyTyped(evt);
-            }
-        });
-        pnlOs.add(txtDatOs);
-        txtDatOs.setBounds(310, 260, 90, 20);
-
-        sepDetCadEst3.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepDetCadEst3);
-        sepDetCadEst3.setBounds(310, 280, 90, 10);
-
-        lblHorOs.setFont(fontmed(12));
-        lblHorOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblHorOs.setText("Data saída");
-        lblHorOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblHorOs);
-        lblHorOs.setBounds(310, 310, 80, 20);
-
-        txtDatSaiOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtDatSaiOs.setFont(fontmed(13));
-        txtDatSaiOs.setBorder(null);
-        txtDatSaiOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatSaiOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatSaiOsFocusLost(evt);
-            }
-        });
-        txtDatSaiOs.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatSaiOsKeyTyped(evt);
-            }
-        });
-        pnlOs.add(txtDatSaiOs);
-        txtDatSaiOs.setBounds(310, 310, 90, 20);
-
-        sepDetCadEst4.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepDetCadEst4);
-        sepDetCadEst4.setBounds(310, 330, 90, 10);
-
-        sepCusGerEnt1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlOs.add(sepCusGerEnt1);
-        sepCusGerEnt1.setBounds(310, 380, 90, 10);
-
-        lblPreOs.setFont(fontmed(12));
-        lblPreOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblPreOs.setText("Preço");
-        lblPreOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblPreOs);
-        lblPreOs.setBounds(310, 360, 40, 20);
-
-        lblR$Os.setFont(fontmed(13));
-        lblR$Os.setText("R$");
-        lblR$Os.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlOs.add(lblR$Os);
-        lblR$Os.setBounds(310, 360, 20, 20);
-
-        txtPreOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtPreOs.setFont(fontmed(13));
-        txtPreOs.setBorder(null);
-        txtPreOs.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPreOsFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPreOsFocusLost(evt);
-            }
-        });
-        txtPreOs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPreOsActionPerformed(evt);
-            }
-        });
-        txtPreOs.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPreOsKeyTyped(evt);
-            }
-        });
-        pnlOs.add(txtPreOs);
-        txtPreOs.setBounds(330, 360, 70, 20);
-
-        pnlPrincipal.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
-
-        pnlGerOs.setBackground(new java.awt.Color(241, 241, 241));
-        pnlGerOs.setLayout(null);
-
-        lblGerarOS.setFont(fontbold(25));
-        lblGerarOS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGerarOS.setText("Gerenciar OS");
-        pnlGerOs.add(lblGerarOS);
-        lblGerarOS.setBounds(0, 30, 1200, 30);
-
-        scrOs.setBackground(new java.awt.Color(250, 250, 250));
-        scrOs.setBorder(BorderFactory.createEmptyBorder());
-
-        tblOs.setBackground(new java.awt.Color(241, 241, 241));
-        tblOs.setBorder(null);
-        tblOs.setFont(fontmed(10));
-        tblOs.setForeground(new java.awt.Color(229, 192, 191));
-        tblOs.setModel(new javax.swing.table.DefaultTableModel(
+        pnlCadVen.add(txtCpfCadVen);
+        txtCpfCadVen.setBounds(350, 160, 190, 20);
+
+        pnlPrincipal.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+
+        pnlVen.setBackground(new java.awt.Color(241, 241, 241));
+        pnlVen.setLayout(null);
+
+        lblNovaEntradaItens14.setFont(fontbold(25));
+        lblNovaEntradaItens14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNovaEntradaItens14.setText("Planos");
+        pnlVen.add(lblNovaEntradaItens14);
+        lblNovaEntradaItens14.setBounds(0, 30, 1200, 30);
+
+        scrVen.setBackground(new java.awt.Color(241, 241, 241));
+        scrVen.setBorder(BorderFactory.createEmptyBorder());
+
+        tblVen.setBackground(new java.awt.Color(241, 241, 241));
+        tblVen.setBorder(null);
+        tblVen.setFont(fontmed(10));
+        tblVen.setForeground(new java.awt.Color(229, 192, 191));
+        tblVen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -6990,387 +6416,158 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblOs.setFocusable(false);
-        tblOs.setGridColor(new java.awt.Color(192, 211, 250));
-        tblOs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblOs.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblVen.setFocusable(false);
+        tblVen.setGridColor(new java.awt.Color(192, 211, 250));
+        tblVen.setOpaque(false);
+        tblVen.setSelectionBackground(new java.awt.Color(255, 51, 0));
+        tblVen.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblVen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblOsMouseClicked(evt);
+                tblVenMouseClicked(evt);
             }
         });
-        scrOs.setViewportView(tblOs);
+        scrVen.setViewportView(tblVen);
 
-        pnlGerOs.add(scrOs);
-        scrOs.setBounds(110, 110, 980, 250);
+        pnlVen.add(scrVen);
+        scrVen.setBounds(70, 100, 1060, 220);
 
-        btnAltGerOs.setFont(fontmed(12));
-        btnAltGerOs.setForeground(new java.awt.Color(10, 60, 133));
-        btnAltGerOs.setText("Alterar");
-        btnAltGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAltGerOs.setEnabled(false);
-        btnAltGerOs.addActionListener(new java.awt.event.ActionListener() {
+        btnCopAVen.setFont(fontmed(12));
+        btnCopAVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnCopAVen.setText("Acesso");
+        btnCopAVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCopAVen.setEnabled(false);
+        btnCopAVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAltGerOsActionPerformed(evt);
+                btnCopAVenActionPerformed(evt);
             }
         });
-        pnlGerOs.add(btnAltGerOs);
-        btnAltGerOs.setBounds(880, 380, 100, 30);
+        pnlVen.add(btnCopAVen);
+        btnCopAVen.setBounds(700, 343, 100, 30);
 
-        btnGerGerOs.setFont(fontmed(12));
-        btnGerGerOs.setForeground(new java.awt.Color(10, 60, 133));
-        btnGerGerOs.setText("Gerar");
-        btnGerGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGerGerOs.setEnabled(false);
-        btnGerGerOs.addActionListener(new java.awt.event.ActionListener() {
+        btnCopVen.setFont(fontmed(12));
+        btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnCopVen.setText("CPF");
+        btnCopVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCopVen.setEnabled(false);
+        btnCopVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerGerOsActionPerformed(evt);
+                btnCopVenActionPerformed(evt);
             }
         });
-        pnlGerOs.add(btnGerGerOs);
-        btnGerGerOs.setBounds(770, 380, 100, 30);
+        pnlVen.add(btnCopVen);
+        btnCopVen.setBounds(590, 343, 100, 30);
 
-        btnExcGerOs.setFont(fontmed(12));
-        btnExcGerOs.setForeground(new java.awt.Color(10, 60, 133));
-        btnExcGerOs.setText("Excluir");
-        btnExcGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExcGerOs.setEnabled(false);
-        btnExcGerOs.addActionListener(new java.awt.event.ActionListener() {
+        btnAltVen.setFont(fontmed(12));
+        btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnAltVen.setText("Alterar");
+        btnAltVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltVen.setEnabled(false);
+        btnAltVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcGerOsActionPerformed(evt);
+                btnAltVenActionPerformed(evt);
             }
         });
-        pnlGerOs.add(btnExcGerOs);
-        btnExcGerOs.setBounds(990, 380, 100, 30);
+        pnlVen.add(btnAltVen);
+        btnAltVen.setBounds(810, 343, 100, 30);
 
-        btnVolGerOs.setFont(fontmed(12));
-        btnVolGerOs.setForeground(new java.awt.Color(10, 60, 133));
-        btnVolGerOs.setText("Voltar");
-        btnVolGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVolGerOs.addActionListener(new java.awt.event.ActionListener() {
+        btnWppVen.setFont(fontmed(12));
+        btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnWppVen.setText("Limpar");
+        btnWppVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnWppVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolGerOsActionPerformed(evt);
+                btnWppVenActionPerformed(evt);
             }
         });
-        pnlGerOs.add(btnVolGerOs);
-        btnVolGerOs.setBounds(110, 380, 100, 30);
+        pnlVen.add(btnWppVen);
+        btnWppVen.setBounds(1030, 343, 100, 30);
 
-        lblErrGerOs.setFont(fontbold(10));
-        lblErrGerOs.setForeground(new java.awt.Color(204, 51, 0));
-        lblErrGerOs.setText("Nenhum registro encontrado!");
-        lblErrGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerOs.add(lblErrGerOs);
-        lblErrGerOs.setBounds(260, 420, 190, 20);
+        btnVolVen.setFont(fontmed(12));
+        btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnVolVen.setText("Voltar");
+        btnVolVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolVenActionPerformed(evt);
+            }
+        });
+        pnlVen.add(btnVolVen);
+        btnVolVen.setBounds(70, 343, 100, 30);
 
-        lblBusGerOs.setFont(fontmed(12));
-        lblBusGerOs.setForeground(new java.awt.Color(10, 60, 133));
-        lblBusGerOs.setText("Buscar");
-        lblBusGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerOs.add(lblBusGerOs);
-        lblBusGerOs.setBounds(260, 390, 80, 20);
+        btnExcVen.setFont(fontmed(12));
+        btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
+        btnExcVen.setText("Excluir");
+        btnExcVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcVen.setEnabled(false);
+        btnExcVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcVenActionPerformed(evt);
+            }
+        });
+        pnlVen.add(btnExcVen);
+        btnExcVen.setBounds(920, 343, 100, 30);
 
-        txtBusGerOs.setBackground(new java.awt.Color(241, 241, 241));
-        txtBusGerOs.setFont(fontmed(13));
-        txtBusGerOs.setBorder(null);
-        txtBusGerOs.addFocusListener(new java.awt.event.FocusAdapter() {
+        lblConPlaVen.setFont(fontbold(12));
+        lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblConPlaVen.setText("0");
+        lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlVen.add(lblConPlaVen);
+        lblConPlaVen.setBounds(220, 380, 50, 20);
+
+        lblBusVen2.setFont(fontmed(11));
+        lblBusVen2.setForeground(new java.awt.Color(10, 60, 133));
+        lblBusVen2.setText("Planos ativados este mês:");
+        lblBusVen2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlVen.add(lblBusVen2);
+        lblBusVen2.setBounds(70, 380, 160, 20);
+
+        lblErrVen.setFont(fontbold(10));
+        lblErrVen.setForeground(new java.awt.Color(204, 51, 0));
+        lblErrVen.setText("Nenhum registro encontrado!");
+        lblErrVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlVen.add(lblErrVen);
+        lblErrVen.setBounds(350, 370, 200, 30);
+
+        lblBusVen.setFont(fontmed(12));
+        lblBusVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblBusVen.setText("Buscar");
+        lblBusVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlVen.add(lblBusVen);
+        lblBusVen.setBounds(350, 350, 90, 20);
+
+        txtBusVen.setBackground(new java.awt.Color(241, 241, 241));
+        txtBusVen.setFont(fontmed(13));
+        txtBusVen.setBorder(null);
+        txtBusVen.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtBusGerOsFocusGained(evt);
+                txtBusVenFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtBusGerOsFocusLost(evt);
+                txtBusVenFocusLost(evt);
             }
         });
-        txtBusGerOs.addActionListener(new java.awt.event.ActionListener() {
+        txtBusVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBusGerOsActionPerformed(evt);
+                txtBusVenActionPerformed(evt);
             }
         });
-        txtBusGerOs.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtBusVen.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBusGerOsKeyPressed(evt);
+                txtBusVenKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBusGerOsKeyTyped(evt);
+                txtBusVenKeyTyped(evt);
             }
         });
-        pnlGerOs.add(txtBusGerOs);
-        txtBusGerOs.setBounds(260, 390, 200, 20);
+        pnlVen.add(txtBusVen);
+        txtBusVen.setBounds(350, 350, 210, 20);
 
-        sepBusVen1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerOs.add(sepBusVen1);
-        sepBusVen1.setBounds(260, 410, 200, 10);
+        sepBusVen.setForeground(new java.awt.Color(10, 60, 133));
+        pnlVen.add(sepBusVen);
+        sepBusVen.setBounds(350, 370, 210, 10);
 
-        pnlPrincipal.add(pnlGerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
-
-        pnlCadTipSer.setBackground(new java.awt.Color(241, 241, 241));
-        pnlCadTipSer.setLayout(null);
-
-        lblNovaEntradaItens8.setFont(fontbold(25));
-        lblNovaEntradaItens8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNovaEntradaItens8.setText("Cadastrar Serviço");
-        pnlCadTipSer.add(lblNovaEntradaItens8);
-        lblNovaEntradaItens8.setBounds(0, 30, 1200, 30);
-
-        btnSalTipSer.setFont(fontmed(12));
-        btnSalTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnSalTipSer.setText("Salvar");
-        btnSalTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalTipSer.setEnabled(false);
-        btnSalTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalTipSerActionPerformed(evt);
-            }
-        });
-        pnlCadTipSer.add(btnSalTipSer);
-        btnSalTipSer.setBounds(500, 220, 90, 30);
-
-        btnCanTipSer.setFont(fontmed(12));
-        btnCanTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanTipSer.setText("Cancelar");
-        btnCanTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanTipSerActionPerformed(evt);
-            }
-        });
-        pnlCadTipSer.add(btnCanTipSer);
-        btnCanTipSer.setBounds(600, 220, 90, 30);
-
-        btnGroup.add(rbtnOutTipSer);
-        rbtnOutTipSer.setFont(fontmed(12));
-        rbtnOutTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnOutTipSer.setText("Outros");
-        rbtnOutTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnOutTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnOutTipSerActionPerformed(evt);
-            }
-        });
-        pnlCadTipSer.add(rbtnOutTipSer);
-        rbtnOutTipSer.setBounds(730, 100, 80, 21);
-
-        btnGroup.add(rbtnSerTimTipSer);
-        rbtnSerTimTipSer.setFont(fontmed(12));
-        rbtnSerTimTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnSerTimTipSer.setText("Serviço");
-        rbtnSerTimTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnSerTimTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnSerTimTipSerActionPerformed(evt);
-            }
-        });
-        pnlCadTipSer.add(rbtnSerTimTipSer);
-        rbtnSerTimTipSer.setBounds(420, 100, 70, 21);
-
-        btnGroup.add(rbtnAssTipSer);
-        rbtnAssTipSer.setFont(fontmed(12));
-        rbtnAssTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnAssTipSer.setText("Assistência Técnica");
-        rbtnAssTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnAssTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnAssTipSerActionPerformed(evt);
-            }
-        });
-        pnlCadTipSer.add(rbtnAssTipSer);
-        rbtnAssTipSer.setBounds(540, 100, 170, 21);
-
-        lblDesTipSer.setFont(fontmed(12));
-        lblDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesTipSer.setText("Descrição");
-        lblDesTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadTipSer.add(lblDesTipSer);
-        lblDesTipSer.setBounds(460, 170, 70, 20);
-
-        txtDesTipSer.setBackground(new java.awt.Color(241, 241, 241));
-        txtDesTipSer.setFont(fontmed(13));
-        txtDesTipSer.setBorder(null);
-        txtDesTipSer.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDesTipSerFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDesTipSerFocusLost(evt);
-            }
-        });
-        txtDesTipSer.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDesTipSerKeyTyped(evt);
-            }
-        });
-        pnlCadTipSer.add(txtDesTipSer);
-        txtDesTipSer.setBounds(460, 170, 280, 20);
-
-        sepDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadTipSer.add(sepDesTipSer);
-        sepDesTipSer.setBounds(460, 190, 280, 10);
-
-        pnlPrincipal.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
-
-        pnlGerTipSer.setBackground(new java.awt.Color(241, 241, 241));
-        pnlGerTipSer.setLayout(null);
-
-        lblNovaEntradaItens9.setFont(fontbold(25));
-        lblNovaEntradaItens9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNovaEntradaItens9.setText("Gerenciar Serviço");
-        pnlGerTipSer.add(lblNovaEntradaItens9);
-        lblNovaEntradaItens9.setBounds(0, 30, 1200, 30);
-
-        btnExcGerTipSer.setFont(fontmed(12));
-        btnExcGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnExcGerTipSer.setText("Excluir");
-        btnExcGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExcGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(btnExcGerTipSer);
-        btnExcGerTipSer.setBounds(610, 380, 100, 30);
-
-        btnAtvGerTipSer.setFont(fontmed(12));
-        btnAtvGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnAtvGerTipSer.setText("Desativar");
-        btnAtvGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAtvGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtvGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(btnAtvGerTipSer);
-        btnAtvGerTipSer.setBounds(390, 380, 100, 30);
-
-        btnAltGerTipSer.setFont(fontmed(12));
-        btnAltGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnAltGerTipSer.setText("Alterar");
-        btnAltGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAltGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAltGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(btnAltGerTipSer);
-        btnAltGerTipSer.setBounds(500, 380, 100, 30);
-
-        btnCanGerTipSer.setFont(fontmed(12));
-        btnCanGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanGerTipSer.setText("Cancelar");
-        btnCanGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(btnCanGerTipSer);
-        btnCanGerTipSer.setBounds(720, 380, 100, 30);
-
-        lblDesTipSer2.setFont(fontmed(12));
-        lblDesTipSer2.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesTipSer2.setText("Escolha um para gerenciar");
-        lblDesTipSer2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerTipSer.add(lblDesTipSer2);
-        lblDesTipSer2.setBounds(470, 140, 260, 20);
-
-        lblDesGerTipSer.setFont(fontmed(12));
-        lblDesGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesGerTipSer.setText("Descrição");
-        lblDesGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlGerTipSer.add(lblDesGerTipSer);
-        lblDesGerTipSer.setBounds(470, 330, 70, 20);
-
-        txtDesGerTipSer.setBackground(new java.awt.Color(241, 241, 241));
-        txtDesGerTipSer.setFont(fontmed(13));
-        txtDesGerTipSer.setBorder(null);
-        txtDesGerTipSer.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDesGerTipSerFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDesGerTipSerFocusLost(evt);
-            }
-        });
-        pnlGerTipSer.add(txtDesGerTipSer);
-        txtDesGerTipSer.setBounds(470, 330, 270, 20);
-
-        sepDesGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        pnlGerTipSer.add(sepDesGerTipSer);
-        sepDesGerTipSer.setBounds(470, 350, 270, 10);
-
-        scrTipSer.setBackground(new java.awt.Color(250, 250, 250));
-        scrTipSer.setBorder(BorderFactory.createEmptyBorder());
-        scrTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        tblTipSer.setTableHeader(null);
-        tblTipSer.setBackground(new java.awt.Color(241, 241, 241));
-        tblTipSer.setBorder(null);
-        tblTipSer.setFont(fontmed(10));
-        tblTipSer.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblTipSer.setFocusable(false);
-        tblTipSer.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblTipSerMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                tblTipSerMouseEntered(evt);
-            }
-        });
-        scrTipSer.setViewportView(tblTipSer);
-
-        pnlGerTipSer.add(scrTipSer);
-        scrTipSer.setBounds(470, 170, 270, 120);
-
-        btnGroup.add(rbtnOutGerTipSer);
-        rbtnOutGerTipSer.setFont(fontmed(12));
-        rbtnOutGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnOutGerTipSer.setText("Outros");
-        rbtnOutGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnOutGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnOutGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(rbtnOutGerTipSer);
-        rbtnOutGerTipSer.setBounds(730, 90, 100, 21);
-
-        btnGroup.add(rbtnAssGerTipSer);
-        rbtnAssGerTipSer.setFont(fontmed(12));
-        rbtnAssGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnAssGerTipSer.setText("Assistência Técnica");
-        rbtnAssGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnAssGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnAssGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(rbtnAssGerTipSer);
-        rbtnAssGerTipSer.setBounds(540, 90, 150, 21);
-
-        btnGroup.add(rbtnTimGerTipSer);
-        rbtnTimGerTipSer.setFont(fontmed(12));
-        rbtnTimGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
-        rbtnTimGerTipSer.setText("Serviço");
-        rbtnTimGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbtnTimGerTipSer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnTimGerTipSerActionPerformed(evt);
-            }
-        });
-        pnlGerTipSer.add(rbtnTimGerTipSer);
-        rbtnTimGerTipSer.setBounds(420, 90, 80, 21);
-
-        pnlPrincipal.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+        pnlPrincipal.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
         pnlMas.setBackground(new java.awt.Color(241, 241, 241));
         pnlMas.setLayout(null);
@@ -7380,13 +6577,6 @@ public final class main extends javax.swing.JFrame {
         lblNovaEntradaItens10.setText("Máscara de Plano");
         pnlMas.add(lblNovaEntradaItens10);
         lblNovaEntradaItens10.setBounds(0, 30, 1200, 30);
-
-        chkCarMasa.setFont(fontmed(12));
-        chkCarMasa.setForeground(new java.awt.Color(10, 60, 133));
-        chkCarMasa.setVisible(false);
-        chkCarMasa.setText("Cartão de Crédito");
-        pnlMas.add(chkCarMasa);
-        chkCarMasa.setBounds(340, 390, 150, 20);
 
         chkAppMas.setFont(fontmed(12));
         chkAppMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -7476,7 +6666,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlMas.add(btnCopMas);
-        btnCopMas.setBounds(820, 420, 50, 20);
+        btnCopMas.setBounds(820, 410, 50, 20);
 
         lblNomMas.setFont(fontmed(12));
         lblNomMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -7484,13 +6674,6 @@ public final class main extends javax.swing.JFrame {
         lblNomMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlMas.add(lblNomMas);
         lblNomMas.setBounds(80, 160, 70, 20);
-
-        chkDebMasa.setFont(fontmed(12));
-        chkDebMasa.setForeground(new java.awt.Color(10, 60, 133));
-        chkDebMasa.setVisible(false);
-        chkDebMasa.setText("Débito em conta");
-        pnlMas.add(chkDebMasa);
-        chkDebMasa.setBounds(340, 360, 150, 20);
 
         txtNomMas.setBackground(new java.awt.Color(241, 241, 241));
         txtNomMas.setFont(fontmed(13));
@@ -7764,7 +6947,7 @@ public final class main extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtAreMas);
 
         pnlMas.add(jScrollPane1);
-        jScrollPane1.setBounds(820, 90, 300, 320);
+        jScrollPane1.setBounds(820, 110, 300, 290);
 
         btnGroup4.add(chkDebMas);
         chkDebMas.setFont(fontmed(12));
@@ -7792,6 +6975,1242 @@ public final class main extends javax.swing.JFrame {
         chkBolMas.setBounds(570, 220, 130, 21);
 
         pnlPrincipal.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+
+        pnlOs.setBackground(new java.awt.Color(241, 241, 241));
+        pnlOs.setLayout(null);
+
+        lblNovaEntradaItens6.setFont(fontbold(25));
+        lblNovaEntradaItens6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNovaEntradaItens6.setText("Gerar OS");
+        pnlOs.add(lblNovaEntradaItens6);
+        lblNovaEntradaItens6.setBounds(0, 30, 1200, 30);
+
+        btnGerOs.setFont(fontmed(12));
+        btnGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnGerOs.setText("Gerar");
+        btnGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerOsActionPerformed(evt);
+            }
+        });
+        pnlOs.add(btnGerOs);
+        btnGerOs.setBounds(790, 360, 90, 30);
+
+        chkGarOs.setFont(fontmed(12));
+        chkGarOs.setForeground(new java.awt.Color(10, 60, 133));
+        chkGarOs.setText("Garantia");
+        chkGarOs.setBorder(null);
+        chkGarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkGarOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkGarOsActionPerformed(evt);
+            }
+        });
+        pnlOs.add(chkGarOs);
+        chkGarOs.setBounds(640, 350, 80, 30);
+
+        btnCanOs.setFont(fontmed(12));
+        btnCanOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanOs.setText("Cancelar");
+        btnCanOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanOsActionPerformed(evt);
+            }
+        });
+        pnlOs.add(btnCanOs);
+        btnCanOs.setBounds(790, 400, 90, 30);
+
+        lblEndOs.setFont(fontmed(12));
+        lblEndOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblEndOs.setText("Endereço");
+        lblEndOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblEndOs);
+        lblEndOs.setBounds(310, 210, 60, 20);
+
+        txtEndOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtEndOs.setFont(fontmed(13));
+        txtEndOs.setBorder(null);
+        txtEndOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEndOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEndOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtEndOs);
+        txtEndOs.setBounds(310, 210, 240, 20);
+
+        sepModCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepModCadEst1);
+        sepModCadEst1.setBounds(310, 230, 240, 10);
+
+        lblCliOs.setFont(fontmed(12));
+        lblCliOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblCliOs.setText("Cliente");
+        lblCliOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblCliOs);
+        lblCliOs.setBounds(310, 110, 60, 20);
+
+        txtCliOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtCliOs.setFont(fontmed(13));
+        txtCliOs.setBorder(null);
+        txtCliOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCliOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCliOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtCliOs);
+        txtCliOs.setBounds(310, 110, 240, 20);
+
+        sepMarCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepMarCadEst1);
+        sepMarCadEst1.setBounds(310, 130, 240, 10);
+
+        lblEquOs.setFont(fontmed(12));
+        lblEquOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblEquOs.setText("Equipamento");
+        lblEquOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblEquOs);
+        lblEquOs.setBounds(640, 110, 130, 20);
+
+        txtEquOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtEquOs.setFont(fontmed(13));
+        txtEquOs.setBorder(null);
+        txtEquOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEquOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEquOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtEquOs);
+        txtEquOs.setBounds(640, 110, 240, 20);
+
+        sepCorCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepCorCadEst1);
+        sepCorCadEst1.setBounds(640, 130, 240, 10);
+
+        lblMarOs.setFont(fontmed(12));
+        lblMarOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblMarOs.setText("Marca");
+        lblMarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblMarOs);
+        lblMarOs.setBounds(640, 160, 50, 20);
+
+        txtMarOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtMarOs.setFont(fontmed(13));
+        txtMarOs.setBorder(null);
+        txtMarOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMarOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtMarOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtMarOs);
+        txtMarOs.setBounds(640, 160, 240, 20);
+
+        sepMatCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepMatCadEst1);
+        sepMatCadEst1.setBounds(640, 180, 240, 10);
+
+        lblTelOs.setFont(fontmed(12));
+        lblTelOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblTelOs.setText("Telefone");
+        lblTelOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblTelOs);
+        lblTelOs.setBounds(310, 160, 80, 20);
+
+        txtTelOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtTelOs.setFont(fontmed(13));
+        txtTelOs.setBorder(null);
+        txtTelOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTelOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTelOsFocusLost(evt);
+            }
+        });
+        txtTelOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelOsKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelOsKeyTyped(evt);
+            }
+        });
+        pnlOs.add(txtTelOs);
+        txtTelOs.setBounds(310, 160, 130, 20);
+
+        sepQuaCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepQuaCadEst1);
+        sepQuaCadEst1.setBounds(310, 180, 130, 10);
+
+        lblModOs.setFont(fontmed(12));
+        lblModOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblModOs.setText("Modelo");
+        lblModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblModOs);
+        lblModOs.setBounds(640, 210, 60, 20);
+
+        txtModOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtModOs.setFont(fontmed(13));
+        txtModOs.setBorder(null);
+        txtModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtModOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtModOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtModOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtModOs);
+        txtModOs.setBounds(640, 210, 240, 20);
+
+        sepLocCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepLocCadEst1);
+        sepLocCadEst1.setBounds(640, 230, 240, 10);
+
+        lblConOs.setFont(fontmed(12));
+        lblConOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblConOs.setText("Defeito relatado");
+        lblConOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblConOs);
+        lblConOs.setBounds(640, 260, 130, 20);
+
+        txtDefOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtDefOs.setFont(fontmed(13));
+        txtDefOs.setBorder(null);
+        txtDefOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDefOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDefOsFocusLost(evt);
+            }
+        });
+        pnlOs.add(txtDefOs);
+        txtDefOs.setBounds(640, 260, 240, 20);
+
+        sepDetCadEst1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepDetCadEst1);
+        sepDetCadEst1.setBounds(640, 280, 240, 10);
+
+        lblDefOs.setFont(fontmed(12));
+        lblDefOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblDefOs.setText("Reparo");
+        lblDefOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblDefOs);
+        lblDefOs.setBounds(640, 310, 100, 20);
+
+        txtRepOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtRepOs.setFont(fontmed(13));
+        txtRepOs.setBorder(null);
+        txtRepOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRepOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRepOsFocusLost(evt);
+            }
+        });
+        txtRepOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRepOsKeyTyped(evt);
+            }
+        });
+        pnlOs.add(txtRepOs);
+        txtRepOs.setBounds(640, 310, 240, 20);
+
+        sepDetCadEst2.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepDetCadEst2);
+        sepDetCadEst2.setBounds(640, 330, 240, 10);
+
+        lblDatEntOs.setFont(fontmed(12));
+        lblDatEntOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatEntOs.setText("Data entrada");
+        lblDatEntOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblDatEntOs);
+        lblDatEntOs.setBounds(310, 260, 90, 20);
+
+        txtDatOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtDatOs.setFont(fontmed(13));
+        txtDatOs.setBorder(null);
+        txtDatOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatOsFocusLost(evt);
+            }
+        });
+        txtDatOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatOsKeyTyped(evt);
+            }
+        });
+        pnlOs.add(txtDatOs);
+        txtDatOs.setBounds(310, 260, 90, 20);
+
+        sepDetCadEst3.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepDetCadEst3);
+        sepDetCadEst3.setBounds(310, 280, 90, 10);
+
+        lblHorOs.setFont(fontmed(12));
+        lblHorOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblHorOs.setText("Data saída");
+        lblHorOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblHorOs);
+        lblHorOs.setBounds(310, 310, 80, 20);
+
+        txtDatSaiOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtDatSaiOs.setFont(fontmed(13));
+        txtDatSaiOs.setBorder(null);
+        txtDatSaiOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatSaiOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatSaiOsFocusLost(evt);
+            }
+        });
+        txtDatSaiOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatSaiOsKeyTyped(evt);
+            }
+        });
+        pnlOs.add(txtDatSaiOs);
+        txtDatSaiOs.setBounds(310, 310, 90, 20);
+
+        sepDetCadEst4.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepDetCadEst4);
+        sepDetCadEst4.setBounds(310, 330, 90, 10);
+
+        sepCusGerEnt1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlOs.add(sepCusGerEnt1);
+        sepCusGerEnt1.setBounds(310, 380, 90, 10);
+
+        lblPreOs.setFont(fontmed(12));
+        lblPreOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblPreOs.setText("Preço");
+        lblPreOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblPreOs);
+        lblPreOs.setBounds(310, 360, 40, 20);
+
+        lblR$Os.setFont(fontmed(13));
+        lblR$Os.setText("R$");
+        lblR$Os.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlOs.add(lblR$Os);
+        lblR$Os.setBounds(310, 360, 20, 20);
+
+        txtPreOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtPreOs.setFont(fontmed(13));
+        txtPreOs.setBorder(null);
+        txtPreOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPreOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPreOsFocusLost(evt);
+            }
+        });
+        txtPreOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPreOsActionPerformed(evt);
+            }
+        });
+        txtPreOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPreOsKeyTyped(evt);
+            }
+        });
+        pnlOs.add(txtPreOs);
+        txtPreOs.setBounds(330, 360, 70, 20);
+
+        pnlPrincipal.add(pnlOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+
+        pnlGerOs.setBackground(new java.awt.Color(241, 241, 241));
+        pnlGerOs.setLayout(null);
+
+        lblGerarOS.setFont(fontbold(25));
+        lblGerarOS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGerarOS.setText("Gerenciar OS");
+        pnlGerOs.add(lblGerarOS);
+        lblGerarOS.setBounds(0, 30, 1200, 30);
+
+        scrOs.setBackground(new java.awt.Color(250, 250, 250));
+        scrOs.setBorder(BorderFactory.createEmptyBorder());
+
+        tblOs.setBackground(new java.awt.Color(241, 241, 241));
+        tblOs.setBorder(null);
+        tblOs.setFont(fontmed(10));
+        tblOs.setForeground(new java.awt.Color(229, 192, 191));
+        tblOs.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblOs.setFocusable(false);
+        tblOs.setGridColor(new java.awt.Color(192, 211, 250));
+        tblOs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblOs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOsMouseClicked(evt);
+            }
+        });
+        scrOs.setViewportView(tblOs);
+
+        pnlGerOs.add(scrOs);
+        scrOs.setBounds(50, 110, 1100, 250);
+
+        btnAltGerOs.setFont(fontmed(12));
+        btnAltGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnAltGerOs.setText("Alterar");
+        btnAltGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerOs.setEnabled(false);
+        btnAltGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltGerOsActionPerformed(evt);
+            }
+        });
+        pnlGerOs.add(btnAltGerOs);
+        btnAltGerOs.setBounds(940, 383, 100, 30);
+
+        btnGerGerOs.setFont(fontmed(12));
+        btnGerGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnGerGerOs.setText("Gerar");
+        btnGerGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerGerOs.setEnabled(false);
+        btnGerGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerGerOsActionPerformed(evt);
+            }
+        });
+        pnlGerOs.add(btnGerGerOs);
+        btnGerGerOs.setBounds(830, 383, 100, 30);
+
+        btnExcGerOs.setFont(fontmed(12));
+        btnExcGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnExcGerOs.setText("Excluir");
+        btnExcGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerOs.setEnabled(false);
+        btnExcGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcGerOsActionPerformed(evt);
+            }
+        });
+        pnlGerOs.add(btnExcGerOs);
+        btnExcGerOs.setBounds(1050, 383, 100, 30);
+
+        btnVolGerOs.setFont(fontmed(12));
+        btnVolGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        btnVolGerOs.setText("Voltar");
+        btnVolGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolGerOsActionPerformed(evt);
+            }
+        });
+        pnlGerOs.add(btnVolGerOs);
+        btnVolGerOs.setBounds(50, 383, 100, 30);
+
+        lblErrGerOs.setFont(fontbold(10));
+        lblErrGerOs.setForeground(new java.awt.Color(204, 51, 0));
+        lblErrGerOs.setText("Nenhum registro encontrado!");
+        lblErrGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerOs.add(lblErrGerOs);
+        lblErrGerOs.setBounds(580, 415, 190, 20);
+
+        lblBusGerOs.setFont(fontmed(12));
+        lblBusGerOs.setForeground(new java.awt.Color(10, 60, 133));
+        lblBusGerOs.setText("Buscar");
+        lblBusGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerOs.add(lblBusGerOs);
+        lblBusGerOs.setBounds(580, 390, 80, 20);
+
+        txtBusGerOs.setBackground(new java.awt.Color(241, 241, 241));
+        txtBusGerOs.setFont(fontmed(13));
+        txtBusGerOs.setBorder(null);
+        txtBusGerOs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBusGerOsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBusGerOsFocusLost(evt);
+            }
+        });
+        txtBusGerOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBusGerOsActionPerformed(evt);
+            }
+        });
+        txtBusGerOs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBusGerOsKeyPressed(evt);
+            }
+        });
+        pnlGerOs.add(txtBusGerOs);
+        txtBusGerOs.setBounds(580, 390, 200, 20);
+
+        sepBusVen1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerOs.add(sepBusVen1);
+        sepBusVen1.setBounds(580, 410, 200, 10);
+
+        pnlPrincipal.add(pnlGerOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+
+        pnlRel.setBackground(new java.awt.Color(241, 241, 241));
+        pnlRel.setLayout(null);
+
+        lblNovaEntradaItens5.setFont(fontbold(25));
+        lblNovaEntradaItens5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNovaEntradaItens5.setText("Relatório");
+        pnlRel.add(lblNovaEntradaItens5);
+        lblNovaEntradaItens5.setBounds(0, 30, 1200, 30);
+
+        lblResRel.setFont(fontbold(14));
+        lblResRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblResRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblResRel.setText("Sem resultados para o período selecionado!");
+        lblResRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlRel.add(lblResRel);
+        lblResRel.setBounds(60, 350, 780, 20);
+
+        cmbRel.setFont(fontmed(13));
+        cmbRel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtrar resultados" }));
+        cmbRel.setToolTipText("");
+        cmbRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(cmbRel);
+        cmbRel.setBounds(650, 213, 190, 30);
+
+        scrRel.setBackground(new java.awt.Color(250, 250, 250));
+        scrRel.setBorder(BorderFactory.createEmptyBorder());
+
+        tblRel.setBackground(new java.awt.Color(241, 241, 241));
+        tblRel.setBorder(null);
+        tblRel.setFont(fontmed(10));
+        tblRel.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblRel.setToolTipText("");
+        tblRel.setAutoscrolls(false);
+        tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblRel.setEnabled(false);
+        tblRel.setFocusable(false);
+        tblRel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scrRel.setViewportView(tblRel);
+
+        pnlRel.add(scrRel);
+        scrRel.setBounds(60, 260, 780, 200);
+
+        btnVolRel.setFont(fontmed(12));
+        btnVolRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnVolRel.setText("Voltar");
+        btnVolRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(btnVolRel);
+        btnVolRel.setBounds(60, 213, 90, 30);
+
+        btnGroup.add(rbtnSerRel);
+        rbtnSerRel.setFont(fontmed(12));
+        rbtnSerRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnSerRel.setText("Serviço");
+        rbtnSerRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnSerRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSerRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnSerRel);
+        rbtnSerRel.setBounds(170, 100, 90, 21);
+
+        btnGroup.add(rbtnVenRel1);
+        rbtnVenRel1.setFont(fontmed(12));
+        rbtnVenRel1.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnVenRel1.setText("Serviço e Venda");
+        rbtnVenRel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnVenRel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnVenRel1ActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnVenRel1);
+        rbtnVenRel1.setBounds(390, 100, 150, 21);
+
+        btnGroup.add(rbtnVenRel);
+        rbtnVenRel.setFont(fontmed(12));
+        rbtnVenRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnVenRel.setText("Venda");
+        rbtnVenRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnVenRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnVenRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnVenRel);
+        rbtnVenRel.setBounds(280, 100, 80, 21);
+
+        btnGroup.add(rbtnAssRel);
+        rbtnAssRel.setFont(fontmed(12));
+        rbtnAssRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnAssRel.setText("Assistência");
+        rbtnAssRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAssRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnAssRel);
+        rbtnAssRel.setBounds(550, 100, 100, 21);
+
+        btnGroup.add(rbtnTodRel);
+        rbtnTodRel.setFont(fontmed(12));
+        rbtnTodRel.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnTodRel.setText("Todos");
+        rbtnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnTodRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTodRelActionPerformed(evt);
+            }
+        });
+        pnlRel.add(rbtnTodRel);
+        rbtnTodRel.setBounds(60, 100, 70, 21);
+
+        lblDatIniRel.setFont(fontmed(12));
+        lblDatIniRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatIniRel.setText("Data inicial");
+        lblDatIniRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lblDatIniRelFocusGained(evt);
+            }
+        });
+        pnlRel.add(lblDatIniRel);
+        lblDatIniRel.setBounds(270, 220, 90, 20);
+
+        txtDatIniRel.setBackground(new java.awt.Color(241, 241, 241));
+        txtDatIniRel.setFont(fontmed(13));
+        txtDatIniRel.setBorder(null);
+        txtDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatIniRelFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatIniRelFocusLost(evt);
+            }
+        });
+        txtDatIniRel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDatIniRelKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDatIniRelKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatIniRelKeyTyped(evt);
+            }
+        });
+        pnlRel.add(txtDatIniRel);
+        txtDatIniRel.setBounds(270, 220, 100, 20);
+
+        sepDatCadEnt1.setForeground(new java.awt.Color(10, 60, 133));
+        pnlRel.add(sepDatCadEnt1);
+        sepDatCadEnt1.setBounds(270, 240, 100, 10);
+
+        btnTodRel.setFont(fontbold(12));
+        btnTodRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnTodRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnTodRel.setText("Todos");
+        btnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTodRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTodRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTodRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnTodRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnTodRel);
+        btnTodRel.setBounds(230, 160, 50, 20);
+
+        btnAnoRel.setFont(fontmed(12));
+        btnAnoRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnAnoRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAnoRel.setText("Ano");
+        btnAnoRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAnoRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAnoRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAnoRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAnoRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnAnoRel);
+        btnAnoRel.setBounds(530, 160, 30, 20);
+
+        lblDatFinRel.setFont(fontmed(12));
+        lblDatFinRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblDatFinRel.setText("Data final");
+        lblDatFinRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlRel.add(lblDatFinRel);
+        lblDatFinRel.setBounds(420, 220, 80, 20);
+
+        txtDatFinRel.setBackground(new java.awt.Color(241, 241, 241));
+        txtDatFinRel.setFont(fontmed(13));
+        txtDatFinRel.setBorder(null);
+        txtDatFinRel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDatFinRelFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDatFinRelFocusLost(evt);
+            }
+        });
+        txtDatFinRel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDatFinRelActionPerformed(evt);
+            }
+        });
+        txtDatFinRel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDatFinRelKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatFinRelKeyTyped(evt);
+            }
+        });
+        pnlRel.add(txtDatFinRel);
+        txtDatFinRel.setBounds(420, 220, 100, 20);
+
+        lblDiaRel.setFont(fontbold(12));
+        lblDiaRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblDiaRel.setText("Este dia");
+        lblDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(lblDiaRel);
+        lblDiaRel.setBounds(60, 170, 120, 20);
+
+        btnMenDiaRel.setFont(fontbold(18));
+        btnMenDiaRel.setForeground(new java.awt.Color(255, 0, 0));
+        btnMenDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenDiaRel.setText("-");
+        btnMenDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMenDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMenDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMenDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnMenDiaRel);
+        btnMenDiaRel.setBounds(60, 140, 15, 20);
+
+        btnNumDiaRel.setFont(fontbold(14));
+        btnNumDiaRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnNumDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnNumDiaRel.setText("10");
+        btnNumDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnNumDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNumDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNumDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnNumDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnNumDiaRel);
+        btnNumDiaRel.setBounds(60, 155, 100, 20);
+
+        btnMaiDiaRel.setFont(fontbold(18));
+        btnMaiDiaRel.setForeground(new java.awt.Color(51, 204, 0));
+        btnMaiDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMaiDiaRel.setText("+");
+        btnMaiDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMaiDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMaiDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMaiDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMaiDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnMaiDiaRel);
+        btnMaiDiaRel.setBounds(80, 140, 15, 20);
+
+        btnDiaRel.setFont(fontmed(12));
+        btnDiaRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnDiaRel.setText("Dia");
+        btnDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDiaRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDiaRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnDiaRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnDiaRel);
+        btnDiaRel.setBounds(310, 160, 30, 20);
+
+        btnMesRel.setFont(fontmed(12));
+        btnMesRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnMesRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMesRel.setText("Mês");
+        btnMesRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMesRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMesRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMesRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMesRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnMesRel);
+        btnMesRel.setBounds(460, 160, 30, 20);
+
+        btnSemRel.setFont(fontmed(12));
+        btnSemRel.setForeground(new java.awt.Color(10, 60, 133));
+        btnSemRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSemRel.setText("Semana");
+        btnSemRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSemRel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSemRelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSemRelMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnSemRelMouseReleased(evt);
+            }
+        });
+        pnlRel.add(btnSemRel);
+        btnSemRel.setBounds(360, 160, 80, 20);
+
+        sepDatCadEnt3.setForeground(new java.awt.Color(10, 60, 133));
+        pnlRel.add(sepDatCadEnt3);
+        sepDatCadEnt3.setBounds(420, 240, 100, 10);
+
+        lblValDinRel.setFont(fontbold(14));
+        lblValDinRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValDinRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValDinRel.setText("R$0,00");
+        pnlRel.add(lblValDinRel);
+        lblValDinRel.setBounds(1020, 300, 120, 30);
+
+        jLabel7.setFont(fontmed(12));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Dinheiro");
+        pnlRel.add(jLabel7);
+        jLabel7.setBounds(1020, 280, 120, 20);
+
+        lblTotEntRel.setFont(fontbold(14));
+        lblTotEntRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblTotEntRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotEntRel.setText("0");
+        pnlRel.add(lblTotEntRel);
+        lblTotEntRel.setBounds(890, 300, 120, 30);
+
+        jLabel2.setFont(fontmed(12));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Total de entradas");
+        pnlRel.add(jLabel2);
+        jLabel2.setBounds(890, 280, 120, 20);
+
+        lblValTotRel.setFont(fontbold(14));
+        lblValTotRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValTotRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValTotRel.setText("R$0,00");
+        pnlRel.add(lblValTotRel);
+        lblValTotRel.setBounds(890, 360, 120, 30);
+
+        jLabel4.setFont(fontmed(12));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Valor total");
+        pnlRel.add(jLabel4);
+        jLabel4.setBounds(890, 340, 120, 20);
+
+        lblValMedRel.setFont(fontbold(14));
+        lblValMedRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValMedRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValMedRel.setText("R$0,00");
+        pnlRel.add(lblValMedRel);
+        lblValMedRel.setBounds(890, 420, 120, 30);
+
+        jLabel6.setFont(fontmed(12));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Custo");
+        pnlRel.add(jLabel6);
+        jLabel6.setBounds(890, 400, 120, 20);
+
+        jLabel8.setFont(fontmed(12));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Cartão");
+        pnlRel.add(jLabel8);
+        jLabel8.setBounds(1020, 340, 120, 20);
+
+        lblValCarRel.setFont(fontbold(14));
+        lblValCarRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValCarRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValCarRel.setText("R$0,00");
+        pnlRel.add(lblValCarRel);
+        lblValCarRel.setBounds(1020, 360, 120, 30);
+
+        jLabel9.setFont(fontmed(12));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("PIX");
+        pnlRel.add(jLabel9);
+        jLabel9.setBounds(1020, 400, 120, 20);
+
+        lblValPixRel.setFont(fontbold(14));
+        lblValPixRel.setForeground(new java.awt.Color(10, 60, 133));
+        lblValPixRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValPixRel.setText("R$0,00");
+        pnlRel.add(lblValPixRel);
+        lblValPixRel.setBounds(1020, 420, 120, 30);
+
+        chkCus.setFont(fontmed(12));
+        chkCus.setForeground(new java.awt.Color(10, 60, 133));
+        chkCus.setText("Custo");
+        chkCus.setBorder(null);
+        chkCus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkCus.setEnabled(false);
+        chkCus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkCusActionPerformed(evt);
+            }
+        });
+        pnlRel.add(chkCus);
+        chkCus.setBounds(680, 100, 60, 20);
+
+        pnlPrincipal.add(pnlRel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+
+        pnlCadTipSer.setBackground(new java.awt.Color(241, 241, 241));
+        pnlCadTipSer.setLayout(null);
+
+        lblNovaEntradaItens8.setFont(fontbold(25));
+        lblNovaEntradaItens8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNovaEntradaItens8.setText("Cadastrar Serviço");
+        pnlCadTipSer.add(lblNovaEntradaItens8);
+        lblNovaEntradaItens8.setBounds(0, 30, 1200, 30);
+
+        btnSalTipSer.setFont(fontmed(12));
+        btnSalTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnSalTipSer.setText("Salvar");
+        btnSalTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalTipSer.setEnabled(false);
+        btnSalTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(btnSalTipSer);
+        btnSalTipSer.setBounds(500, 220, 90, 30);
+
+        btnCanTipSer.setFont(fontmed(12));
+        btnCanTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanTipSer.setText("Cancelar");
+        btnCanTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(btnCanTipSer);
+        btnCanTipSer.setBounds(600, 220, 90, 30);
+
+        btnGroup.add(rbtnOutTipSer);
+        rbtnOutTipSer.setFont(fontmed(12));
+        rbtnOutTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnOutTipSer.setText("Outros");
+        rbtnOutTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnOutTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnOutTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(rbtnOutTipSer);
+        rbtnOutTipSer.setBounds(730, 100, 80, 21);
+
+        btnGroup.add(rbtnSerTimTipSer);
+        rbtnSerTimTipSer.setFont(fontmed(12));
+        rbtnSerTimTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnSerTimTipSer.setText("Serviço");
+        rbtnSerTimTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnSerTimTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSerTimTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(rbtnSerTimTipSer);
+        rbtnSerTimTipSer.setBounds(420, 100, 70, 21);
+
+        btnGroup.add(rbtnAssTipSer);
+        rbtnAssTipSer.setFont(fontmed(12));
+        rbtnAssTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnAssTipSer.setText("Assistência Técnica");
+        rbtnAssTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAssTipSerActionPerformed(evt);
+            }
+        });
+        pnlCadTipSer.add(rbtnAssTipSer);
+        rbtnAssTipSer.setBounds(540, 100, 170, 21);
+
+        lblDesTipSer.setFont(fontmed(12));
+        lblDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        lblDesTipSer.setText("Descrição");
+        lblDesTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlCadTipSer.add(lblDesTipSer);
+        lblDesTipSer.setBounds(460, 170, 70, 20);
+
+        txtDesTipSer.setBackground(new java.awt.Color(241, 241, 241));
+        txtDesTipSer.setFont(fontmed(13));
+        txtDesTipSer.setBorder(null);
+        txtDesTipSer.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDesTipSerFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDesTipSerFocusLost(evt);
+            }
+        });
+        txtDesTipSer.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDesTipSerKeyTyped(evt);
+            }
+        });
+        pnlCadTipSer.add(txtDesTipSer);
+        txtDesTipSer.setBounds(460, 170, 280, 20);
+
+        sepDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        pnlCadTipSer.add(sepDesTipSer);
+        sepDesTipSer.setBounds(460, 190, 280, 10);
+
+        pnlPrincipal.add(pnlCadTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
+
+        pnlGerTipSer.setBackground(new java.awt.Color(241, 241, 241));
+        pnlGerTipSer.setLayout(null);
+
+        lblNovaEntradaItens9.setFont(fontbold(25));
+        lblNovaEntradaItens9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNovaEntradaItens9.setText("Gerenciar Serviço");
+        pnlGerTipSer.add(lblNovaEntradaItens9);
+        lblNovaEntradaItens9.setBounds(0, 30, 1200, 30);
+
+        btnExcGerTipSer.setFont(fontmed(12));
+        btnExcGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnExcGerTipSer.setText("Excluir");
+        btnExcGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(btnExcGerTipSer);
+        btnExcGerTipSer.setBounds(600, 380, 100, 30);
+
+        btnAtvGerTipSer.setFont(fontmed(12));
+        btnAtvGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnAtvGerTipSer.setText("Desativar");
+        btnAtvGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAtvGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtvGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(btnAtvGerTipSer);
+        btnAtvGerTipSer.setBounds(380, 380, 100, 30);
+
+        btnAltGerTipSer.setFont(fontmed(12));
+        btnAltGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnAltGerTipSer.setText("Alterar");
+        btnAltGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(btnAltGerTipSer);
+        btnAltGerTipSer.setBounds(490, 380, 100, 30);
+
+        btnCanGerTipSer.setFont(fontmed(12));
+        btnCanGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        btnCanGerTipSer.setText("Cancelar");
+        btnCanGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(btnCanGerTipSer);
+        btnCanGerTipSer.setBounds(710, 380, 100, 30);
+
+        lblDesTipSer2.setFont(fontmed(11));
+        lblDesTipSer2.setForeground(new java.awt.Color(10, 60, 133));
+        lblDesTipSer2.setText("Escolha o serviço para gerenciar");
+        lblDesTipSer2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerTipSer.add(lblDesTipSer2);
+        lblDesTipSer2.setBounds(460, 140, 260, 20);
+
+        lblDesGerTipSer.setFont(fontmed(12));
+        lblDesGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        lblDesGerTipSer.setText("Descrição");
+        lblDesGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        pnlGerTipSer.add(lblDesGerTipSer);
+        lblDesGerTipSer.setBounds(460, 330, 70, 20);
+
+        txtDesGerTipSer.setBackground(new java.awt.Color(241, 241, 241));
+        txtDesGerTipSer.setFont(fontmed(13));
+        txtDesGerTipSer.setBorder(null);
+        pnlGerTipSer.add(txtDesGerTipSer);
+        txtDesGerTipSer.setBounds(460, 330, 270, 20);
+
+        sepDesGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        pnlGerTipSer.add(sepDesGerTipSer);
+        sepDesGerTipSer.setBounds(460, 350, 270, 10);
+
+        scrTipSer.setBackground(new java.awt.Color(250, 250, 250));
+        scrTipSer.setBorder(BorderFactory.createEmptyBorder());
+        scrTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        tblTipSer.setTableHeader(null);
+        tblTipSer.setBackground(new java.awt.Color(241, 241, 241));
+        tblTipSer.setBorder(null);
+        tblTipSer.setFont(fontmed(10));
+        tblTipSer.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblTipSer.setFocusable(false);
+        tblTipSer.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTipSerMouseClicked(evt);
+            }
+        });
+        scrTipSer.setViewportView(tblTipSer);
+
+        pnlGerTipSer.add(scrTipSer);
+        scrTipSer.setBounds(460, 170, 270, 120);
+
+        btnGroup.add(rbtnOutGerTipSer);
+        rbtnOutGerTipSer.setFont(fontmed(12));
+        rbtnOutGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnOutGerTipSer.setText("Outros");
+        rbtnOutGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnOutGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnOutGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(rbtnOutGerTipSer);
+        rbtnOutGerTipSer.setBounds(720, 90, 100, 21);
+
+        btnGroup.add(rbtnAssGerTipSer);
+        rbtnAssGerTipSer.setFont(fontmed(12));
+        rbtnAssGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnAssGerTipSer.setText("Assistência Técnica");
+        rbtnAssGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAssGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(rbtnAssGerTipSer);
+        rbtnAssGerTipSer.setBounds(530, 90, 150, 21);
+
+        btnGroup.add(rbtnTimGerTipSer);
+        rbtnTimGerTipSer.setFont(fontmed(12));
+        rbtnTimGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
+        rbtnTimGerTipSer.setText("Serviço");
+        rbtnTimGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnTimGerTipSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTimGerTipSerActionPerformed(evt);
+            }
+        });
+        pnlGerTipSer.add(rbtnTimGerTipSer);
+        rbtnTimGerTipSer.setBounds(410, 90, 80, 21);
+
+        pnlPrincipal.add(pnlGerTipSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
         pnlDes.setBackground(new java.awt.Color(241, 241, 241));
         pnlDes.setLayout(null);
@@ -7831,7 +8250,7 @@ public final class main extends javax.swing.JFrame {
         scrConDes.setViewportView(tblConDes);
 
         pnlDes.add(scrConDes);
-        scrConDes.setBounds(190, 110, 820, 240);
+        scrConDes.setBounds(190, 110, 820, 230);
 
         btnVolDes.setFont(fontmed(12));
         btnVolDes.setForeground(new java.awt.Color(10, 60, 133));
@@ -7843,7 +8262,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlDes.add(btnVolDes);
-        btnVolDes.setBounds(190, 370, 90, 30);
+        btnVolDes.setBounds(190, 350, 90, 30);
 
         pnlPrincipal.add(pnlDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
@@ -7866,14 +8285,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadDes.add(btnSalDes);
-        btnSalDes.setBounds(500, 290, 90, 30);
+        btnSalDes.setBounds(500, 260, 90, 30);
 
         lblDatDes.setFont(fontmed(12));
         lblDatDes.setForeground(new java.awt.Color(10, 60, 133));
         lblDatDes.setText("Data");
         lblDatDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadDes.add(lblDatDes);
-        lblDatDes.setBounds(500, 230, 50, 20);
+        lblDatDes.setBounds(500, 210, 50, 20);
 
         txtDatDes.setBackground(new java.awt.Color(241, 241, 241));
         txtDatDes.setFont(fontmed(13));
@@ -7892,11 +8311,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadDes.add(txtDatDes);
-        txtDatDes.setBounds(500, 230, 130, 20);
+        txtDatDes.setBounds(500, 210, 100, 20);
 
         sepDatCadEnt7.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadDes.add(sepDatCadEnt7);
-        sepDatCadEnt7.setBounds(500, 250, 130, 10);
+        sepDatCadEnt7.setBounds(500, 230, 100, 10);
 
         lblDesDes.setFont(fontmed(12));
         lblDesDes.setForeground(new java.awt.Color(10, 60, 133));
@@ -7927,14 +8346,14 @@ public final class main extends javax.swing.JFrame {
         lblR$Des.setText("R$");
         lblR$Des.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadDes.add(lblR$Des);
-        lblR$Des.setBounds(500, 170, 20, 21);
+        lblR$Des.setBounds(500, 160, 20, 21);
 
         lblPreDes.setFont(fontmed(12));
         lblPreDes.setForeground(new java.awt.Color(10, 60, 133));
         lblPreDes.setText("Preço");
         lblPreDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlCadDes.add(lblPreDes);
-        lblPreDes.setBounds(500, 170, 50, 20);
+        lblPreDes.setBounds(500, 160, 50, 20);
 
         txtPreDes.setBackground(new java.awt.Color(241, 241, 241));
         txtPreDes.setFont(fontmed(13));
@@ -7953,11 +8372,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadDes.add(txtPreDes);
-        txtPreDes.setBounds(520, 170, 80, 20);
+        txtPreDes.setBounds(520, 160, 80, 20);
 
         sepDatCadEnt6.setForeground(new java.awt.Color(10, 60, 133));
         pnlCadDes.add(sepDatCadEnt6);
-        sepDatCadEnt6.setBounds(500, 190, 100, 10);
+        sepDatCadEnt6.setBounds(500, 180, 100, 10);
 
         btnCanDes.setFont(fontmed(12));
         btnCanDes.setForeground(new java.awt.Color(10, 60, 133));
@@ -7969,7 +8388,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlCadDes.add(btnCanDes);
-        btnCanDes.setBounds(600, 290, 90, 30);
+        btnCanDes.setBounds(600, 260, 90, 30);
 
         pnlPrincipal.add(pnlCadDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
@@ -7987,27 +8406,27 @@ public final class main extends javax.swing.JFrame {
         lblDesGerDes.setText("Descrição");
         lblDesGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerDes.add(lblDesGerDes);
-        lblDesGerDes.setBounds(890, 120, 90, 20);
+        lblDesGerDes.setBounds(860, 160, 90, 20);
 
         lblDatGerDes.setFont(fontmed(12));
         lblDatGerDes.setForeground(new java.awt.Color(10, 60, 133));
         lblDatGerDes.setText("Data");
         lblDatGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerDes.add(lblDatGerDes);
-        lblDatGerDes.setBounds(890, 240, 50, 20);
+        lblDatGerDes.setBounds(860, 260, 50, 20);
 
         lblPreGerDes.setFont(fontmed(12));
         lblPreGerDes.setForeground(new java.awt.Color(10, 60, 133));
         lblPreGerDes.setText("Preço");
         lblPreGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerDes.add(lblPreGerDes);
-        lblPreGerDes.setBounds(890, 180, 50, 20);
+        lblPreGerDes.setBounds(860, 210, 50, 20);
 
         lblR$GerDes.setFont(fontmed(13));
         lblR$GerDes.setText("R$");
         lblR$GerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerDes.add(lblR$GerDes);
-        lblR$GerDes.setBounds(890, 180, 20, 21);
+        lblR$GerDes.setBounds(860, 210, 20, 20);
 
         txtDatGerDes.setBackground(new java.awt.Color(241, 241, 241));
         txtDatGerDes.setFont(fontmed(13));
@@ -8026,7 +8445,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerDes.add(txtDatGerDes);
-        txtDatGerDes.setBounds(890, 240, 130, 20);
+        txtDatGerDes.setBounds(860, 260, 100, 20);
 
         txtDesGerDes.setBackground(new java.awt.Color(241, 241, 241));
         txtDesGerDes.setFont(fontmed(13));
@@ -8040,19 +8459,19 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerDes.add(txtDesGerDes);
-        txtDesGerDes.setBounds(890, 120, 190, 20);
+        txtDesGerDes.setBounds(860, 160, 190, 20);
 
         sepPreGerDes.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerDes.add(sepPreGerDes);
-        sepPreGerDes.setBounds(890, 200, 100, 10);
+        sepPreGerDes.setBounds(860, 230, 100, 10);
 
         sepDatGerDes.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerDes.add(sepDatGerDes);
-        sepDatGerDes.setBounds(890, 260, 130, 10);
+        sepDatGerDes.setBounds(860, 280, 100, 10);
 
         sepDesGerDes.setForeground(new java.awt.Color(10, 60, 133));
         pnlGerDes.add(sepDesGerDes);
-        sepDesGerDes.setBounds(890, 140, 190, 10);
+        sepDesGerDes.setBounds(860, 180, 190, 10);
 
         txtPreGerDes.setBackground(new java.awt.Color(241, 241, 241));
         txtPreGerDes.setFont(fontmed(13));
@@ -8066,7 +8485,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerDes.add(txtPreGerDes);
-        txtPreGerDes.setBounds(910, 180, 80, 20);
+        txtPreGerDes.setBounds(880, 210, 80, 20);
 
         btnExcGerDes.setFont(fontmed(12));
         btnExcGerDes.setForeground(new java.awt.Color(10, 60, 133));
@@ -8078,7 +8497,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerDes.add(btnExcGerDes);
-        btnExcGerDes.setBounds(990, 300, 90, 30);
+        btnExcGerDes.setBounds(960, 310, 90, 30);
 
         btnAltGerDes.setFont(fontmed(12));
         btnAltGerDes.setForeground(new java.awt.Color(10, 60, 133));
@@ -8090,7 +8509,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerDes.add(btnAltGerDes);
-        btnAltGerDes.setBounds(890, 300, 90, 30);
+        btnAltGerDes.setBounds(860, 310, 90, 30);
 
         btnCanGerDes.setFont(fontmed(12));
         btnCanGerDes.setForeground(new java.awt.Color(10, 60, 133));
@@ -8102,14 +8521,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlGerDes.add(btnCanGerDes);
-        btnCanGerDes.setBounds(890, 340, 90, 30);
+        btnCanGerDes.setBounds(960, 350, 90, 30);
 
         lblDesTipSer3.setFont(fontmed(12));
         lblDesTipSer3.setForeground(new java.awt.Color(10, 60, 133));
-        lblDesTipSer3.setText("Escolha um para alterar ou excluir");
+        lblDesTipSer3.setText("Escolha o afazer para alterar ou excluir");
         lblDesTipSer3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlGerDes.add(lblDesTipSer3);
-        lblDesTipSer3.setBounds(120, 110, 260, 20);
+        lblDesTipSer3.setBounds(140, 110, 260, 20);
 
         scrGerDes.setBackground(new java.awt.Color(250, 250, 250));
         scrGerDes.setBorder(BorderFactory.createEmptyBorder());
@@ -8141,461 +8560,9 @@ public final class main extends javax.swing.JFrame {
         scrGerDes.setViewportView(tblGerDes);
 
         pnlGerDes.add(scrGerDes);
-        scrGerDes.setBounds(120, 140, 650, 190);
+        scrGerDes.setBounds(140, 140, 570, 250);
 
         pnlPrincipal.add(pnlGerDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
-
-        pnlVen.setBackground(new java.awt.Color(241, 241, 241));
-        pnlVen.setLayout(null);
-
-        lblNovaEntradaItens14.setFont(fontbold(25));
-        lblNovaEntradaItens14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNovaEntradaItens14.setText("Planos");
-        pnlVen.add(lblNovaEntradaItens14);
-        lblNovaEntradaItens14.setBounds(0, 30, 1200, 30);
-
-        scrVen.setBackground(new java.awt.Color(241, 241, 241));
-        scrVen.setBorder(BorderFactory.createEmptyBorder());
-
-        tblVen.setBackground(new java.awt.Color(241, 241, 241));
-        tblVen.setBorder(null);
-        tblVen.setFont(fontmed(10));
-        tblVen.setForeground(new java.awt.Color(229, 192, 191));
-        tblVen.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tblVen.setFocusable(false);
-        tblVen.setGridColor(new java.awt.Color(192, 211, 250));
-        tblVen.setOpaque(false);
-        tblVen.setSelectionBackground(new java.awt.Color(255, 51, 0));
-        tblVen.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblVen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblVenMouseClicked(evt);
-            }
-        });
-        scrVen.setViewportView(tblVen);
-
-        pnlVen.add(scrVen);
-        scrVen.setBounds(110, 100, 980, 220);
-
-        btnCopAVen.setFont(fontmed(12));
-        btnCopAVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnCopAVen.setText("Acesso");
-        btnCopAVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCopAVen.setEnabled(false);
-        btnCopAVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCopAVenActionPerformed(evt);
-            }
-        });
-        pnlVen.add(btnCopAVen);
-        btnCopAVen.setBounds(660, 360, 100, 30);
-
-        btnCopVen.setFont(fontmed(12));
-        btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnCopVen.setText("CPF");
-        btnCopVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCopVen.setEnabled(false);
-        btnCopVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCopVenActionPerformed(evt);
-            }
-        });
-        pnlVen.add(btnCopVen);
-        btnCopVen.setBounds(550, 360, 100, 30);
-
-        btnAltVen.setFont(fontmed(12));
-        btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnAltVen.setText("Alterar");
-        btnAltVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAltVen.setEnabled(false);
-        btnAltVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAltVenActionPerformed(evt);
-            }
-        });
-        pnlVen.add(btnAltVen);
-        btnAltVen.setBounds(770, 360, 100, 30);
-
-        btnWppVen.setFont(fontmed(12));
-        btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnWppVen.setText("Limpar");
-        btnWppVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnWppVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnWppVenActionPerformed(evt);
-            }
-        });
-        pnlVen.add(btnWppVen);
-        btnWppVen.setBounds(990, 360, 100, 30);
-
-        btnVolVen.setFont(fontmed(12));
-        btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnVolVen.setText("Voltar");
-        btnVolVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVolVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolVenActionPerformed(evt);
-            }
-        });
-        pnlVen.add(btnVolVen);
-        btnVolVen.setBounds(110, 360, 100, 30);
-
-        btnExcVen.setFont(fontmed(12));
-        btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnExcVen.setText("Excluir");
-        btnExcVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExcVen.setEnabled(false);
-        btnExcVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcVenActionPerformed(evt);
-            }
-        });
-        pnlVen.add(btnExcVen);
-        btnExcVen.setBounds(880, 360, 100, 30);
-
-        lblConPlaVen.setFont(fontbold(12));
-        lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblConPlaVen.setText("0");
-        lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlVen.add(lblConPlaVen);
-        lblConPlaVen.setBounds(270, 320, 50, 40);
-
-        lblBusVen2.setFont(fontmed(11));
-        lblBusVen2.setForeground(new java.awt.Color(10, 60, 133));
-        lblBusVen2.setText("Planos ativados este mês:");
-        lblBusVen2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlVen.add(lblBusVen2);
-        lblBusVen2.setBounds(110, 330, 160, 20);
-
-        lblErrVen.setFont(fontbold(10));
-        lblErrVen.setForeground(new java.awt.Color(204, 51, 0));
-        lblErrVen.setText("Nenhum registro encontrado!");
-        lblErrVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlVen.add(lblErrVen);
-        lblErrVen.setBounds(270, 390, 200, 30);
-
-        lblBusVen.setFont(fontmed(12));
-        lblBusVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblBusVen.setText("Buscar");
-        lblBusVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlVen.add(lblBusVen);
-        lblBusVen.setBounds(270, 370, 90, 20);
-
-        txtBusVen.setBackground(new java.awt.Color(241, 241, 241));
-        txtBusVen.setFont(fontmed(13));
-        txtBusVen.setBorder(null);
-        txtBusVen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtBusVenFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtBusVenFocusLost(evt);
-            }
-        });
-        txtBusVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBusVenActionPerformed(evt);
-            }
-        });
-        txtBusVen.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBusVenKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBusVenKeyTyped(evt);
-            }
-        });
-        pnlVen.add(txtBusVen);
-        txtBusVen.setBounds(270, 370, 210, 20);
-
-        sepBusVen.setForeground(new java.awt.Color(10, 60, 133));
-        pnlVen.add(sepBusVen);
-        sepBusVen.setBounds(270, 390, 210, 10);
-
-        pnlPrincipal.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
-
-        pnlCadVen.setBackground(new java.awt.Color(241, 241, 241));
-        pnlCadVen.setLayout(null);
-
-        lblCadastrarPlano.setFont(fontbold(25));
-        lblCadastrarPlano.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCadastrarPlano.setText("Cadastrar Plano");
-        pnlCadVen.add(lblCadastrarPlano);
-        lblCadastrarPlano.setBounds(0, 30, 1200, 30);
-
-        lblAceCadVen.setFont(fontmed(12));
-        lblAceCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblAceCadVen.setText("Acesso");
-        lblAceCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadVen.add(lblAceCadVen);
-        lblAceCadVen.setBounds(350, 260, 60, 20);
-
-        txtAceCadVen.setBackground(new java.awt.Color(241, 241, 241));
-        txtAceCadVen.setFont(fontmed(13));
-        txtAceCadVen.setBorder(null);
-        txtAceCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtAceCadVenFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtAceCadVenFocusLost(evt);
-            }
-        });
-        txtAceCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtAceCadVenKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtAceCadVenKeyTyped(evt);
-            }
-        });
-        pnlCadVen.add(txtAceCadVen);
-        txtAceCadVen.setBounds(350, 260, 190, 20);
-
-        sepTelCadVen1.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadVen.add(sepTelCadVen1);
-        sepTelCadVen1.setBounds(350, 280, 190, 10);
-
-        lblVenCadVen.setFont(fontmed(12));
-        lblVenCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblVenCadVen.setText("Vencimento");
-        lblVenCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadVen.add(lblVenCadVen);
-        lblVenCadVen.setBounds(650, 210, 90, 20);
-
-        txtVenCadVen.setBackground(new java.awt.Color(241, 241, 241));
-        txtVenCadVen.setFont(fontmed(13));
-        txtVenCadVen.setBorder(null);
-        txtVenCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtVenCadVenFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtVenCadVenFocusLost(evt);
-            }
-        });
-        txtVenCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtVenCadVenKeyTyped(evt);
-            }
-        });
-        pnlCadVen.add(txtVenCadVen);
-        txtVenCadVen.setBounds(650, 210, 190, 20);
-
-        sepVenCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadVen.add(sepVenCadVen);
-        sepVenCadVen.setBounds(650, 230, 190, 10);
-
-        btnSalCadVen.setFont(fontmed(12));
-        btnSalCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnSalCadVen.setText("Salvar");
-        btnSalCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalCadVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalCadVenActionPerformed(evt);
-            }
-        });
-        pnlCadVen.add(btnSalCadVen);
-        btnSalCadVen.setBounds(650, 270, 90, 30);
-
-        btnCanCadVen.setFont(fontmed(12));
-        btnCanCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnCanCadVen.setText("Cancelar");
-        btnCanCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCanCadVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCanCadVenActionPerformed(evt);
-            }
-        });
-        pnlCadVen.add(btnCanCadVen);
-        btnCanCadVen.setBounds(750, 270, 90, 30);
-
-        lblPlaCadVen.setFont(fontmed(12));
-        lblPlaCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblPlaCadVen.setText("Plano");
-        lblPlaCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadVen.add(lblPlaCadVen);
-        lblPlaCadVen.setBounds(650, 110, 50, 20);
-
-        txtPlaCadVen.setBackground(new java.awt.Color(241, 241, 241));
-        txtPlaCadVen.setFont(fontmed(13));
-        txtPlaCadVen.setBorder(null);
-        txtPlaCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPlaCadVenFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPlaCadVenFocusLost(evt);
-            }
-        });
-        txtPlaCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPlaCadVenKeyReleased(evt);
-            }
-        });
-        pnlCadVen.add(txtPlaCadVen);
-        txtPlaCadVen.setBounds(650, 110, 190, 20);
-
-        sepPlaCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadVen.add(sepPlaCadVen);
-        sepPlaCadVen.setBounds(650, 130, 190, 10);
-
-        lblCliCadVen.setFont(fontmed(12));
-        lblCliCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblCliCadVen.setText("Cliente");
-        lblCliCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadVen.add(lblCliCadVen);
-        lblCliCadVen.setBounds(350, 110, 60, 20);
-
-        txtCliCadVen.setBackground(new java.awt.Color(241, 241, 241));
-        txtCliCadVen.setFont(fontmed(13));
-        txtCliCadVen.setBorder(null);
-        txtCliCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCliCadVenFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCliCadVenFocusLost(evt);
-            }
-        });
-        txtCliCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCliCadVenKeyReleased(evt);
-            }
-        });
-        pnlCadVen.add(txtCliCadVen);
-        txtCliCadVen.setBounds(350, 110, 190, 20);
-
-        sepCliCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadVen.add(sepCliCadVen);
-        sepCliCadVen.setBounds(350, 130, 190, 10);
-
-        lblTelCadVen.setFont(fontmed(12));
-        lblTelCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblTelCadVen.setText("Telefone");
-        lblTelCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadVen.add(lblTelCadVen);
-        lblTelCadVen.setBounds(350, 210, 60, 20);
-
-        txtTelCadVen.setBackground(new java.awt.Color(241, 241, 241));
-        txtTelCadVen.setFont(fontmed(13));
-        txtTelCadVen.setBorder(null);
-        txtTelCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtTelCadVenFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTelCadVenFocusLost(evt);
-            }
-        });
-        txtTelCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTelCadVenKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTelCadVenKeyTyped(evt);
-            }
-        });
-        pnlCadVen.add(txtTelCadVen);
-        txtTelCadVen.setBounds(350, 210, 190, 20);
-
-        sepTelCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadVen.add(sepTelCadVen);
-        sepTelCadVen.setBounds(350, 230, 190, 10);
-
-        lblDatCadVen.setFont(fontmed(12));
-        lblDatCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblDatCadVen.setText("Data");
-        lblDatCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadVen.add(lblDatCadVen);
-        lblDatCadVen.setBounds(650, 160, 50, 20);
-
-        txtDatCadVen.setBackground(new java.awt.Color(241, 241, 241));
-        txtDatCadVen.setFont(fontmed(13));
-        txtDatCadVen.setBorder(null);
-        txtDatCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDatCadVenFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDatCadVenFocusLost(evt);
-            }
-        });
-        txtDatCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDatCadVenKeyTyped(evt);
-            }
-        });
-        pnlCadVen.add(txtDatCadVen);
-        txtDatCadVen.setBounds(650, 160, 190, 20);
-
-        sepDatCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadVen.add(sepDatCadVen);
-        sepDatCadVen.setBounds(650, 180, 190, 10);
-
-        lblCli.setText("jLabel1");
-        pnlCadVen.add(lblCli);
-        lblCli.setBounds(150, 160, 37, 16);
-        lblCli.setVisible(false);
-
-        lblVen.setText("jLabel3");
-        pnlCadVen.add(lblVen);
-        lblVen.setBounds(150, 220, 37, 16);
-        lblVen.setVisible(false);
-
-        lblDat.setText("jLabel5");
-        pnlCadVen.add(lblDat);
-        lblDat.setBounds(150, 190, 37, 16);
-        lblDat.setVisible(false);
-
-        lblCpfCadVen.setFont(fontmed(12));
-        lblCpfCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblCpfCadVen.setText("CPF");
-        lblCpfCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        pnlCadVen.add(lblCpfCadVen);
-        lblCpfCadVen.setBounds(350, 160, 70, 20);
-
-        sepCadVen.setForeground(new java.awt.Color(10, 60, 133));
-        pnlCadVen.add(sepCadVen);
-        sepCadVen.setBounds(350, 180, 190, 10);
-
-        txtCpfCadVen.setBackground(new java.awt.Color(241, 241, 241));
-        txtCpfCadVen.setFont(fontmed(13));
-        txtCpfCadVen.setBorder(null);
-        txtCpfCadVen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCpfCadVenFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCpfCadVenFocusLost(evt);
-            }
-        });
-        txtCpfCadVen.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCpfCadVenKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCpfCadVenKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCpfCadVenKeyTyped(evt);
-            }
-        });
-        pnlCadVen.add(txtCpfCadVen);
-        txtCpfCadVen.setBounds(350, 160, 190, 20);
-
-        pnlPrincipal.add(pnlCadVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
         pnlJur.setBackground(new java.awt.Color(241, 241, 241));
         pnlJur.setLayout(null);
@@ -8616,7 +8583,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(btnVolJur);
-        btnVolJur.setBounds(290, 240, 100, 30);
+        btnVolJur.setBounds(290, 260, 100, 30);
 
         btnCalJur.setFont(fontmed(12));
         btnCalJur.setForeground(new java.awt.Color(10, 60, 133));
@@ -8628,7 +8595,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(btnCalJur);
-        btnCalJur.setBounds(180, 240, 100, 30);
+        btnCalJur.setBounds(180, 260, 100, 30);
 
         lblValMesPreJur.setFont(fontmed(16));
         lblValMesPreJur.setForeground(new java.awt.Color(10, 60, 133));
@@ -8666,7 +8633,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValParJur);
-        lblValParJur.setBounds(910, 250, 140, 20);
+        lblValParJur.setBounds(910, 260, 140, 20);
 
         lblValParJur1.setFont(fontbold(16));
         lblValParJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -8684,20 +8651,20 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValParJur1);
-        lblValParJur1.setBounds(910, 220, 140, 20);
+        lblValParJur1.setBounds(910, 230, 140, 20);
 
         lblValJur.setFont(fontmed(12));
         lblValJur.setForeground(new java.awt.Color(10, 60, 133));
         lblValJur.setText("Preço");
         lblValJur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlJur.add(lblValJur);
-        lblValJur.setBounds(180, 180, 70, 20);
+        lblValJur.setBounds(180, 200, 70, 20);
 
         lblR$Jur.setFont(fontmed(13));
         lblR$Jur.setText("R$");
         lblR$Jur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlJur.add(lblR$Jur);
-        lblR$Jur.setBounds(180, 180, 20, 21);
+        lblR$Jur.setBounds(180, 200, 20, 21);
 
         txtValJur.setBackground(new java.awt.Color(241, 241, 241));
         txtValJur.setFont(fontmed(13));
@@ -8716,21 +8683,21 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(txtValJur);
-        txtValJur.setBounds(200, 180, 70, 20);
+        txtValJur.setBounds(200, 200, 70, 20);
 
         sepDesGerTipSer10.setForeground(new java.awt.Color(10, 60, 133));
         pnlJur.add(sepDesGerTipSer10);
-        sepDesGerTipSer10.setBounds(180, 200, 90, 10);
+        sepDesGerTipSer10.setBounds(180, 220, 90, 10);
 
         sepDesGerTipSer11.setForeground(new java.awt.Color(10, 60, 133));
         pnlJur.add(sepDesGerTipSer11);
-        sepDesGerTipSer11.setBounds(180, 200, 90, 10);
+        sepDesGerTipSer11.setBounds(180, 220, 90, 10);
 
         sepDesGerTipSer16.setBackground(new java.awt.Color(10, 60, 133));
         sepDesGerTipSer16.setForeground(new java.awt.Color(10, 60, 133));
         sepDesGerTipSer16.setOrientation(javax.swing.SwingConstants.VERTICAL);
         pnlJur.add(sepDesGerTipSer16);
-        sepDesGerTipSer16.setBounds(600, 120, 30, 240);
+        sepDesGerTipSer16.setBounds(600, 130, 30, 240);
 
         lblValJur2.setFont(fontmed(16));
         lblValJur2.setForeground(new java.awt.Color(10, 60, 133));
@@ -8749,7 +8716,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValJur2);
-        lblValJur2.setBounds(750, 160, 130, 20);
+        lblValJur2.setBounds(750, 180, 130, 20);
 
         lblValJur3.setFont(fontbold(16));
         lblValJur3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -8767,14 +8734,14 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValJur3);
-        lblValJur3.setBounds(750, 130, 130, 20);
+        lblValJur3.setBounds(750, 150, 130, 20);
 
         lblParJur.setFont(fontmed(12));
         lblParJur.setForeground(new java.awt.Color(10, 60, 133));
         lblParJur.setText("parcela(s)");
         lblParJur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlJur.add(lblParJur);
-        lblParJur.setBounds(360, 184, 70, 20);
+        lblParJur.setBounds(360, 200, 70, 20);
 
         lblValFinJur.setFont(fontmed(16));
         lblValFinJur.setForeground(new java.awt.Color(10, 60, 133));
@@ -8793,7 +8760,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValFinJur);
-        lblValFinJur.setBounds(900, 160, 150, 20);
+        lblValFinJur.setBounds(900, 180, 150, 20);
 
         lblValJurJur.setFont(fontmed(16));
         lblValJurJur.setForeground(new java.awt.Color(10, 60, 133));
@@ -8812,7 +8779,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValJurJur);
-        lblValJurJur.setBounds(740, 250, 150, 20);
+        lblValJurJur.setBounds(740, 260, 150, 20);
 
         lblValFinJur1.setFont(fontbold(16));
         lblValFinJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -8830,11 +8797,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblValFinJur1);
-        lblValFinJur1.setBounds(900, 130, 150, 20);
+        lblValFinJur1.setBounds(900, 150, 150, 20);
 
         lblJurJur1.setFont(fontbold(16));
         lblJurJur1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblJurJur1.setText("Para mesmo preço à vista");
+        lblJurJur1.setText("Para receber o mesmo preço à vista");
         lblJurJur1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblJurJur1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -8848,7 +8815,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblJurJur1);
-        lblJurJur1.setBounds(770, 310, 260, 20);
+        lblJurJur1.setBounds(750, 310, 300, 20);
 
         lblJurJur.setFont(fontbold(16));
         lblJurJur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -8866,22 +8833,15 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlJur.add(lblJurJur);
-        lblJurJur.setBounds(750, 220, 130, 20);
+        lblJurJur.setBounds(750, 230, 130, 20);
 
-        spnParJur.setModel(new javax.swing.SpinnerNumberModel(1, 0, 12, 1));
         spnParJur.setFont(fontmed(13));
+        spnParJur.setModel(new javax.swing.SpinnerNumberModel(0, 0, 12, 1));
         spnParJur.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        spnParJur.setEditor(new javax.swing.JSpinner.NumberEditor(spnParJur, ""));
-        spnParJur.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                spnParJurKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                spnParJurKeyTyped(evt);
-            }
-        });
+        JSpinner.DefaultEditor spnParJur1 = (JSpinner.DefaultEditor) spnParJur.getEditor();
+        spnParJur1.getTextField().setEditable(false);
         pnlJur.add(spnParJur);
-        spnParJur.setBounds(300, 174, 55, 30);
+        spnParJur.setBounds(290, 190, 60, 30);
 
         pnlPrincipal.add(pnlJur, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 520));
 
@@ -8906,7 +8866,7 @@ public final class main extends javax.swing.JFrame {
                 es.setDetalhes(txtDetCadEst.getText());
                 es.setLocalizacao(txtLocCadEst.getText());
                 es.setPreco(Double.valueOf(txtPreCadEst.getText().replace(".", "").replace(",", ".")));
-                es.setQuantidade(Integer.parseInt(txtQuaCadEst.getText()));
+                es.setQuantidade(Integer.valueOf(txtQuaCadEst.getText()));
 
                 if (txtTipCadEst.getText().equals("Chip")) {
                     es.setTipochip((String) cmbChiCadEst.getSelectedItem());
@@ -8941,7 +8901,7 @@ public final class main extends javax.swing.JFrame {
                 es.setDetalhes(txtDetCadEst.getText());
                 es.setLocalizacao(txtLocCadEst.getText());
                 es.setPreco(Double.valueOf(txtPreCadEst.getText().replace(".", "").replace(",", ".")));
-                es.setQuantidade(Integer.parseInt(txtQuaCadEst.getText()));
+                es.setQuantidade(Integer.valueOf(txtQuaCadEst.getText()));
 
                 if (txtTipCadEst.getText().equals("Chip")) {
                     es.setTipochip((String) cmbChiCadEst.getSelectedItem());
@@ -8958,7 +8918,7 @@ public final class main extends javax.swing.JFrame {
                 for (int i = 0; i < rows; i++) {
 
                     es.setCor(tblVarCorCadEst.getValueAt(i, 0).toString());
-                    es.setQuantidade(Integer.parseInt(tblVarCorCadEst.getValueAt(i, 1).toString()));
+                    es.setQuantidade(Integer.valueOf(tblVarCorCadEst.getValueAt(i, 1).toString()));
 
                     if (!esdao.verifica(es)) {
                         esdao.inserir(es);
@@ -8972,9 +8932,13 @@ public final class main extends javax.swing.JFrame {
 
             }
 
+            DefaultTableModel model = (DefaultTableModel) tblCadEst.getModel();
+            model.setRowCount(0);
+            DefaultTableModel model1 = (DefaultTableModel) tblVarCorCadEst.getModel();
+            model1.setRowCount(0);
+
             pnlCadEst.setVisible(false);
             pnlContent.setVisible(true);
-            //
 
         } catch (SQLException ex) {
 
@@ -9091,6 +9055,11 @@ public final class main extends javax.swing.JFrame {
                 tblCadEst.setVisible(false);
                 scrCadEst.setVisible(false);
 
+                DefaultTableModel model = (DefaultTableModel) tblCadEst.getModel();
+                model.setRowCount(0);
+                DefaultTableModel model1 = (DefaultTableModel) tblVarCorCadEst.getModel();
+                model1.setRowCount(0);
+
             }
 
         } else {
@@ -9102,34 +9071,44 @@ public final class main extends javax.swing.JFrame {
             tblCadEst.setVisible(false);
             scrCadEst.setVisible(false);
 
+            DefaultTableModel model = (DefaultTableModel) tblCadEst.getModel();
+            model.setRowCount(0);
+            DefaultTableModel model1 = (DefaultTableModel) tblVarCorCadEst.getModel();
+            model1.setRowCount(0);
+
         }
     }//GEN-LAST:event_btnCanCadEstActionPerformed
 
     private void btnSalTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalTipSerActionPerformed
-        try {
-            tiposervico ts = new tiposervico();
-            tiposervicoDAO tsdao = new tiposervicoDAO();
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja cadastrar este serviço?", "Cadastrar Serviço", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-            ts.setDescricao(txtDesTipSer.getText());
+        if (resp == JOptionPane.YES_OPTION) {
 
-            if (rbtnSerTimTipSer.isSelected()) {
-                ts.setArea("1");
-            } else if (rbtnAssTipSer.isSelected()) {
-                ts.setArea("2");
-            } else {
-                ts.setArea("3");
+            try {
+
+                tiposervico ts = new tiposervico();
+                tiposervicoDAO tsdao = new tiposervicoDAO();
+
+                ts.setDescricao(txtDesTipSer.getText());
+
+                if (rbtnSerTimTipSer.isSelected()) {
+                    ts.setArea("1");
+                } else if (rbtnAssTipSer.isSelected()) {
+                    ts.setArea("2");
+                } else {
+                    ts.setArea("3");
+                }
+
+                tsdao.inserir(ts);
+
+                JOptionPane.showMessageDialog(null, "Serviço cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                pnlCadTipSer.setVisible(false);
+                pnlContent.setVisible(true);
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
-
-            tsdao.inserir(ts);
-
-            JOptionPane.showMessageDialog(null, "Inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-            pnlCadTipSer.setVisible(false);
-            pnlContent.setVisible(true);
-
-        } catch (SQLException ex) {
-
-            JOptionPane.showMessageDialog(null, "Erro ao inserir! Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_btnSalTipSerActionPerformed
@@ -9176,14 +9155,14 @@ public final class main extends javax.swing.JFrame {
         btnGroup.clearSelection();
         btnSalTipSer.setEnabled(false);
         txtDesTipSer.setText(null);
-        // lblDesTipSer.setLocation(505, 110);
+        lblDesTipSer.setLocation(460, 170);
 
         txtDesTipSer.setEnabled(false);
         lblDesTipSer.setEnabled(false);
         sepDesTipSer.setForeground(Color.GRAY);
 
-        pnlCadTipSer.setVisible(true);
         pnlContent.setVisible(false);
+        pnlCadTipSer.setVisible(true);
     }//GEN-LAST:event_btnCadTipSerMouseReleased
 
     private void btnCadTipSerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadTipSerMouseEntered
@@ -9214,7 +9193,7 @@ public final class main extends javax.swing.JFrame {
             rbtnAssGerTipSer.setEnabled(false);
             rbtnTimGerTipSer.setEnabled(false);
             btnGroup.clearSelection();
-            lblDesGerTipSer.setLocation(510, 240);
+            lblDesGerTipSer.setLocation(460, 330);
 
             txtDesGerTipSer.setEnabled(false);
             lblDesGerTipSer.setEnabled(false);
@@ -9224,9 +9203,7 @@ public final class main extends javax.swing.JFrame {
             pnlContent.setVisible(false);
 
         } else {
-
-            JOptionPane.showMessageDialog(null, "Sem tipo de serviço para gerenciar. Cadastre-o primeiro!", "Gerenciar Tipo de Serviço", JOptionPane.INFORMATION_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, "Sem serviço para gerenciar. Cadastre-o primeiro!", "Gerenciar Tipo de Serviço", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnGerTipSerMouseReleased
 
@@ -9328,19 +9305,20 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConEstMouseExited
 
     private void btnConEstMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConEstMouseReleased
-        txtBusConEst.setText(null);
-//            lblBusConEst.setLocation(450, 110);
-        btnGroup.clearSelection();
-
-        scrConEst.setVisible(false);
         btnBusConEst.setEnabled(false);
-
+        txtBusConEst.setText(null);
         txtBusConEst.setEnabled(false);
         lblBusConEst.setEnabled(false);
         sepBusConEst.setForeground(Color.GRAY);
 
-        pnlConEst.setVisible(true);
+        lblBusConEst.setLocation(450, 150);
+
+        btnGroup.clearSelection();
+
+        scrConEst.setVisible(false);
+
         pnlContent.setVisible(false);
+        pnlConEst.setVisible(true);
     }//GEN-LAST:event_btnConEstMouseReleased
 
     private void btnGerEstMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerEstMouseEntered
@@ -9404,7 +9382,7 @@ public final class main extends javax.swing.JFrame {
 
         tblGerEst.setVisible(false);
         scrGerEst.setVisible(false);
-        chkAltGerEst.setVisible(false);
+        chkAltGerEst.setEnabled(false);
         chkAltGerEst.setSelected(false);
 
         txtMar1GerEst.setVisible(false);
@@ -9427,15 +9405,27 @@ public final class main extends javax.swing.JFrame {
         txtDetGerEst.setText(null);
         txtBusGerEst.setText(null);
 
-//            lblMarGerEst.setLocation(730, 60);
-//            lblModGerEst.setLocation(730, 110);
-//            lblQuaGerEst.setLocation(730, 160);
-//            lblPreGerEst.setLocation(730, 210);
-//            lblCorGerEst.setLocation(1030, 60);
-//            lblMatGerEst.setLocation(1030, 110);
-//            lblLocGerEst.setLocation(1030, 160);
-//            lblDetGerEst.setLocation(1030, 210);
-//            lblBusGerEst.setLocation(180, 100);
+        txtMar1GerEst.setText(null);
+        txtMod1GerEst.setText(null);
+        txtPre1GerEst.setText(null);
+        txtQua1GerEst.setText(null);
+        txtLoc1GerEst.setText(null);
+        txtDet1GerEst.setText(null);
+        txtCor1GerEst.setText(null);
+        txtChip1GerEst.setText(null);
+        txtMat1GerEst.setText(null);
+
+        lblBusGerEst.setLocation(230, 160);
+
+        lblMarGerEst.setLocation(730, 130);
+        lblModGerEst.setLocation(730, 180);
+        lblQuaGerEst.setLocation(730, 230);
+        lblPreGerEst.setLocation(730, 280);
+        lblCorGerEst.setLocation(970, 130);
+        lblMatGerEst.setLocation(970, 180);
+        lblLocGerEst.setLocation(970, 230);
+        lblDetGerEst.setLocation(970, 280);
+
         pnlGerEst.setVisible(true);
         pnlContent.setVisible(false);
     }//GEN-LAST:event_btnGerEstMouseReleased
@@ -9456,29 +9446,26 @@ public final class main extends javax.swing.JFrame {
         txtNumAceMas.setText(null);
         txtNumPorMas.setText(null);
         txtPlaMas.setText(null);
-        btnGroup.clearSelection();
-        btnGroup1.clearSelection();
 
         chkMelMas.setSelected(false);
         chkAppMas.setSelected(false);
         chkBolMas.setSelected(true);
-        chkDebMas.setSelected(false);
-        chkCarMas.setSelected(false);
         rbtnAtiMas.setSelected(true);
 
         txtAreMas.setText(null);
 
-//            lblNomMas.setLocation(90, 60);
-//            lblCpfMas.setLocation(90, 110);
-//            lblVenMas.setLocation(90, 160);
-//            lblNumConMas.setLocation(350, 60);
-//            lblNumAceMas.setLocation(350, 110);
-//            lblNumPorMas.setLocation(350, 160);
-//            lblPlaMas.setLocation(350, 210);
         btnCopMas.setVisible(false);
 
-        pnlMas.setVisible(true);
+        lblNomMas.setLocation(80, 160);
+        lblCpfMas.setLocation(80, 210);
+        lblVenMas.setLocation(80, 260);
+        lblNumConMas.setLocation(340, 160);
+        lblNumAceMas.setLocation(340, 210);
+        lblNumPorMas.setLocation(340, 260);
+        lblPlaMas.setLocation(340, 310);
+
         pnlContent.setVisible(false);
+        pnlMas.setVisible(true);
     }//GEN-LAST:event_btnMasPlaMouseReleased
 
     private void btnCadDesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadDesMouseEntered
@@ -9495,9 +9482,10 @@ public final class main extends javax.swing.JFrame {
         txtDatDes.setText(null);
         btnSalDes.setEnabled(false);
 
-//            lblDesDes.setLocation(540, 60);
-//            lblPreDes.setLocation(540, 120);
-//            lblDatDes.setLocation(540, 180);
+        lblDesDes.setLocation(500, 110);
+        lblPreDes.setLocation(500, 160);
+        lblDatDes.setLocation(500, 210);
+
         lblR$Des.setVisible(false);
 
         pnlCadDes.setVisible(true);
@@ -9538,12 +9526,15 @@ public final class main extends javax.swing.JFrame {
                 tsdao.excluir(ts);
 
                 JOptionPane.showMessageDialog(null, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                DefaultTableModel model = (DefaultTableModel) tblTipSer.getModel();
+                model.setRowCount(0);
+
                 pnlGerTipSer.setVisible(false);
                 pnlContent.setVisible(true);
+
             } catch (SQLException ex) {
-
-                JOptionPane.showMessageDialog(null, "Erro ao excluir! Erro: " + ex.getMessage(), "Erro", JOptionPane.OK_OPTION);
-
+                JOptionPane.showMessageDialog(null, "Este serviço não pode ser excluído pois possui vínculo em alguma entrada. Desative-o para remover da lista!", "Excluir", JOptionPane.OK_OPTION);
             }
         }
     }//GEN-LAST:event_btnExcGerTipSerActionPerformed
@@ -9572,34 +9563,41 @@ public final class main extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(null, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
+                DefaultTableModel model = (DefaultTableModel) tblTipSer.getModel();
+                model.setRowCount(0);
+
                 pnlGerTipSer.setVisible(false);
                 pnlContent.setVisible(true);
 
             } catch (SQLException ex) {
-
                 JOptionPane.showMessageDialog(null, "Erro ao alterar! Erro: " + ex.getMessage(), "Erro", JOptionPane.OK_OPTION);
-
             }
         }
     }//GEN-LAST:event_btnAltGerTipSerActionPerformed
 
-    private void txtDesGerTipSerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDesGerTipSerFocusGained
-
-    }//GEN-LAST:event_txtDesGerTipSerFocusGained
-
-    private void txtDesGerTipSerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDesGerTipSerFocusLost
-
-    }//GEN-LAST:event_txtDesGerTipSerFocusLost
-
     private void btnCanGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanGerTipSerActionPerformed
-        pnlGerTipSer.setVisible(false);
-        pnlContent.setVisible(true);
+        if (!txtDesGerTipSer.getText().isEmpty()) {
+
+            int resp = JOptionPane.showOptionDialog(null, "Cancelar alteração? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+            if (resp == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) tblTipSer.getModel();
+                model.setRowCount(0);
+                pnlGerTipSer.setVisible(false);
+                pnlContent.setVisible(true);
+            }
+        } else {
+            DefaultTableModel model = (DefaultTableModel) tblTipSer.getModel();
+            model.setRowCount(0);
+            pnlGerTipSer.setVisible(false);
+            pnlContent.setVisible(true);
+        }
     }//GEN-LAST:event_btnCanGerTipSerActionPerformed
 
     private void tblTipSerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipSerMouseClicked
         if ("1".equals(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 3).toString())) {
 
-            lblDesGerTipSer.setLocation(510, 240);
+            lblDesGerTipSer.setLocation(460, 310);
 
             lblDesGerTipSer.setEnabled(true);
             txtDesGerTipSer.setEnabled(true);
@@ -9626,13 +9624,9 @@ public final class main extends javax.swing.JFrame {
 
             btnAtvGerTipSer.setText("Desativar");
 
-            if (!txtDesGerTipSer.getText().isEmpty()) {
-                anitxtin(lblDesGerTipSer);
-            }
-
         } else {
 
-            lblDesGerTipSer.setLocation(510, 240);
+            lblDesGerTipSer.setLocation(460, 310);
 
             lblDesGerTipSer.setEnabled(false);
             txtDesGerTipSer.setEnabled(false);
@@ -9656,10 +9650,6 @@ public final class main extends javax.swing.JFrame {
                 rbtnAssGerTipSer.setSelected(true);
             } else {
                 rbtnOutGerTipSer.setSelected(true);
-            }
-
-            if (!txtDesGerTipSer.getText().isEmpty()) {
-                anitxtin(lblDesGerTipSer);
             }
 
         }
@@ -9741,6 +9731,9 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBusConEstKeyTyped
 
     private void btnCanConEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanConEstActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblConEst.getModel();
+        model.setRowCount(0);
+
         pnlConEst.setVisible(false);
         pnlContent.setVisible(true);
     }//GEN-LAST:event_btnCanConEstActionPerformed
@@ -9776,7 +9769,7 @@ public final class main extends javax.swing.JFrame {
                             es.setDetalhes(txtDetGerEst.getText());
                             es.setLocalizacao(txtLocGerEst.getText());
                             es.setPreco(Double.valueOf(txtPreGerEst.getText().replace(".", "").replace(",", ".")));
-                            es.setQuantidade(Integer.parseInt(txtQuaGerEst.getText()));
+                            es.setQuantidade(Integer.valueOf(txtQuaGerEst.getText()));
 
                             if (txtTipGerEst.getText().equals("Chip")) {
                                 es.setTipochip((String) cmbChiGerEst.getSelectedItem());
@@ -9796,7 +9789,7 @@ public final class main extends javax.swing.JFrame {
                             es.setDetalhes(txtDetGerEst.getText());
                             es.setLocalizacao(txtLocGerEst.getText());
                             es.setPreco(Double.valueOf(txtPreGerEst.getText().replace(".", "").replace(",", ".")));
-                            es.setQuantidade(Integer.parseInt(txtQuaGerEst.getText()));
+                            es.setQuantidade(Integer.valueOf(txtQuaGerEst.getText()));
 
                             if (txtTipGerEst.getText().equals("Chip")) {
                                 es.setTipochip((String) cmbChiGerEst.getSelectedItem());
@@ -9854,7 +9847,7 @@ public final class main extends javax.swing.JFrame {
                                 }
 
                                 if (!txtQua1GerEst.getText().equals(txtQuaGerEst.getText())) {
-                                    es.setQuantidade(Integer.parseInt(txtQuaGerEst.getText()));
+                                    es.setQuantidade(Integer.valueOf(txtQuaGerEst.getText()));
                                 } else {
                                     es.setQuantidade(null);
                                 }
@@ -9880,15 +9873,8 @@ public final class main extends javax.swing.JFrame {
 
                         JOptionPane.showMessageDialog(null, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
-                        txtMar1GerEst.setText(null);
-                        txtMod1GerEst.setText(null);
-                        txtPre1GerEst.setText(null);
-                        txtQua1GerEst.setText(null);
-                        txtLoc1GerEst.setText(null);
-                        txtDet1GerEst.setText(null);
-                        txtCor1GerEst.setText(null);
-                        txtChip1GerEst.setText(null);
-                        txtMat1GerEst.setText(null);
+                        DefaultTableModel model = (DefaultTableModel) tblGerEst.getModel();
+                        model.setRowCount(0);
 
                         pnlGerEst.setVisible(false);
                         pnlContent.setVisible(true);
@@ -9978,7 +9964,7 @@ public final class main extends javax.swing.JFrame {
 
         lblChiGerEst.setEnabled(false);
         cmbChiGerEst.setEnabled(false);
-        cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
+        cmbChiGerEst.setSelectedIndex(0);
 
         btnAltGerEst.setEnabled(false);
         btnExcGerEst.setEnabled(false);
@@ -9997,14 +9983,17 @@ public final class main extends javax.swing.JFrame {
         txtLocGerEst.setText(null);
         txtDetGerEst.setText(null);
 
-        lblMarGerEst.setLocation(730, 60);
-        lblModGerEst.setLocation(730, 110);
-        lblQuaGerEst.setLocation(730, 160);
-        lblPreGerEst.setLocation(730, 210);
-        lblCorGerEst.setLocation(1030, 60);
-        lblMatGerEst.setLocation(1030, 110);
-        lblLocGerEst.setLocation(1030, 160);
-        lblDetGerEst.setLocation(1030, 210);
+        chkAltGerEst.setEnabled(false);
+        chkAltGerEst.setSelected(false);
+
+        lblMarGerEst.setLocation(730, 130);
+        lblModGerEst.setLocation(730, 180);
+        lblQuaGerEst.setLocation(730, 230);
+        lblPreGerEst.setLocation(730, 280);
+        lblCorGerEst.setLocation(970, 130);
+        lblMatGerEst.setLocation(970, 180);
+        lblLocGerEst.setLocation(970, 230);
+        lblDetGerEst.setLocation(970, 280);
 
         txtTipGerEst.setText(rbtnCapGerEst.getText());
         txtBusGerEst.setEnabled(true);
@@ -10058,7 +10047,7 @@ public final class main extends javax.swing.JFrame {
 
         lblChiGerEst.setEnabled(false);
         cmbChiGerEst.setEnabled(false);
-        cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
+        cmbChiGerEst.setSelectedIndex(0);
 
         btnAltGerEst.setEnabled(false);
         btnExcGerEst.setEnabled(false);
@@ -10077,14 +10066,17 @@ public final class main extends javax.swing.JFrame {
         txtLocGerEst.setText(null);
         txtDetGerEst.setText(null);
 
-        lblMarGerEst.setLocation(730, 60);
-        lblModGerEst.setLocation(730, 110);
-        lblQuaGerEst.setLocation(730, 160);
-        lblPreGerEst.setLocation(730, 210);
-        lblCorGerEst.setLocation(1030, 60);
-        lblMatGerEst.setLocation(1030, 110);
-        lblLocGerEst.setLocation(1030, 160);
-        lblDetGerEst.setLocation(1030, 210);
+        chkAltGerEst.setEnabled(false);
+        chkAltGerEst.setSelected(false);
+
+        lblMarGerEst.setLocation(730, 130);
+        lblModGerEst.setLocation(730, 180);
+        lblQuaGerEst.setLocation(730, 230);
+        lblPreGerEst.setLocation(730, 280);
+        lblCorGerEst.setLocation(970, 130);
+        lblMatGerEst.setLocation(970, 180);
+        lblLocGerEst.setLocation(970, 230);
+        lblDetGerEst.setLocation(970, 280);
 
         txtTipGerEst.setText(rbtnPelGerEst.getText());
         txtBusGerEst.setEnabled(true);
@@ -10138,7 +10130,7 @@ public final class main extends javax.swing.JFrame {
 
         lblChiGerEst.setEnabled(false);
         cmbChiGerEst.setEnabled(false);
-        cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
+        cmbChiGerEst.setSelectedIndex(0);
 
         btnAltGerEst.setEnabled(false);
         btnExcGerEst.setEnabled(false);
@@ -10157,14 +10149,17 @@ public final class main extends javax.swing.JFrame {
         txtLocGerEst.setText(null);
         txtDetGerEst.setText(null);
 
-        lblMarGerEst.setLocation(730, 60);
-        lblModGerEst.setLocation(730, 110);
-        lblQuaGerEst.setLocation(730, 160);
-        lblPreGerEst.setLocation(730, 210);
-        lblCorGerEst.setLocation(1030, 60);
-        lblMatGerEst.setLocation(1030, 110);
-        lblLocGerEst.setLocation(1030, 160);
-        lblDetGerEst.setLocation(1030, 210);
+        chkAltGerEst.setEnabled(false);
+        chkAltGerEst.setSelected(false);
+
+        lblMarGerEst.setLocation(730, 130);
+        lblModGerEst.setLocation(730, 180);
+        lblQuaGerEst.setLocation(730, 230);
+        lblPreGerEst.setLocation(730, 280);
+        lblCorGerEst.setLocation(970, 130);
+        lblMatGerEst.setLocation(970, 180);
+        lblLocGerEst.setLocation(970, 230);
+        lblDetGerEst.setLocation(970, 280);
 
         txtTipGerEst.setText(rbtnChiGerEst.getText());
         txtBusGerEst.setEnabled(true);
@@ -10216,9 +10211,9 @@ public final class main extends javax.swing.JFrame {
         lblDetGerEst.setEnabled(false);
         sepDetGerEst.setForeground(Color.GRAY);
 
+        cmbChiGerEst.setSelectedIndex(0);
         lblChiGerEst.setEnabled(false);
         cmbChiGerEst.setEnabled(false);
-        cmbChiGerEst.setSelectedItem("Triplo 4G HLR 230");
 
         btnAltGerEst.setEnabled(false);
         btnExcGerEst.setEnabled(false);
@@ -10237,14 +10232,17 @@ public final class main extends javax.swing.JFrame {
         txtLocGerEst.setText(null);
         txtDetGerEst.setText(null);
 
-        lblMarGerEst.setLocation(730, 60);
-        lblModGerEst.setLocation(730, 110);
-        lblQuaGerEst.setLocation(730, 160);
-        lblPreGerEst.setLocation(730, 210);
-        lblCorGerEst.setLocation(1030, 60);
-        lblMatGerEst.setLocation(1030, 110);
-        lblLocGerEst.setLocation(1030, 160);
-        lblDetGerEst.setLocation(1030, 210);
+        chkAltGerEst.setEnabled(false);
+        chkAltGerEst.setSelected(false);
+
+        lblMarGerEst.setLocation(730, 130);
+        lblModGerEst.setLocation(730, 180);
+        lblQuaGerEst.setLocation(730, 230);
+        lblPreGerEst.setLocation(730, 280);
+        lblCorGerEst.setLocation(970, 130);
+        lblMatGerEst.setLocation(970, 180);
+        lblLocGerEst.setLocation(970, 230);
+        lblDetGerEst.setLocation(970, 280);
 
         txtTipGerEst.setText(rbtnAceGerEst.getText());
         txtBusGerEst.setEnabled(true);
@@ -10390,7 +10388,7 @@ public final class main extends javax.swing.JFrame {
             scrGerEst.setVisible(true);
             tblGerEst.setVisible(true);
 
-            chkAltGerEst.setVisible(true);
+            chkAltGerEst.setEnabled(false);
             chkAltGerEst.setSelected(false);
 
         } else {
@@ -10443,24 +10441,16 @@ public final class main extends javax.swing.JFrame {
 
                     }
 
-                    txtMar1GerEst.setText(null);
-                    txtMod1GerEst.setText(null);
-                    txtPre1GerEst.setText(null);
-                    txtQua1GerEst.setText(null);
-                    txtLoc1GerEst.setText(null);
-                    txtDet1GerEst.setText(null);
-                    txtCor1GerEst.setText(null);
-                    txtChip1GerEst.setText(null);
-                    txtMat1GerEst.setText(null);
-
                     JOptionPane.showMessageDialog(null, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    DefaultTableModel model = (DefaultTableModel) tblGerEst.getModel();
+                    model.setRowCount(0);
 
                     pnlGerEst.setVisible(false);
                     pnlContent.setVisible(true);
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(main.class
-                            .getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -10473,14 +10463,14 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBusGerEstKeyTyped
 
     private void tblGerEstMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGerEstMouseClicked
-        lblMarGerEst.setLocation(730, 60);
-        lblModGerEst.setLocation(730, 110);
-        lblQuaGerEst.setLocation(730, 160);
-        lblPreGerEst.setLocation(730, 210);
-        lblCorGerEst.setLocation(1030, 60);
-        lblMatGerEst.setLocation(1030, 110);
-        lblLocGerEst.setLocation(1030, 160);
-        lblDetGerEst.setLocation(1030, 210);
+        lblMarGerEst.setLocation(730, 130);
+        lblModGerEst.setLocation(730, 180);
+        lblQuaGerEst.setLocation(730, 230);
+        lblPreGerEst.setLocation(730, 280);
+        lblCorGerEst.setLocation(970, 130);
+        lblMatGerEst.setLocation(970, 180);
+        lblLocGerEst.setLocation(970, 230);
+        lblDetGerEst.setLocation(970, 280);
 
         txtModGerEst.setEnabled(false);
         lblModGerEst.setEnabled(false);
@@ -10607,6 +10597,9 @@ public final class main extends javax.swing.JFrame {
 
             }
 
+            chkAltGerEst.setEnabled(true);
+            chkAltGerEst.setSelected(false);
+
         } else if (txtTipGerEst.getText().equals("Chip")) {
 
             txtPreGerEst.setEnabled(true);
@@ -10731,6 +10724,9 @@ public final class main extends javax.swing.JFrame {
                 txtMat1GerEst.setText(tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 8).toString());
 
             }
+
+            chkAltGerEst.setEnabled(true);
+            chkAltGerEst.setSelected(false);
 
         }
 
@@ -11602,8 +11598,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnSerRelActionPerformed
 
@@ -11652,8 +11647,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnVenRelActionPerformed
 
@@ -11699,12 +11693,10 @@ public final class main extends javax.swing.JFrame {
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
-
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnTodRelActionPerformed
 
@@ -11842,8 +11834,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnAssRelActionPerformed
 
@@ -11917,14 +11908,11 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 5, 1, null, null, 0);
         }
 
-        if (txtDatIniRel.hasFocus()) {
+        if (!txtDatIniRel.getText().isEmpty() || !txtDatFinRel.getText().isEmpty()) {
             txtDatIniRel.setText(null);
             txtDatFinRel.setText(null);
-            lblDatFinRel.setLocation(430, 150);
-        } else if (txtDatFinRel.hasFocus()) {
-            txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-            lblDatIniRel.setLocation(290, 150);
+            lblDatFinRel.setLocation(420, 220);
+            lblDatIniRel.setLocation(270, 220);
         }
 
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
@@ -11970,10 +11958,6 @@ public final class main extends javax.swing.JFrame {
         lblDiaRel.setVisible(true);
         lblDiaRel.setText("Este dia");
 
-        btnMaiDiaRel.setLocation(85, 65);
-        btnMenDiaRel.setLocation(60, 65);
-        lblDiaRel.setLocation(60, 85);
-
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontbold(13));
         btnSemRel.setFont(fontmed(12));
@@ -11994,16 +11978,6 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 5, 2, null, null, 0);
         }
 
-        if (txtDatIniRel.hasFocus()) {
-            txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-            lblDatFinRel.setLocation(430, 150);
-        } else if (txtDatFinRel.hasFocus()) {
-            txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-            lblDatIniRel.setLocation(290, 150);
-        }
-
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
             if (rbtnVenRel.isSelected()) {
                 cmbrelatorio(tblRel, cmbRel, 2);
@@ -12013,6 +11987,13 @@ public final class main extends javax.swing.JFrame {
         } else {
             cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
+        }
+
+        if (!txtDatIniRel.getText().isEmpty() || !txtDatFinRel.getText().isEmpty()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatFinRel.setLocation(420, 220);
+            lblDatIniRel.setLocation(270, 220);
         }
 
         if (lblResRel.isVisible()) {
@@ -12045,10 +12026,6 @@ public final class main extends javax.swing.JFrame {
         lblDiaRel.setVisible(true);
         lblDiaRel.setText("Esta semana");
 
-        btnMaiDiaRel.setLocation(85, 65);
-        btnMenDiaRel.setLocation(60, 65);
-        lblDiaRel.setLocation(60, 85);
-
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontbold(13));
@@ -12069,16 +12046,6 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 5, 3, null, null, 0);
         }
 
-        if (txtDatIniRel.hasFocus()) {
-            txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-            lblDatFinRel.setLocation(430, 150);
-        } else if (txtDatFinRel.hasFocus()) {
-            txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-            lblDatIniRel.setLocation(290, 150);
-        }
-
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
             if (rbtnVenRel.isSelected()) {
                 cmbrelatorio(tblRel, cmbRel, 2);
@@ -12088,6 +12055,13 @@ public final class main extends javax.swing.JFrame {
         } else {
             cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
+        }
+
+        if (!txtDatIniRel.getText().isEmpty() || !txtDatFinRel.getText().isEmpty()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatFinRel.setLocation(420, 220);
+            lblDatIniRel.setLocation(270, 220);
         }
 
         if (lblResRel.isVisible()) {
@@ -12120,10 +12094,6 @@ public final class main extends javax.swing.JFrame {
         lblDiaRel.setVisible(true);
         lblDiaRel.setText("Este mês");
 
-        btnMaiDiaRel.setLocation(85, 65);
-        btnMenDiaRel.setLocation(60, 65);
-        lblDiaRel.setLocation(60, 85);
-
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
@@ -12144,16 +12114,6 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 5, 4, null, null, 0);
         }
 
-        if (txtDatIniRel.hasFocus()) {
-            txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-            lblDatFinRel.setLocation(430, 150);
-        } else if (txtDatFinRel.hasFocus()) {
-            txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-            lblDatIniRel.setLocation(290, 150);
-        }
-
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
             if (rbtnVenRel.isSelected()) {
                 cmbrelatorio(tblRel, cmbRel, 2);
@@ -12163,6 +12123,13 @@ public final class main extends javax.swing.JFrame {
         } else {
             cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
+        }
+
+        if (!txtDatIniRel.getText().isEmpty() || !txtDatFinRel.getText().isEmpty()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatFinRel.setLocation(420, 220);
+            lblDatIniRel.setLocation(270, 220);
         }
 
         if (lblResRel.isVisible()) {
@@ -12195,10 +12162,6 @@ public final class main extends javax.swing.JFrame {
         lblDiaRel.setVisible(true);
         lblDiaRel.setText("Este ano");
 
-        btnMaiDiaRel.setLocation(85, 65);
-        btnMenDiaRel.setLocation(60, 65);
-        lblDiaRel.setLocation(60, 85);
-
         btnTodRel.setFont(fontmed(12));
         btnDiaRel.setFont(fontmed(12));
         btnSemRel.setFont(fontmed(12));
@@ -12219,16 +12182,6 @@ public final class main extends javax.swing.JFrame {
             tabelarelatorio(tblRel, scrRel, 5, 5, null, null, 0);
         }
 
-        if (txtDatIniRel.hasFocus()) {
-            txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-            lblDatFinRel.setLocation(430, 150);
-        } else if (txtDatFinRel.hasFocus()) {
-            txtDatIniRel.setText(null);
-            txtDatFinRel.setText(null);
-            lblDatIniRel.setLocation(290, 150);
-        }
-
         if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
             if (rbtnVenRel.isSelected()) {
                 cmbrelatorio(tblRel, cmbRel, 2);
@@ -12238,6 +12191,13 @@ public final class main extends javax.swing.JFrame {
         } else {
             cmbRel.setSelectedIndex(0);
             cmbRel.setEnabled(false);
+        }
+
+        if (!txtDatIniRel.getText().isEmpty() || !txtDatFinRel.getText().isEmpty()) {
+            txtDatIniRel.setText(null);
+            txtDatFinRel.setText(null);
+            lblDatFinRel.setLocation(420, 220);
+            lblDatIniRel.setLocation(270, 220);
         }
 
         if (lblResRel.isVisible()) {
@@ -12268,8 +12228,17 @@ public final class main extends javax.swing.JFrame {
             btnMaiDiaRel.setVisible(false);
             lblDiaRel.setVisible(false);
 
-            try {
+            btnTodRel.setFont(fontmed(12));
+            btnDiaRel.setFont(fontmed(12));
+            btnSemRel.setFont(fontmed(12));
+            btnMesRel.setFont(fontmed(12));
+            btnAnoRel.setFont(fontmed(12));
+            lblDatIniRel.setFont(fontbold(13));
+            lblDatFinRel.setFont(fontbold(13));
 
+            chkCus.setSelected(false);
+
+            try {
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
 
@@ -12285,16 +12254,6 @@ public final class main extends javax.swing.JFrame {
                     tabelarelatorio(tblRel, scrRel, 5, 6, data1, data2, 0);
                 }
 
-                btnTodRel.setFont(fontmed(12));
-                btnDiaRel.setFont(fontmed(12));
-                btnSemRel.setFont(fontmed(12));
-                btnMesRel.setFont(fontmed(12));
-                btnAnoRel.setFont(fontmed(12));
-                lblDatIniRel.setFont(fontbold(13));
-                lblDatFinRel.setFont(fontbold(13));
-
-                chkCus.setSelected(false);
-
                 if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
                     if (rbtnVenRel.isSelected()) {
                         cmbrelatorio(tblRel, cmbRel, 2);
@@ -12305,6 +12264,25 @@ public final class main extends javax.swing.JFrame {
                     cmbRel.setSelectedIndex(0);
                     cmbRel.setEnabled(false);
                 }
+
+                if (lblResRel.isVisible()) {
+                    tblRel.setVisible(false);
+                    scrRel.setVisible(false);
+                    DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                    mol.setRowCount(0);
+                    lblValTotRel.setText("R$ 0,00");
+                    lblValMedRel.setText("R$ 0,00");
+                    lblTotEntRel.setText("0");
+
+                    lblValDinRel.setText("R$ 0,00");
+                    lblValCarRel.setText("R$ 0,00");
+                    lblValPixRel.setText("R$ 0,00");
+                } else {
+                    tblRel.setVisible(true);
+                    scrRel.setVisible(true);
+                }
+
+                btnTodRel.grabFocus();
 
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(null, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -12331,6 +12309,8 @@ public final class main extends javax.swing.JFrame {
                 lblDatIniRel.setFont(fontbold(13));
                 lblDatFinRel.setFont(fontbold(13));
 
+                chkCus.setSelected(false);
+
                 String data1 = formatterbanco.format(formatter.parse(txtDatIniRel.getText()));
                 String data2 = formatterbanco.format(formatter.parse(txtDatFinRel.getText()));
 
@@ -12357,7 +12337,24 @@ public final class main extends javax.swing.JFrame {
                     cmbRel.setEnabled(false);
                 }
 
-                chkCus.setSelected(false);
+                if (lblResRel.isVisible()) {
+                    tblRel.setVisible(false);
+                    scrRel.setVisible(false);
+                    DefaultTableModel mol = (DefaultTableModel) tblRel.getModel();
+                    mol.setRowCount(0);
+                    lblValTotRel.setText("R$ 0,00");
+                    lblValMedRel.setText("R$ 0,00");
+                    lblTotEntRel.setText("0");
+
+                    lblValDinRel.setText("R$ 0,00");
+                    lblValCarRel.setText("R$ 0,00");
+                    lblValPixRel.setText("R$ 0,00");
+                } else {
+                    tblRel.setVisible(true);
+                    scrRel.setVisible(true);
+                }
+
+                btnTodRel.grabFocus();
 
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(null, "Data inserida inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -12397,8 +12394,7 @@ public final class main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class
-                        .getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -12418,8 +12414,7 @@ public final class main extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(main.class
-                            .getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -12433,31 +12428,25 @@ public final class main extends javax.swing.JFrame {
             estoqueDAO esdao = new estoqueDAO();
 
             int resp2 = JOptionPane.showOptionDialog(null, "Qual chip?", "Máscara", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Triplo", "eSIM", "Naked"}, null);
-
 //TRIPLO 546
 //ESIM 547
 //NAKED 548
             try {
                 if (resp2 == JOptionPane.YES_OPTION) {
-
                     es.setId(546);
                     esdao.excluirum(es);
-
                 } else if (resp2 == JOptionPane.NO_OPTION) {
                     es.setId(547);
                     esdao.excluirum(es);
-
                 } else if (resp2 == JOptionPane.CANCEL_OPTION) {
                     es.setId(548);
                     esdao.excluirum(es);
-
                 }
 
                 JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class
-                        .getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -12531,35 +12520,34 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerMasActionPerformed
 
     private void btnCanMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanMasActionPerformed
-        txtNomMas.setText(null);
-        txtCpfMas.setText(null);
-        txtVenMas.setText(null);
-        txtNumConMas.setText(null);
-        txtNumAceMas.setText(null);
-        txtNumPorMas.setText(null);
-        txtPlaMas.setText(null);
-        btnGroup.clearSelection();
-        btnGroup1.clearSelection();
+        int resp = JOptionPane.showOptionDialog(null, "Todos os dados serão perdidos, deseja cancelar?", "Máscara", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-        chkMelMas.setSelected(false);
-        chkAppMas.setSelected(false);
-        chkDebMasa.setSelected(false);
+        if (resp == JOptionPane.YES_OPTION) {
 
-        txtAreMas.setText(null);
-//
-//        lblNomMas.setLocation(90, 50);
-//        lblCpfMas.setLocation(90, 110);
-//        lblVenMas.setLocation(90, 170);
-//        lblNumConMas.setLocation(350, 50);
-//        lblNumAceMas.setLocation(350, 110);
-//        lblNumPorMas.setLocation(350, 170);
-//        lblPlaMas.setLocation(350, 230);
+            txtNomMas.setText(null);
+            txtCpfMas.setText(null);
+            txtVenMas.setText(null);
+            txtNumConMas.setText(null);
+            txtNumAceMas.setText(null);
+            txtNumPorMas.setText(null);
+            txtPlaMas.setText(null);
 
-        btnCanMas.grabFocus();
+            btnGroup.clearSelection();
+            btnGroup1.clearSelection();
 
-        btnCopMas.setVisible(false);
-        pnlMas.setVisible(false);
-        pnlContent.setVisible(true);
+            chkMelMas.setSelected(false);
+            chkAppMas.setSelected(false);
+
+            txtAreMas.setText(null);
+
+            btnCanMas.grabFocus();
+
+            btnCopMas.setVisible(false);
+
+            pnlMas.setVisible(false);
+            pnlContent.setVisible(true);
+
+        }
     }//GEN-LAST:event_btnCanMasActionPerformed
 
     private void txtNomMasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomMasFocusGained
@@ -12849,26 +12837,30 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumPorMasKeyTyped
 
     private void btnSalDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalDesActionPerformed
-        try {
+        int resp = JOptionPane.showOptionDialog(null, "Cadastrar afazer?", "Cadastrar Afazer", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-            despezas de = new despezas();
-            despezasDAO dedao = new despezasDAO();
+        if (resp == JOptionPane.YES_OPTION) {
 
-            de.setDescricao(txtDesDes.getText());
-            de.setValor(Double.valueOf(txtPreDes.getText().replaceAll(",", ".")));
-            de.setData(formatterbanco.format(formatter.parse(txtDatDes.getText())));
-            de.setStatus(0);
+            try {
 
-            dedao.inserir(de);
+                despezas de = new despezas();
+                despezasDAO dedao = new despezasDAO();
 
-            JOptionPane.showMessageDialog(null, "Afazer inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                de.setDescricao(txtDesDes.getText());
+                de.setValor(Double.valueOf(txtPreDes.getText().replaceAll(",", ".")));
+                de.setData(formatterbanco.format(formatter.parse(txtDatDes.getText())));
+                de.setStatus(0);
 
-            pnlCadDes.setVisible(false);
-            pnlContent.setVisible(true);
+                dedao.inserir(de);
 
-        } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Afazer cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                pnlCadDes.setVisible(false);
+                pnlContent.setVisible(true);
+
+            } catch (SQLException | ParseException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
     }//GEN-LAST:event_btnSalDesActionPerformed
@@ -12912,8 +12904,18 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPreDesKeyTyped
 
     private void btnCanDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanDesActionPerformed
-        pnlContent.setVisible(true);
-        pnlCadDes.setVisible(false);
+        if (btnSalDes.isEnabled()) {
+
+            int resp = JOptionPane.showOptionDialog(null, "Todos os dados serão perdidos, deseja continuar?", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+            if (resp == JOptionPane.YES_OPTION) {
+                pnlCadDes.setVisible(false);
+                pnlContent.setVisible(true);
+            }
+        } else {
+            pnlCadDes.setVisible(false);
+            pnlContent.setVisible(true);
+        }
     }//GEN-LAST:event_btnCanDesActionPerformed
 
     private void tblConDesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConDesMouseClicked
@@ -12944,6 +12946,9 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_tblConDesMouseClicked
 
     private void btnVolDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolDesActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblConDes.getModel();
+        model.setRowCount(0);
+
         pnlDes.setVisible(false);
         pnlContent.setVisible(true);
     }//GEN-LAST:event_btnVolDesActionPerformed
@@ -13009,13 +13014,15 @@ public final class main extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(null, "Excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
+                DefaultTableModel model = (DefaultTableModel) tblGerDes.getModel();
+                model.setRowCount(0);
+
                 pnlGerDes.setVisible(false);
                 pnlContent.setVisible(true);
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnExcGerDesActionPerformed
 
@@ -13025,54 +13032,75 @@ public final class main extends javax.swing.JFrame {
             int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Alterar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
             if (resp == JOptionPane.YES_OPTION) {
+
+                double preco;
+
+                if (!txtPreGerDes.getText().isEmpty()) {
+                    preco = Double.parseDouble(txtPreGerDes.getText().replace(".", "").replace(",", "."));
+                } else {
+                    preco = 0;
+                }
+
                 despezas de = new despezas();
                 despezasDAO dedao = new despezasDAO();
 
                 de.setId(Integer.parseInt(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 0).toString()));
                 de.setDescricao(txtDesGerDes.getText());
-                de.setValor(Double.valueOf(txtPreGerDes.getText().replace(".", "").replace(",", ".")));
+                de.setValor(preco);
                 de.setData(formatterbanco.format(formatter.parse(txtDatGerDes.getText())));
 
                 dedao.alterar(de);
 
                 JOptionPane.showMessageDialog(null, "Alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
+                DefaultTableModel model = (DefaultTableModel) tblGerDes.getModel();
+                model.setRowCount(0);
+
                 pnlGerDes.setVisible(false);
                 pnlContent.setVisible(true);
 
             }
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAltGerDesActionPerformed
 
     private void btnCanGerDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanGerDesActionPerformed
-        pnlGerDes.setVisible(false);
-        pnlContent.setVisible(true);
+        if (btnAltGerDes.isEnabled()) {
+
+            int resp = JOptionPane.showOptionDialog(null, "Cancelar alteração? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+            if (resp == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) tblGerDes.getModel();
+                model.setRowCount(0);
+                pnlGerDes.setVisible(false);
+                pnlContent.setVisible(true);
+            }
+        } else {
+            DefaultTableModel model = (DefaultTableModel) tblGerDes.getModel();
+            model.setRowCount(0);
+            pnlGerDes.setVisible(false);
+            pnlContent.setVisible(true);
+        }
     }//GEN-LAST:event_btnCanGerDesActionPerformed
 
     private void tblGerDesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGerDesMouseClicked
         txtDesGerDes.setText(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 1).toString());
 
         if (!(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString()).equals("Não Aplicável")) {
-
             txtPreGerDes.setText((tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString()).substring(3, tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 2).toString().length()));
-            lblPreGerDes.setLocation(870, 80);
+            lblPreGerDes.setLocation(860, 190);
             lblR$GerDes.setVisible(true);
-
         } else {
-
             txtPreGerDes.setText(null);
-            lblPreGerDes.setLocation(870, 100);
+            lblPreGerDes.setLocation(860, 210);
             lblR$GerDes.setVisible(false);
-
         }
 
         txtDatGerDes.setText(tblGerDes.getValueAt(tblGerDes.getSelectedRow(), 3).toString());
 
-        lblDesGerDes.setLocation(870, 20);
-        lblDatGerDes.setLocation(870, 140);
+        lblDesGerDes.setLocation(860, 140);
+        lblDatGerDes.setLocation(860, 240);
 
         sepDesGerDes.setForeground(corforeazul);
         sepPreGerDes.setForeground(corforeazul);
@@ -13179,9 +13207,9 @@ public final class main extends javax.swing.JFrame {
             pnlVen.setVisible(false);
             pnlJur.setVisible(false);
 
-            lblDesGerDes.setLocation(870, 40);
-            lblPreGerDes.setLocation(870, 100);
-            lblDatGerDes.setLocation(870, 160);
+            lblDesGerDes.setLocation(860, 160);
+            lblPreGerDes.setLocation(860, 210);
+            lblDatGerDes.setLocation(860, 260);
 
             sepDesGerDes.setForeground(Color.GRAY);
             sepPreGerDes.setForeground(Color.GRAY);
@@ -13200,9 +13228,7 @@ public final class main extends javax.swing.JFrame {
             pnlContent.setVisible(false);
 
         } else {
-
             JOptionPane.showMessageDialog(null, "Sem afazeres para gerenciar. Cadastre-as primeiro!", "Gerenciar afazeres", JOptionPane.INFORMATION_MESSAGE);
-
         }
     }//GEN-LAST:event_btnGerDesMouseReleased
 
@@ -13275,7 +13301,6 @@ public final class main extends javax.swing.JFrame {
             tblGerEnt.setVisible(false);
             scrGerEnt.setVisible(false);
 
-            LinhaGerenciarEntradaClicada = -1;
             tblGerEnt.repaint();
 
             if (tabelagerenciarentrada(tblGerEnt, scrGerEnt, data)) {
@@ -13413,9 +13438,6 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDatBusGerEntKeyTyped
 
     private void tblGerEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGerEntMouseClicked
-        LinhaGerenciarEntradaClicada = tblGerEnt.rowAtPoint(evt.getPoint());
-        tblGerEnt.repaint();
-
         btnAltGerEnt.setEnabled(true);
         btnExcGerEnt.setEnabled(true);
     }//GEN-LAST:event_tblGerEntMouseClicked
@@ -14056,7 +14078,7 @@ public final class main extends javax.swing.JFrame {
     private void btnGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerOsActionPerformed
         try {
 
-            if (txtCliOs.getText().isEmpty() || txtEndOs.getText().isEmpty() || txtTelOs.getText().isEmpty() || txtEquOs.getText().isEmpty() || txtMarOs.getText().isEmpty() || txtModOs.getText().isEmpty() || txtDefOs.getText().isEmpty() || txtDatOs.getText().isEmpty() || txtRepOs.getText().isEmpty() || (txtDatSaiOs.getText().isEmpty() && chkGarOs.isSelected())) {
+            if (txtCliOs.getText().isEmpty() || txtTelOs.getText().isEmpty() || txtEquOs.getText().isEmpty() || txtMarOs.getText().isEmpty() || txtModOs.getText().isEmpty() || txtDefOs.getText().isEmpty() || txtDatOs.getText().isEmpty() || txtRepOs.getText().isEmpty() || (txtDatSaiOs.getText().isEmpty() && chkGarOs.isSelected())) {
 
                 JOptionPane.showMessageDialog(null, "Preencha todos os dados!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
@@ -14070,7 +14092,7 @@ public final class main extends javax.swing.JFrame {
 
                         int resp2 = JOptionPane.showOptionDialog(null, "Quantas vias?", "OS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"1 Via", "2 Vias"}, "Sim");
 
-                        if (resp2 != JOptionPane.CLOSED_OPTION) {//SE PAERTAR X VIA
+                        if (resp2 != JOptionPane.CLOSED_OPTION) {//SE APERTAR X VIA
 
                             if (resp1 == JOptionPane.YES_OPTION) {//YES = 1 VIA 
 
@@ -14091,7 +14113,6 @@ public final class main extends javax.swing.JFrame {
 
                                 if (chkGarOs.isSelected()) {
                                     oss.setGarantia("Sim");
-
                                 } else {
                                     oss.setGarantia("Não");
                                 }
@@ -14102,7 +14123,7 @@ public final class main extends javax.swing.JFrame {
 
                             String datasaida = (!txtDatSaiOs.getText().equals("")) ? txtDatSaiOs.getText() : "____/____/________";
 
-                            String datagarantia = "Não Aplicável";
+                            String datagarantia = "Sem Garantia";
 
                             if (!txtDatSaiOs.getText().equals("") && chkGarOs.isSelected()) {
 
@@ -14203,7 +14224,10 @@ public final class main extends javax.swing.JFrame {
 
                         JOptionPane.showMessageDialog(null, "OS alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
-                        pnlOS.setVisible(false);
+                        DefaultTableModel model = (DefaultTableModel) tblOs.getModel();
+                        model.setRowCount(0);
+
+                        pnlOs.setVisible(false);
                         pnlContent.setVisible(true);
 
                     }
@@ -14211,16 +14235,26 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (JRException | SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Erro ao calcular garantia!", "Erro", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnGerOsActionPerformed
 
     private void btnCanOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanOsActionPerformed
-        pnlOs.setVisible(false);
-        pnlContent.setVisible(true);
+        int resp1 = JOptionPane.showOptionDialog(null, "Todos os dados serão perdidos, tem certeza que deseja continuar?", "OS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+        if (resp1 == JOptionPane.YES_OPTION) {
+
+            if (lblNovaEntradaItens6.getText().equals("Alterar OS")) {
+                pnlOs.setVisible(false);
+                pnlGerOs.setVisible(true);
+            } else {
+                pnlOs.setVisible(false);
+                pnlContent.setVisible(true);
+            }
+
+        }
     }//GEN-LAST:event_btnCanOsActionPerformed
 
     private void txtEndOsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEndOsFocusGained
@@ -14460,7 +14494,6 @@ public final class main extends javax.swing.JFrame {
                 tblGerEnt.setVisible(false);
                 scrGerEnt.setVisible(false);
 
-                LinhaGerenciarEntradaClicada = -1;
                 tblGerEnt.repaint();
 
                 if (tabelagerenciarentrada(tblGerEnt, scrGerEnt, data)) {
@@ -14521,7 +14554,7 @@ public final class main extends javax.swing.JFrame {
 
                 scrGerEst.setVisible(true);
                 tblGerEst.setVisible(true);
-                chkAltGerEst.setVisible(true);
+                chkAltGerEst.setEnabled(false);
                 chkAltGerEst.setSelected(false);
 
             } else {
@@ -14975,13 +15008,14 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadVenMouseExited
 
     private void btnCadVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadVenMouseReleased
-//            lblCliCadVen.setLocation(400, 80);
-//            lblPlaCadVen.setLocation(700, 80);
-//            lblTelCadVen.setLocation(400, 180);
-//            lblAceCadVen.setLocation(400, 230);
-//            lblCpfCadVen.setLocation(400, 130);
-//            lblDatCadVen.setLocation(700, 130);
-//            lblVenCadVen.setLocation(700, 180);
+        lblCliCadVen.setLocation(350, 110);
+        lblCpfCadVen.setLocation(350, 160);
+        lblTelCadVen.setLocation(350, 210);
+        lblAceCadVen.setLocation(350, 260);
+
+        lblPlaCadVen.setLocation(650, 110);
+        lblDatCadVen.setLocation(650, 160);
+        lblVenCadVen.setLocation(650, 210);
 
         txtCliCadVen.setText(null);
         txtPlaCadVen.setText(null);
@@ -14989,12 +15023,15 @@ public final class main extends javax.swing.JFrame {
         txtTelCadVen.setText(null);
         txtVenCadVen.setText(null);
         txtAceCadVen.setText(null);
+
+        btnSalCadVen.setEnabled(false);
+
         LocalDate dataAtual = LocalDate.now();
         txtDatCadVen.setText(dataAtual.format(formatteratual));
         anitxtin(lblDatCadVen);
 
-        pnlCadVen.setVisible(true);
         pnlContent.setVisible(false);
+        pnlCadVen.setVisible(true);
     }//GEN-LAST:event_btnCadVenMouseReleased
 
     private void btnVenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenMouseEntered
@@ -15014,101 +15051,117 @@ public final class main extends javax.swing.JFrame {
                 lblConPlaVen.setText(String.valueOf(pladao.buscar()));
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class
-                        .getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             btnExcVen.setEnabled(false);
             btnAltVen.setEnabled(false);
             btnCopVen.setEnabled(false);
             btnCopAVen.setEnabled(false);
+            btnWppVen.setEnabled(false);
 
-            lblBusVen.setLocation(310, 280);
+            lblBusVen.setLocation(350, 350);
             txtBusVen.setText(null);
             lblErrVen.setVisible(false);
 
-            pnlVen.setVisible(true);
             pnlContent.setVisible(false);
+            pnlVen.setVisible(true);
 
         } else {
-
             JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
-
         }
-
     }//GEN-LAST:event_btnVenMouseReleased
 
     private void btnSalCadVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalCadVenActionPerformed
-        try {
+        int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja salvar o plano?", "Cadastrar Plano", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-            vencimento ve = new vencimento();
-            vencimentoDAO vedao = new vencimentoDAO();
+        if (resp == JOptionPane.YES_OPTION) {
 
-            if (lblCadastrarPlano.getText().equals("Cadastrar Plano")) {
+            try {
 
-                ve.setCliente(txtCliCadVen.getText());
-                ve.setPlano(txtPlaCadVen.getText());
-                ve.setTelefone(txtTelCadVen.getText());
-                ve.setAcesso(txtAceCadVen.getText());
-                ve.setCpf(txtCpfCadVen.getText());
-                ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
-                ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
+                vencimento ve = new vencimento();
+                vencimentoDAO vedao = new vencimentoDAO();
 
-                if (txtPlaCadVen.getText().equals("Não Aplicável")) {
-                    vedao.inserir(ve, "1");
+                if (lblCadastrarPlano.getText().equals("Cadastrar Plano")) {
+
+                    ve.setCliente(txtCliCadVen.getText());
+                    ve.setPlano(txtPlaCadVen.getText());
+                    ve.setTelefone(txtTelCadVen.getText());
+                    ve.setAcesso(txtAceCadVen.getText());
+                    ve.setCpf(txtCpfCadVen.getText());
+                    ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
+                    ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
+
+                    if (txtPlaCadVen.getText().equals("Não Aplicável")) {
+                        vedao.inserir(ve, "1");
+                    } else {
+                        vedao.inserir(ve, "0");
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Plano cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    DefaultTableModel model = (DefaultTableModel) tblVen.getModel();
+                    model.setRowCount(0);
+
+                    pnlCadVen.setVisible(false);
+                    pnlContent.setVisible(true);
+
                 } else {
-                    vedao.inserir(ve, "0");
+
+                    ve.setCliente(txtCliCadVen.getText());
+                    ve.setPlano(txtPlaCadVen.getText());
+                    ve.setCpf(txtCpfCadVen.getText());
+                    ve.setTelefone(txtTelCadVen.getText());
+                    ve.setAcesso(txtAceCadVen.getText());
+                    ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
+                    ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
+
+                    ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), tblVen.getColumnModel().getColumnIndex("ID")).toString());
+
+                    if (txtPlaCadVen.getText().equals("Não Aplicável")) {
+                        vedao.alterar(ve, "1");
+                    } else {
+                        vedao.alterar(ve, "0");
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Plano alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    DefaultTableModel model = (DefaultTableModel) tblVen.getModel();
+                    model.setRowCount(0);
+
+                    pnlCadVen.setVisible(false);
+                    pnlContent.setVisible(true);
+
                 }
 
-                int resp = JOptionPane.showOptionDialog(null, "Plano cadastrado! Deseja cadastrar mais planos para o mesmo cliente?", "Cadastrar Plano", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            } catch (SQLException | ParseException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-                if (resp == JOptionPane.YES_OPTION) {
+        }
+    }//GEN-LAST:event_btnSalCadVenActionPerformed
 
-                    btnCopMas.setVisible(false);
-                    txtAreMas.setText(null);
-                    txtAreMas.setVisible(false);
-                    jScrollPane1.setVisible(false);
-                    pnlMas.setVisible(true);
+    private void btnCanCadVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanCadVenActionPerformed
+        if (btnSalCadVen.isEnabled()) {
+
+            int resp = JOptionPane.showOptionDialog(null, "Todos os dados serão perdidos, deseja continuar?", "Cadastrar Plano", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+            if (resp == JOptionPane.YES_OPTION) {
+
+                if ("Alterar Plano".equals(lblCadastrarPlano.getText())) {
                     pnlCadVen.setVisible(false);
+                    pnlVen.setVisible(true);
                 } else {
                     pnlCadVen.setVisible(false);
                     pnlContent.setVisible(true);
                 }
 
-            } else {
-
-                ve.setCliente(txtCliCadVen.getText());
-                ve.setPlano(txtPlaCadVen.getText());
-                ve.setCpf(txtCpfCadVen.getText());
-                ve.setTelefone(txtTelCadVen.getText());
-                ve.setAcesso(txtAceCadVen.getText());
-                ve.setData(formatterbanco.format(((formatter.parse(txtDatCadVen.getText())))));
-                ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenCadVen.getText())))));
-
-                ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), tblVen.getColumnModel().getColumnIndex("ID")).toString());
-
-                if (txtPlaCadVen.getText().equals("Não Aplicável")) {
-                    vedao.alterar(ve, "1");
-                } else {
-                    vedao.alterar(ve, "0");
-                }
-
-                JOptionPane.showMessageDialog(null, "Plano alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-                pnlCadVen.setVisible(false);
-                pnlContent.setVisible(true);
-
             }
 
-        } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+        } else {
+            pnlCadVen.setVisible(false);
+            pnlContent.setVisible(true);
         }
-    }//GEN-LAST:event_btnSalCadVenActionPerformed
-
-    private void btnCanCadVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanCadVenActionPerformed
-        pnlCadVen.setVisible(false);
-        pnlContent.setVisible(true);
     }//GEN-LAST:event_btnCanCadVenActionPerformed
 
     private void txtPlaCadVenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlaCadVenFocusGained
@@ -15192,6 +15245,7 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDatCadVenKeyTyped
 
     private void txtTelCadVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCadVenKeyTyped
+
         if (txtTelCadVen.getSelectedText() != null) {
             if (!Character.isDigit(evt.getKeyChar())) {
                 evt.consume();
@@ -15241,6 +15295,8 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtVenCadVenFocusLost
 
     private void txtVenCadVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVenCadVenKeyTyped
+        btnSalCadVen.setEnabled(true);
+
         if (txtVenCadVen.getSelectedText() != null) {
             if (!Character.isDigit(evt.getKeyChar())) {
                 evt.consume();
@@ -15274,13 +15330,16 @@ public final class main extends javax.swing.JFrame {
 
     private void tblVenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVenMouseClicked
         btnExcVen.setEnabled(true);
-//        btnWppVen.setEnabled(true);
+//      btnWppVen.setEnabled(true);
         btnAltVen.setEnabled(true);
         btnCopVen.setEnabled(true);
         btnCopAVen.setEnabled(true);
     }//GEN-LAST:event_tblVenMouseClicked
 
     private void btnVolVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolVenActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblVen.getModel();
+        model.setRowCount(0);
+
         pnlVen.setVisible(false);
         pnlContent.setVisible(true);
     }//GEN-LAST:event_btnVolVenActionPerformed
@@ -15441,18 +15500,25 @@ public final class main extends javax.swing.JFrame {
 //            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-        try {
+        int resp1 = JOptionPane.showOptionDialog(null, "Tem certeza que deseja limpar destaque de planos com vencimento próximo?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-            vencimento ve = new vencimento();
-            vencimentoDAO vedao = new vencimentoDAO();
+        if (resp1 == JOptionPane.YES_OPTION) {
 
-            vedao.limparverde(ve);
+            try {
 
-            tabelavencimento(tblVen, scrVen);
+                vencimento ve = new vencimento();
+                vencimentoDAO vedao = new vencimentoDAO();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+                vedao.limparverde(ve);
+
+                btnWppVen.setEnabled(false);
+
+                tabelavencimento(tblVen, scrVen);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }//GEN-LAST:event_btnWppVenActionPerformed
 
@@ -15484,53 +15550,87 @@ public final class main extends javax.swing.JFrame {
 
                 }
 
+                DefaultTableModel model = (DefaultTableModel) tblVen.getModel();
+                model.setRowCount(0);
+
                 pnlVen.setVisible(false);
                 pnlContent.setVisible(true);
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class
-                        .getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnExcVenActionPerformed
 
     private void btnVenMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenMasActionPerformed
-        if (txtNomMas.getText().isEmpty() || txtNumConMas.getText().isEmpty() || txtPlaMas.getText().isEmpty()) {
+        if (txtNomMas.getText().isEmpty() || txtNumConMas.getText().isEmpty() || txtPlaMas.getText().isEmpty() || txtVenMas.getText().isEmpty() || txtNumAceMas.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
         } else {
 
-            txtCliCadVen.setText(txtNomMas.getText());
-            txtPlaCadVen.setText(txtPlaMas.getText());
-            txtTelCadVen.setText(txtNumConMas.getText());
-            txtCpfCadVen.setText(txtCpfMas.getText());
-            txtVenCadVen.setText(txtVenMas.getText());
+            int resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja cadastrar o plano?", "Cadastrar Plano", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
 
-            if (txtNumPorMas.getText().isEmpty()) {
-                txtAceCadVen.setText(txtNumAceMas.getText());
-            } else {
-                txtAceCadVen.setText(txtNumPorMas.getText());
+            if (resp == JOptionPane.YES_OPTION) {
+
+                try {
+
+                    vencimento ve = new vencimento();
+                    vencimentoDAO vedao = new vencimentoDAO();
+
+                    ve.setCliente(txtNomMas.getText());
+                    ve.setCpf(txtCpfMas.getText());
+                    ve.setVencimento(formatterbanco.format(((formatter.parse(txtVenMas.getText())))));
+                    ve.setTelefone(txtNumConMas.getText());
+                    if (txtNumPorMas.getText().isEmpty()) {
+                        ve.setAcesso(txtNumAceMas.getText());
+                    } else {
+                        ve.setAcesso(txtNumPorMas.getText());
+                    }
+
+                    ve.setPlano(txtPlaMas.getText());
+                    ve.setData(formatterbanco.format(new Date()));
+
+                    vedao.inserir(ve, "0");
+
+                    int resp1 = JOptionPane.showOptionDialog(null, "Plano cadastrado com sucesso! Deseja adicionar outro plano para o mesmo cliente?", "Sucesso", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                    if (resp1 == JOptionPane.YES_OPTION) {
+
+                        txtNumAceMas.setText(null);
+                        txtNumPorMas.setText(null);
+                        txtPlaMas.setText(null);
+                        txtVenMas.setText(null);
+
+                        lblNumAceMas.setLocation(340, 210);
+                        lblNumPorMas.setLocation(340, 260);
+                        lblPlaMas.setLocation(340, 310);
+                        lblVenMas.setLocation(80, 260);
+
+                        chkMelMas.setSelected(false);
+                        chkAppMas.setSelected(false);
+                        chkBolMas.setSelected(true);
+                        rbtnAtiMas.setSelected(true);
+
+                        txtAreMas.setText(null);
+
+                        btnCopMas.setVisible(false);
+
+                    } else {
+
+                        DefaultTableModel model = (DefaultTableModel) tblVen.getModel();
+                        model.setRowCount(0);
+
+                        pnlCadVen.setVisible(false);
+                        pnlContent.setVisible(true);
+
+                    }
+
+                } catch (SQLException | ParseException ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-
-            LocalDate dataAtual = LocalDate.now();
-            txtDatCadVen.setText(dataAtual.format(formatteratual));
-
-            lblCliCadVen.setLocation(400, 80);
-            lblPlaCadVen.setLocation(700, 80);
-            lblTelCadVen.setLocation(400, 180);
-            lblAceCadVen.setLocation(400, 230);
-            lblCpfCadVen.setLocation(400, 130);
-            lblDatCadVen.setLocation(700, 130);
-            lblVenCadVen.setLocation(700, 180);
-
-            pnlMas.setVisible(false);
-            pnlCadVen.setVisible(true);
-            anitxtin(lblCliCadVen);
-            anitxtin(lblPlaCadVen);
-            anitxtin(lblTelCadVen);
-            anitxtin(lblDatCadVen);
-            anitxtin(lblCpfCadVen);
-            anitxtin(lblAceCadVen);
-            anitxtin(lblVenCadVen);
 
         }
     }//GEN-LAST:event_btnVenMasActionPerformed
@@ -15644,40 +15744,26 @@ public final class main extends javax.swing.JFrame {
         txtMatCadEst.setText(null);
         txtLocCadEst.setText(null);
         txtDetCadEst.setText(null);
-        lblR$CadEst.setVisible(false);
+        lblR$CadEst.setVisible(true);
         cmbChiCadEst.setSelectedIndex(0);
 
         if ("Capinha".equals(txtTipCadEst.getText())) {
 
-            lblMarCadEst.setLocation(410, 60);
-            lblModCadEst.setLocation(410, 110);
-            lblQuaCadEst.setLocation(410, 160);
-            lblPreCadEst.setLocation(410, 210);
-
-            lblMatCadEst.setLocation(700, 130);
-            lblLocCadEst.setLocation(700, 160);
-
-        } else if ("Chip".equals(txtTipCadEst.getText())) {
-
-            lblMarCadEst.setLocation(410, 80);
-            lblModCadEst.setLocation(410, 130);
-            lblQuaCadEst.setLocation(410, 160);
-            lblPreCadEst.setLocation(410, 210);
-            lblCorCadEst.setLocation(700, 80);
-            lblMatCadEst.setLocation(700, 130);
-            lblLocCadEst.setLocation(700, 180);
-            lblDetCadEst.setLocation(700, 230);
+            lblMarCadEst.setLocation(360, 130);
+            lblModCadEst.setLocation(360, 180);
+            lblQuaCadEst.setLocation(360, 230);
+            lblPreCadEst.setLocation(360, 280);
+            lblMatCadEst.setLocation(650, 200);
+            lblLocCadEst.setLocation(650, 230);
 
         } else {
 
-            lblMarCadEst.setLocation(410, 60);
-            lblModCadEst.setLocation(410, 110);
-            lblQuaCadEst.setLocation(410, 160);
-            lblPreCadEst.setLocation(410, 210);
-            lblCorCadEst.setLocation(700, 60);
-            lblMatCadEst.setLocation(700, 110);
-            lblLocCadEst.setLocation(700, 160);
-            lblDetCadEst.setLocation(700, 210);
+            lblMarCadEst.setLocation(360, 130);
+            lblModCadEst.setLocation(360, 180);
+            lblQuaCadEst.setLocation(360, 230);
+            lblPreCadEst.setLocation(360, 280);
+            lblMatCadEst.setLocation(650, 180);
+            lblLocCadEst.setLocation(650, 230);
 
         }
 
@@ -15691,25 +15777,18 @@ public final class main extends javax.swing.JFrame {
         txtLocCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getLocalizacao());
 
         if (!lista1.get(tblCadEst.getSelectedRow()).getCor().isEmpty()) {
-
             txtCorCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getCor());
-            lblCorCadEst.setLocation(700, 60);
-
+            lblCorCadEst.setLocation(650, 130);
         } else {
-            lblCorCadEst.setLocation(700, 80);
+            lblCorCadEst.setLocation(650, 150);
         }
 
         if (!lista1.get(tblCadEst.getSelectedRow()).getDetalhes().isEmpty()) {
-
-            lblDetCadEst.setLocation(700, 210);
+            lblDetCadEst.setLocation(650, 280);
             txtDetCadEst.setText(lista1.get(tblCadEst.getSelectedRow()).getDetalhes());
-
         } else {
-
-            lblDetCadEst.setLocation(700, 230);
+            lblDetCadEst.setLocation(650, 300);
         }
-
-        lblR$CadEst.setVisible(true);
     }//GEN-LAST:event_tblCadEstMouseClicked
 
     private void rbtnVenRel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVenRel1ActionPerformed
@@ -15754,12 +15833,10 @@ public final class main extends javax.swing.JFrame {
             } else {
                 tblRel.setVisible(true);
                 scrRel.setVisible(true);
-
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rbtnVenRel1ActionPerformed
 
@@ -15788,30 +15865,19 @@ public final class main extends javax.swing.JFrame {
 
         lblCadastrarPlano.setText("Alterar Plano");
 
-        pnlCadVen.setVisible(true);
-        pnlVen.setVisible(false);
+        lblCliCadVen.setLocation(350, 90);
+        lblCpfCadVen.setLocation(350, 140);
+        lblTelCadVen.setLocation(350, 190);
+        lblAceCadVen.setLocation(350, 240);
+        lblPlaCadVen.setLocation(650, 90);
+        lblDatCadVen.setLocation(650, 140);
+        lblVenCadVen.setLocation(650, 190);
 
-//        lblCliCadVen.setLocation(400, 60);
-//        lblPlaCadVen.setLocation(700, 60);
-//        lblTelCadVen.setLocation(400, 160);
-//        lblAceCadVen.setLocation(400, 210);
-//        lblCpfCadVen.setLocation(400, 110);
-//        lblDatCadVen.setLocation(700, 110);
-//        lblVenCadVen.setLocation(700, 160);
+        pnlVen.setVisible(false);
+        pnlCadVen.setVisible(true);
+
         btnCanCadVen.grabFocus();
     }//GEN-LAST:event_btnAltVenActionPerformed
-
-    private void lblResRelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResRelMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblResRelMouseEntered
-
-    private void lblResRelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResRelMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblResRelMouseExited
-
-    private void lblResRelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResRelMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblResRelMouseReleased
 
     private void txtCpfMasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfMasKeyPressed
 
@@ -16048,14 +16114,6 @@ public final class main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblJurJurMouseReleased
 
-    private void spnParJurKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParJurKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spnParJurKeyPressed
-
-    private void spnParJurKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spnParJurKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spnParJurKeyTyped
-
     private void lblValJur2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblValJur2MouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_lblValJur2MouseEntered
@@ -16097,16 +16155,24 @@ public final class main extends javax.swing.JFrame {
         lblValParJur.setText("R$ 0,00");
         lblValMesPreJur.setText("R$ 0,00");
         lblR$Jur.setVisible(false);
-//        lblValJur.setLocation(200, 100);
-        spnParJur.setValue(1);
+        lblValJur.setLocation(180, 200);
+        spnParJur.setValue(0);
 
         lblR$Jur.setVisible(false);
+
+        btnCalJur.setEnabled(false);
+        lblParJur.setEnabled(false);
+        spnParJur.setEnabled(false);
 
         pnlJur.setVisible(true);
         pnlContent.setVisible(false);
     }//GEN-LAST:event_btnJurPriMouseReleased
 
     private void txtValJurKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValJurKeyTyped
+        btnCalJur.setEnabled(true);
+        lblParJur.setEnabled(true);
+        spnParJur.setEnabled(true);
+
         if (evt.getKeyChar() == 44) {
             if (txtValJur.getText().contains(",")) {
                 evt.consume();
@@ -16118,8 +16184,19 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValJurKeyTyped
 
     private void btnVolJurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolJurActionPerformed
-        pnlJur.setVisible(false);
-        pnlContent.setVisible(true);
+        if (!txtValJur.getText().isEmpty()) {
+
+            int resp = JOptionPane.showOptionDialog(null, "Cancelar? Todos os dados serão perdidos.", "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+            if (resp == JOptionPane.YES_OPTION) {
+                pnlJur.setVisible(false);
+                pnlContent.setVisible(true);
+            }
+
+        } else {
+            pnlJur.setVisible(false);
+            pnlContent.setVisible(true);
+        }
     }//GEN-LAST:event_btnVolJurActionPerformed
 
     private void txtTelCadVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCadVenKeyReleased
@@ -16498,51 +16575,58 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPlaCadVenKeyReleased
 
     private void btnAtvGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtvGerTipSerActionPerformed
-        try {
+        int resp;
 
-            tiposervico ts = new tiposervico();
-            tiposervicoDAO tsdao = new tiposervicoDAO();
+        if (btnAtvGerTipSer.getText().equals("Ativar")) {
+            resp = JOptionPane.showOptionDialog(null, "Ativar serviço?", "Ativar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        } else {
+            resp = JOptionPane.showOptionDialog(null, "Desativar serviço? Este serviço não poderá ser vinculado à novas entradas!", "Desativar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+        }
 
-            ts.setIdtiposervico(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
+        if (resp == JOptionPane.YES_OPTION) {
 
-            if (btnAtvGerTipSer.getText().equals("Ativar")) {
-                ts.setAtv(1);
-                tsdao.atvdes(ts);
-            } else {
-                ts.setAtv(0);
-                tsdao.atvdes(ts);
+            try {
+
+                tiposervico ts = new tiposervico();
+                tiposervicoDAO tsdao = new tiposervicoDAO();
+
+                ts.setIdtiposervico(Integer.parseInt(tblTipSer.getValueAt(tblTipSer.getSelectedRow(), 0).toString()));
+
+                if (btnAtvGerTipSer.getText().equals("Ativar")) {
+                    ts.setAtv(1);
+                    tsdao.atvdes(ts);
+                } else {
+                    ts.setAtv(0);
+                    tsdao.atvdes(ts);
+                }
+
+                tabelatiposervico();
+
+                lblDesGerTipSer.setLocation(460, 330);
+                lblDesGerTipSer.setEnabled(false);
+                txtDesGerTipSer.setEnabled(false);
+                sepDesGerTipSer.setForeground(Color.GRAY);
+
+                txtDesGerTipSer.setText(null);
+
+                btnExcGerTipSer.setEnabled(false);
+                btnAltGerTipSer.setEnabled(false);
+                btnAtvGerTipSer.setEnabled(false);
+                btnAtvGerTipSer.setText("Desativar");
+
+                rbtnTimGerTipSer.setEnabled(false);
+                rbtnAssGerTipSer.setEnabled(false);
+                rbtnOutGerTipSer.setEnabled(false);
+                btnGroup.clearSelection();
+
+                txtDesGerTipSer.requestFocus();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            tabelatiposervico();
-
-            lblDesGerTipSer.setLocation(510, 240);
-            lblDesGerTipSer.setEnabled(false);
-            txtDesGerTipSer.setEnabled(false);
-            sepDesGerTipSer.setForeground(Color.GRAY);
-
-            txtDesGerTipSer.setText(null);
-
-            btnExcGerTipSer.setEnabled(false);
-            btnAltGerTipSer.setEnabled(false);
-            btnAtvGerTipSer.setEnabled(false);
-            btnAtvGerTipSer.setText("Desativar");
-
-            rbtnTimGerTipSer.setEnabled(false);
-            rbtnAssGerTipSer.setEnabled(false);
-            rbtnOutGerTipSer.setEnabled(false);
-            btnGroup.clearSelection();
-
-            txtDesGerTipSer.requestFocus();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAtvGerTipSerActionPerformed
-
-    private void tblTipSerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipSerMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblTipSerMouseEntered
 
     private void rbtnOutGerTipSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnOutGerTipSerActionPerformed
         // TODO add your handling code here:
@@ -16610,10 +16694,6 @@ public final class main extends javax.swing.JFrame {
                 } else if (btnAnoRel.getFont().getSize() == 13) {
                     lblDiaRel.setText("Este ano");
                 }
-
-                btnMaiDiaRel.setLocation(85, 65);
-                btnMenDiaRel.setLocation(60, 65);
-                lblDiaRel.setLocation(60, 85);
 
                 btnNumDiaRel.setVisible(false);
                 btnMenDiaRel.setEnabled(false);
@@ -16701,9 +16781,6 @@ public final class main extends javax.swing.JFrame {
 
             }
 
-            lblDatFinRel.setLocation(430, 150);
-            lblDatIniRel.setLocation(290, 150);
-
             if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
                 if (rbtnVenRel.isSelected()) {
                     cmbrelatorio(tblRel, cmbRel, 2);
@@ -16762,10 +16839,6 @@ public final class main extends javax.swing.JFrame {
             } else {
 
                 btnNumDiaRel.setVisible(true);
-
-                lblDiaRel.setLocation(60, 95);
-                btnMaiDiaRel.setLocation(85, 55);
-                btnMenDiaRel.setLocation(60, 55);
 
                 if (btnDiaRel.getFont().getSize() == 13) {
                     lblDiaRel.setText("dia(s) atrás");
@@ -16846,9 +16919,6 @@ public final class main extends javax.swing.JFrame {
 
             }
 
-            lblDatFinRel.setLocation(430, 150);
-            lblDatIniRel.setLocation(290, 150);
-
             if (!(rbtnTodRel.isSelected() || rbtnVenRel1.isSelected())) {
                 if (rbtnVenRel.isSelected()) {
                     cmbrelatorio(tblRel, cmbRel, 2);
@@ -16920,7 +16990,6 @@ public final class main extends javax.swing.JFrame {
 
     private void btnAltGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltGerOsActionPerformed
         String preco = tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Preço")).toString();
-        String datasaida = tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Saída")).toString();
 
         txtCliOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Nome")).toString());
         txtEndOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Endereço")).toString());
@@ -16931,14 +17000,7 @@ public final class main extends javax.swing.JFrame {
         txtRepOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Reparo")).toString());
         txtDefOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Defeito")).toString());
         txtDatOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Entrada")).toString());
-
-        if (datasaida.equals("Não Aplicável")) {
-            txtDatSaiOs.setText(null);
-            lblHorOs.setLocation(370, 230);
-        } else {
-            txtDatSaiOs.setText(datasaida);
-            lblHorOs.setLocation(370, 210);
-        }
+        txtDatSaiOs.setText(tblOs.getValueAt(tblOs.getSelectedRow(), tblOs.getColumnModel().getColumnIndex("Saída")).toString());
 
         txtPreOs.setText(preco.substring(3, preco.length()));
 
@@ -16948,24 +17010,32 @@ public final class main extends javax.swing.JFrame {
             chkGarOs.setSelected(false);
         }
 
-        lblCliOs.setLocation(370, 10);
-        lblTelOs.setLocation(370, 60);
-        lblEndOs.setLocation(370, 110);
-        lblDatEntOs.setLocation(370, 160);
-        lblEquOs.setLocation(700, 10);
-        lblMarOs.setLocation(700, 60);
-        lblModOs.setLocation(700, 110);
-        lblConOs.setLocation(700, 160);
-        lblDefOs.setLocation(700, 210);
-        lblPreOs.setLocation(370, 260);
+        lblCliOs.setLocation(310, 90);
+        lblTelOs.setLocation(310, 140);
+        if (txtEndOs.getText().isEmpty()) {
+            lblEndOs.setLocation(310, 210);
+        } else {
+            lblEndOs.setLocation(310, 190);
+        }
+        lblDatEntOs.setLocation(310, 240);
+        lblHorOs.setLocation(310, 290);
+        lblPreOs.setLocation(310, 340);
+
+        lblEquOs.setLocation(640, 90);
+        lblMarOs.setLocation(640, 140);
+        lblModOs.setLocation(640, 190);
+        lblConOs.setLocation(640, 240);
+        lblDefOs.setLocation(640, 290);
 
         lblR$Os.setVisible(true);
 
-        lblGerarOS.setText("Alterar OS");
+        btnGerOs.setEnabled(true);
+
+        lblNovaEntradaItens6.setText("Alterar OS");
         btnGerOs.setText("Salvar");
 
-        pnlOs.setVisible(true);
         pnlGerOs.setVisible(false);
+        pnlOs.setVisible(true);
     }//GEN-LAST:event_btnAltGerOsActionPerformed
 
     private void btnGerGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerGerOsActionPerformed
@@ -16990,7 +17060,7 @@ public final class main extends javax.swing.JFrame {
 
                 } else {
 
-                    datagarantia = "Não Aplicável";
+                    datagarantia = "Sem Garantia";
 
                 }
 
@@ -17040,21 +17110,10 @@ public final class main extends javax.swing.JFrame {
                 jc.setVisible(true);
                 jc.toFront();
 
-                tabelaos(tblOs, scrOs);
-
-                btnGerGerOs.setEnabled(false);
-                btnExcGerOs.setEnabled(false);
-                btnAltGerOs.setEnabled(false);
-
             }
 
-        } catch (JRException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
-
-        } catch (ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException | ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGerGerOsActionPerformed
 
@@ -17074,28 +17133,22 @@ public final class main extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(null, "OS excluída com sucesso!", "OS", JOptionPane.INFORMATION_MESSAGE);
 
-                if (tabelaos(tblOs, scrOs)) {
+                DefaultTableModel model = (DefaultTableModel) tblOs.getModel();
+                model.setRowCount(0);
 
-                } else {
-
-                    JOptionPane.showMessageDialog(null, "Sem OS. Cadastre-as primeiro!", "OS", JOptionPane.INFORMATION_MESSAGE);
-                    pnlGerOs.setVisible(false);
-                    pnlContent.setVisible(true);
-
-                }
-
-                btnGerGerOs.setEnabled(false);
-                btnExcGerOs.setEnabled(false);
-                btnAltGerOs.setEnabled(false);
+                pnlGerOs.setVisible(false);
+                pnlContent.setVisible(true);
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class
-                        .getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnExcGerOsActionPerformed
 
     private void btnVolGerOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolGerOsActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblOs.getModel();
+        model.setRowCount(0);
+
         pnlGerOs.setVisible(false);
         pnlContent.setVisible(true);
     }//GEN-LAST:event_btnVolGerOsActionPerformed
@@ -17159,12 +17212,12 @@ public final class main extends javax.swing.JFrame {
                 lblErrGerOs.setVisible(true);
             }
 
+            btnGerGerOs.setEnabled(false);
+            btnAltGerOs.setEnabled(false);
+            btnExcGerOs.setEnabled(false);
+
         }
     }//GEN-LAST:event_txtBusGerOsKeyPressed
-
-    private void txtBusGerOsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusGerOsKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBusGerOsKeyTyped
 
     private void btnGerOsPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerOsPriMouseEntered
         btnGerOsPri.setForeground(corforeazulenter);
@@ -17181,7 +17234,7 @@ public final class main extends javax.swing.JFrame {
             btnGerGerOs.setEnabled(false);
             btnAltGerOs.setEnabled(false);
 
-            lblBusGerOs.setLocation(310, 300);
+            lblBusGerOs.setLocation(580, 390);
             txtBusGerOs.setText(null);
             lblErrGerOs.setVisible(false);
 
@@ -17220,25 +17273,29 @@ public final class main extends javax.swing.JFrame {
         txtDatOs.setText(null);
         txtDatSaiOs.setText(null);
         chkGarOs.setSelected(false);
-//
-//            lblCliOs.setLocation(370, 30);
-//            lblTelOs.setLocation(370, 80);
-//            lblEndOs.setLocation(370, 130);
-//            lblDatEntOs.setLocation(370, 180);
-//            lblHorOs.setLocation(370, 230);
-//            lblEquOs.setLocation(700, 30);
-//            lblMarOs.setLocation(700, 80);
-//            lblModOs.setLocation(700, 130);
-//            lblConOs.setLocation(700, 180);
-//            lblDefOs.setLocation(700, 230);
-//            lblPreOs.setLocation(370, 280);
+
+        btnGerOs.setEnabled(false);
+
+        lblCliOs.setLocation(310, 110);
+        lblTelOs.setLocation(310, 160);
+        lblEndOs.setLocation(310, 210);
+        lblDatEntOs.setLocation(310, 260);
+        lblHorOs.setLocation(310, 310);
+        lblPreOs.setLocation(310, 360);
+
+        lblEquOs.setLocation(640, 110);
+        lblMarOs.setLocation(640, 160);
+        lblModOs.setLocation(640, 210);
+        lblConOs.setLocation(640, 260);
+        lblDefOs.setLocation(640, 310);
 
         lblR$Os.setVisible(false);
 
+        lblNovaEntradaItens6.setText("Gerar OS");
         btnGerOs.setText("Gerar");
 
-        pnlOs.setVisible(true);
         pnlContent.setVisible(false);
+        pnlOs.setVisible(true);
     }//GEN-LAST:event_btnCadOsPriMouseReleased
 
     private void txtNomMasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomMasKeyReleased
@@ -17282,8 +17339,7 @@ public final class main extends javax.swing.JFrame {
             btnCopMas.setVisible(true);
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnParMasActionPerformed
 
@@ -17345,14 +17401,6 @@ public final class main extends javax.swing.JFrame {
         txtVarCorCadEst.setText(null);
         spnVarCorCadEst.setValue(1);
     }//GEN-LAST:event_chkVarCorCadEstActionPerformed
-
-    private void chkAltGerEstStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkAltGerEstStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkAltGerEstStateChanged
-
-    private void chkAltGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAltGerEstActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkAltGerEstActionPerformed
 
     private void txtChip1GerEstFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtChip1GerEstFocusGained
         // TODO add your handling code here:
@@ -17458,8 +17506,8 @@ public final class main extends javax.swing.JFrame {
 
         rbtnTodRel.setSelected(true);
 
-        lblDatIniRel.setLocation(290, 150);
-        lblDatFinRel.setLocation(430, 150);
+        lblDatIniRel.setLocation(270, 220);
+        lblDatFinRel.setLocation(420, 220);
 
         txtDatIniRel.setText(null);
         txtDatFinRel.setText(null);
@@ -17688,10 +17736,22 @@ public final class main extends javax.swing.JFrame {
             anitxtin(lblBusIteGerEnt);
         }
     }//GEN-LAST:event_txtBusIteGerEntMousePressed
+
+    private void txtCliCadVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliCadVenKeyTyped
+
+    }//GEN-LAST:event_txtCliCadVenKeyTyped
+
+    private void txtPlaCadVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlaCadVenKeyTyped
+
+    }//GEN-LAST:event_txtPlaCadVenKeyTyped
+
+    private void txtRepOsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepOsKeyTyped
+        btnGerOs.setEnabled(true);
+    }//GEN-LAST:event_txtRepOsKeyTyped
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
-            new main().setVisible(true);
+            new main().setVisible(false);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -17790,10 +17850,8 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkAppMas;
     private javax.swing.JRadioButton chkBolMas;
     private javax.swing.JRadioButton chkCarMas;
-    private javax.swing.JCheckBox chkCarMasa;
     private javax.swing.JCheckBox chkCus;
     private javax.swing.JRadioButton chkDebMas;
-    private javax.swing.JCheckBox chkDebMasa;
     private javax.swing.JCheckBox chkGarOs;
     private javax.swing.JCheckBox chkMelMas;
     private javax.swing.JCheckBox chkVarCorCadEst;
