@@ -3159,7 +3159,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlHeader.add(btnVenPri);
-        btnVenPri.setBounds(1010, 20, 150, 20);
+        btnVenPri.setBounds(1020, 20, 150, 20);
 
         pnlPrincipal.add(pnlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 200));
 
