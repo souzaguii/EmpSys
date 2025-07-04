@@ -2946,7 +2946,7 @@ public final class main extends javax.swing.JFrame {
         btnVolVen = new javax.swing.JButton();
         btnExcVen = new javax.swing.JButton();
         lblConPlaVen = new javax.swing.JLabel();
-        lblBusVen2 = new javax.swing.JLabel();
+        lblPlaAtiVen = new javax.swing.JLabel();
         lblErrVen = new javax.swing.JLabel();
         lblBusVen = new javax.swing.JLabel();
         txtBusVen = new javax.swing.JTextField();
@@ -6396,7 +6396,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopAVen);
-        btnCopAVen.setBounds(810, 343, 100, 30);
+        btnCopAVen.setBounds(700, 343, 100, 30);
 
         btnCopVen.setFont(fontmed(12));
         btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6409,7 +6409,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopVen);
-        btnCopVen.setBounds(700, 343, 100, 30);
+        btnCopVen.setBounds(590, 343, 100, 30);
 
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6422,7 +6422,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnAltVen);
-        btnAltVen.setBounds(920, 343, 100, 30);
+        btnAltVen.setBounds(810, 343, 100, 30);
 
         btnWppVen.setVisible(false);
         btnWppVen.setFont(fontmed(12));
@@ -6447,7 +6447,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnVolVen);
-        btnVolVen.setBounds(70, 343, 100, 30);
+        btnVolVen.setBounds(1030, 343, 100, 30);
 
         btnExcVen.setFont(fontmed(12));
         btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6460,35 +6460,36 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnExcVen);
-        btnExcVen.setBounds(1030, 343, 100, 30);
+        btnExcVen.setBounds(920, 343, 100, 30);
 
         lblConPlaVen.setFont(fontbold(12));
         lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
         lblConPlaVen.setText("0");
         lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblConPlaVen);
-        lblConPlaVen.setBounds(225, 381, 50, 20);
+        lblConPlaVen.setBounds(230, 395, 50, 20);
 
-        lblBusVen2.setFont(fontmed(11));
-        lblBusVen2.setForeground(new java.awt.Color(10, 60, 133));
-        lblBusVen2.setText("Planos ativados este mês:");
-        lblBusVen2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlVen.add(lblBusVen2);
-        lblBusVen2.setBounds(70, 380, 160, 20);
+        lblPlaAtiVen.setFont(fontmed(11));
+        lblPlaAtiVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblPlaAtiVen.setText("Planos ativados este mês:");
+        lblPlaAtiVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlVen.add(lblPlaAtiVen);
+        lblPlaAtiVen.setBounds(70, 395, 160, 20);
 
         lblErrVen.setFont(fontbold(10));
         lblErrVen.setForeground(new java.awt.Color(204, 51, 0));
+        lblErrVen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblErrVen.setText("Nenhum registro encontrado!");
         lblErrVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlVen.add(lblErrVen);
-        lblErrVen.setBounds(350, 370, 200, 30);
+        lblErrVen.setBounds(70, 375, 200, 20);
 
         lblBusVen.setFont(fontmed(12));
         lblBusVen.setForeground(new java.awt.Color(10, 60, 133));
         lblBusVen.setText("Buscar");
         lblBusVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlVen.add(lblBusVen);
-        lblBusVen.setBounds(350, 350, 90, 20);
+        lblBusVen.setBounds(70, 350, 90, 20);
 
         txtBusVen.setBackground(new java.awt.Color(241, 241, 241));
         txtBusVen.setFont(fontmed(13));
@@ -6515,11 +6516,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(txtBusVen);
-        txtBusVen.setBounds(350, 350, 210, 20);
+        txtBusVen.setBounds(70, 350, 210, 20);
 
         sepBusVen.setForeground(new java.awt.Color(10, 60, 133));
         pnlVen.add(sepBusVen);
-        sepBusVen.setBounds(350, 370, 210, 10);
+        sepBusVen.setBounds(70, 370, 210, 10);
 
         pnlPrincipal.add(pnlVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
@@ -15073,9 +15074,12 @@ public final class main extends javax.swing.JFrame {
             btnCopAVen.setEnabled(false);
             btnWppVen.setEnabled(false);
 
-            lblBusVen.setLocation(350, 350);
-            txtBusVen.setText(null);
+            lblBusVen.setLocation(70, 350);
+            lblPlaAtiVen.setLocation(70, 375);
+            lblConPlaVen.setLocation(225, 375);
             lblErrVen.setVisible(false);
+
+            txtBusVen.setText(null);
 
             pnlContent.setVisible(false);
             pnlVen.setVisible(true);
@@ -16386,10 +16390,8 @@ public final class main extends javax.swing.JFrame {
                     ve.setData(formatterbanco.format(formatter.parse(txtBusVen.getText())));
 
                 } catch (ParseException ex) {
-                    Logger.getLogger(main.class
-                            .getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                lblErrVen.setVisible(false);
 
             }
 
@@ -16406,8 +16408,12 @@ public final class main extends javax.swing.JFrame {
             }
 
             if (tabelavencimentopa(tblVen, scrVen, ve)) {
+                lblPlaAtiVen.setLocation(70, 375);
+                lblConPlaVen.setLocation(225, 375);
                 lblErrVen.setVisible(false);
             } else {
+                lblPlaAtiVen.setLocation(70, 395);
+                lblConPlaVen.setLocation(225, 395);
                 lblErrVen.setVisible(true);
             }
 
@@ -17896,7 +17902,6 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblBusIteCadEnt;
     private javax.swing.JLabel lblBusIteGerEnt;
     private javax.swing.JLabel lblBusVen;
-    private javax.swing.JLabel lblBusVen2;
     private javax.swing.JLabel lblCadastrarPlano;
     private javax.swing.JLabel lblCadastrarPlano1;
     private javax.swing.JLabel lblChiCadEst;
@@ -17985,6 +17990,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblOutros;
     private javax.swing.JLabel lblParCadEnt;
     private javax.swing.JLabel lblParJur;
+    private javax.swing.JLabel lblPlaAtiVen;
     private javax.swing.JLabel lblPlaCadVen;
     private javax.swing.JLabel lblPlaMas;
     private javax.swing.JLabel lblPlanos;
