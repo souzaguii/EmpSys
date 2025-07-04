@@ -16,6 +16,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.HeadlessException;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Toolkit;
@@ -226,7 +227,7 @@ public final class main extends javax.swing.JFrame {
 
     public void anitxtin(JLabel lbl) {
 
-        Timer timer = new Timer(4, new ActionListener() {
+        Timer timer = new Timer(1, new ActionListener() {
 
             int x = lbl.getX();
 
@@ -237,8 +238,8 @@ public final class main extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                y--;
-                count++;
+                y = y - 4;
+                count = count + 4;
 
                 lbl.setLocation(x, y);
 
@@ -257,7 +258,7 @@ public final class main extends javax.swing.JFrame {
 
     public void anitxtout(JLabel lbl) {
 
-        Timer timer = new Timer(4, new ActionListener() {
+        Timer timer = new Timer(1, new ActionListener() {
 
             int x = lbl.getX();
 
@@ -268,8 +269,8 @@ public final class main extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                y++;
-                count++;
+                y = y + 4;
+                count = count + 4;
 
                 lbl.setLocation(x, y);
 
@@ -2271,8 +2272,8 @@ public final class main extends javax.swing.JFrame {
                 chipt = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Chip"))).toString();
 
                 Object[] novaLinha = {qua, idt, produtot + " - " + chipt, precot};
-                
-                 header.getColumnModel().getColumn(1).setMinWidth(0);
+
+                header.getColumnModel().getColumn(1).setMinWidth(0);
                 header.getColumnModel().getColumn(1).setMaxWidth(0);
                 header.getColumnModel().getColumn(1).setWidth(0);
 
@@ -2432,59 +2433,103 @@ public final class main extends javax.swing.JFrame {
 
     public void copiarcontrato() {
 
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Escolha um arquivo PDF");
+        SwingWorker<Void, String> contratoWorker = new SwingWorker<Void, String>() {
 
-        String userHome = System.getProperty("user.home");
-        File downloadsFolder = new File(userHome, "Downloads");
-        fileChooser.setCurrentDirectory(downloadsFolder);
+            @Override
+            protected Void doInBackground() throws Exception {
+                try {
 
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("PDF Files", "pdf"));
+                    JFileChooser fileChooser = new JFileChooser();
+                    fileChooser.setDialogTitle("Escolha um arquivo PDF");
 
-        int result = fileChooser.showOpenDialog(null);
+                    String userHome = System.getProperty("user.home");
+                    File downloadsFolder = new File(userHome, "Downloads");
+                    fileChooser.setCurrentDirectory(downloadsFolder);
+                    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("PDF Files", "pdf"));
 
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+                    int result = fileChooser.showOpenDialog(null);
 
-            String novoNome = txtNomMas.getText().toUpperCase();
-            if (novoNome == null || novoNome.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "O nome do arquivo não pode ser vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
+                    if (result == JFileChooser.APPROVE_OPTION) {
+
+                        publish("Copiando contrato...");
+                        lblConMas.setForeground(corforeazul);
+
+                        File selectedFile = fileChooser.getSelectedFile();
+                        String novoNome = txtNomMas.getText().toUpperCase();
+
+                        if (novoNome == null || novoNome.trim().isEmpty()) {
+                            publish("Erro ao copiar contrato!\nInsira o nome do cliente e tente novamente.");
+                            lblConMas.setForeground(new Color(153, 0, 0));
+                            return null;
+                        }
+
+                        File renamedFile = new File(selectedFile.getParent(), novoNome + ".pdf");
+
+                        int counter = 1;
+                        while (renamedFile.exists()) {
+                            String newName = novoNome + " " + counter + ".pdf";
+                            renamedFile = new File(selectedFile.getParent(), newName);
+                            counter++;
+                        }
+
+                        boolean renamed = selectedFile.renameTo(renamedFile);
+                        if (!renamed) {
+                            publish("Erro ao copiar contrato!\nNão foi possível renomear o arquivo.");
+                            lblConMas.setForeground(new Color(153, 0, 0));
+                            return null;
+                        }
+
+                        try (PDDocument document = Loader.loadPDF(renamedFile)) {
+                            PDFRenderer pdfRenderer = new PDFRenderer(document);
+                            BufferedImage image = pdfRenderer.renderImageWithDPI(0, 150);
+
+                            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                            ImageTransferable transferable = new ImageTransferable(image);
+                            clipboard.setContents(transferable, null);
+                            image.flush();
+
+                            lblConMas.setForeground(new Color(0, 153, 0));
+                            publish("Contrato copiado com sucesso!");
+
+                        } catch (IOException ex) {
+                            publish("Erro ao copiar contrato!\nNão foi possível abrir o arquivo.");
+                            lblConMas.setForeground(new Color(153, 0, 0));
+                        }
+                    }
+
+                } catch (HeadlessException ex) {
+                    publish("Erro ao copiar contrato!\nTente novamente.");
+                    lblConMas.setForeground(new Color(153, 0, 0));
+                }
+
+                return null;
             }
 
-            File renamedFile = new File(selectedFile.getParent(), novoNome + ".pdf");
-
-            int counter = 1;
-            while (renamedFile.exists()) {
-                String newName = novoNome + " " + counter + ".pdf";
-                renamedFile = new File(selectedFile.getParent(), newName);
-                counter++;
+            @Override
+            protected void process(List<String> chunks) {
+                for (String mensagem : chunks) {
+                    lblConMas.setVisible(true);
+                    lblConMas.setText(mensagem);
+                }
             }
 
-            boolean renamed = selectedFile.renameTo(renamedFile);
-            if (!renamed) {
-                JOptionPane.showMessageDialog(null, "Não foi possível renomear o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
+            @Override
+            protected void done() {
+                if ("Contrato copiado com sucesso!".equals(lblConMas.getText())) {
+                    Timer timer = new Timer(5000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            lblConMas.setVisible(false);
+                        }
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+                }
             }
+        };
 
-            try (PDDocument document = Loader.loadPDF(renamedFile)) {
+        contratoWorker.execute();
 
-                PDFRenderer pdfRenderer = new PDFRenderer(document);
-                BufferedImage image = pdfRenderer.renderImageWithDPI(0, 150);
-
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                ImageTransferable transferable = new ImageTransferable(image);
-                clipboard.setContents(transferable, null);
-
-                image.flush();
-
-                JOptionPane.showMessageDialog(null, "Contrato copiado com sucesso!", "Máscara", JOptionPane.INFORMATION_MESSAGE);
-
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao abrir o PDF: " + ex.getMessage());
-
-            }
-        }
     }
 
     static class ImageTransferable implements Transferable {
@@ -2547,8 +2592,7 @@ public final class main extends javax.swing.JFrame {
             cmb.setSelectedIndex(0);
 
         } catch (SQLException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
 
         }
 
@@ -2948,6 +2992,7 @@ public final class main extends javax.swing.JFrame {
         chkDebMas = new javax.swing.JRadioButton();
         chkCarMas = new javax.swing.JRadioButton();
         chkBolMas = new javax.swing.JRadioButton();
+        lblConMas = new javax.swing.JTextArea();
         pnlOs = new javax.swing.JPanel();
         lblNovaEntradaItens6 = new javax.swing.JLabel();
         btnGerOs = new javax.swing.JButton();
@@ -6883,6 +6928,23 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(chkBolMas);
         chkBolMas.setBounds(570, 220, 130, 21);
 
+        lblConMas.setEditable(false);
+        lblConMas.setBackground(new java.awt.Color(241, 241, 241));
+        lblConMas.setColumns(1);
+        lblConMas.setFont(fontmed(11));
+        lblConMas.setForeground(corforeazul);
+        lblConMas.setRows(5);
+        lblConMas.setText("Copiando contrato...");
+        lblConMas.setBorder(null);
+        lblConMas.setFocusable(false);
+        lblConMas.setOpaque(false);
+        lblConMas.setRequestFocusEnabled(false);
+        lblConMas.setSelectionEnd(0);
+        lblConMas.setSelectionStart(0);
+        pnlMas.add(lblConMas);
+        lblConMas.setBounds(80, 430, 430, 30);
+        lblConMas.getAccessibleContext().setAccessibleName("");
+
         pnlPrincipal.add(pnlMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1200, 510));
 
         pnlOs.setBackground(new java.awt.Color(241, 241, 241));
@@ -9367,6 +9429,8 @@ public final class main extends javax.swing.JFrame {
         chkBolMas.setSelected(true);
         rbtnAtiMas.setSelected(true);
 
+        lblConMas.setVisible(false);
+
         txtAreMas.setText(null);
 
         btnCopMas.setVisible(false);
@@ -11068,7 +11132,7 @@ public final class main extends javax.swing.JFrame {
         btnSalCadEnt.setEnabled(true);
         btnIteCadEnt.setEnabled(true);
 
-        comboboxentrada(cmbSerCadEnt, 1);
+        comboboxentrada(cmbSerCadEnt, 2);
 
         LocalDate dataAtual = LocalDate.now();
         txtDatCadEnt.setText(dataAtual.format(formatteratual));
@@ -12314,7 +12378,7 @@ public final class main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException ex) {
-                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
 
         }
@@ -12769,8 +12833,8 @@ public final class main extends javax.swing.JFrame {
                     preco = Double.parseDouble(txtPreDes.getText().replace(".", "").replace(",", "."));
                 } else {
                     preco = 0;
-                }                             
-                
+                }
+
                 despezas de = new despezas();
                 despezasDAO dedao = new despezasDAO();
 
@@ -15570,7 +15634,7 @@ public final class main extends javax.swing.JFrame {
                         DefaultTableModel model = (DefaultTableModel) tblVen.getModel();
                         model.setRowCount(0);
 
-                        pnlCadVen.setVisible(false);
+                        pnlMas.setVisible(false);
                         pnlContent.setVisible(true);
 
                     }
@@ -17299,10 +17363,10 @@ public final class main extends javax.swing.JFrame {
     private void tblVarCorCadEstMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVarCorCadEstMouseClicked
         DefaultTableModel modelo = (DefaultTableModel) tblVarCorCadEst.getModel();
         modelo.removeRow(tblVarCorCadEst.getSelectedRow());
-           
-        if(modelo.getRowCount()==0){
-            tblVarCorCadEst.setVisible(false);   
-            scrVarCorCadEst.setVisible(false); 
+
+        if (modelo.getRowCount() == 0) {
+            tblVarCorCadEst.setVisible(false);
+            scrVarCorCadEst.setVisible(false);
         }
     }//GEN-LAST:event_tblVarCorCadEstMouseClicked
 
@@ -17842,6 +17906,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblCliCadVen;
     private javax.swing.JLabel lblCliGerEnt;
     private javax.swing.JLabel lblCliOs;
+    private javax.swing.JTextArea lblConMas;
     private javax.swing.JLabel lblConOs;
     private javax.swing.JLabel lblConPlaVen;
     private javax.swing.JLabel lblConsultarEntrada;
