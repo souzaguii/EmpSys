@@ -12314,7 +12314,7 @@ public final class main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
 
         }
