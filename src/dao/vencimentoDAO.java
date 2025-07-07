@@ -98,7 +98,7 @@ public class vencimentoDAO {
 
         List<String[]> lista = new ArrayList<>();
 
-        String SQL = "SELECT * FROM vencimento ORDER BY OkVen, vencimentoVen <= CURDATE() DESC, vencimentoVen >= CURDATE() DESC, ABS(DATEDIFF(vencimentoVen, CURDATE()))";
+        String SQL = "SELECT * FROM vencimento ORDER BY dataVen DESC";
         PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -134,7 +134,8 @@ public class vencimentoDAO {
         String SQL = "SELECT * FROM vencimento WHERE clienteVen LIKE '%" + ve.cliente + "%' "
                 + "OR telefoneVen LIKE '%" + ve.telefone + "%' OR cpfVen LIKE '%" + ve.cpf + "%' "
                 + "OR planoVen LIKE '%" + ve.plano + "%' OR dataVen LIKE '%" + ve.data + "%' "
-                + "OR vencimentoVen LIKE '%" + ve.vencimento + "%' OR acessoVen LIKE '%" + ve.acesso + "%' ORDER BY vencimentoVen >= CURDATE() DESC, ABS(DATEDIFF(vencimentoVen, CURDATE()))";
+                + "OR vencimentoVen LIKE '%" + ve.vencimento + "%' OR acessoVen LIKE '%" + ve.acesso + "%' ORDER BY dataVen DESC";
+        
         PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -162,51 +163,5 @@ public class vencimentoDAO {
 
         return lista;
     }
-
-     public List<String[]> buscarverificaplano() throws SQLException {
-
-        List<String[]> lista = new ArrayList<>();
-
-        String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <= CURDATE() AND okVen = 0 ORDER BY planoVen";
-        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
-
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-
-            String[] rowData = {
-                rs.getString("cpfVen"),    
-                rs.getString("planoVen")};
-
-            lista.add(rowData);
-
-        }
-
-        rs.close();
-        stmt.close();
-        connection.Close();
-
-        return lista;
-    }
-    
-    public boolean verificar() throws SQLException {
-
-        String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <=  CURRENT_DATE() AND okVen = 0";
-        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
-
-        ResultSet rs = stmt.executeQuery();
-
-        if (rs.next()) {
-
-            return true;
-
-        }
-
-        rs.close();
-        stmt.close();
-        connection.Close();
-
-        return false;
-    }  
     
 }
