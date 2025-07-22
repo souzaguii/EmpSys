@@ -2285,12 +2285,20 @@ public final class main extends javax.swing.JFrame {
 
                 marcat = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Marca"))).toString();
                 modelot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Modelo"))).toString();
-                cort = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Cor"))).toString();
                 precot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Preço"))).toString();
-
+               
+                try{
+                    
+                cort = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Cor"))).toString();
                 Object[] novaLinha = {qua, idt, produtot + " - " + marcat + " " + modelot + " - " + cort, precot};
-
                 modelo.addRow(novaLinha);
+                           
+                }catch(Exception e){
+                
+                 Object[] novaLinha = {qua, idt, produtot + " - " + marcat + " " + modelot, precot};
+                 modelo.addRow(novaLinha);
+                
+                }             
 
                 header.getColumnModel().getColumn(1).setMinWidth(0);
                 header.getColumnModel().getColumn(1).setMaxWidth(0);
@@ -11250,35 +11258,19 @@ public final class main extends javax.swing.JFrame {
 
                     if (rbtnChiIteCadEnt.isSelected()) {
 
-                        if (Integer.parseInt(tblEstIteCadEnt.getValueAt(tblEstIteCadEnt.getSelectedRow(), 3).toString()) < i) {
+                        adicionarprodutos(tblEstIteCadEnt, tblSelIteCadEnt, opc, rbtnChiIteCadEnt);
 
-                            JOptionPane.showMessageDialog(null, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
-
-                        } else {
-
-                            adicionarprodutos(tblEstIteCadEnt, tblSelIteCadEnt, opc, rbtnChiIteCadEnt);
-
-                            lblSelIteCadEnt.setVisible(true);
-                            scrSelIteCadEnt.setVisible(true);
-                            tblSelIteCadEnt.setVisible(true);
-
-                        }
+                        lblSelIteCadEnt.setVisible(true);
+                        scrSelIteCadEnt.setVisible(true);
+                        tblSelIteCadEnt.setVisible(true);
 
                     } else {
 
-                        if (Integer.parseInt(tblEstIteCadEnt.getValueAt(tblEstIteCadEnt.getSelectedRow(), 5).toString()) < i) {
+                        adicionarprodutos(tblEstIteCadEnt, tblSelIteCadEnt, opc, rbtnChiIteCadEnt);
 
-                            JOptionPane.showMessageDialog(null, "Estoque insuficiente!", "Entrada", JOptionPane.ERROR_MESSAGE);
-
-                        } else {
-
-                            adicionarprodutos(tblEstIteCadEnt, tblSelIteCadEnt, opc, rbtnChiIteCadEnt);
-
-                            lblSelIteCadEnt.setVisible(true);
-                            scrSelIteCadEnt.setVisible(true);
-                            tblSelIteCadEnt.setVisible(true);
-
-                        }
+                        lblSelIteCadEnt.setVisible(true);
+                        scrSelIteCadEnt.setVisible(true);
+                        tblSelIteCadEnt.setVisible(true);
 
                     }
 
@@ -15890,6 +15882,8 @@ public final class main extends javax.swing.JFrame {
         lblDatCadVen.setLocation(650, 140);
         lblVenCadVen.setLocation(650, 190);
 
+        btnSalCadVen.setEnabled(true);
+        
         pnlVen.setVisible(false);
         pnlCadVen.setVisible(true);
 
