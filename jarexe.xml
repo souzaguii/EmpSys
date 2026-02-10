@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\Geral\Documents\EmpSys\dist\EmpSys.jar</jar>
+  <jar>D:\EmpSys\Git\EmpSys\dist\EmpSys.jar</jar>
   <outfile>D:\EmpSys\EmpSys.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\Geral\Documents\EmpSys\icon.ico</icon>
+  <icon>D:\EmpSys\Git\EmpSys\icon.ico</icon>
   <jre>
     <path>java-runtime</path>
     <requiresJdk>false</requiresJdk>
