@@ -2286,19 +2286,19 @@ public final class main extends javax.swing.JFrame {
                 marcat = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Marca"))).toString();
                 modelot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Modelo"))).toString();
                 precot = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Preço"))).toString();
-               
-                try{
-                    
-                cort = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Cor"))).toString();
-                Object[] novaLinha = {qua, idt, produtot + " - " + marcat + " " + modelot + " - " + cort, precot};
-                modelo.addRow(novaLinha);
-                           
-                }catch(Exception e){
-                
-                 Object[] novaLinha = {qua, idt, produtot + " - " + marcat + " " + modelot, precot};
-                 modelo.addRow(novaLinha);
-                
-                }             
+
+                try {
+
+                    cort = (tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), tabelaOrigem.getColumnModel().getColumnIndex("Cor"))).toString();
+                    Object[] novaLinha = {qua, idt, produtot + " - " + marcat + " " + modelot + " - " + cort, precot};
+                    modelo.addRow(novaLinha);
+
+                } catch (Exception e) {
+
+                    Object[] novaLinha = {qua, idt, produtot + " - " + marcat + " " + modelot, precot};
+                    modelo.addRow(novaLinha);
+
+                }
 
                 header.getColumnModel().getColumn(1).setMinWidth(0);
                 header.getColumnModel().getColumn(1).setMaxWidth(0);
@@ -15883,7 +15883,7 @@ public final class main extends javax.swing.JFrame {
         lblVenCadVen.setLocation(650, 190);
 
         btnSalCadVen.setEnabled(true);
-        
+
         pnlVen.setVisible(false);
         pnlCadVen.setVisible(true);
 
@@ -16504,34 +16504,37 @@ public final class main extends javax.swing.JFrame {
                 txtPlaMas.setText("TIM Controle Premium");
                 break;
             case '4':
-                txtPlaMas.setText("TIM Controle B Express");
+                txtPlaMas.setText("TIM Controle Redes Sociais");
                 break;
             case '5':
-                txtPlaMas.setText("TIM Controle C Express");
+                txtPlaMas.setText("TIM Controle Básico Express");
                 break;
             case '6':
-                txtPlaMas.setText("TIM Black");
+                txtPlaMas.setText("TIM Controle Light Express");
                 break;
             case '7':
-                txtPlaMas.setText("TIM Black Plus");
+                txtPlaMas.setText("TIM Controle Pro Express");
                 break;
             case '8':
-                txtPlaMas.setText("TIM Black Premium");
+                txtPlaMas.setText("TIM Black");
                 break;
             case '9':
-                txtPlaMas.setText("TIM Black C Ultra");
+                txtPlaMas.setText("TIM Black Plus");
                 break;
             case '0':
-                txtPlaMas.setText("TIM Black A Express");
+                txtPlaMas.setText("TIM Black Premium");
                 break;
             case '-':
-                txtPlaMas.setText("TIM Black B Express");
+                txtPlaMas.setText("TIM Black C Ultra");
                 break;
             case '=':
-                txtPlaMas.setText("TIM Black C Express");
+                txtPlaMas.setText("TIM Black A Express");
                 break;
             case '[':
-                txtPlaMas.setText("TIM Controle Redes Sociais");
+                txtPlaMas.setText("TIM Black B Express");
+                break;
+            case ']':
+                txtPlaMas.setText("TIM Black C Express");
                 break;
             default:
                 break;
