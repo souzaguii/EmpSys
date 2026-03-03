@@ -10896,7 +10896,7 @@ public final class main extends javax.swing.JFrame {
 
                                     String textoSelecionado = selectedItem.getDescricao();
 
-                                    if (textoSelecionado.equals("Troca de Chip") || textoSelecionado.equals("Ativação eSIM")) {
+                                    if (textoSelecionado.equals("Ativação Pré") || textoSelecionado.equals("Ativação Naked")) {
 
                                         planosdiaDAO pddao = new planosdiaDAO();
                                         pddao.zerar();
@@ -10910,6 +10910,28 @@ public final class main extends javax.swing.JFrame {
                                     }
 
                                 }
+                                
+//                                 if (cmbSerCadEnt.isEnabled()) {
+//                                    itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
+//
+//                                    String textoSelecionado = selectedItem.getDescricao();
+//
+//                                    if (textoSelecionado.equals("Ativação Pré") || textoSelecionado.equals("Ativação Naked")) {
+//
+//                                        planosdiaDAO pddao = new planosdiaDAO();
+//                                        pddao.zerar();
+//
+//                                        if (rbtnTroPreCadEnt.isSelected()) {
+//                                            pddao.adicionar(3);
+//                                        } else {
+//                                            pddao.adicionar(4);
+//                                        }
+//
+//                                    }
+//
+//                                }
+
+                                
 
                                 JOptionPane.showMessageDialog(null, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
@@ -17338,16 +17360,14 @@ public final class main extends javax.swing.JFrame {
 
             String con = String.valueOf(pdDAO.buscar(1));
             String pos = String.valueOf(pdDAO.buscar(2));
-            String trocapre = String.valueOf(pdDAO.buscar(3));
-            String trocapla = String.valueOf(pdDAO.buscar(4));
+            int trocapre = pdDAO.buscar(3);
+            int trocapla = pdDAO.buscar(4);
 
             txtAreMas.setText(
                     "*PARCIAL DO DIA " + data + "*\n\n"
                     + "Plano Controle: " + con
                     + "\nPlano Black: " + pos
-                    + "\n*Troca de Chip*"
-                    + "\nPré-pago: " + trocapre
-                    + "\nPlano: " + trocapla
+                    + "\nPré-pago: " + (trocapre+trocapla)
             );
 
             txtAreMas.setCaretPosition(0);
