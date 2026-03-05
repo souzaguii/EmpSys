@@ -6541,12 +6541,14 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(lblNovaEntradaItens10);
         lblNovaEntradaItens10.setBounds(0, 30, 1200, 30);
 
+        chkAppMas.setVisible(false);
         chkAppMas.setFont(fontmed(12));
         chkAppMas.setForeground(new java.awt.Color(10, 60, 133));
         chkAppMas.setText("APP MEU TIM");
         pnlMas.add(chkAppMas);
         chkAppMas.setBounds(570, 360, 150, 20);
 
+        chkMelMas.setVisible(false);
         chkMelMas.setFont(fontmed(12));
         chkMelMas.setForeground(new java.awt.Color(10, 60, 133));
         chkMelMas.setText("Melhor Data");
@@ -6800,6 +6802,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(txtNumPorMas);
         txtNumPorMas.setBounds(340, 260, 170, 20);
 
+        rbtnMigTroMas.setVisible(false);
         btnGroup.add(rbtnMigTroMas);
         rbtnMigTroMas.setFont(fontmed(12));
         rbtnMigTroMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6815,7 +6818,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAtiMas.setText("Ativação");
         rbtnAtiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnAtiMas);
-        rbtnAtiMas.setBounds(570, 120, 90, 21);
+        rbtnAtiMas.setBounds(340, 360, 90, 21);
 
         btnGroup.add(rbtnMigMas);
         rbtnMigMas.setFont(fontmed(12));
@@ -6823,7 +6826,7 @@ public final class main extends javax.swing.JFrame {
         rbtnMigMas.setText("Migração");
         rbtnMigMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlMas.add(rbtnMigMas);
-        rbtnMigMas.setBounds(570, 150, 90, 21);
+        rbtnMigMas.setBounds(430, 360, 90, 21);
 
         lblPlaMas.setFont(fontmed(12));
         lblPlaMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6912,6 +6915,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(jScrollPane1);
         jScrollPane1.setBounds(820, 110, 300, 290);
 
+        chkDebMas.setVisible(false);
         btnGroup4.add(chkDebMas);
         chkDebMas.setFont(fontmed(12));
         chkDebMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6920,6 +6924,7 @@ public final class main extends javax.swing.JFrame {
         pnlMas.add(chkDebMas);
         chkDebMas.setBounds(570, 250, 170, 21);
 
+        chkCarMas.setVisible(false);
         btnGroup4.add(chkCarMas);
         chkCarMas.setFont(fontmed(12));
         chkCarMas.setForeground(new java.awt.Color(10, 60, 133));
@@ -6929,6 +6934,7 @@ public final class main extends javax.swing.JFrame {
         chkCarMas.setBounds(570, 280, 170, 21);
 
         btnGroup4.add(chkBolMas);
+        chkBolMas.setVisible(false);
         chkBolMas.setFont(fontmed(12));
         chkBolMas.setForeground(new java.awt.Color(10, 60, 133));
         chkBolMas.setSelected(true);
@@ -10910,7 +10916,7 @@ public final class main extends javax.swing.JFrame {
                                     }
 
                                 }
-                                
+
 //                                 if (cmbSerCadEnt.isEnabled()) {
 //                                    itens selectedItem = (itens) cmbSerCadEnt.getSelectedItem();
 //
@@ -10930,9 +10936,6 @@ public final class main extends javax.swing.JFrame {
 //                                    }
 //
 //                                }
-
-                                
-
                                 JOptionPane.showMessageDialog(null, "Entrada feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
                                 DefaultTableModel model = (DefaultTableModel) tblSelIteCadEnt.getModel();
@@ -12454,63 +12457,102 @@ public final class main extends javax.swing.JFrame {
         String cpf = txtCpfMas.getText();
         String contato = txtNumConMas.getText();
         String acesso = txtNumAceMas.getText();
-        String servico = "( X ) Ativação\n(    ) Migração (Pré P/Ctrl)\n(    ) Conversão (Troca Pré P/Controle)\n";
-        String port = "(    ) Sim\n( X ) Não\n";
+        String servico = "Ativação ( X )\nMigração (    )\nPortabilidade (    )\n";
+        String port = "\n*Portabilidade*"
+                    + "\nNúmero provisório:"
+                    + "\nNúmero portado:\n";
+               
         String plano = txtPlaMas.getText();
-        String pago = "(    ) DACC (Débito em Conta)\n( X ) Boleto\n(    ) Cartão de Crédito\n";
-        String melhor = "(    ) Sim\n( X ) Não\n";
-        String app = "(    ) Sim\n( X ) Não";
         String venc = txtVenMas.getText();
 
         if (rbtnMigMas.isSelected()) {
-            servico = "(    ) Ativação\n( X ) Migração (Pré P/Ctrl)\n(    ) Conversão (Troca Pré P/Controle)\n";
-        } else if (rbtnMigTroMas.isSelected()) {
-            servico = "(    ) Ativação\n(    ) Migração (Pré P/Ctrl)\n( X ) Conversão (Troca Pré P/Controle)\n";
+            servico = "Ativação (    )\nMigração ( X )\nPortabilidade (    )\n";
         }
 
         if (!"".equals(txtNumPorMas.getText())) {
-            port = "( X ) Sim\n(    ) Não\n"
-                    + "\n*Nº Portado:* " + txtNumPorMas.getText() + "\n";
-        }
-
-        if (chkDebMas.isSelected()) {
-            pago = "( X ) DACC (Débito em Conta)\n(    ) Boleto\n(    ) Cartão de Crédito\n";
-        } else if (chkCarMas.isSelected()) {
-            pago = "(    ) DACC (Débito em Conta)\n(    ) Boleto\n( X ) Cartão de Crédito\n";
-        }
-
-        if (chkMelMas.isSelected()) {
-            melhor = "( X ) Sim\n(    ) Não\n";
-        }
-
-        if (chkAppMas.isSelected()) {
-            app = "( X ) Sim\n(    ) Não";
+            servico = "Ativação (    )\nMigração (    )\nPortabilidade ( X )\n";
+            port =  "\n*Portabilidade*"
+                    + "\nNúmero provisório: " + acesso
+                    + "\nNúmero portado: " + txtNumPorMas.getText() + "\n";
         }
 
         txtAreMas.setText(
-                "*Nome do PDV:* Empório Cell\n"
-                + "*Nome do Vendedor:* Guilherme\n"
-                + "*Nome do Cliente:* " + nome + "\n"
-                + "*CPF:* " + cpf + "\n"
-                + "*Telefone de Contato:* " + contato + "\n"
-                + "\n*Nº do Acesso:* " + acesso + "\n"
-                + "\n*Serviço Realizado*\n"
+                "Nome do PDV: Empório Cell\n"
+                + "Nome do Vendedor: Guilherme\n"
+                + "Nome do Cliente: " + nome + "\n"
+                + "CPF do cliente: " + cpf + "\n"
+                + "Telefone de Contato: " + contato + "\n"
+                + "Número do acesso: " + acesso + "\n"
+                        
+                + "\n*Ativação ou Migração*\n"
                 + servico
-                + "\n*Portabilidade*\n"
                 + port
-                + "\n*Qual Plano Foi Vendido?*\n"
-                + plano
-                + "\n\n*Forma de Pagamento*\n"
-                + pago
-                + "\n*Escolheu Melhor Data de Vencimento no Sistema*\n"
-                + melhor
-                + "\n*Data de Vencimento:* " + venc + "\n"
-                + "\n*Sistema Utilizado*\n"
-                + "( X ) App TIM Vendas\n"
-                + "\n*Instalou e Acessou App Meu TIM no Celular do Cliente*\n"
-                + app
+                        
+                + "\nQual Plano Foi Vendido: " + plano
+                        
+                + "\n\nData de Vencimento: " + venc
         );
 
+//        String nome = txtNomMas.getText();
+//        String cpf = txtCpfMas.getText();
+//        String contato = txtNumConMas.getText();
+//        String acesso = txtNumAceMas.getText();
+//        String servico = "( X ) Ativação\n(    ) Migração (Pré P/Ctrl)\n(    ) Conversão (Troca Pré P/Controle)\n";
+//        String port = "(    ) Sim\n( X ) Não\n";
+//        String plano = txtPlaMas.getText();
+//        String pago = "(    ) DACC (Débito em Conta)\n( X ) Boleto\n(    ) Cartão de Crédito\n";
+//        String melhor = "(    ) Sim\n( X ) Não\n";
+//        String app = "(    ) Sim\n( X ) Não";
+//        String venc = txtVenMas.getText();
+//
+//        if (rbtnMigMas.isSelected()) {
+//            servico = "(    ) Ativação\n( X ) Migração (Pré P/Ctrl)\n(    ) Conversão (Troca Pré P/Controle)\n";
+//        } else if (rbtnMigTroMas.isSelected()) {
+//            servico = "(    ) Ativação\n(    ) Migração (Pré P/Ctrl)\n( X ) Conversão (Troca Pré P/Controle)\n";
+//        }
+//
+//        if (!"".equals(txtNumPorMas.getText())) {
+//            port = "( X ) Sim\n(    ) Não\n"
+//                    + "\n*Nº Portado:* " + txtNumPorMas.getText() + "\n";
+//        }
+//
+//        if (chkDebMas.isSelected()) {
+//            pago = "( X ) DACC (Débito em Conta)\n(    ) Boleto\n(    ) Cartão de Crédito\n";
+//        } else if (chkCarMas.isSelected()) {
+//            pago = "(    ) DACC (Débito em Conta)\n(    ) Boleto\n( X ) Cartão de Crédito\n";
+//        }
+//
+//        if (chkMelMas.isSelected()) {
+//            melhor = "( X ) Sim\n(    ) Não\n";
+//        }
+//
+//        if (chkAppMas.isSelected()) {
+//            app = "( X ) Sim\n(    ) Não";
+//        }
+//
+//        txtAreMas.setText(
+//                "*Nome do PDV:* Empório Cell\n"
+//                + "*Nome do Vendedor:* Guilherme\n"
+//                + "*Nome do Cliente:* " + nome + "\n"
+//                + "*CPF:* " + cpf + "\n"
+//                + "*Telefone de Contato:* " + contato + "\n"
+//                + "\n*Nº do Acesso:* " + acesso + "\n"
+//                + "\n*Serviço Realizado*\n"
+//                + servico
+//                + "\n*Portabilidade*\n"
+//                + port
+//                + "\n*Qual Plano Foi Vendido?*\n"
+//                + plano
+//                + "\n\n*Forma de Pagamento*\n"
+//                + pago
+//                + "\n*Escolheu Melhor Data de Vencimento no Sistema*\n"
+//                + melhor
+//                + "\n*Data de Vencimento:* " + venc + "\n"
+//                + "\n*Sistema Utilizado*\n"
+//                + "( X ) App TIM Vendas\n"
+//                + "\n*Instalou e Acessou App Meu TIM no Celular do Cliente*\n"
+//                + app
+//        );
         txtAreMas.setCaretPosition(0);
 
         btnCopMas.setVisible(true);
@@ -17367,7 +17409,7 @@ public final class main extends javax.swing.JFrame {
                     "*PARCIAL DO DIA " + data + "*\n\n"
                     + "Plano Controle: " + con
                     + "\nPlano Black: " + pos
-                    + "\nPré-pago: " + (trocapre+trocapla)
+                    + "\nPré-pago: " + (trocapre + trocapla)
             );
 
             txtAreMas.setCaretPosition(0);
