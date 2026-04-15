@@ -81,24 +81,70 @@ public class vencimentoDAO {
         connection.Close();
 
     }
+
+//    public void limparverde(vencimento ve) throws SQLException {
+//
+//        String SQL = "UPDATE vencimento SET okVen = 1 WHERE vencimentoVen <= CURDATE()";
+//
+//        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
+//
+//        stmt.executeUpdate();
+//        stmt.close();
+//        connection.Close();
+//
+//    }
     
-    public void limparverde(vencimento ve) throws SQLException {
+    public List<String[]> buscarverificaplano() throws SQLException {
 
-        String SQL = "UPDATE vencimento SET okVen = 1 WHERE vencimentoVen <= CURDATE()";
+        List<String[]> lista = new ArrayList<>();
 
+        String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <= CURDATE() AND okVen = 0 ORDER BY planoVen";
         PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
-        stmt.executeUpdate();
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            String[] rowData = {
+                rs.getString("cpfVen"),
+                rs.getString("planoVen")};
+
+            lista.add(rowData);
+
+        }
+
+        rs.close();
         stmt.close();
         connection.Close();
 
+        return lista;
+    }
+
+    public boolean verificar() throws SQLException {
+
+        String SQL = "SELECT * FROM vencimento WHERE vencimentoVen <=  CURRENT_DATE() AND okVen = 0";
+        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+
+            return true;
+
+        }
+
+        rs.close();
+        stmt.close();
+        connection.Close();
+
+        return false;
     }
 
     public List<String[]> buscar() throws SQLException {
 
         List<String[]> lista = new ArrayList<>();
 
-        String SQL = "SELECT * FROM vencimento ORDER BY dataVen DESC";
+        String SQL = "SELECT * FROM vencimento ORDER BY CASE WHEN okven = 0 AND vencimentoVen <= CURRENT_DATE THEN 0 ELSE 1 END, dataven DESC";
         PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -126,7 +172,7 @@ public class vencimentoDAO {
 
         return lista;
     }
-    
+
     public List<String[]> buscarpa(vencimento ve) throws SQLException {
 
         List<String[]> lista = new ArrayList<>();
@@ -135,7 +181,7 @@ public class vencimentoDAO {
                 + "OR telefoneVen LIKE '%" + ve.telefone + "%' OR cpfVen LIKE '%" + ve.cpf + "%' "
                 + "OR planoVen LIKE '%" + ve.plano + "%' OR dataVen LIKE '%" + ve.data + "%' "
                 + "OR vencimentoVen LIKE '%" + ve.vencimento + "%' OR acessoVen LIKE '%" + ve.acesso + "%' ORDER BY dataVen DESC";
-        
+
         PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -163,5 +209,5 @@ public class vencimentoDAO {
 
         return lista;
     }
-    
+
 }

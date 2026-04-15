@@ -12,6 +12,7 @@ import dao.tiposervicoDAO;
 import dao.vencimentoDAO;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
@@ -80,6 +81,10 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.Iterator;
 import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JasperExportManager;
 import org.apache.pdfbox.Loader;
@@ -120,6 +125,17 @@ public final class main extends javax.swing.JFrame {
 
                     if (!verificaafazeres()) {
                         publish("Atenção! Erro na verificação de afazeres!");
+                        Thread.sleep(3000);
+                    } else {
+                        publish("Verificado com sucesso!");
+                        Thread.sleep(1000);
+                    }
+
+                    publish("Verificando vencimentos...");
+                    Thread.sleep(1000);
+
+                    if (!verificavencimento()) {
+                        publish("Atenção! Erro na verificação de vencimentos!");
                         Thread.sleep(3000);
                     } else {
                         publish("Verificado com sucesso!");
@@ -424,6 +440,55 @@ public final class main extends javax.swing.JFrame {
         }
     }
 
+    private boolean verificavencimento() {
+
+        try {
+
+            if (timerven != null) {
+
+                ((Timer) timerven.getSource()).stop();
+
+            }
+
+            vencimentoDAO ve = new vencimentoDAO();
+
+            if (ve.verificar()) {
+
+                Timer timer = new Timer(700, new ActionListener() {
+
+                    int n = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        timerven = e;
+
+                        n++;
+
+                        if (n % 2 == 0) {
+
+                            btnVenPri.setVisible(true);
+                        } else {
+
+                            btnVenPri.setVisible(false);
+                        }
+                    }
+
+                });
+                timer.start();
+
+            } else {
+
+                btnVenPri.setVisible(false);
+
+            }
+
+        } catch (SQLException ex) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean verificaafazeres() {
 
         try {
@@ -438,7 +503,7 @@ public final class main extends javax.swing.JFrame {
 
             if (dedao.verificar()) {
 
-                btnVenPri.setVisible(true);
+                btnAfaPri.setVisible(true);
 
                 Timer timer = new Timer(700, new ActionListener() {
 
@@ -452,9 +517,9 @@ public final class main extends javax.swing.JFrame {
                         n++;
 
                         if (n % 2 == 0) {
-                            btnVenPri.setForeground(corforeazulenter);
+                            btnAfaPri.setForeground(corforeazulenter);
                         } else {
-                            btnVenPri.setForeground(new Color(255, 255, 255));
+                            btnAfaPri.setForeground(new Color(255, 255, 255));
                         }
                     }
 
@@ -463,7 +528,7 @@ public final class main extends javax.swing.JFrame {
 
             } else {
 
-                btnVenPri.setVisible(false);
+                btnAfaPri.setVisible(false);
 
             }
 
@@ -1786,7 +1851,41 @@ public final class main extends javax.swing.JFrame {
 
                 }
 
-                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                        try {
+                            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                            component.setFont(fontmed(12));
+
+                            if (isSelected) {
+                                component.setBackground(table.getSelectionBackground());
+                                component.setForeground(table.getSelectionForeground());
+                            } else {
+                                Date dataatual = new Date();
+                                Date data = formatter.parse(table.getValueAt(row, 6).toString());
+
+                                int comparacao1 = dataatual.compareTo(data);
+
+                                if (comparacao1 > 0) {
+                                    component.setBackground(new Color(229, 190, 190));
+                                } 
+
+                                component.setForeground(Color.BLACK);
+                            }
+
+                            return component;
+
+                        } catch (ParseException ex) {
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        return null;
+                    }
+
+                };
 
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
@@ -1873,7 +1972,41 @@ public final class main extends javax.swing.JFrame {
 
                 }
 
-                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+                    @Override
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                        try {
+                            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                            component.setFont(fontmed(12));
+
+                            if (isSelected) {
+                                component.setBackground(table.getSelectionBackground());
+                                component.setForeground(table.getSelectionForeground());
+                            } else {
+                                Date dataatual = new Date();
+                                Date data = formatter.parse(table.getValueAt(row, 6).toString());
+
+                                int comparacao1 = dataatual.compareTo(data);
+
+                                if (comparacao1 > 0) {
+                                    component.setBackground(new Color(170, 186, 222));
+                                }
+
+                                component.setForeground(Color.BLACK);
+                            }
+
+                            return component;
+
+                        } catch (ParseException ex) {
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        return null;
+                    }
+
+                };
 
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
                 cellRenderer.setForeground(Color.BLACK);
@@ -1910,10 +2043,8 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return true;
     }
 
@@ -2650,6 +2781,7 @@ public final class main extends javax.swing.JFrame {
         pnlHeader = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
         btnVenPri = new javax.swing.JLabel();
+        btnAfaPri = new javax.swing.JLabel();
         pnlContent = new javax.swing.JPanel();
         pnlOutros = new RoundedPanel(30);
         lblOutros = new javax.swing.JLabel();
@@ -3200,7 +3332,7 @@ public final class main extends javax.swing.JFrame {
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(new java.awt.Color(255, 255, 255));
         btnVenPri.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnVenPri.setText("Afazer encontrado!");
+        btnVenPri.setText("Vencimento encontrado!");
         btnVenPri.setToolTipText("");
         btnVenPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVenPri.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -3215,7 +3347,27 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlHeader.add(btnVenPri);
-        btnVenPri.setBounds(1020, 20, 150, 20);
+        btnVenPri.setBounds(970, 20, 200, 20);
+
+        btnAfaPri.setFont(fontmed(12));
+        btnAfaPri.setForeground(new java.awt.Color(255, 255, 255));
+        btnAfaPri.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnAfaPri.setText("Afazer encontrado!");
+        btnAfaPri.setToolTipText("");
+        btnAfaPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAfaPri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAfaPriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAfaPriMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAfaPriMouseReleased(evt);
+            }
+        });
+        pnlHeader.add(btnAfaPri);
+        btnAfaPri.setBounds(1020, 20, 150, 20);
 
         pnlPrincipal.add(pnlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 200));
 
@@ -5273,7 +5425,7 @@ public final class main extends javax.swing.JFrame {
         lblChiCadEst.setBounds(650, 340, 30, 30);
 
         cmbChiCadEst.setFont(fontmed(13));
-        cmbChiCadEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o chip", "Triplo 4G HLR 230", "eSIM", "Naked" }));
+        cmbChiCadEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o chip", "Triplo 4G HLR 230", "eSIM", "Naked", "Naked + Recarga" }));
         cmbChiCadEst.setToolTipText("");
         cmbChiCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlCadEst.add(cmbChiCadEst);
@@ -5949,8 +6101,13 @@ public final class main extends javax.swing.JFrame {
         lblChiGerEst.setBounds(970, 320, 30, 30);
 
         cmbChiGerEst.setFont(fontmed(13));
-        cmbChiGerEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o chip", "Triplo 4G HLR 230", "eSIM", "Naked" }));
+        cmbChiGerEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o chip", "Triplo 4G HLR 230", "eSIM", "Naked", "Naked + Recarga" }));
         cmbChiGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbChiGerEst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbChiGerEstActionPerformed(evt);
+            }
+        });
         pnlGerEst.add(cmbChiGerEst);
         cmbChiGerEst.setBounds(970, 350, 190, 30);
 
@@ -6404,7 +6561,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopAVen);
-        btnCopAVen.setBounds(700, 343, 100, 30);
+        btnCopAVen.setBounds(590, 350, 100, 30);
 
         btnCopVen.setFont(fontmed(12));
         btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6417,7 +6574,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopVen);
-        btnCopVen.setBounds(590, 343, 100, 30);
+        btnCopVen.setBounds(480, 350, 100, 30);
 
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6430,12 +6587,11 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnAltVen);
-        btnAltVen.setBounds(810, 343, 100, 30);
+        btnAltVen.setBounds(810, 350, 100, 30);
 
-        btnWppVen.setVisible(false);
         btnWppVen.setFont(fontmed(12));
         btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
-        btnWppVen.setText("Limpar");
+        btnWppVen.setText("OK");
         btnWppVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnWppVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6443,7 +6599,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnWppVen);
-        btnWppVen.setBounds(1030, 390, 100, 30);
+        btnWppVen.setBounds(700, 350, 100, 30);
 
         btnVolVen.setFont(fontmed(12));
         btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6455,7 +6611,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnVolVen);
-        btnVolVen.setBounds(1030, 343, 100, 30);
+        btnVolVen.setBounds(1030, 350, 100, 30);
 
         btnExcVen.setFont(fontmed(12));
         btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6468,7 +6624,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnExcVen);
-        btnExcVen.setBounds(920, 343, 100, 30);
+        btnExcVen.setBounds(920, 350, 100, 30);
 
         lblConPlaVen.setFont(fontbold(12));
         lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -10623,9 +10779,13 @@ public final class main extends javax.swing.JFrame {
 
                 cmbChiGerEst.setSelectedItem("eSIM");
 
-            } else {
+            } else if (tblGerEst.getValueAt(tblGerEst.getSelectedRow(), 4).toString().equals("Naked")) {
 
                 cmbChiGerEst.setSelectedItem("Naked");
+
+            } else {
+
+                cmbChiGerEst.setSelectedItem("Naked + Recarga");
 
             }
 
@@ -12459,9 +12619,9 @@ public final class main extends javax.swing.JFrame {
         String acesso = txtNumAceMas.getText();
         String servico = "Ativação ( X )\nMigração (    )\nPortabilidade (    )\n";
         String port = "\n*Portabilidade*"
-                    + "\nNúmero provisório:"
-                    + "\nNúmero portado:\n";
-               
+                + "\nNúmero provisório:"
+                + "\nNúmero portado:\n";
+
         String plano = txtPlaMas.getText();
         String venc = txtVenMas.getText();
 
@@ -12471,7 +12631,7 @@ public final class main extends javax.swing.JFrame {
 
         if (!"".equals(txtNumPorMas.getText())) {
             servico = "Ativação (    )\nMigração (    )\nPortabilidade ( X )\n";
-            port =  "\n*Portabilidade*"
+            port = "\n*Portabilidade*"
                     + "\nNúmero provisório: " + acesso
                     + "\nNúmero portado: " + txtNumPorMas.getText() + "\n";
         }
@@ -12483,13 +12643,10 @@ public final class main extends javax.swing.JFrame {
                 + "CPF do cliente: " + cpf + "\n"
                 + "Telefone de Contato: " + contato + "\n"
                 + "Número do acesso: " + acesso + "\n"
-                        
                 + "\n*Ativação ou Migração*\n"
                 + servico
                 + port
-                        
                 + "\nQual Plano Foi Vendido: " + plano
-                        
                 + "\n\nData de Vencimento: " + venc
         );
 
@@ -15207,6 +15364,8 @@ public final class main extends javax.swing.JFrame {
 
                 }
 
+                verificavencimento();
+
             } catch (SQLException | ParseException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -15403,7 +15562,7 @@ public final class main extends javax.swing.JFrame {
 
     private void tblVenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVenMouseClicked
         btnExcVen.setEnabled(true);
-//      btnWppVen.setEnabled(true);
+        btnWppVen.setEnabled(true);
         btnAltVen.setEnabled(true);
         btnCopVen.setEnabled(true);
         btnCopAVen.setEnabled(true);
@@ -15418,181 +15577,181 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolVenActionPerformed
 
     private void btnWppVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWppVenActionPerformed
-//        try {
-//
-//            vencimentoDAO vendao = new vencimentoDAO();
-//
-//            List<String[]> listaverifica = vendao.buscarverificaplano();
-//
-//            Iterator<String[]> iterator = listaverifica.iterator();
-//
-//            while (iterator.hasNext()) {
-//
-//                String[] item = iterator.next();
-//
-//                if (!item[0].equals(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString())) {
-//                    iterator.remove();
-//                }
-//
-//            }
-//
-//            if (!listaverifica.isEmpty()) {
-//
-//                int c = 0;
-//                String plano = null;
-//
-//                if (listaverifica.size() != 1) {
-//
-//                    Map<String, Integer> contagemItens = new HashMap<>();
-//                    for (String[] array : listaverifica) {
-//                        String item = Arrays.toString(array);
-//                        contagemItens.put(item, contagemItens.getOrDefault(item, 0) + 1);
-//                    }
-//
-//                    for (Map.Entry<String, Integer> entry : contagemItens.entrySet()) {
-//
-//                        String[] array = entry.getKey().substring(1, entry.getKey().length() - 1).split(", ");
-//
-//                        c++;
-//
-//                        if (c == 1) {//o primeiro
-//
-//                            if (entry.getValue() == 1) {
-//                                plano = "dos seus planos *" + array[1] + "*";
-//                            } else {
-//                                plano = "dos seus *" + entry.getValue() + "* planos *" + array[1] + "*";
-//                            }
-//
-//                        } else {
-//
-//                            if (c == contagemItens.entrySet().size()) {//se for o ultimo
-//
-//                                if (entry.getValue() == 1) {
-//                                    plano = plano + " e o *" + array[1] + "*";
-//                                } else {
-//                                    plano = plano + " e os *" + entry.getValue() + " " + array[1] + "*";
-//                                }
-//                            } else {
-//
-//                                if (entry.getValue() == 1) {
-//                                    plano = plano + ", *" + array[1] + "*";
-//                                } else {
-//                                    plano = plano + ", dos *" + entry.getValue() + " " + array[1] + "*";
-//                                }
-//
-//                            }
-//
-//                        }
-//
-//                    }
-//
-//                    plano = plano + ", contratados conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
-//                            + "*.\n\n";
-//
-//                } else {//quando tiver so um
-//                    plano = "do seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*"
-//                            + ", contratado conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
-//                            + "*.\n\n";
-//                }
-//
-//                String texto = "*Empório Cell - TIM*\n\n"
-//                        + "Olá, tudo bem? Esperamos que sim!\n\n"
-//                        + "Estamos aqui para lembrá-lo " + plano
-//                        + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!\n"
-//                        + "Para qualquer dúvida, estamos à disposição. Agradecemos por confiar em nossos serviços!";
-//
-//                String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
-//
-//                int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-//
-//                if (resp == JOptionPane.YES_OPTION) {
-//
-//                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "") + "&text=" + msg + "&app_absent=0";
-//
-//                    URI link = new URI(l);
-//
-//                    Desktop.getDesktop().browse(link);
-//
-//                    int resp1 = JOptionPane.showOptionDialog(null, "Navegador aberto para envio!\n\nMarcar como concluído?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-//
-//                    if (resp1 == JOptionPane.YES_OPTION) {
-//
-//                        try {
-//
-//                            vencimento ve = new vencimento();
-//                            vencimentoDAO vedao = new vencimentoDAO();
-//
-//                            ve.setCpf(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString());
-//
-//                            vedao.marcarok(ve);
-//
-//                            JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Planos", JOptionPane.INFORMATION_MESSAGE);
-//
-//                        } catch (SQLException ex) {
-//                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//
-//                    }
-//
-//                    if (tabelavencimento(tblVen, scrVen)) {
-//
-//                    } else {
-//
-//                        JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
-//                        pnlVen.setVisible(false);
-//                        
-//                    }
-//
-//                    verificavencimento();
-//
-//                    btnWppVen.setEnabled(false);
-//                    btnExcVen.setEnabled(false);
-//                    btnAltVen.setEnabled(false);
-//                    btnCopVen.setEnabled(false);
-//                    btnCopAVen.setEnabled(false);
-//
-//                }
-//
-//            } else {
-//
-//                int resp = JOptionPane.showOptionDialog(null, "Atenção, mensagem de aviso indisponível para este cliente!\n\nAbrir o WhatsApp mesmo assim?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
-//
-//                if (resp == JOptionPane.YES_OPTION) {
-//
-//                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "");
-//
-//                    URI link = new URI(l);
-//
-//                    Desktop.getDesktop().browse(link);
-//
-//                }
-//
-//            }
-//
-//        } catch (URISyntaxException | IOException | SQLException ex) {
-//            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
 
-        int resp1 = JOptionPane.showOptionDialog(null, "Tem certeza que deseja limpar destaque de planos com vencimento próximo?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+            vencimentoDAO vendao = new vencimentoDAO();
 
-        if (resp1 == JOptionPane.YES_OPTION) {
+            List<String[]> listaverifica = vendao.buscarverificaplano();
 
-            try {
+            Iterator<String[]> iterator = listaverifica.iterator();
 
-                vencimento ve = new vencimento();
-                vencimentoDAO vedao = new vencimentoDAO();
+            while (iterator.hasNext()) {
 
-                vedao.limparverde(ve);
+                String[] item = iterator.next();
 
-                btnWppVen.setEnabled(false);
+                if (!item[0].equals(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString())) {
+                    iterator.remove();
+                }
 
-                tabelavencimento(tblVen, scrVen);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+            if (!listaverifica.isEmpty()) {
+
+                int c = 0;
+                String plano = null;
+
+                if (listaverifica.size() != 1) {
+
+                    Map<String, Integer> contagemItens = new HashMap<>();
+                    for (String[] array : listaverifica) {
+                        String item = Arrays.toString(array);
+                        contagemItens.put(item, contagemItens.getOrDefault(item, 0) + 1);
+                    }
+
+                    for (Map.Entry<String, Integer> entry : contagemItens.entrySet()) {
+
+                        String[] array = entry.getKey().substring(1, entry.getKey().length() - 1).split(", ");
+
+                        c++;
+
+                        if (c == 1) {//o primeiro
+
+                            if (entry.getValue() == 1) {
+                                plano = "dos seus planos *" + array[1] + "*";
+                            } else {
+                                plano = "dos seus *" + entry.getValue() + "* planos *" + array[1] + "*";
+                            }
+
+                        } else {
+
+                            if (c == contagemItens.entrySet().size()) {//se for o ultimo
+
+                                if (entry.getValue() == 1) {
+                                    plano = plano + " e o *" + array[1] + "*";
+                                } else {
+                                    plano = plano + " e os *" + entry.getValue() + " " + array[1] + "*";
+                                }
+                            } else {
+
+                                if (entry.getValue() == 1) {
+                                    plano = plano + ", *" + array[1] + "*";
+                                } else {
+                                    plano = plano + ", dos *" + entry.getValue() + " " + array[1] + "*";
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    plano = plano + ", contratados conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+                            + "*.\n";
+
+                } else {//quando tiver so um
+                    plano = "do seu plano *" + tblVen.getValueAt(tblVen.getSelectedRow(), 4).toString() + "*"
+                            + ", contratado conosco no dia *" + tblVen.getValueAt(tblVen.getSelectedRow(), 5).toString()
+                            + "*.\n";
+                }
+
+                String texto = "*Empório Cell - TIM*\n\n"
+                        + "Olá, tudo bem?\n\n"
+                        + "Estamos aqui para lembrá-lo " + plano
+                        + "Este aviso é somente para lembrá-lo que a primeira fatura foi gerada.\n\n"
+                        + "Traga sua família e amigos para a *rede móvel líder em cobertura no Brasil*!";
+
+                String msg = texto.replaceAll(" ", "%20").replaceAll("\n", "%0A");
+
+                int resp = JOptionPane.showOptionDialog(null, texto.replaceAll("\\*", "") + "\n\nEnviar mensagem ao cliente?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                if (resp == JOptionPane.YES_OPTION) {
+
+                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "") + "&text=" + msg + "&app_absent=0";
+                    System.out.print(l);
+                    URI link = new URI(l);
+
+                    Desktop.getDesktop().browse(link);
+
+                }
+
+                int resp1 = JOptionPane.showOptionDialog(null, "Marcar como concluído?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                if (resp1 == JOptionPane.YES_OPTION) {
+
+                    try {
+
+                        vencimento ve = new vencimento();
+                        vencimentoDAO vedao = new vencimentoDAO();
+
+                        ve.setCpf(tblVen.getValueAt(tblVen.getSelectedRow(), 2).toString());
+
+                        vedao.marcarok(ve);
+
+                        JOptionPane.showMessageDialog(null, "Marcado com sucesso!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+                if (tabelavencimento(tblVen, scrVen)) {
+
+                    verificavencimento();
+
+                    btnWppVen.setEnabled(false);
+                    btnExcVen.setEnabled(false);
+                    btnAltVen.setEnabled(false);
+                    btnCopVen.setEnabled(false);
+                    btnCopAVen.setEnabled(false);
+
+                } else {
+
+                    JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+                    pnlVen.setVisible(false);
+
+                }
+
+            } else {
+
+                int resp = JOptionPane.showOptionDialog(null, "Atenção, mensagem de aviso indisponível para este cliente!\n\nAbrir o WhatsApp mesmo assim?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+
+                if (resp == JOptionPane.YES_OPTION) {
+
+                    String l = "https://api.whatsapp.com/send/?phone=55" + (tblVen.getValueAt(tblVen.getSelectedRow(), 1).toString()).replaceAll("-", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("\\)", "");
+
+                    URI link = new URI(l);
+
+                    Desktop.getDesktop().browse(link);
+
+                }
+
+            }
+
+        } catch (URISyntaxException | IOException | SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
+//
+//        int resp1 = JOptionPane.showOptionDialog(null, "Tem certeza que deseja limpar destaque de planos com vencimento próximo?", "Planos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Sim");
+//
+//        if (resp1 == JOptionPane.YES_OPTION) {
+//
+//            try {
+//
+//                vencimento ve = new vencimento();
+//                vencimentoDAO vedao = new vencimentoDAO();
+//
+//                vedao.limparverde(ve);
+//
+//                btnWppVen.setEnabled(false);
+//
+//                tabelavencimento(tblVen, scrVen);
+//
+//            } catch (SQLException ex) {
+//                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//        }
     }//GEN-LAST:event_btnWppVenActionPerformed
 
     private void btnExcVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcVenActionPerformed
@@ -15626,12 +15785,15 @@ public final class main extends javax.swing.JFrame {
                 DefaultTableModel model = (DefaultTableModel) tblVen.getModel();
                 model.setRowCount(0);
 
+                verificavencimento();
+
                 pnlVen.setVisible(false);
                 pnlContent.setVisible(true);
 
             } catch (SQLException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }//GEN-LAST:event_btnExcVenActionPerformed
 
@@ -15708,15 +15870,15 @@ public final class main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVenMasActionPerformed
 
-    private void btnVenPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseEntered
-        btnVenPri.setForeground(corforeazulenter);
-    }//GEN-LAST:event_btnVenPriMouseEntered
+    private void btnAfaPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAfaPriMouseEntered
+        btnAfaPri.setForeground(corforeazulenter);
+    }//GEN-LAST:event_btnAfaPriMouseEntered
 
-    private void btnVenPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseExited
-        btnVenPri.setForeground(new Color(255, 255, 255));
-    }//GEN-LAST:event_btnVenPriMouseExited
+    private void btnAfaPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAfaPriMouseExited
+        btnAfaPri.setForeground(new Color(255, 255, 255));
+    }//GEN-LAST:event_btnAfaPriMouseExited
 
-    private void btnVenPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseReleased
+    private void btnAfaPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAfaPriMouseReleased
 //        if (!pnlVen.isVisible()) {
 //
 //            if (tabelavencimento(tblVen, scrVen)) {
@@ -15777,7 +15939,7 @@ public final class main extends javax.swing.JFrame {
             pnlContent.setVisible(false);
 
         }
-    }//GEN-LAST:event_btnVenPriMouseReleased
+    }//GEN-LAST:event_btnAfaPriMouseReleased
 
     private void txtModCadEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModCadEstActionPerformed
         // TODO add your handling code here:
@@ -17832,6 +17994,51 @@ public final class main extends javax.swing.JFrame {
     private void txtRepOsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepOsKeyTyped
         btnGerOs.setEnabled(true);
     }//GEN-LAST:event_txtRepOsKeyTyped
+
+    private void btnVenPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVenPriMouseEntered
+
+    private void btnVenPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVenPriMouseExited
+
+    private void btnVenPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseReleased
+        if (tabelavencimento(tblVen, scrVen)) {
+
+            planosDAO pladao = new planosDAO();
+
+            try {
+                lblConPlaVen.setText(String.valueOf(pladao.buscar()));
+
+            } catch (SQLException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            btnExcVen.setEnabled(false);
+            btnAltVen.setEnabled(false);
+            btnCopVen.setEnabled(false);
+            btnCopAVen.setEnabled(false);
+            btnWppVen.setEnabled(false);
+
+            lblBusVen.setLocation(70, 350);
+            lblPlaAtiVen.setLocation(70, 375);
+            lblConPlaVen.setLocation(225, 375);
+            lblErrVen.setVisible(false);
+
+            txtBusVen.setText(null);
+
+            pnlContent.setVisible(false);
+            pnlVen.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Sem planos. Cadastre-os primeiro!", "Planos", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVenPriMouseReleased
+
+    private void cmbChiGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbChiGerEstActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbChiGerEstActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -17840,6 +18047,7 @@ public final class main extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdiCadEst;
+    private javax.swing.JLabel btnAfaPri;
     private javax.swing.JButton btnAltGerDes;
     private javax.swing.JButton btnAltGerEnt;
     private javax.swing.JButton btnAltGerEst;
