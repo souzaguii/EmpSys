@@ -1867,11 +1867,13 @@ public final class main extends javax.swing.JFrame {
                                 Date dataatual = new Date();
                                 Date data = formatter.parse(table.getValueAt(row, 6).toString());
 
-                                int comparacao1 = dataatual.compareTo(data);
+                                int comparacao = dataatual.compareTo(data);
 
-                                if (comparacao1 > 0) {
-                                    component.setBackground(new Color(229, 190, 190));
-                                } 
+                                if (comparacao > 0 && "0".equals(table.getValueAt(row, 7).toString())) {
+                                    component.setBackground(new Color(182, 222, 170));
+                                } else {
+                                    component.setBackground(new Color(241, 241, 241));
+                                }
 
                                 component.setForeground(Color.BLACK);
                             }
@@ -1988,10 +1990,12 @@ public final class main extends javax.swing.JFrame {
                                 Date dataatual = new Date();
                                 Date data = formatter.parse(table.getValueAt(row, 6).toString());
 
-                                int comparacao1 = dataatual.compareTo(data);
+                                int comparacao = dataatual.compareTo(data);
 
-                                if (comparacao1 > 0) {
-                                    component.setBackground(new Color(170, 186, 222));
+                                if (comparacao > 0 && "0".equals(table.getValueAt(row, 7).toString())) {
+                                    component.setBackground(new Color(182, 222, 170));
+                                } else {
+                                    component.setBackground(new Color(241, 241, 241));
                                 }
 
                                 component.setForeground(Color.BLACK);
@@ -6561,7 +6565,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopAVen);
-        btnCopAVen.setBounds(590, 350, 100, 30);
+        btnCopAVen.setBounds(920, 390, 100, 30);
 
         btnCopVen.setFont(fontmed(12));
         btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6574,7 +6578,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopVen);
-        btnCopVen.setBounds(480, 350, 100, 30);
+        btnCopVen.setBounds(810, 390, 100, 30);
 
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6599,7 +6603,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnWppVen);
-        btnWppVen.setBounds(700, 350, 100, 30);
+        btnWppVen.setBounds(1030, 390, 100, 30);
 
         btnVolVen.setFont(fontmed(12));
         btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
