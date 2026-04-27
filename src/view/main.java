@@ -444,38 +444,13 @@ public final class main extends javax.swing.JFrame {
 
         try {
 
-            if (timerven != null) {
-
-                ((Timer) timerven.getSource()).stop();
-
-            }
-
             vencimentoDAO ve = new vencimentoDAO();
 
             if (ve.verificar()) {
 
-                Timer timer = new Timer(700, new ActionListener() {
+                btnVenPri.setVisible(true);
 
-                    int n = 0;
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        timerven = e;
-
-                        n++;
-
-                        if (n % 2 == 0) {
-
-                            btnVenPri.setVisible(true);
-                        } else {
-
-                            btnVenPri.setVisible(false);
-                        }
-                    }
-
-                });
-                timer.start();
+                return true;
 
             } else {
 
@@ -483,21 +458,17 @@ public final class main extends javax.swing.JFrame {
 
             }
 
+            return false;
+
         } catch (SQLException ex) {
             return false;
         }
-        return true;
+
     }
 
     private boolean verificaafazeres() {
 
         try {
-
-            if (timerven != null) {
-
-                ((Timer) timerven.getSource()).stop();
-
-            }
 
             despezasDAO dedao = new despezasDAO();
 
@@ -505,26 +476,7 @@ public final class main extends javax.swing.JFrame {
 
                 btnAfaPri.setVisible(true);
 
-                Timer timer = new Timer(700, new ActionListener() {
-
-                    int n = 0;
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        timerven = e;
-
-                        n++;
-
-                        if (n % 2 == 0) {
-                            btnAfaPri.setForeground(corforeazulenter);
-                        } else {
-                            btnAfaPri.setForeground(new Color(255, 255, 255));
-                        }
-                    }
-
-                });
-                timer.start();
+                return true;
 
             } else {
 
@@ -532,12 +484,11 @@ public final class main extends javax.swing.JFrame {
 
             }
 
+            return false;
+
         } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-
-        return true;
 
     }
 
@@ -2594,14 +2545,14 @@ public final class main extends javax.swing.JFrame {
 
                     if (result == JFileChooser.APPROVE_OPTION) {
 
-                        publish("Copiando contrato...");
+                        publish("Renomeando contrato...");
                         lblConMas.setForeground(corforeazul);
 
                         File selectedFile = fileChooser.getSelectedFile();
                         String novoNome = txtNomMas.getText().toUpperCase();
 
                         if (novoNome == null || novoNome.trim().isEmpty()) {
-                            publish("Erro ao copiar contrato!\nInsira o nome do cliente e tente novamente.");
+                            publish("Erro ao renomear contrato!\nInsira o nome do cliente e tente novamente.");
                             lblConMas.setForeground(new Color(153, 0, 0));
                             return null;
                         }
@@ -2617,31 +2568,34 @@ public final class main extends javax.swing.JFrame {
 
                         boolean renamed = selectedFile.renameTo(renamedFile);
                         if (!renamed) {
-                            publish("Erro ao copiar contrato!\nNão foi possível renomear o arquivo.");
+                            publish("Não foi possível renomear o arquivo!");
                             lblConMas.setForeground(new Color(153, 0, 0));
                             return null;
-                        }
-
-                        try (PDDocument document = Loader.loadPDF(renamedFile)) {
-                            PDFRenderer pdfRenderer = new PDFRenderer(document);
-                            BufferedImage image = pdfRenderer.renderImageWithDPI(0, 150);
-
-                            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                            ImageTransferable transferable = new ImageTransferable(image);
-                            clipboard.setContents(transferable, null);
-                            image.flush();
-
+                        } else {
                             lblConMas.setForeground(new Color(0, 153, 0));
-                            publish("Contrato copiado com sucesso!");
-
-                        } catch (IOException ex) {
-                            publish("Erro ao copiar contrato!\nNão foi possível abrir o arquivo.");
-                            lblConMas.setForeground(new Color(153, 0, 0));
+                            publish("Contrato renomeado com sucesso!");
                         }
+
+//                        try (PDDocument document = Loader.loadPDF(renamedFile)) {
+//                            PDFRenderer pdfRenderer = new PDFRenderer(document);
+//                            BufferedImage image = pdfRenderer.renderImageWithDPI(0, 150);
+//
+//                            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+//                            ImageTransferable transferable = new ImageTransferable(image);
+//                            clipboard.setContents(transferable, null);
+//                            image.flush();
+//
+//                            lblConMas.setForeground(new Color(0, 153, 0));
+//                            publish("Contrato copiado com sucesso!");
+//
+//                        } catch (IOException ex) {
+//                            publish("Erro ao copiar contrato!\nNão foi possível abrir o arquivo.");
+//                            lblConMas.setForeground(new Color(153, 0, 0));
+//                        }
                     }
 
                 } catch (HeadlessException ex) {
-                    publish("Erro ao copiar contrato!\nTente novamente.");
+                    publish("Erro ao renomear contrato!\nTente novamente.");
                     lblConMas.setForeground(new Color(153, 0, 0));
                 }
 
@@ -2658,7 +2612,7 @@ public final class main extends javax.swing.JFrame {
 
             @Override
             protected void done() {
-                if ("Contrato copiado com sucesso!".equals(lblConMas.getText())) {
+                if ("Contrato renomeado com sucesso!".equals(lblConMas.getText())) {
                     Timer timer = new Timer(5000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -3351,7 +3305,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlHeader.add(btnVenPri);
-        btnVenPri.setBounds(970, 20, 200, 20);
+        btnVenPri.setBounds(970, 40, 200, 20);
 
         btnAfaPri.setFont(fontmed(12));
         btnAfaPri.setForeground(new java.awt.Color(255, 255, 255));
@@ -18000,11 +17954,11 @@ public final class main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRepOsKeyTyped
 
     private void btnVenPriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseEntered
-        // TODO add your handling code here:
+        btnVenPri.setForeground(corforeazulenter);
     }//GEN-LAST:event_btnVenPriMouseEntered
 
     private void btnVenPriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseExited
-        // TODO add your handling code here:
+        btnVenPri.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_btnVenPriMouseExited
 
     private void btnVenPriMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVenPriMouseReleased
