@@ -513,63 +513,99 @@ public final class main extends javax.swing.JFrame {
 
     private double juros(int parcela) {
 
-//        if (parcela == 0) {
-//            return 1.99;
-//        } else if (parcela == 1) {
-//            return 4.98;
-//        } else if (parcela == 2) {
-//            return 9.90;
-//        } else if (parcela == 3) {
-//            return 11.28;
-//        } else if (parcela == 4) {
-//            return 12.64;
-//        } else if (parcela == 5) {
-//            return 13.97;
-//        } else if (parcela == 6) {
-//            return 15.27;
-//        } else if (parcela == 7) {
-//            return 16.55;
-//        } else if (parcela == 8) {
-//            return 17.81;
-//        } else if (parcela == 9) {
-//            return 19.04;
-//        } else if (parcela == 10) {
-//            return 20.24;
-//        } else if (parcela == 11) {
-//            return 21.43;
-//        } else if (parcela == 12) {
-//            return 22.59;
+//        switch (parcela) {
+//            case 0:
+//                return 1.99;
+//            case 1:
+//                return 4.98;
+//            case 2:
+//                return 9.90;
+//            case 3:
+//                return 11.28;
+//            case 4:
+//                return 12.64;
+//            case 5:
+//                return 13.97;
+//            case 6:
+//                return 15.27;
+//            case 7:
+//                return 16.55;
+//            case 8:
+//                return 17.81;
+//            case 9:
+//                return 19.04;
+//            case 10:
+//                return 20.24;
+//            case 11:
+//                return 21.43;
+//            case 12:
+//                return 22.59;
+//            default:
+//                break;
 //        }
+
         switch (parcela) {
             case 0:
-                return 1.68;
+                return 1.41;
             case 1:
-                return 3.48;
+                return 3.31;
             case 2:
-                return 8.99;
+                return 5.69;
             case 3:
-                return 10.99;
+                return 6.47;
             case 4:
-                return 11.99;
+                return 7.33;
             case 5:
-                return 12.99;
+                return 8.14;
             case 6:
-                return 13.99;
+                return 8.69;
             case 7:
-                return 14.99;
+                return 9.91;
             case 8:
-                return 15.99;
+                return 10.47;
             case 9:
-                return 16.99;
+                return 11.76;
             case 10:
-                return 17.99;
+                return 11.79;
             case 11:
-                return 17.99;
+                return 13.21;
             case 12:
-                return 17.99;
+                return 13.49;
             default:
                 break;
         }
+
+//        switch (parcela) {
+//            case 0:
+//                return 1.68;
+//            case 1:
+//                return 3.48;
+//            case 2:
+//                return 8.99;
+//            case 3:
+//                return 10.99;
+//            case 4:
+//                return 11.99;
+//            case 5:
+//                return 12.99;
+//            case 6:
+//                return 13.99;
+//            case 7:
+//                return 14.99;
+//            case 8:
+//                return 15.99;
+//            case 9:
+//                return 16.99;
+//            case 10:
+//                return 17.99;
+//            case 11:
+//                return 17.99;
+//            case 12:
+//                return 17.99;
+//            default:
+//                break;
+//        }
+
         return parcela;
 
     }
