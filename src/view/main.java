@@ -15897,7 +15897,7 @@ public final class main extends javax.swing.JFrame {
                 vencimento ve = new vencimento();
                 vencimentoDAO vedao = new vencimentoDAO();
 
-                ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 8).toString());
+                ve.setId(tblVen.getValueAt(tblVen.getSelectedRow(), 9).toString());
 
                 vedao.excluir(ve);
 
