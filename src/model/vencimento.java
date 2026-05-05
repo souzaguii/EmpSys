@@ -10,7 +10,8 @@ public class vencimento {
     public String acesso;
     public String cpf;
     public String vencimento;
-    
+    public String detalhes;
+
     public String getId() {
         return id;
     }
@@ -74,5 +75,15 @@ public class vencimento {
     public void setVencimento(String vencimento) {
         this.vencimento = vencimento;
     }
-      
+
+    public String getDetalhes() {
+        return detalhes;
+    }
+
+    public void setDetalhes(String detalhes) {
+        this.detalhes = detalhes;
+    }
+    
+  
+    
 }

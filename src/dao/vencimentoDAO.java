@@ -11,7 +11,7 @@ public class vencimentoDAO {
 
     public void inserir(vencimento ve, String ok) throws SQLException {
 
-        String SQL = "INSERT INTO vencimento(clienteVen, telefoneVen, acessoVen, cpfVen, dataVen, planoVen, vencimentoVen, okVen) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO vencimento(clienteVen, telefoneVen, acessoVen, cpfVen, dataVen, planoVen, vencimentoVen, detalhesVen, okVen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
@@ -22,7 +22,8 @@ public class vencimentoDAO {
         stmt.setString(5, ve.getData());
         stmt.setString(6, ve.getPlano());
         stmt.setString(7, ve.getVencimento());
-        stmt.setString(8, ok);
+        stmt.setString(8, ve.getDetalhes());
+        stmt.setString(9, ok);
 
         stmt.executeUpdate();
         stmt.close();
@@ -32,7 +33,7 @@ public class vencimentoDAO {
 
     public void alterar(vencimento ve, String ok) throws SQLException {
 
-        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, acessoVen = ?, cpfVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ?, okVen = "
+        String SQL = "UPDATE vencimento SET clienteVen = ?, telefoneVen = ?, acessoVen = ?, cpfVen = ?, dataVen = ?, planoVen = ?, vencimentoVen = ?, detalhesVen = ?, okVen = "
                 + "CASE WHEN okVen = 1 THEN 1 ELSE ? END"
                 + " WHERE idVen = ?";
 
@@ -45,8 +46,9 @@ public class vencimentoDAO {
         stmt.setString(5, ve.getData());
         stmt.setString(6, ve.getPlano());
         stmt.setString(7, ve.getVencimento());
-        stmt.setString(8, ok);
-        stmt.setString(9, ve.getId());
+        stmt.setString(8, ve.getDetalhes());
+        stmt.setString(9, ok);
+        stmt.setString(10, ve.getId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -93,7 +95,6 @@ public class vencimentoDAO {
 //        connection.Close();
 //
 //    }
-    
     public List<String[]> buscarverificaplano() throws SQLException {
 
         List<String[]> lista = new ArrayList<>();
@@ -159,6 +160,7 @@ public class vencimentoDAO {
                 rs.getString("planoVen"),
                 rs.getString("dataVen"),
                 rs.getString("vencimentoVen"),
+                rs.getString("detalhesVen"),
                 rs.getString("okVen"),
                 rs.getString("idVen")};
 
@@ -196,6 +198,7 @@ public class vencimentoDAO {
                 rs.getString("planoVen"),
                 rs.getString("dataVen"),
                 rs.getString("vencimentoVen"),
+                rs.getString("detalhesVen"),
                 rs.getString("okVen"),
                 rs.getString("idVen")};
 
