@@ -84,7 +84,6 @@ import java.net.URISyntaxException;
 import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.TimerTask;
 import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JasperExportManager;
 
@@ -95,10 +94,11 @@ public final class main extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
-        //loading();
+        loading();
 
       //PULAR LOADING (MUDAR PRA TRUE NO MAIN NO FINAL)
-        iniciasistema();
+        //iniciasistema();
+        
     }  
     
     public void loading() {      
@@ -113,7 +113,6 @@ public final class main extends javax.swing.JFrame {
                 try {
 
                     publish("Conectando ao banco de dados...");
-                    Thread.sleep(1000);
 
                     connection.getConnection();
 
@@ -121,7 +120,6 @@ public final class main extends javax.swing.JFrame {
                     Thread.sleep(1000);
 
                     publish("Verificando afazeres...");
-                    Thread.sleep(1000);
 
                     if (verificaafazeres() == 2) {
                         publish("Atenção! Erro na verificação de afazeres!");
@@ -135,7 +133,6 @@ public final class main extends javax.swing.JFrame {
                     }
 
                     publish("Verificando vencimentos...");
-                    Thread.sleep(1000);
 
                     if (verificavencimento() == 2) {
                         publish("Atenção! Erro na verificação de vencimentos!");
@@ -149,15 +146,14 @@ public final class main extends javax.swing.JFrame {
                     }
 
                     publish("Fazendo backup automático...");
-                    Thread.sleep(1000);
 
                     if (backupdatabase()) {
                         publish("Backup concluído! Iniciando...");
+                        Thread.sleep(1000);
                     } else {
                         publish("Atenção! Erro ao fazer backup. Iniciando...");
-                    }
-
-                    Thread.sleep(3000);
+                        Thread.sleep(3000);
+                    }              
 
                     lo.dispose();
 
@@ -18302,7 +18298,7 @@ public final class main extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
-            new main().setVisible(true);
+            new main().setVisible(false);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
