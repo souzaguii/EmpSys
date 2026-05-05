@@ -83,6 +83,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.Iterator;
 import javax.swing.JPanel;
@@ -123,22 +124,28 @@ public final class main extends javax.swing.JFrame {
                     publish("Verificando afazeres...");
                     Thread.sleep(1000);
 
-                    if (!verificaafazeres()) {
+                    if (verificaafazeres() == 2) {
                         publish("Atenção! Erro na verificação de afazeres!");
                         Thread.sleep(3000);
+                    } else if (verificaafazeres() == 1) {
+                        publish("Verificado com sucesso. Nenhum afazer encontrado!");
+                        Thread.sleep(1000);
                     } else {
-                        publish("Verificado com sucesso!");
+                        publish("Verificado com sucesso. Afazer encontrado!");
                         Thread.sleep(1000);
                     }
 
                     publish("Verificando vencimentos...");
                     Thread.sleep(1000);
 
-                    if (!verificavencimento()) {
+                    if (verificavencimento() == 2) {
                         publish("Atenção! Erro na verificação de vencimentos!");
                         Thread.sleep(3000);
+                    } else if (verificavencimento() == 1) {
+                        publish("Verificado com sucesso. Nenhum vencimento encontrado!");
+                        Thread.sleep(1000);
                     } else {
-                        publish("Verificado com sucesso!");
+                        publish("Verificado com sucesso. Vencimento encontrado!");
                         Thread.sleep(1000);
                     }
 
@@ -440,7 +447,7 @@ public final class main extends javax.swing.JFrame {
         }
     }
 
-    private boolean verificavencimento() {
+    private int verificavencimento() {
 
         try {
 
@@ -450,23 +457,21 @@ public final class main extends javax.swing.JFrame {
 
                 btnVenPri.setVisible(true);
 
-                return true;
+                return 0;
 
             } else {
 
                 btnVenPri.setVisible(false);
-
+                return 1;
             }
 
-            return false;
-
         } catch (SQLException ex) {
-            return false;
+            return 2;
         }
 
     }
 
-    private boolean verificaafazeres() {
+    private int verificaafazeres() {
 
         try {
 
@@ -476,18 +481,18 @@ public final class main extends javax.swing.JFrame {
 
                 btnAfaPri.setVisible(true);
 
-                return true;
+                return 0;
 
             } else {
 
                 btnAfaPri.setVisible(false);
 
+                return 1;
+
             }
 
-            return false;
-
         } catch (SQLException ex) {
-            return false;
+            return 2;
         }
 
     }
@@ -543,7 +548,6 @@ public final class main extends javax.swing.JFrame {
 //            default:
 //                break;
 //        }
-
         switch (parcela) {
             case 0:
                 return 1.41;
@@ -605,7 +609,6 @@ public final class main extends javax.swing.JFrame {
 //            default:
 //                break;
 //        }
-
         return parcela;
 
     }
@@ -3079,6 +3082,9 @@ public final class main extends javax.swing.JFrame {
         btnWppVen = new javax.swing.JButton();
         btnVolVen = new javax.swing.JButton();
         btnExcVen = new javax.swing.JButton();
+        lblMesConVen = new javax.swing.JLabel();
+        btnMenMesVen = new javax.swing.JLabel();
+        btnMaiMesVen = new javax.swing.JLabel();
         lblConPlaVen = new javax.swing.JLabel();
         lblPlaAtiVen = new javax.swing.JLabel();
         lblErrVen = new javax.swing.JLabel();
@@ -6555,7 +6561,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopAVen);
-        btnCopAVen.setBounds(920, 390, 100, 30);
+        btnCopAVen.setBounds(1030, 350, 100, 30);
 
         btnCopVen.setFont(fontmed(12));
         btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6568,7 +6574,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnCopVen);
-        btnCopVen.setBounds(810, 390, 100, 30);
+        btnCopVen.setBounds(920, 350, 100, 30);
 
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6581,7 +6587,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnAltVen);
-        btnAltVen.setBounds(810, 350, 100, 30);
+        btnAltVen.setBounds(810, 390, 100, 30);
 
         btnWppVen.setFont(fontmed(12));
         btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6593,7 +6599,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnWppVen);
-        btnWppVen.setBounds(1030, 390, 100, 30);
+        btnWppVen.setBounds(810, 350, 100, 30);
 
         btnVolVen.setFont(fontmed(12));
         btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6605,7 +6611,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnVolVen);
-        btnVolVen.setBounds(1030, 350, 100, 30);
+        btnVolVen.setBounds(1030, 390, 100, 30);
 
         btnExcVen.setFont(fontmed(12));
         btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6618,18 +6624,65 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnExcVen);
-        btnExcVen.setBounds(920, 350, 100, 30);
+        btnExcVen.setBounds(920, 390, 100, 30);
+
+        lblMesConVen.setFont(fontmed(11));
+        lblMesConVen.setForeground(new java.awt.Color(10, 60, 133));
+        lblMesConVen.setText("0");
+        lblMesConVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblMesConVen.setVisible(false);
+        pnlVen.add(lblMesConVen);
+        lblMesConVen.setBounds(70, 470, 60, 20);
+
+        btnMenMesVen.setFont(fontbold(18));
+        btnMenMesVen.setForeground(new java.awt.Color(255, 0, 0));
+        btnMenMesVen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenMesVen.setText("-");
+        btnMenMesVen.setEnabled(false);
+        btnMenMesVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenMesVen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMenMesVenMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMenMesVenMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMenMesVenMouseReleased(evt);
+            }
+        });
+        pnlVen.add(btnMenMesVen);
+        btnMenMesVen.setBounds(70, 440, 15, 20);
+
+        btnMaiMesVen.setFont(fontbold(18));
+        btnMaiMesVen.setForeground(new java.awt.Color(51, 204, 0));
+        btnMaiMesVen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMaiMesVen.setText("+");
+        btnMaiMesVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMaiMesVen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMaiMesVenMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMaiMesVenMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMaiMesVenMouseReleased(evt);
+            }
+        });
+        pnlVen.add(btnMaiMesVen);
+        btnMaiMesVen.setBounds(90, 440, 15, 20);
 
         lblConPlaVen.setFont(fontbold(12));
         lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
         lblConPlaVen.setText("0");
         lblConPlaVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblConPlaVen);
-        lblConPlaVen.setBounds(230, 395, 50, 20);
+        lblConPlaVen.setBounds(70, 420, 20, 20);
 
         lblPlaAtiVen.setFont(fontmed(11));
         lblPlaAtiVen.setForeground(new java.awt.Color(10, 60, 133));
-        lblPlaAtiVen.setText("Planos ativados este mês:");
+        lblPlaAtiVen.setText("Planos ativados este mês");
         lblPlaAtiVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblPlaAtiVen);
         lblPlaAtiVen.setBounds(70, 395, 160, 20);
@@ -12536,7 +12589,6 @@ public final class main extends javax.swing.JFrame {
                 planosDAO pladao = new planosDAO();
                 planosdiaDAO pddao = new planosdiaDAO();
 
-                pladao.zerar();
                 pddao.zerar();
 
                 pladao.adicionar();
@@ -15269,7 +15321,7 @@ public final class main extends javax.swing.JFrame {
             planosDAO pladao = new planosDAO();
 
             try {
-                lblConPlaVen.setText(String.valueOf(pladao.buscar()));
+                lblConPlaVen.setText(String.valueOf(pladao.buscar(0)));
 
             } catch (SQLException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -15281,9 +15333,18 @@ public final class main extends javax.swing.JFrame {
             btnCopAVen.setEnabled(false);
             btnWppVen.setEnabled(false);
 
+            LocalDate dataAtual = LocalDate.now();
+            lblPlaAtiVen.setText("Planos ativados em " + dataAtual.getMonth().getDisplayName(TextStyle.FULL, new Locale("pt", "BR")) + ":");
+
+            lblMesConVen.setText("0");
+            btnMenMesVen.setEnabled(false);
+            btnMaiMesVen.setEnabled(true);
+
             lblBusVen.setLocation(70, 350);
             lblPlaAtiVen.setLocation(70, 375);
-            lblConPlaVen.setLocation(225, 375);
+            lblConPlaVen.setLocation(70, 400);
+            btnMenMesVen.setLocation(70, 420);
+            btnMaiMesVen.setLocation(90, 420);
             lblErrVen.setVisible(false);
 
             txtBusVen.setText(null);
@@ -15772,7 +15833,7 @@ public final class main extends javax.swing.JFrame {
 
                     JOptionPane.showMessageDialog(null, "Plano removido do contador!", "Planos", JOptionPane.INFORMATION_MESSAGE);
 
-                    lblConPlaVen.setText(String.valueOf(pladao.buscar()));
+                    lblConPlaVen.setText(String.valueOf(pladao.buscar(0)));
 
                 }
 
@@ -16623,11 +16684,15 @@ public final class main extends javax.swing.JFrame {
 
             if (tabelavencimentopa(tblVen, scrVen, ve)) {
                 lblPlaAtiVen.setLocation(70, 375);
-                lblConPlaVen.setLocation(225, 375);
+                lblConPlaVen.setLocation(70, 400);
+                btnMenMesVen.setLocation(70, 420);
+                btnMaiMesVen.setLocation(90, 420);
                 lblErrVen.setVisible(false);
             } else {
                 lblPlaAtiVen.setLocation(70, 395);
-                lblConPlaVen.setLocation(225, 395);
+                lblConPlaVen.setLocation(70, 420);
+                btnMenMesVen.setLocation(70, 440);
+                btnMaiMesVen.setLocation(90, 440);
                 lblErrVen.setVisible(true);
             }
 
@@ -18003,7 +18068,7 @@ public final class main extends javax.swing.JFrame {
             planosDAO pladao = new planosDAO();
 
             try {
-                lblConPlaVen.setText(String.valueOf(pladao.buscar()));
+                lblConPlaVen.setText(String.valueOf(pladao.buscar(0)));
 
             } catch (SQLException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -18015,9 +18080,18 @@ public final class main extends javax.swing.JFrame {
             btnCopAVen.setEnabled(false);
             btnWppVen.setEnabled(false);
 
+            LocalDate dataAtual = LocalDate.now();
+            lblPlaAtiVen.setText("Planos ativados em " + dataAtual.getMonth().getDisplayName(TextStyle.FULL, new Locale("pt", "BR")) + ":");
+
+            lblMesConVen.setText("0");
+            btnMenMesVen.setEnabled(false);
+            btnMaiMesVen.setEnabled(true);
+
             lblBusVen.setLocation(70, 350);
             lblPlaAtiVen.setLocation(70, 375);
-            lblConPlaVen.setLocation(225, 375);
+            lblConPlaVen.setLocation(70, 400);
+            btnMenMesVen.setLocation(70, 420);
+            btnMaiMesVen.setLocation(90, 420);
             lblErrVen.setVisible(false);
 
             txtBusVen.setText(null);
@@ -18033,6 +18107,77 @@ public final class main extends javax.swing.JFrame {
     private void cmbChiGerEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbChiGerEstActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbChiGerEstActionPerformed
+
+    private void btnMaiMesVenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaiMesVenMouseEntered
+        btnMaiMesVen.setForeground(new Color(0, 230, 0));
+    }//GEN-LAST:event_btnMaiMesVenMouseEntered
+
+    private void btnMaiMesVenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaiMesVenMouseExited
+        btnMaiMesVen.setForeground(new Color(51, 204, 0));
+    }//GEN-LAST:event_btnMaiMesVenMouseExited
+
+    private void btnMaiMesVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaiMesVenMouseReleased
+        int mes = Integer.valueOf(lblMesConVen.getText()) + 1;
+
+        planosDAO pladao = new planosDAO();
+
+        try {
+
+            lblConPlaVen.setText(String.valueOf(pladao.buscar(mes)));
+            lblMesConVen.setText(String.valueOf(mes));
+
+            LocalDate dataAtual = LocalDate.now();
+            dataAtual = dataAtual.minusMonths(mes);
+
+            lblPlaAtiVen.setText("Planos ativados em " + dataAtual.getMonth().getDisplayName(TextStyle.FULL, new Locale("pt", "BR")) + ":");
+
+            btnMenMesVen.setEnabled(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            mes = Integer.valueOf(lblMesConVen.getText()) + 1;
+            pladao.buscar(mes);
+        } catch (SQLException ex) {
+            btnMaiMesVen.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnMaiMesVenMouseReleased
+
+    private void btnMenMesVenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenMesVenMouseEntered
+      btnMenMesVen.setForeground(new Color(255, 153, 153));
+    }//GEN-LAST:event_btnMenMesVenMouseEntered
+
+    private void btnMenMesVenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenMesVenMouseExited
+        btnMenMesVen.setForeground(new Color(255, 0, 0));
+    }//GEN-LAST:event_btnMenMesVenMouseExited
+
+    private void btnMenMesVenMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenMesVenMouseReleased
+        int mes = Integer.valueOf(lblMesConVen.getText()) - 1;
+
+        planosDAO pladao = new planosDAO();
+
+        try {
+
+            lblConPlaVen.setText(String.valueOf(pladao.buscar(mes)));
+            lblMesConVen.setText(String.valueOf(mes));
+
+            LocalDate dataAtual = LocalDate.now();
+            dataAtual = dataAtual.minusMonths(mes);
+
+            lblPlaAtiVen.setText("Planos ativados em " + dataAtual.getMonth().getDisplayName(TextStyle.FULL, new Locale("pt", "BR")) + ":");
+
+            btnMaiMesVen.setEnabled(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (mes == 0) {
+            btnMenMesVen.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnMenMesVenMouseReleased
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
@@ -18107,8 +18252,10 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JButton btnIteGerEnt;
     private javax.swing.JLabel btnJurPri;
     private javax.swing.JLabel btnMaiDiaRel;
+    private javax.swing.JLabel btnMaiMesVen;
     private javax.swing.JLabel btnMasPla;
     private javax.swing.JLabel btnMenDiaRel;
+    private javax.swing.JLabel btnMenMesVen;
     private javax.swing.JLabel btnMesRel;
     private javax.swing.JLabel btnNumDiaRel;
     private javax.swing.JButton btnParMas;
@@ -18226,6 +18373,7 @@ public final class main extends javax.swing.JFrame {
     private javax.swing.JLabel lblMarOs;
     private javax.swing.JLabel lblMatCadEst;
     private javax.swing.JLabel lblMatGerEst;
+    private javax.swing.JLabel lblMesConVen;
     private javax.swing.JLabel lblModCadEst;
     private javax.swing.JLabel lblModGerEst;
     private javax.swing.JLabel lblModOs;

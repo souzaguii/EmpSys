@@ -30,11 +30,11 @@ public class planosDAO {
 
     }
 
-    public int buscar() throws SQLException {
+    public int buscar(int mes) throws SQLException {
 
         int num;
 
-        String SQL = "SELECT numPla FROM planos WHERE mesPla = MONTH(NOW())";
+        String SQL = "SELECT numPla FROM planos WHERE mesPla = MONTH(DATE_SUB(NOW(), INTERVAL " + mes + " MONTH))";
         PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
         ResultSet rs = stmt.executeQuery();
@@ -48,18 +48,6 @@ public class planosDAO {
         connection.Close();
 
         return num;
-
-    }
-
-    public void zerar() throws SQLException {
-
-        String SQL = "UPDATE planos set numPla = 0, mesPla = MONTH(NOW()) WHERE mesPla != MONTH(NOW())";
-
-        PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
-
-        stmt.executeUpdate();
-        stmt.close();
-        connection.Close();
 
     }
 
