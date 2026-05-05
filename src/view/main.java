@@ -74,8 +74,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.rendering.PDFRenderer;
 import java.awt.datatransfer.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
@@ -86,9 +84,9 @@ import java.net.URISyntaxException;
 import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.TimerTask;
 import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JasperExportManager;
-import org.apache.pdfbox.Loader;
 
 public final class main extends javax.swing.JFrame {
 
@@ -96,14 +94,15 @@ public final class main extends javax.swing.JFrame {
 
         initComponents();
         setLocationRelativeTo(null);
-        loading();
-//      iniciasistema();
-//      pnlPrincipal.setVisible(true);
 
-    }
+        //loading();
 
-    public void loading() {
-
+      //PULAR LOADING (MUDAR PRA TRUE NO MAIN NO FINAL)
+        iniciasistema();
+    }  
+    
+    public void loading() {      
+        
         loading lo = new loading();
         lo.setVisible(true);
 
@@ -183,8 +182,6 @@ public final class main extends javax.swing.JFrame {
             @Override
             protected void done() {
 
-                setVisible(true);
-                pnlPrincipal.setVisible(true);
                 iniciasistema();
 
             }
@@ -233,6 +230,9 @@ public final class main extends javax.swing.JFrame {
 
         DefaultTableModel model1 = (DefaultTableModel) tblSelIteCadEnt.getModel();
         model1.setRowCount(0);
+
+        setVisible(true);  
+        pnlPrincipal.setVisible(true);
 
     }
 
@@ -1961,7 +1961,7 @@ public final class main extends javax.swing.JFrame {
                     rowData[4] = row[4];
                     rowData[5] = formatter.format(date);
                     rowData[6] = formatter.format(datecon);
-                    rowData[7] = row[7];
+                    rowData[7] = (row[7] != null && !"".equals(row[7])) ? row[7] : "Sem Detalhes";
                     rowData[8] = row[8];
                     rowData[9] = row[9];
 
@@ -6693,7 +6693,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnMenMesVen);
-        btnMenMesVen.setBounds(70, 440, 15, 20);
+        btnMenMesVen.setBounds(90, 396, 15, 20);
 
         btnMaiMesVen.setFont(fontbold(18));
         btnMaiMesVen.setForeground(new java.awt.Color(51, 204, 0));
@@ -6712,7 +6712,7 @@ public final class main extends javax.swing.JFrame {
             }
         });
         pnlVen.add(btnMaiMesVen);
-        btnMaiMesVen.setBounds(90, 440, 15, 20);
+        btnMaiMesVen.setBounds(110, 420, 15, 20);
 
         lblConPlaVen.setFont(fontbold(12));
         lblConPlaVen.setForeground(new java.awt.Color(10, 60, 133));
@@ -6726,7 +6726,7 @@ public final class main extends javax.swing.JFrame {
         lblPlaAtiVen.setText("Planos ativados este mês");
         lblPlaAtiVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblPlaAtiVen);
-        lblPlaAtiVen.setBounds(70, 395, 160, 20);
+        lblPlaAtiVen.setBounds(70, 395, 210, 20);
 
         lblErrVen.setFont(fontbold(10));
         lblErrVen.setForeground(new java.awt.Color(204, 51, 0));
@@ -15418,9 +15418,9 @@ public final class main extends javax.swing.JFrame {
 
             lblBusVen.setLocation(70, 350);
             lblPlaAtiVen.setLocation(70, 375);
-            lblConPlaVen.setLocation(70, 400);
-            btnMenMesVen.setLocation(70, 420);
-            btnMaiMesVen.setLocation(90, 420);
+            lblConPlaVen.setLocation(70, 395);
+            btnMenMesVen.setLocation(95, 396);
+            btnMaiMesVen.setLocation(115, 397);
             lblErrVen.setVisible(false);
 
             txtBusVen.setText(null);
@@ -16773,15 +16773,15 @@ public final class main extends javax.swing.JFrame {
 
             if (tabelavencimentopa(tblVen, scrVen, ve)) {
                 lblPlaAtiVen.setLocation(70, 375);
-                lblConPlaVen.setLocation(70, 400);
-                btnMenMesVen.setLocation(70, 420);
-                btnMaiMesVen.setLocation(90, 420);
+                lblConPlaVen.setLocation(70, 395);
+                btnMenMesVen.setLocation(95, 396);
+                btnMaiMesVen.setLocation(115, 397);
                 lblErrVen.setVisible(false);
             } else {
                 lblPlaAtiVen.setLocation(70, 395);
-                lblConPlaVen.setLocation(70, 420);
-                btnMenMesVen.setLocation(70, 440);
-                btnMaiMesVen.setLocation(90, 440);
+                lblConPlaVen.setLocation(70, 415);
+                btnMenMesVen.setLocation(95, 416);
+                btnMaiMesVen.setLocation(115, 417);
                 lblErrVen.setVisible(true);
             }
 
@@ -18178,9 +18178,9 @@ public final class main extends javax.swing.JFrame {
 
             lblBusVen.setLocation(70, 350);
             lblPlaAtiVen.setLocation(70, 375);
-            lblConPlaVen.setLocation(70, 400);
-            btnMenMesVen.setLocation(70, 420);
-            btnMaiMesVen.setLocation(90, 420);
+            lblConPlaVen.setLocation(70, 395);
+            btnMenMesVen.setLocation(95, 396);
+            btnMaiMesVen.setLocation(115, 397);
             lblErrVen.setVisible(false);
 
             txtBusVen.setText(null);
@@ -18302,7 +18302,7 @@ public final class main extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
-            new main().setVisible(false);
+            new main().setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
