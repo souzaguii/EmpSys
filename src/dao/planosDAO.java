@@ -8,7 +8,10 @@ public class planosDAO {
 
     public void adicionar() throws SQLException {
 
-        String SQL = "UPDATE planos SET numPla = numPla + 1 WHERE mesPla = MONTH(NOW())";
+        String SQL = "INSERT INTO planos (mesPla, numPla)\n"
+                + "VALUES (MONTH(NOW()), 1)\n"
+                + "ON DUPLICATE KEY UPDATE\n"
+                + "numPla = numPla + 1;";
 
         PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 
