@@ -182,7 +182,7 @@ public class vencimentoDAO {
         String SQL = "SELECT * FROM vencimento WHERE clienteVen LIKE '%" + ve.cliente + "%' "
                 + "OR telefoneVen LIKE '%" + ve.telefone + "%' OR cpfVen LIKE '%" + ve.cpf + "%' "
                 + "OR planoVen LIKE '%" + ve.plano + "%' OR dataVen LIKE '%" + ve.data + "%' "
-                + "OR vencimentoVen LIKE '%" + ve.vencimento + "%' OR acessoVen LIKE '%" + ve.acesso + "%' ORDER BY CASE WHEN vencimentoVen <= CURDATE() AND okven = '0' THEN 0 ELSE 1 END, dataven DESC, idVen DESC";
+                + "OR vencimentoVen LIKE '%" + ve.vencimento + "%' OR acessoVen LIKE '%" + ve.acesso + "%' OR detalhesVen LIKE '%" + ve.detalhes + "%' ORDER BY CASE WHEN vencimentoVen <= CURDATE() AND okven = '0' THEN 0 ELSE 1 END, dataven DESC, idVen DESC";
 
         PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
 

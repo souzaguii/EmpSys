@@ -16742,6 +16742,7 @@ public final class main extends javax.swing.JFrame {
             ve.setAcesso(txtBusVen.getText());
             ve.setCpf(txtBusVen.getText());
             ve.setPlano(txtBusVen.getText());
+            ve.setDetalhes(txtBusVen.getText());
 
             if (txtBusVen.getText().contains("/")) {
 
@@ -16764,6 +16765,7 @@ public final class main extends javax.swing.JFrame {
                 ve.setPlano("%");
                 ve.setVencimento("%");
                 ve.setData("%");
+                ve.setDetalhes("%");
 
             }
 
