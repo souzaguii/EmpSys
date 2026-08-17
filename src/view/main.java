@@ -375,6 +375,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (IOException | InterruptedException ex) {
+             System.out.print(ex);
             return false;
         }
         return true;
