@@ -16868,47 +16868,47 @@ public final class main extends javax.swing.JFrame {
                 txtPlaMas.setText("TIM Controle A Plus");
                 break;
             case '1':
-                txtPlaMas.setText("TIM Controle");
+                txtPlaMas.setText("TIM Controle Smart");
                 break;
             case '2':
-                txtPlaMas.setText("TIM Controle Plus");
+                txtPlaMas.setText("TIM Controle Redes Sociais");
                 break;
             case '3':
                 txtPlaMas.setText("TIM Controle Premium");
                 break;
             case '4':
-                txtPlaMas.setText("TIM Controle Redes Sociais");
-                break;
-            case '5':
                 txtPlaMas.setText("TIM Controle Básico Express");
                 break;
-            case '6':
+            case '5':
                 txtPlaMas.setText("TIM Controle Light Express");
                 break;
-            case '7':
+            case '6':
                 txtPlaMas.setText("TIM Controle Pro Express");
                 break;
-            case '8':
+            case '7':
                 txtPlaMas.setText("TIM Black");
                 break;
-            case '9':
+            case '8':
                 txtPlaMas.setText("TIM Black Plus");
                 break;
-            case '0':
+            case '9':
                 txtPlaMas.setText("TIM Black Premium");
                 break;
-            case '-':
-                txtPlaMas.setText("TIM Black C Ultra");
-                break;
-            case '=':
+            case '0':
                 txtPlaMas.setText("TIM Black A Express");
                 break;
-            case '[':
+            case '-':
                 txtPlaMas.setText("TIM Black B Express");
                 break;
-            case ']':
+            case '=':
                 txtPlaMas.setText("TIM Black C Express");
                 break;
+//            case '[':
+//                txtPlaMas.setText("TIM Black C Express");
+//                break;
+//            case ']':
+//                txtPlaMas.setText("TIM Black C Express");
+//                break;
             default:
                 break;
         }

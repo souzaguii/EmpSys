@@ -70,7 +70,7 @@ public class despezasDAO {
 
     public boolean verificar() throws SQLException {
 
-        String SQL = "SELECT * FROM despezas WHERE dataDes <= DATE_ADD(CURDATE(), INTERVAL 3 DAY)";
+        String SQL = "SELECT * FROM despezas WHERE CURDATE() >= CASE WHEN DAYOFWEEK(DATE_SUB(dataDes, INTERVAL 5 DAY)) = 7 THEN DATE_SUB(dataDes, INTERVAL 6 DAY) WHEN DAYOFWEEK(DATE_SUB(dataDes, INTERVAL 5 DAY)) = 1 THEN DATE_SUB(dataDes, INTERVAL 7 DAY) ELSE DATE_SUB(dataDes, INTERVAL 5 DAY) END AND CURDATE() <= dataDes";
         try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
             ResultSet rs = stmt.executeQuery();
             
