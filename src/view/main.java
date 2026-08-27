@@ -1523,7 +1523,7 @@ public final class main extends javax.swing.JFrame {
 
                                 comparacao2 = data.compareTo(formatter.parse(table.getValueAt(row, 4).toString()));
 
-                                if (comparacao1 < 0 && comparacao2 > 0 && diferencaDias > 2) { //dataatual menor data e data maior datacon
+                                if (comparacao1 < 0 && comparacao2 > 0 && diferencaDias > 4) { //dataatual menor data e data maior datacon
 
                                     component.setBackground(new Color(182, 222, 170));//verde
 
@@ -1535,7 +1535,7 @@ public final class main extends javax.swing.JFrame {
 
                             } else {
 
-                                if (comparacao1 < 0 && diferencaDias > 2) {
+                                if (comparacao1 < 0 && diferencaDias > 4) {
 
                                     component.setBackground(new Color(182, 222, 170));//verde
 
@@ -16868,7 +16868,7 @@ public final class main extends javax.swing.JFrame {
                 txtPlaMas.setText("TIM Controle A Plus");
                 break;
             case '1':
-                txtPlaMas.setText("TIM Controle Smart");
+                txtPlaMas.setText("TIM Controle");
                 break;
             case '2':
                 txtPlaMas.setText("TIM Controle Redes Sociais");
