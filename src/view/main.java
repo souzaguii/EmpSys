@@ -351,7 +351,7 @@ public final class main extends javax.swing.JFrame {
             String outputFile = "\\\\PC\\Arquivos\\BackupDatabase\\reg\\bkp-" + dataFormatada + ".sql";
 
             String loginFilePath = "\\\\PC\\Arquivos\\BackupDatabase\\bin\\bkp.cnf";
-            String host = "192.168.0.101";
+            String host = "192.168.1.15";
 
             String[] command = {
                 "\\\\PC\\Arquivos\\BackupDatabase\\bin\\mysqldump",
@@ -16868,7 +16868,7 @@ public final class main extends javax.swing.JFrame {
                 txtPlaMas.setText("TIM Controle A Plus");
                 break;
             case '1':
-                txtPlaMas.setText("TIM Controle");
+                txtPlaMas.setText("TIM Controle Smart");
                 break;
             case '2':
                 txtPlaMas.setText("TIM Controle Redes Sociais");

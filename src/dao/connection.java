@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class connection {
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://172.20.10.7/EmpSysDatabase"
+    private static final String URL = "jdbc:mysql://192.168.1.15/EmpSysDatabase"
             + "?allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=UTC&useSSL=false";
     private static final String USER = "root";
     private static final String PASSWORD = "Empcell@4848ROOT";
