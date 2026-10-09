@@ -3331,14 +3331,14 @@ public final class main extends javax.swing.JFrame {
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoLojaBranco.png"))); // NOI18N
         pnlHeader.add(imgLogo);
-        imgLogo.setBounds(420, 50, 390, 100);
+        imgLogo.setBounds(370, 20, 480, 160);
 
         btnVenPri.setFont(fontmed(12));
         btnVenPri.setForeground(new java.awt.Color(255, 255, 255));
         btnVenPri.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnVenPri.setText("Vencimento encontrado!");
         btnVenPri.setToolTipText("");
-        btnVenPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVenPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVenPri.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnVenPriMouseEntered(evt);
@@ -3358,7 +3358,7 @@ public final class main extends javax.swing.JFrame {
         btnAfaPri.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnAfaPri.setText("Afazer encontrado!");
         btnAfaPri.setToolTipText("");
-        btnAfaPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAfaPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAfaPri.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAfaPriMouseEntered(evt);
@@ -3392,7 +3392,7 @@ public final class main extends javax.swing.JFrame {
         btnRelatorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnRelatorio.setText("Relatório");
         btnRelatorio.setToolTipText("");
-        btnRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnRelatorioMouseEntered(evt);
@@ -3411,7 +3411,7 @@ public final class main extends javax.swing.JFrame {
         btnCadTipSer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCadTipSer.setText("Cadastrar Serviço");
         btnCadTipSer.setToolTipText("");
-        btnCadTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCadTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCadTipSerMouseEntered(evt);
@@ -3430,7 +3430,7 @@ public final class main extends javax.swing.JFrame {
         btnGerTipSer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnGerTipSer.setText("Gerenciar Serviço");
         btnGerTipSer.setToolTipText("");
-        btnGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGerTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnGerTipSerMouseEntered(evt);
@@ -3449,7 +3449,7 @@ public final class main extends javax.swing.JFrame {
         btnDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnDes.setText("Afazeres");
         btnDes.setToolTipText("");
-        btnDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnDes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnDesMouseEntered(evt);
@@ -3468,7 +3468,7 @@ public final class main extends javax.swing.JFrame {
         btnCadDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCadDes.setText("Cadastrar Afazeres");
         btnCadDes.setToolTipText("");
-        btnCadDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCadDes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCadDesMouseEntered(evt);
@@ -3487,7 +3487,7 @@ public final class main extends javax.swing.JFrame {
         btnGerDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnGerDes.setText("Gerenciar Afazeres");
         btnGerDes.setToolTipText("");
-        btnGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGerDes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnGerDesMouseEntered(evt);
@@ -3506,7 +3506,7 @@ public final class main extends javax.swing.JFrame {
         btnJurPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnJurPri.setText("Calcular Juros");
         btnJurPri.setToolTipText("");
-        btnJurPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnJurPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnJurPri.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnJurPriMouseEntered(evt);
@@ -3537,7 +3537,7 @@ public final class main extends javax.swing.JFrame {
         btnCadOsPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCadOsPri.setText("Gerar");
         btnCadOsPri.setToolTipText("");
-        btnCadOsPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadOsPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCadOsPri.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCadOsPriMouseEntered(evt);
@@ -3556,7 +3556,7 @@ public final class main extends javax.swing.JFrame {
         btnGerOsPri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnGerOsPri.setText("Gerenciar");
         btnGerOsPri.setToolTipText("");
-        btnGerOsPri.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerOsPri.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGerOsPri.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnGerOsPriMouseEntered(evt);
@@ -3587,7 +3587,7 @@ public final class main extends javax.swing.JFrame {
         btnCadVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCadVen.setText("Cadastrar");
         btnCadVen.setToolTipText("");
-        btnCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCadVen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCadVenMouseEntered(evt);
@@ -3606,7 +3606,7 @@ public final class main extends javax.swing.JFrame {
         btnVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnVen.setText("Consultar");
         btnVen.setToolTipText("");
-        btnVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnVenMouseEntered(evt);
@@ -3628,7 +3628,7 @@ public final class main extends javax.swing.JFrame {
         btnMasPla.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnMasPla.setText("Máscara");
         btnMasPla.setToolTipText("");
-        btnMasPla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMasPla.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMasPla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMasPlaMouseEntered(evt);
@@ -3659,7 +3659,7 @@ public final class main extends javax.swing.JFrame {
         btnCadEst.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCadEst.setText("Cadastrar");
         btnCadEst.setToolTipText("");
-        btnCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCadEst.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCadEstMouseEntered(evt);
@@ -3678,7 +3678,7 @@ public final class main extends javax.swing.JFrame {
         btnConEst.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnConEst.setText("Consultar");
         btnConEst.setToolTipText("");
-        btnConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnConEst.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnConEstMouseEntered(evt);
@@ -3697,7 +3697,7 @@ public final class main extends javax.swing.JFrame {
         btnGerEst.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnGerEst.setText("Gerenciar");
         btnGerEst.setToolTipText("");
-        btnGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGerEst.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnGerEstMouseEntered(evt);
@@ -3728,7 +3728,7 @@ public final class main extends javax.swing.JFrame {
         btnCadEnt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCadEnt.setText("Nova");
         btnCadEnt.setToolTipText("");
-        btnCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCadEntMouseEntered(evt);
@@ -3747,7 +3747,7 @@ public final class main extends javax.swing.JFrame {
         btnConEnt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnConEnt.setText("Consultar");
         btnConEnt.setToolTipText("");
-        btnConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnConEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnConEntMouseEntered(evt);
@@ -3766,7 +3766,7 @@ public final class main extends javax.swing.JFrame {
         btnGerEnt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnGerEnt.setText("Gerenciar");
         btnGerEnt.setToolTipText("");
-        btnGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnGerEntMouseEntered(evt);
@@ -3792,7 +3792,7 @@ public final class main extends javax.swing.JFrame {
         rbtnPixCadEnt.setFont(fontmed(12));
         rbtnPixCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnPixCadEnt.setText("PIX");
-        rbtnPixCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPixCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnPixCadEnt.setEnabled(false);
         rbtnPixCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3805,7 +3805,7 @@ public final class main extends javax.swing.JFrame {
         btnIteCadEnt.setFont(fontmed(12));
         btnIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnIteCadEnt.setText("Estoque");
-        btnIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnIteCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIteCadEntActionPerformed(evt);
@@ -3817,7 +3817,7 @@ public final class main extends javax.swing.JFrame {
         btnSalCadEnt.setFont(fontmed(12));
         btnSalCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnSalCadEnt.setText("Salvar");
-        btnSalCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalCadEntActionPerformed(evt);
@@ -3829,7 +3829,7 @@ public final class main extends javax.swing.JFrame {
         btnCanCadEnt.setFont(fontmed(12));
         btnCanCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnCanCadEnt.setText("Cancelar");
-        btnCanCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanCadEntActionPerformed(evt);
@@ -3843,7 +3843,7 @@ public final class main extends javax.swing.JFrame {
         rbtnSerCadEnt.setFont(fontmed(12));
         rbtnSerCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnSerCadEnt.setText("Serviço");
-        rbtnSerCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnSerCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnSerCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnSerCadEntActionPerformed(evt);
@@ -3857,7 +3857,7 @@ public final class main extends javax.swing.JFrame {
         rbtnVenCadEnt.setFont(fontmed(12));
         rbtnVenCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnVenCadEnt.setText("Venda");
-        rbtnVenCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnVenCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnVenCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnVenCadEntActionPerformed(evt);
@@ -3871,7 +3871,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAssCadEnt.setFont(fontmed(12));
         rbtnAssCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAssCadEnt.setText("Assistência");
-        rbtnAssCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnAssCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnAssCadEntActionPerformed(evt);
@@ -3884,7 +3884,7 @@ public final class main extends javax.swing.JFrame {
         rbtnTroPreCadEnt.setFont(fontmed(12));
         rbtnTroPreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnTroPreCadEnt.setText("Troca Pré");
-        rbtnTroPreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnTroPreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnTroPreCadEnt.setEnabled(false);
         rbtnTroPreCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3898,7 +3898,7 @@ public final class main extends javax.swing.JFrame {
         rbtnTroPlaCadEnt.setFont(fontmed(12));
         rbtnTroPlaCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnTroPlaCadEnt.setText("Troca Plano");
-        rbtnTroPlaCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnTroPlaCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnTroPlaCadEnt.setEnabled(false);
         rbtnTroPlaCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3911,7 +3911,7 @@ public final class main extends javax.swing.JFrame {
         lblDatCadEnt.setFont(fontmed(12));
         lblDatCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDatCadEnt.setText("Data");
-        lblDatCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEnt.add(lblDatCadEnt);
         lblDatCadEnt.setBounds(330, 220, 40, 20);
 
@@ -3940,14 +3940,14 @@ public final class main extends javax.swing.JFrame {
 
         lblR$CadEnt.setFont(fontmed(13));
         lblR$CadEnt.setText("R$");
-        lblR$CadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$CadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEnt.add(lblR$CadEnt);
         lblR$CadEnt.setBounds(330, 270, 20, 21);
 
         lblPreCadEnt.setFont(fontmed(12));
         lblPreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblPreCadEnt.setText("Preço");
-        lblPreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblPreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEnt.add(lblPreCadEnt);
         lblPreCadEnt.setBounds(330, 270, 40, 20);
 
@@ -3977,7 +3977,7 @@ public final class main extends javax.swing.JFrame {
         cmbSerCadEnt.setFont(fontmed(13));
         cmbSerCadEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
         cmbSerCadEnt.setToolTipText("");
-        cmbSerCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbSerCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbSerCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cmbSerCadEntMouseClicked(evt);
@@ -3997,7 +3997,7 @@ public final class main extends javax.swing.JFrame {
         lblDetCadEnt.setFont(fontmed(12));
         lblDetCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDetCadEnt.setText("Detalhes");
-        lblDetCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDetCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEnt.add(lblDetCadEnt);
         lblDetCadEnt.setBounds(330, 320, 70, 20);
 
@@ -4031,7 +4031,7 @@ public final class main extends javax.swing.JFrame {
         rbtnCarCadEnt.setFont(fontmed(12));
         rbtnCarCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCarCadEnt.setText("Cartão");
-        rbtnCarCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCarCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnCarCadEnt.setEnabled(false);
         rbtnCarCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4045,7 +4045,7 @@ public final class main extends javax.swing.JFrame {
         rbtnDinCadEnt.setFont(fontmed(12));
         rbtnDinCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnDinCadEnt.setText("Dinheiro");
-        rbtnDinCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnDinCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnDinCadEnt.setEnabled(false);
         rbtnDinCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4057,14 +4057,14 @@ public final class main extends javax.swing.JFrame {
 
         lblR$CusCadEnt.setFont(fontmed(13));
         lblR$CusCadEnt.setText("R$");
-        lblR$CusCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$CusCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEnt.add(lblR$CusCadEnt);
         lblR$CusCadEnt.setBounds(570, 270, 20, 21);
 
         lblCusCadEnt.setFont(fontmed(12));
         lblCusCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblCusCadEnt.setText("Custo");
-        lblCusCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCusCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEnt.add(lblCusCadEnt);
         lblCusCadEnt.setBounds(570, 270, 40, 20);
 
@@ -4094,7 +4094,7 @@ public final class main extends javax.swing.JFrame {
         lblForCadEnt.setFont(fontmed(12));
         lblForCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblForCadEnt.setText("Fornecedor");
-        lblForCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblForCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEnt.add(lblForCadEnt);
         lblForCadEnt.setBounds(570, 320, 90, 20);
 
@@ -4119,7 +4119,7 @@ public final class main extends javax.swing.JFrame {
         lblCliCadEnt.setFont(fontmed(12));
         lblCliCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblCliCadEnt.setText("Cliente");
-        lblCliCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCliCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEnt.add(lblCliCadEnt);
         lblCliCadEnt.setBounds(570, 220, 90, 20);
 
@@ -4145,7 +4145,7 @@ public final class main extends javax.swing.JFrame {
         rbtnCreCadEnt.setFont(fontmed(12));
         rbtnCreCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCreCadEnt.setText("Crédito");
-        rbtnCreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCreCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnCreCadEnt.setEnabled(false);
         rbtnCreCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4159,7 +4159,7 @@ public final class main extends javax.swing.JFrame {
         rbtnDebCadEnt.setFont(fontmed(12));
         rbtnDebCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnDebCadEnt.setText("Débito");
-        rbtnDebCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnDebCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnDebCadEnt.setEnabled(false);
         rbtnDebCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4184,7 +4184,7 @@ public final class main extends javax.swing.JFrame {
 
         spnParCadEnt.setFont(fontmed(13));
         spnParCadEnt.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        spnParCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        spnParCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         spnParCadEnt.setEditor(new javax.swing.JSpinner.NumberEditor(spnParCadEnt, ""));
         spnParCadEnt.setEnabled(false);
         spnParCadEnt.setFocusable(false);
@@ -4203,7 +4203,7 @@ public final class main extends javax.swing.JFrame {
         btnVolIteCadEnt.setFont(fontmed(12));
         btnVolIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnVolIteCadEnt.setText("Voltar");
-        btnVolIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVolIteCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolIteCadEntActionPerformed(evt);
@@ -4228,7 +4228,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblEstIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblEstIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblEstIteCadEnt.setFocusable(false);
         tblEstIteCadEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblEstIteCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -4246,7 +4246,7 @@ public final class main extends javax.swing.JFrame {
         tblSelIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
         tblSelIteCadEnt.setBorder(null);
         tblSelIteCadEnt.setFont(fontmed(10));
-        tblSelIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblSelIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblSelIteCadEnt.setFocusable(false);
         tblSelIteCadEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSelIteCadEnt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -4274,7 +4274,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAssIteCadEnt.setFont(fontmed(12));
         rbtnAssIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAssIteCadEnt.setText("Acessório");
-        rbtnAssIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnAssIteCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnAssIteCadEntActionPerformed(evt);
@@ -4287,7 +4287,7 @@ public final class main extends javax.swing.JFrame {
         rbtnPelIteCadEnt.setFont(fontmed(12));
         rbtnPelIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnPelIteCadEnt.setText("Película");
-        rbtnPelIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPelIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnPelIteCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnPelIteCadEntActionPerformed(evt);
@@ -4300,7 +4300,7 @@ public final class main extends javax.swing.JFrame {
         rbtnCapIteCadEnt.setFont(fontmed(12));
         rbtnCapIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCapIteCadEnt.setText("Capinha");
-        rbtnCapIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCapIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnCapIteCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnCapIteCadEntActionPerformed(evt);
@@ -4313,7 +4313,7 @@ public final class main extends javax.swing.JFrame {
         rbtnChiIteCadEnt.setFont(fontmed(12));
         rbtnChiIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnChiIteCadEnt.setText("Chip");
-        rbtnChiIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnChiIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnChiIteCadEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnChiIteCadEntActionPerformed(evt);
@@ -4324,7 +4324,7 @@ public final class main extends javax.swing.JFrame {
         lblBusIteCadEnt.setFont(fontmed(12));
         lblBusIteCadEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblBusIteCadEnt.setText("Buscar");
-        lblBusIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblBusIteCadEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlIteCadEnt.add(lblBusIteCadEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 50, 20));
 
         txtBusIteCadEnt.setBackground(new java.awt.Color(241, 241, 241));
@@ -4374,7 +4374,7 @@ public final class main extends javax.swing.JFrame {
         btnCanConEnt.setFont(fontmed(12));
         btnCanConEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnCanConEnt.setText("Cancelar");
-        btnCanConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanConEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanConEntActionPerformed(evt);
@@ -4386,7 +4386,7 @@ public final class main extends javax.swing.JFrame {
         btnBusConEnt.setFont(fontmed(12));
         btnBusConEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnBusConEnt.setText("Buscar");
-        btnBusConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBusConEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBusConEntActionPerformed(evt);
@@ -4398,7 +4398,7 @@ public final class main extends javax.swing.JFrame {
         lblBusConEnt.setFont(fontmed(12));
         lblBusConEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblBusConEnt.setText("Buscar");
-        lblBusConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblBusConEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlConEnt.add(lblBusConEnt);
         lblBusConEnt.setBounds(450, 100, 50, 20);
 
@@ -4469,7 +4469,7 @@ public final class main extends javax.swing.JFrame {
         btnBusGerEnt.setFont(fontmed(12));
         btnBusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnBusGerEnt.setText("Buscar");
-        btnBusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBusGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBusGerEntActionPerformed(evt);
@@ -4481,7 +4481,7 @@ public final class main extends javax.swing.JFrame {
         btnCanGerEnt.setFont(fontmed(12));
         btnCanGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnCanGerEnt.setText("Cancelar");
-        btnCanGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanGerEntActionPerformed(evt);
@@ -4493,7 +4493,7 @@ public final class main extends javax.swing.JFrame {
         btnAltGerEnt.setFont(fontmed(12));
         btnAltGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnAltGerEnt.setText("Alterar");
-        btnAltGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAltGerEnt.setEnabled(false);
         btnAltGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4506,7 +4506,7 @@ public final class main extends javax.swing.JFrame {
         btnExcGerEnt.setFont(fontmed(12));
         btnExcGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnExcGerEnt.setText("Excluir");
-        btnExcGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnExcGerEnt.setEnabled(false);
         btnExcGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4519,7 +4519,7 @@ public final class main extends javax.swing.JFrame {
         lblDatBusGerEnt.setFont(fontmed(12));
         lblDatBusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDatBusGerEnt.setText("Data");
-        lblDatBusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatBusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEnt.add(lblDatBusGerEnt);
         lblDatBusGerEnt.setBounds(500, 100, 50, 20);
 
@@ -4567,7 +4567,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblGerEnt.setFocusable(false);
         tblGerEnt.setName(""); // NOI18N
         tblGerEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -4596,7 +4596,7 @@ public final class main extends javax.swing.JFrame {
         btnCanAltEnt.setFont(fontmed(12));
         btnCanAltEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnCanAltEnt.setText("Cancelar");
-        btnCanAltEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanAltEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanAltEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanAltEntActionPerformed(evt);
@@ -4608,7 +4608,7 @@ public final class main extends javax.swing.JFrame {
         btnIteGerEnt.setFont(fontmed(12));
         btnIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnIteGerEnt.setText("Estoque");
-        btnIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIteGerEntActionPerformed(evt);
@@ -4620,7 +4620,7 @@ public final class main extends javax.swing.JFrame {
         btnSalGerEnt.setFont(fontmed(12));
         btnSalGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnSalGerEnt.setText("Salvar");
-        btnSalGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalGerEntActionPerformed(evt);
@@ -4632,7 +4632,7 @@ public final class main extends javax.swing.JFrame {
         lblDatGerEnt.setFont(fontmed(12));
         lblDatGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDatGerEnt.setText("Data");
-        lblDatGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAlterarEntrada.add(lblDatGerEnt);
         lblDatGerEnt.setBounds(380, 150, 40, 20);
 
@@ -4661,7 +4661,7 @@ public final class main extends javax.swing.JFrame {
 
         lblR$GerEnt.setFont(fontmed(13));
         lblR$GerEnt.setText("R$");
-        lblR$GerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$GerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblR$GerEnt.setFocusable(false);
         pnlAlterarEntrada.add(lblR$GerEnt);
         lblR$GerEnt.setBounds(380, 200, 20, 21);
@@ -4669,7 +4669,7 @@ public final class main extends javax.swing.JFrame {
         lblPreGerEnt.setFont(fontmed(12));
         lblPreGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblPreGerEnt.setText("Preço");
-        lblPreGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblPreGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAlterarEntrada.add(lblPreGerEnt);
         lblPreGerEnt.setBounds(380, 200, 40, 20);
 
@@ -4694,7 +4694,7 @@ public final class main extends javax.swing.JFrame {
         lblDetGerEnt.setFont(fontmed(12));
         lblDetGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblDetGerEnt.setText("Detalhes");
-        lblDetGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDetGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAlterarEntrada.add(lblDetGerEnt);
         lblDetGerEnt.setBounds(380, 250, 70, 20);
 
@@ -4724,7 +4724,7 @@ public final class main extends javax.swing.JFrame {
         cmbSerGerEnt.setFont(fontmed(13));
         cmbSerGerEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o serviço" }));
         cmbSerGerEnt.setToolTipText("");
-        cmbSerGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbSerGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAlterarEntrada.add(cmbSerGerEnt);
         cmbSerGerEnt.setBounds(380, 320, 190, 30);
 
@@ -4739,7 +4739,7 @@ public final class main extends javax.swing.JFrame {
         rbtnCarGerEnt.setFont(fontmed(12));
         rbtnCarGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCarGerEnt.setText("Cartão");
-        rbtnCarGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCarGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnCarGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnCarGerEntActionPerformed(evt);
@@ -4753,7 +4753,7 @@ public final class main extends javax.swing.JFrame {
         rbtnPixGerEnt.setFont(fontmed(12));
         rbtnPixGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnPixGerEnt.setText("PIX");
-        rbtnPixGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPixGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnPixGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnPixGerEntActionPerformed(evt);
@@ -4767,7 +4767,7 @@ public final class main extends javax.swing.JFrame {
         rbtnDinGerEnt.setFont(fontmed(12));
         rbtnDinGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnDinGerEnt.setText("Dinheiro");
-        rbtnDinGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnDinGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnDinGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnDinGerEntActionPerformed(evt);
@@ -4779,7 +4779,7 @@ public final class main extends javax.swing.JFrame {
         lblCliGerEnt.setFont(fontmed(12));
         lblCliGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblCliGerEnt.setText("Cliente");
-        lblCliGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCliGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAlterarEntrada.add(lblCliGerEnt);
         lblCliGerEnt.setBounds(620, 150, 90, 20);
 
@@ -4804,13 +4804,13 @@ public final class main extends javax.swing.JFrame {
         lblCusGerEnt.setFont(fontmed(12));
         lblCusGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblCusGerEnt.setText("Custo");
-        lblCusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAlterarEntrada.add(lblCusGerEnt);
         lblCusGerEnt.setBounds(620, 200, 40, 20);
 
         lblR$CusGerEnt.setFont(fontmed(13));
         lblR$CusGerEnt.setText("R$");
-        lblR$CusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$CusGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAlterarEntrada.add(lblR$CusGerEnt);
         lblR$CusGerEnt.setBounds(620, 200, 20, 20);
 
@@ -4845,7 +4845,7 @@ public final class main extends javax.swing.JFrame {
         lblForGerEnt.setFont(fontmed(12));
         lblForGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblForGerEnt.setText("Fornecedor");
-        lblForGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblForGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAlterarEntrada.add(lblForGerEnt);
         lblForGerEnt.setBounds(620, 250, 90, 20);
 
@@ -4897,7 +4897,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblEstIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblEstIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblEstIteGerEnt.setFocusable(false);
         tblEstIteGerEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblEstIteGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -4927,7 +4927,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblSelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblSelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblSelIteGerEnt.setFocusable(false);
         tblSelIteGerEnt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSelIteGerEnt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -4942,7 +4942,7 @@ public final class main extends javax.swing.JFrame {
         btnVolIteGerEnt.setFont(fontmed(12));
         btnVolIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         btnVolIteGerEnt.setText("Voltar");
-        btnVolIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVolIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolIteGerEntActionPerformed(evt);
@@ -4965,7 +4965,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAssIteGerEnt.setFont(fontmed(12));
         rbtnAssIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAssIteGerEnt.setText("Acessório");
-        rbtnAssIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnAssIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnAssIteGerEntActionPerformed(evt);
@@ -4978,7 +4978,7 @@ public final class main extends javax.swing.JFrame {
         rbtnPelIteGerEnt.setFont(fontmed(12));
         rbtnPelIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnPelIteGerEnt.setText("Película");
-        rbtnPelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPelIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnPelIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnPelIteGerEntActionPerformed(evt);
@@ -4991,7 +4991,7 @@ public final class main extends javax.swing.JFrame {
         rbtnCapIteGerEnt.setFont(fontmed(12));
         rbtnCapIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCapIteGerEnt.setText("Capinha");
-        rbtnCapIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCapIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnCapIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnCapIteGerEntActionPerformed(evt);
@@ -5004,7 +5004,7 @@ public final class main extends javax.swing.JFrame {
         rbtnChiIteGerEnt.setFont(fontmed(12));
         rbtnChiIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         rbtnChiIteGerEnt.setText("Chip");
-        rbtnChiIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnChiIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnChiIteGerEnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnChiIteGerEntActionPerformed(evt);
@@ -5015,7 +5015,7 @@ public final class main extends javax.swing.JFrame {
         lblBusIteGerEnt.setFont(fontmed(12));
         lblBusIteGerEnt.setForeground(new java.awt.Color(10, 60, 133));
         lblBusIteGerEnt.setText("Buscar");
-        lblBusIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblBusIteGerEnt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlIteGerEnt.add(lblBusIteGerEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 50, 20));
 
         txtBusIteGerEnt.setBackground(new java.awt.Color(241, 241, 241));
@@ -5055,7 +5055,7 @@ public final class main extends javax.swing.JFrame {
         btnSalCadEst.setFont(fontmed(12));
         btnSalCadEst.setForeground(new java.awt.Color(10, 60, 133));
         btnSalCadEst.setText("Salvar");
-        btnSalCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalCadEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalCadEstActionPerformed(evt);
@@ -5067,7 +5067,7 @@ public final class main extends javax.swing.JFrame {
         btnAdiCadEst.setFont(fontmed(12));
         btnAdiCadEst.setForeground(new java.awt.Color(10, 60, 133));
         btnAdiCadEst.setText("Adicionar");
-        btnAdiCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdiCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAdiCadEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdiCadEstActionPerformed(evt);
@@ -5079,7 +5079,7 @@ public final class main extends javax.swing.JFrame {
         btnCanCadEst.setFont(fontmed(12));
         btnCanCadEst.setForeground(new java.awt.Color(10, 60, 133));
         btnCanCadEst.setText("Cancelar");
-        btnCanCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanCadEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanCadEstActionPerformed(evt);
@@ -5093,7 +5093,7 @@ public final class main extends javax.swing.JFrame {
         rbtnCapCadEst.setFont(fontmed(12));
         rbtnCapCadEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCapCadEst.setText("Capinha");
-        rbtnCapCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCapCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnCapCadEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnCapCadEstActionPerformed(evt);
@@ -5107,7 +5107,7 @@ public final class main extends javax.swing.JFrame {
         rbtnPelCadEst.setFont(fontmed(12));
         rbtnPelCadEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnPelCadEst.setText("Película");
-        rbtnPelCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPelCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnPelCadEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnPelCadEstActionPerformed(evt);
@@ -5121,7 +5121,7 @@ public final class main extends javax.swing.JFrame {
         rbtnChiCadEst.setFont(fontmed(12));
         rbtnChiCadEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnChiCadEst.setText("Chip");
-        rbtnChiCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnChiCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnChiCadEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnChiCadEstActionPerformed(evt);
@@ -5135,7 +5135,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAceCadEst.setFont(fontmed(12));
         rbtnAceCadEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAceCadEst.setText("Acessório");
-        rbtnAceCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAceCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnAceCadEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnAceCadEstActionPerformed(evt);
@@ -5147,7 +5147,7 @@ public final class main extends javax.swing.JFrame {
         chkVarCorCadEst.setFont(fontmed(12));
         chkVarCorCadEst.setForeground(new java.awt.Color(10, 60, 133));
         chkVarCorCadEst.setText("Várias cores");
-        chkVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         chkVarCorCadEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkVarCorCadEstActionPerformed(evt);
@@ -5173,7 +5173,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblVarCorCadEst.setFocusable(false);
         tblVarCorCadEst.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -5202,7 +5202,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblCadEst.setFocusable(false);
         tblCadEst.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -5217,7 +5217,7 @@ public final class main extends javax.swing.JFrame {
         lblVarCorCadEst.setFont(fontmed(12));
         lblVarCorCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblVarCorCadEst.setText("Cor");
-        lblVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblVarCorCadEst);
         lblVarCorCadEst.setBounds(880, 220, 60, 20);
 
@@ -5242,14 +5242,14 @@ public final class main extends javax.swing.JFrame {
         lblProCadEst.setFont(fontbold(12));
         lblProCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblProCadEst.setText("Produtos registrados");
-        lblProCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblProCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblProCadEst);
         lblProCadEst.setBounds(40, 120, 160, 20);
 
         lblModCadEst.setFont(fontmed(12));
         lblModCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblModCadEst.setText("Modelo ");
-        lblModCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblModCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblModCadEst);
         lblModCadEst.setBounds(360, 200, 70, 20);
 
@@ -5284,7 +5284,7 @@ public final class main extends javax.swing.JFrame {
         lblMarCadEst.setFont(fontmed(12));
         lblMarCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblMarCadEst.setText("Marca");
-        lblMarCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblMarCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblMarCadEst);
         lblMarCadEst.setBounds(360, 150, 40, 20);
 
@@ -5309,7 +5309,7 @@ public final class main extends javax.swing.JFrame {
         lblCorCadEst.setFont(fontmed(12));
         lblCorCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblCorCadEst.setText("Cor");
-        lblCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblCorCadEst);
         lblCorCadEst.setBounds(650, 150, 30, 20);
 
@@ -5334,7 +5334,7 @@ public final class main extends javax.swing.JFrame {
         lblMatCadEst.setFont(fontmed(12));
         lblMatCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblMatCadEst.setText("Material");
-        lblMatCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblMatCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblMatCadEst);
         lblMatCadEst.setBounds(650, 200, 70, 20);
 
@@ -5359,7 +5359,7 @@ public final class main extends javax.swing.JFrame {
         lblQuaCadEst.setFont(fontmed(12));
         lblQuaCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblQuaCadEst.setText("Quantidade");
-        lblQuaCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblQuaCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblQuaCadEst);
         lblQuaCadEst.setBounds(360, 250, 80, 20);
 
@@ -5388,14 +5388,14 @@ public final class main extends javax.swing.JFrame {
 
         lblR$CadEst.setFont(fontmed(13));
         lblR$CadEst.setText("R$");
-        lblR$CadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$CadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblR$CadEst);
         lblR$CadEst.setBounds(360, 300, 20, 21);
 
         lblPreCadEst.setFont(fontmed(12));
         lblPreCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblPreCadEst.setText("Preço");
-        lblPreCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblPreCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblPreCadEst);
         lblPreCadEst.setBounds(360, 300, 40, 20);
 
@@ -5431,21 +5431,21 @@ public final class main extends javax.swing.JFrame {
         cmbChiCadEst.setFont(fontmed(13));
         cmbChiCadEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o chip", "Triplo 4G HLR 230", "eSIM", "Naked", "Naked + Recarga" }));
         cmbChiCadEst.setToolTipText("");
-        cmbChiCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbChiCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(cmbChiCadEst);
         cmbChiCadEst.setBounds(650, 370, 190, 30);
 
         lblLocCadEst.setFont(fontmed(12));
         lblLocCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblLocCadEst.setText("Local");
-        lblLocCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblLocCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblLocCadEst);
         lblLocCadEst.setBounds(650, 250, 40, 20);
 
         txtLocCadEst.setBackground(new java.awt.Color(241, 241, 241));
         txtLocCadEst.setFont(fontmed(13));
         txtLocCadEst.setBorder(null);
-        txtLocCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtLocCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtLocCadEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtLocCadEstFocusGained(evt);
@@ -5464,7 +5464,7 @@ public final class main extends javax.swing.JFrame {
         lblDetCadEst.setFont(fontmed(12));
         lblDetCadEst.setForeground(new java.awt.Color(10, 60, 133));
         lblDetCadEst.setText("Detalhes");
-        lblDetCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDetCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadEst.add(lblDetCadEst);
         lblDetCadEst.setBounds(650, 300, 70, 20);
 
@@ -5492,7 +5492,7 @@ public final class main extends javax.swing.JFrame {
 
         spnVarCorCadEst.setFont(fontmed(13));
         spnVarCorCadEst.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        spnVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        spnVarCorCadEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         spnVarCorCadEst.setEditor(new javax.swing.JSpinner.NumberEditor(spnVarCorCadEst, ""));
         spnVarCorCadEst.setFocusable(false);
         JSpinner.DefaultEditor editorr = (JSpinner.DefaultEditor) spnVarCorCadEst.getEditor();
@@ -5514,7 +5514,7 @@ public final class main extends javax.swing.JFrame {
         btnCanConEst.setFont(fontmed(12));
         btnCanConEst.setForeground(new java.awt.Color(10, 60, 133));
         btnCanConEst.setText("Cancelar");
-        btnCanConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanConEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanConEstActionPerformed(evt);
@@ -5526,7 +5526,7 @@ public final class main extends javax.swing.JFrame {
         btnBusConEst.setFont(fontmed(12));
         btnBusConEst.setForeground(new java.awt.Color(10, 60, 133));
         btnBusConEst.setText("Buscar");
-        btnBusConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBusConEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBusConEstActionPerformed(evt);
@@ -5540,7 +5540,7 @@ public final class main extends javax.swing.JFrame {
         rbtnCapConEst.setFont(fontmed(12));
         rbtnCapConEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCapConEst.setText("Capinha");
-        rbtnCapConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCapConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnCapConEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnCapConEstActionPerformed(evt);
@@ -5554,7 +5554,7 @@ public final class main extends javax.swing.JFrame {
         rbtnPelConEst.setFont(fontmed(12));
         rbtnPelConEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnPelConEst.setText("Película");
-        rbtnPelConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPelConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnPelConEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnPelConEstActionPerformed(evt);
@@ -5568,7 +5568,7 @@ public final class main extends javax.swing.JFrame {
         rbtnChiConEst.setFont(fontmed(12));
         rbtnChiConEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnChiConEst.setText("Chip");
-        rbtnChiConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnChiConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnChiConEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnChiConEstActionPerformed(evt);
@@ -5582,7 +5582,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAceConEst.setFont(fontmed(12));
         rbtnAceConEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAceConEst.setText("Acessório");
-        rbtnAceConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAceConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnAceConEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnAceConEstActionPerformed(evt);
@@ -5594,7 +5594,7 @@ public final class main extends javax.swing.JFrame {
         lblBusConEst.setFont(fontmed(12));
         lblBusConEst.setForeground(new java.awt.Color(10, 60, 133));
         lblBusConEst.setText("Buscar");
-        lblBusConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblBusConEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlConEst.add(lblBusConEst);
         lblBusConEst.setBounds(450, 150, 50, 20);
 
@@ -5666,7 +5666,7 @@ public final class main extends javax.swing.JFrame {
         btnExcGerEst.setFont(fontmed(12));
         btnExcGerEst.setForeground(new java.awt.Color(10, 60, 133));
         btnExcGerEst.setText("Excluir");
-        btnExcGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnExcGerEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcGerEstActionPerformed(evt);
@@ -5678,7 +5678,7 @@ public final class main extends javax.swing.JFrame {
         btnBusGerEst.setFont(fontmed(12));
         btnBusGerEst.setForeground(new java.awt.Color(10, 60, 133));
         btnBusGerEst.setText("Buscar");
-        btnBusGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBusGerEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBusGerEstActionPerformed(evt);
@@ -5690,7 +5690,7 @@ public final class main extends javax.swing.JFrame {
         btnAltGerEst.setFont(fontmed(12));
         btnAltGerEst.setForeground(new java.awt.Color(10, 60, 133));
         btnAltGerEst.setText("Alterar");
-        btnAltGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAltGerEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAltGerEstActionPerformed(evt);
@@ -5702,7 +5702,7 @@ public final class main extends javax.swing.JFrame {
         btnCanGerEst.setFont(fontmed(12));
         btnCanGerEst.setForeground(new java.awt.Color(10, 60, 133));
         btnCanGerEst.setText("Cancelar");
-        btnCanGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanGerEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanGerEstActionPerformed(evt);
@@ -5714,7 +5714,7 @@ public final class main extends javax.swing.JFrame {
         chkAltGerEst.setFont(fontmed(12));
         chkAltGerEst.setForeground(new java.awt.Color(10, 60, 133));
         chkAltGerEst.setText("Alterar todas as linhas");
-        chkAltGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkAltGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(chkAltGerEst);
         chkAltGerEst.setBounds(727, 320, 200, 20);
 
@@ -5722,7 +5722,7 @@ public final class main extends javax.swing.JFrame {
         rbtnCapGerEst.setFont(fontmed(12));
         rbtnCapGerEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnCapGerEst.setText("Capinha");
-        rbtnCapGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnCapGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnCapGerEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnCapGerEstActionPerformed(evt);
@@ -5735,7 +5735,7 @@ public final class main extends javax.swing.JFrame {
         rbtnPelGerEst.setFont(fontmed(12));
         rbtnPelGerEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnPelGerEst.setText("Película");
-        rbtnPelGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnPelGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnPelGerEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnPelGerEstActionPerformed(evt);
@@ -5748,7 +5748,7 @@ public final class main extends javax.swing.JFrame {
         rbtnChiGerEst.setFont(fontmed(12));
         rbtnChiGerEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnChiGerEst.setText("Chip");
-        rbtnChiGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnChiGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnChiGerEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnChiGerEstActionPerformed(evt);
@@ -5761,7 +5761,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAceGerEst.setFont(fontmed(12));
         rbtnAceGerEst.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAceGerEst.setText("Acessório");
-        rbtnAceGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAceGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnAceGerEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnAceGerEstActionPerformed(evt);
@@ -5935,7 +5935,7 @@ public final class main extends javax.swing.JFrame {
         lblModGerEst.setFont(fontmed(12));
         lblModGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblModGerEst.setText("Modelo ");
-        lblModGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblModGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblModGerEst);
         lblModGerEst.setBounds(730, 180, 70, 20);
 
@@ -5960,7 +5960,7 @@ public final class main extends javax.swing.JFrame {
         lblMarGerEst.setFont(fontmed(12));
         lblMarGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblMarGerEst.setText("Marca");
-        lblMarGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblMarGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblMarGerEst);
         lblMarGerEst.setBounds(730, 130, 40, 20);
 
@@ -5985,7 +5985,7 @@ public final class main extends javax.swing.JFrame {
         lblCorGerEst.setFont(fontmed(12));
         lblCorGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblCorGerEst.setText("Cor");
-        lblCorGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCorGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblCorGerEst);
         lblCorGerEst.setBounds(970, 130, 30, 20);
 
@@ -6010,7 +6010,7 @@ public final class main extends javax.swing.JFrame {
         lblMatGerEst.setFont(fontmed(12));
         lblMatGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblMatGerEst.setText("Material");
-        lblMatGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblMatGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblMatGerEst);
         lblMatGerEst.setBounds(970, 180, 80, 20);
 
@@ -6035,7 +6035,7 @@ public final class main extends javax.swing.JFrame {
         lblQuaGerEst.setFont(fontmed(12));
         lblQuaGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblQuaGerEst.setText("Quantidade");
-        lblQuaGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblQuaGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblQuaGerEst);
         lblQuaGerEst.setBounds(730, 230, 80, 20);
 
@@ -6064,14 +6064,14 @@ public final class main extends javax.swing.JFrame {
 
         lblR$GerEst.setFont(fontmed(13));
         lblR$GerEst.setText("R$");
-        lblR$GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$GerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblR$GerEst);
         lblR$GerEst.setBounds(730, 280, 20, 21);
 
         lblPreGerEst.setFont(fontmed(12));
         lblPreGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblPreGerEst.setText("Preço");
-        lblPreGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblPreGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblPreGerEst);
         lblPreGerEst.setBounds(730, 280, 40, 20);
 
@@ -6106,7 +6106,7 @@ public final class main extends javax.swing.JFrame {
 
         cmbChiGerEst.setFont(fontmed(13));
         cmbChiGerEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o chip", "Triplo 4G HLR 230", "eSIM", "Naked", "Naked + Recarga" }));
-        cmbChiGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbChiGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbChiGerEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbChiGerEstActionPerformed(evt);
@@ -6118,14 +6118,14 @@ public final class main extends javax.swing.JFrame {
         lblLocGerEst.setFont(fontmed(12));
         lblLocGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblLocGerEst.setText("Local");
-        lblLocGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblLocGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblLocGerEst);
         lblLocGerEst.setBounds(970, 230, 40, 20);
 
         txtLocGerEst.setBackground(new java.awt.Color(241, 241, 241));
         txtLocGerEst.setFont(fontmed(13));
         txtLocGerEst.setBorder(null);
-        txtLocGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtLocGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtLocGerEst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtLocGerEstFocusGained(evt);
@@ -6144,7 +6144,7 @@ public final class main extends javax.swing.JFrame {
         lblDetGerEst.setFont(fontmed(12));
         lblDetGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblDetGerEst.setText("Detalhes");
-        lblDetGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDetGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblDetGerEst);
         lblDetGerEst.setBounds(970, 280, 70, 20);
 
@@ -6173,7 +6173,7 @@ public final class main extends javax.swing.JFrame {
         lblBusGerEst.setFont(fontmed(12));
         lblBusGerEst.setForeground(new java.awt.Color(10, 60, 133));
         lblBusGerEst.setText("Buscar");
-        lblBusGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblBusGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerEst.add(lblBusGerEst);
         lblBusGerEst.setBounds(230, 160, 50, 20);
 
@@ -6221,7 +6221,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblGerEst.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblGerEst.setFocusable(false);
         tblGerEst.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblGerEst.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -6248,7 +6248,7 @@ public final class main extends javax.swing.JFrame {
         lblAceCadVen.setFont(fontmed(12));
         lblAceCadVen.setForeground(new java.awt.Color(10, 60, 133));
         lblAceCadVen.setText("Acesso");
-        lblAceCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblAceCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadVen.add(lblAceCadVen);
         lblAceCadVen.setBounds(350, 260, 60, 20);
 
@@ -6281,7 +6281,7 @@ public final class main extends javax.swing.JFrame {
         lblDetCadVen.setFont(fontmed(12));
         lblDetCadVen.setForeground(new java.awt.Color(10, 60, 133));
         lblDetCadVen.setText("Detalhes");
-        lblDetCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDetCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadVen.add(lblDetCadVen);
         lblDetCadVen.setBounds(650, 260, 90, 20);
 
@@ -6311,7 +6311,7 @@ public final class main extends javax.swing.JFrame {
         lblVenCadVen.setFont(fontmed(12));
         lblVenCadVen.setForeground(new java.awt.Color(10, 60, 133));
         lblVenCadVen.setText("Vencimento");
-        lblVenCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblVenCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadVen.add(lblVenCadVen);
         lblVenCadVen.setBounds(650, 210, 90, 20);
 
@@ -6341,7 +6341,7 @@ public final class main extends javax.swing.JFrame {
         btnSalCadVen.setFont(fontmed(12));
         btnSalCadVen.setForeground(new java.awt.Color(10, 60, 133));
         btnSalCadVen.setText("Salvar");
-        btnSalCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalCadVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalCadVenActionPerformed(evt);
@@ -6353,7 +6353,7 @@ public final class main extends javax.swing.JFrame {
         btnCanCadVen.setFont(fontmed(12));
         btnCanCadVen.setForeground(new java.awt.Color(10, 60, 133));
         btnCanCadVen.setText("Cancelar");
-        btnCanCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanCadVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanCadVenActionPerformed(evt);
@@ -6365,7 +6365,7 @@ public final class main extends javax.swing.JFrame {
         lblPlaCadVen.setFont(fontmed(12));
         lblPlaCadVen.setForeground(new java.awt.Color(10, 60, 133));
         lblPlaCadVen.setText("Plano");
-        lblPlaCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblPlaCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadVen.add(lblPlaCadVen);
         lblPlaCadVen.setBounds(650, 110, 50, 20);
 
@@ -6398,7 +6398,7 @@ public final class main extends javax.swing.JFrame {
         lblCliCadVen.setFont(fontmed(12));
         lblCliCadVen.setForeground(new java.awt.Color(10, 60, 133));
         lblCliCadVen.setText("Cliente");
-        lblCliCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCliCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadVen.add(lblCliCadVen);
         lblCliCadVen.setBounds(350, 110, 60, 20);
 
@@ -6431,7 +6431,7 @@ public final class main extends javax.swing.JFrame {
         lblTelCadVen.setFont(fontmed(12));
         lblTelCadVen.setForeground(new java.awt.Color(10, 60, 133));
         lblTelCadVen.setText("Telefone");
-        lblTelCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblTelCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadVen.add(lblTelCadVen);
         lblTelCadVen.setBounds(350, 210, 60, 20);
 
@@ -6464,7 +6464,7 @@ public final class main extends javax.swing.JFrame {
         lblDatCadVen.setFont(fontmed(12));
         lblDatCadVen.setForeground(new java.awt.Color(10, 60, 133));
         lblDatCadVen.setText("Data");
-        lblDatCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadVen.add(lblDatCadVen);
         lblDatCadVen.setBounds(650, 160, 50, 20);
 
@@ -6509,7 +6509,7 @@ public final class main extends javax.swing.JFrame {
         lblCpfCadVen.setFont(fontmed(12));
         lblCpfCadVen.setForeground(new java.awt.Color(10, 60, 133));
         lblCpfCadVen.setText("CPF");
-        lblCpfCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCpfCadVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadVen.add(lblCpfCadVen);
         lblCpfCadVen.setBounds(350, 160, 70, 20);
 
@@ -6570,7 +6570,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblVen.setFocusable(false);
         tblVen.setGridColor(new java.awt.Color(192, 211, 250));
         tblVen.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -6587,7 +6587,7 @@ public final class main extends javax.swing.JFrame {
         btnCopAVen.setFont(fontmed(12));
         btnCopAVen.setForeground(new java.awt.Color(10, 60, 133));
         btnCopAVen.setText("Acesso");
-        btnCopAVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCopAVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCopAVen.setEnabled(false);
         btnCopAVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6600,7 +6600,7 @@ public final class main extends javax.swing.JFrame {
         btnCopVen.setFont(fontmed(12));
         btnCopVen.setForeground(new java.awt.Color(10, 60, 133));
         btnCopVen.setText("CPF");
-        btnCopVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCopVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCopVen.setEnabled(false);
         btnCopVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6613,7 +6613,7 @@ public final class main extends javax.swing.JFrame {
         btnAltVen.setFont(fontmed(12));
         btnAltVen.setForeground(new java.awt.Color(10, 60, 133));
         btnAltVen.setText("Alterar");
-        btnAltVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAltVen.setEnabled(false);
         btnAltVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6626,7 +6626,7 @@ public final class main extends javax.swing.JFrame {
         btnWppVen.setFont(fontmed(12));
         btnWppVen.setForeground(new java.awt.Color(10, 60, 133));
         btnWppVen.setText("OK");
-        btnWppVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnWppVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnWppVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnWppVenActionPerformed(evt);
@@ -6638,7 +6638,7 @@ public final class main extends javax.swing.JFrame {
         btnVolVen.setFont(fontmed(12));
         btnVolVen.setForeground(new java.awt.Color(10, 60, 133));
         btnVolVen.setText("Voltar");
-        btnVolVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVolVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolVenActionPerformed(evt);
@@ -6650,7 +6650,7 @@ public final class main extends javax.swing.JFrame {
         btnExcVen.setFont(fontmed(12));
         btnExcVen.setForeground(new java.awt.Color(10, 60, 133));
         btnExcVen.setText("Excluir");
-        btnExcVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnExcVen.setEnabled(false);
         btnExcVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6673,7 +6673,7 @@ public final class main extends javax.swing.JFrame {
         btnMenMesVen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMenMesVen.setText("-");
         btnMenMesVen.setEnabled(false);
-        btnMenMesVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenMesVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMenMesVen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMenMesVenMouseEntered(evt);
@@ -6692,7 +6692,7 @@ public final class main extends javax.swing.JFrame {
         btnMaiMesVen.setForeground(new java.awt.Color(51, 204, 0));
         btnMaiMesVen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMaiMesVen.setText("+");
-        btnMaiMesVen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMaiMesVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMaiMesVen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMaiMesVenMouseEntered(evt);
@@ -6725,14 +6725,14 @@ public final class main extends javax.swing.JFrame {
         lblErrVen.setForeground(new java.awt.Color(204, 51, 0));
         lblErrVen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblErrVen.setText("Nenhum registro encontrado!");
-        lblErrVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblErrVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblErrVen);
         lblErrVen.setBounds(70, 375, 200, 20);
 
         lblBusVen.setFont(fontmed(12));
         lblBusVen.setForeground(new java.awt.Color(10, 60, 133));
         lblBusVen.setText("Buscar");
-        lblBusVen.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblBusVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlVen.add(lblBusVen);
         lblBusVen.setBounds(70, 350, 90, 20);
 
@@ -6795,7 +6795,7 @@ public final class main extends javax.swing.JFrame {
         btnConMas.setFont(fontmed(12));
         btnConMas.setForeground(new java.awt.Color(10, 60, 133));
         btnConMas.setText("Contrato");
-        btnConMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnConMas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConMasActionPerformed(evt);
@@ -6807,7 +6807,7 @@ public final class main extends javax.swing.JFrame {
         btnVenMas.setFont(fontmed(12));
         btnVenMas.setForeground(new java.awt.Color(10, 60, 133));
         btnVenMas.setText("Cadastrar");
-        btnVenMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVenMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVenMas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVenMasActionPerformed(evt);
@@ -6819,7 +6819,7 @@ public final class main extends javax.swing.JFrame {
         btnGerMas.setFont(fontmed(12));
         btnGerMas.setForeground(new java.awt.Color(10, 60, 133));
         btnGerMas.setText("Gerar");
-        btnGerMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGerMas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGerMasActionPerformed(evt);
@@ -6831,7 +6831,7 @@ public final class main extends javax.swing.JFrame {
         btnCanMas.setFont(fontmed(12));
         btnCanMas.setForeground(new java.awt.Color(10, 60, 133));
         btnCanMas.setText("Cancelar");
-        btnCanMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanMas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanMasActionPerformed(evt);
@@ -6843,7 +6843,7 @@ public final class main extends javax.swing.JFrame {
         btnParMas.setFont(fontmed(12));
         btnParMas.setForeground(new java.awt.Color(10, 60, 133));
         btnParMas.setText("Parcial");
-        btnParMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnParMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnParMas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnParMasActionPerformed(evt);
@@ -6855,7 +6855,7 @@ public final class main extends javax.swing.JFrame {
         btnCopMas.setFont(fontbold(11));
         btnCopMas.setForeground(new java.awt.Color(10, 60, 133));
         btnCopMas.setText("Copiar");
-        btnCopMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCopMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCopMas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCopMasMouseEntered(evt);
@@ -6873,7 +6873,7 @@ public final class main extends javax.swing.JFrame {
         lblDetMas.setFont(fontmed(12));
         lblDetMas.setForeground(new java.awt.Color(10, 60, 133));
         lblDetMas.setText("Detalhes");
-        lblDetMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDetMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(lblDetMas);
         lblDetMas.setBounds(340, 360, 100, 20);
 
@@ -6903,7 +6903,7 @@ public final class main extends javax.swing.JFrame {
         lblNomMas.setFont(fontmed(12));
         lblNomMas.setForeground(new java.awt.Color(10, 60, 133));
         lblNomMas.setText("Nome");
-        lblNomMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblNomMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(lblNomMas);
         lblNomMas.setBounds(80, 160, 70, 20);
 
@@ -6937,7 +6937,7 @@ public final class main extends javax.swing.JFrame {
         lblNumConMas.setFont(fontmed(12));
         lblNumConMas.setForeground(new java.awt.Color(10, 60, 133));
         lblNumConMas.setText("Número de Contato");
-        lblNumConMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblNumConMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(lblNumConMas);
         lblNumConMas.setBounds(340, 160, 140, 20);
 
@@ -6970,7 +6970,7 @@ public final class main extends javax.swing.JFrame {
         lblCpfMas.setFont(fontmed(12));
         lblCpfMas.setForeground(new java.awt.Color(10, 60, 133));
         lblCpfMas.setText("CPF");
-        lblCpfMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCpfMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(lblCpfMas);
         lblCpfMas.setBounds(80, 210, 70, 20);
 
@@ -7006,7 +7006,7 @@ public final class main extends javax.swing.JFrame {
         lblNumAceMas.setFont(fontmed(12));
         lblNumAceMas.setForeground(new java.awt.Color(10, 60, 133));
         lblNumAceMas.setText("Número de Acesso");
-        lblNumAceMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblNumAceMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(lblNumAceMas);
         lblNumAceMas.setBounds(340, 210, 130, 20);
 
@@ -7039,7 +7039,7 @@ public final class main extends javax.swing.JFrame {
         lblNumPorMas.setFont(fontmed(12));
         lblNumPorMas.setForeground(new java.awt.Color(10, 60, 133));
         lblNumPorMas.setText("Número Portado");
-        lblNumPorMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblNumPorMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(lblNumPorMas);
         lblNumPorMas.setBounds(340, 260, 140, 20);
 
@@ -7074,7 +7074,7 @@ public final class main extends javax.swing.JFrame {
         rbtnMigTroMas.setFont(fontmed(12));
         rbtnMigTroMas.setForeground(new java.awt.Color(10, 60, 133));
         rbtnMigTroMas.setText("Conversão");
-        rbtnMigTroMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnMigTroMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(rbtnMigTroMas);
         rbtnMigTroMas.setBounds(570, 180, 130, 21);
 
@@ -7083,7 +7083,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAtiMas.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAtiMas.setSelected(true);
         rbtnAtiMas.setText("Ativação");
-        rbtnAtiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAtiMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(rbtnAtiMas);
         rbtnAtiMas.setBounds(340, 410, 90, 21);
 
@@ -7091,14 +7091,14 @@ public final class main extends javax.swing.JFrame {
         rbtnMigMas.setFont(fontmed(12));
         rbtnMigMas.setForeground(new java.awt.Color(10, 60, 133));
         rbtnMigMas.setText("Migração");
-        rbtnMigMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnMigMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(rbtnMigMas);
         rbtnMigMas.setBounds(430, 410, 90, 21);
 
         lblPlaMas.setFont(fontmed(12));
         lblPlaMas.setForeground(new java.awt.Color(10, 60, 133));
         lblPlaMas.setText("Plano");
-        lblPlaMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblPlaMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(lblPlaMas);
         lblPlaMas.setBounds(340, 310, 100, 20);
 
@@ -7130,7 +7130,7 @@ public final class main extends javax.swing.JFrame {
         lblVenMas.setFont(fontmed(12));
         lblVenMas.setForeground(new java.awt.Color(10, 60, 133));
         lblVenMas.setText("Vencimento");
-        lblVenMas.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblVenMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(lblVenMas);
         lblVenMas.setBounds(80, 260, 80, 20);
 
@@ -7187,7 +7187,7 @@ public final class main extends javax.swing.JFrame {
         chkDebMas.setFont(fontmed(12));
         chkDebMas.setForeground(new java.awt.Color(10, 60, 133));
         chkDebMas.setText("Débito Automático");
-        chkDebMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkDebMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(chkDebMas);
         chkDebMas.setBounds(570, 250, 170, 21);
 
@@ -7196,7 +7196,7 @@ public final class main extends javax.swing.JFrame {
         chkCarMas.setFont(fontmed(12));
         chkCarMas.setForeground(new java.awt.Color(10, 60, 133));
         chkCarMas.setText("Cartão de Crédito");
-        chkCarMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkCarMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(chkCarMas);
         chkCarMas.setBounds(570, 280, 170, 21);
 
@@ -7206,7 +7206,7 @@ public final class main extends javax.swing.JFrame {
         chkBolMas.setForeground(new java.awt.Color(10, 60, 133));
         chkBolMas.setSelected(true);
         chkBolMas.setText("Boleto");
-        chkBolMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkBolMas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlMas.add(chkBolMas);
         chkBolMas.setBounds(570, 220, 130, 21);
 
@@ -7241,7 +7241,7 @@ public final class main extends javax.swing.JFrame {
         btnGerOs.setFont(fontmed(12));
         btnGerOs.setForeground(new java.awt.Color(10, 60, 133));
         btnGerOs.setText("Gerar");
-        btnGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGerOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGerOsActionPerformed(evt);
@@ -7254,7 +7254,7 @@ public final class main extends javax.swing.JFrame {
         chkGarOs.setForeground(new java.awt.Color(10, 60, 133));
         chkGarOs.setText("Garantia");
         chkGarOs.setBorder(null);
-        chkGarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkGarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         chkGarOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkGarOsActionPerformed(evt);
@@ -7266,7 +7266,7 @@ public final class main extends javax.swing.JFrame {
         btnCanOs.setFont(fontmed(12));
         btnCanOs.setForeground(new java.awt.Color(10, 60, 133));
         btnCanOs.setText("Cancelar");
-        btnCanOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanOsActionPerformed(evt);
@@ -7278,7 +7278,7 @@ public final class main extends javax.swing.JFrame {
         lblEndOs.setFont(fontmed(12));
         lblEndOs.setForeground(new java.awt.Color(10, 60, 133));
         lblEndOs.setText("Endereço");
-        lblEndOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblEndOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblEndOs);
         lblEndOs.setBounds(310, 210, 60, 20);
 
@@ -7303,7 +7303,7 @@ public final class main extends javax.swing.JFrame {
         lblCliOs.setFont(fontmed(12));
         lblCliOs.setForeground(new java.awt.Color(10, 60, 133));
         lblCliOs.setText("Cliente");
-        lblCliOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblCliOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblCliOs);
         lblCliOs.setBounds(310, 110, 60, 20);
 
@@ -7328,7 +7328,7 @@ public final class main extends javax.swing.JFrame {
         lblEquOs.setFont(fontmed(12));
         lblEquOs.setForeground(new java.awt.Color(10, 60, 133));
         lblEquOs.setText("Equipamento");
-        lblEquOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblEquOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblEquOs);
         lblEquOs.setBounds(640, 110, 130, 20);
 
@@ -7353,7 +7353,7 @@ public final class main extends javax.swing.JFrame {
         lblMarOs.setFont(fontmed(12));
         lblMarOs.setForeground(new java.awt.Color(10, 60, 133));
         lblMarOs.setText("Marca");
-        lblMarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblMarOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblMarOs);
         lblMarOs.setBounds(640, 160, 50, 20);
 
@@ -7378,7 +7378,7 @@ public final class main extends javax.swing.JFrame {
         lblTelOs.setFont(fontmed(12));
         lblTelOs.setForeground(new java.awt.Color(10, 60, 133));
         lblTelOs.setText("Telefone");
-        lblTelOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblTelOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblTelOs);
         lblTelOs.setBounds(310, 160, 80, 20);
 
@@ -7411,14 +7411,14 @@ public final class main extends javax.swing.JFrame {
         lblModOs.setFont(fontmed(12));
         lblModOs.setForeground(new java.awt.Color(10, 60, 133));
         lblModOs.setText("Modelo");
-        lblModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblModOs);
         lblModOs.setBounds(640, 210, 60, 20);
 
         txtModOs.setBackground(new java.awt.Color(241, 241, 241));
         txtModOs.setFont(fontmed(13));
         txtModOs.setBorder(null);
-        txtModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtModOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtModOs.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtModOsFocusGained(evt);
@@ -7437,7 +7437,7 @@ public final class main extends javax.swing.JFrame {
         lblConOs.setFont(fontmed(12));
         lblConOs.setForeground(new java.awt.Color(10, 60, 133));
         lblConOs.setText("Defeito relatado");
-        lblConOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblConOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblConOs);
         lblConOs.setBounds(640, 260, 130, 20);
 
@@ -7462,7 +7462,7 @@ public final class main extends javax.swing.JFrame {
         lblDefOs.setFont(fontmed(12));
         lblDefOs.setForeground(new java.awt.Color(10, 60, 133));
         lblDefOs.setText("Reparo");
-        lblDefOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDefOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblDefOs);
         lblDefOs.setBounds(640, 310, 100, 20);
 
@@ -7492,7 +7492,7 @@ public final class main extends javax.swing.JFrame {
         lblDatEntOs.setFont(fontmed(12));
         lblDatEntOs.setForeground(new java.awt.Color(10, 60, 133));
         lblDatEntOs.setText("Data entrada");
-        lblDatEntOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatEntOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblDatEntOs);
         lblDatEntOs.setBounds(310, 260, 90, 20);
 
@@ -7522,7 +7522,7 @@ public final class main extends javax.swing.JFrame {
         lblHorOs.setFont(fontmed(12));
         lblHorOs.setForeground(new java.awt.Color(10, 60, 133));
         lblHorOs.setText("Data saída");
-        lblHorOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblHorOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblHorOs);
         lblHorOs.setBounds(310, 310, 80, 20);
 
@@ -7556,13 +7556,13 @@ public final class main extends javax.swing.JFrame {
         lblPreOs.setFont(fontmed(12));
         lblPreOs.setForeground(new java.awt.Color(10, 60, 133));
         lblPreOs.setText("Preço");
-        lblPreOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblPreOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblPreOs);
         lblPreOs.setBounds(310, 360, 40, 20);
 
         lblR$Os.setFont(fontmed(13));
         lblR$Os.setText("R$");
-        lblR$Os.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$Os.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlOs.add(lblR$Os);
         lblR$Os.setBounds(310, 360, 20, 20);
 
@@ -7619,7 +7619,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblOs.setFocusable(false);
         tblOs.setGridColor(new java.awt.Color(192, 211, 250));
         tblOs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -7636,7 +7636,7 @@ public final class main extends javax.swing.JFrame {
         btnAltGerOs.setFont(fontmed(12));
         btnAltGerOs.setForeground(new java.awt.Color(10, 60, 133));
         btnAltGerOs.setText("Alterar");
-        btnAltGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAltGerOs.setEnabled(false);
         btnAltGerOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -7649,7 +7649,7 @@ public final class main extends javax.swing.JFrame {
         btnGerGerOs.setFont(fontmed(12));
         btnGerGerOs.setForeground(new java.awt.Color(10, 60, 133));
         btnGerGerOs.setText("Gerar");
-        btnGerGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGerGerOs.setEnabled(false);
         btnGerGerOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -7662,7 +7662,7 @@ public final class main extends javax.swing.JFrame {
         btnExcGerOs.setFont(fontmed(12));
         btnExcGerOs.setForeground(new java.awt.Color(10, 60, 133));
         btnExcGerOs.setText("Excluir");
-        btnExcGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnExcGerOs.setEnabled(false);
         btnExcGerOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -7675,7 +7675,7 @@ public final class main extends javax.swing.JFrame {
         btnVolGerOs.setFont(fontmed(12));
         btnVolGerOs.setForeground(new java.awt.Color(10, 60, 133));
         btnVolGerOs.setText("Voltar");
-        btnVolGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVolGerOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolGerOsActionPerformed(evt);
@@ -7687,14 +7687,14 @@ public final class main extends javax.swing.JFrame {
         lblErrGerOs.setFont(fontbold(10));
         lblErrGerOs.setForeground(new java.awt.Color(204, 51, 0));
         lblErrGerOs.setText("Nenhum registro encontrado!");
-        lblErrGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblErrGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerOs.add(lblErrGerOs);
         lblErrGerOs.setBounds(580, 415, 190, 20);
 
         lblBusGerOs.setFont(fontmed(12));
         lblBusGerOs.setForeground(new java.awt.Color(10, 60, 133));
         lblBusGerOs.setText("Buscar");
-        lblBusGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblBusGerOs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerOs.add(lblBusGerOs);
         lblBusGerOs.setBounds(580, 390, 80, 20);
 
@@ -7741,14 +7741,14 @@ public final class main extends javax.swing.JFrame {
         lblResRel.setForeground(new java.awt.Color(10, 60, 133));
         lblResRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblResRel.setText("Sem resultados para o período selecionado!");
-        lblResRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblResRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlRel.add(lblResRel);
         lblResRel.setBounds(60, 350, 780, 20);
 
         cmbRel.setFont(fontmed(13));
         cmbRel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtrar resultados" }));
         cmbRel.setToolTipText("");
-        cmbRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbRel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbRelActionPerformed(evt);
@@ -7776,7 +7776,7 @@ public final class main extends javax.swing.JFrame {
         ));
         tblRel.setToolTipText("");
         tblRel.setAutoscrolls(false);
-        tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblRel.setEnabled(false);
         tblRel.setFocusable(false);
         tblRel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -7788,7 +7788,7 @@ public final class main extends javax.swing.JFrame {
         btnVolRel.setFont(fontmed(12));
         btnVolRel.setForeground(new java.awt.Color(10, 60, 133));
         btnVolRel.setText("Voltar");
-        btnVolRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVolRel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolRelActionPerformed(evt);
@@ -7801,7 +7801,7 @@ public final class main extends javax.swing.JFrame {
         rbtnSerRel.setFont(fontmed(12));
         rbtnSerRel.setForeground(new java.awt.Color(10, 60, 133));
         rbtnSerRel.setText("Serviço");
-        rbtnSerRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnSerRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnSerRel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnSerRelActionPerformed(evt);
@@ -7814,7 +7814,7 @@ public final class main extends javax.swing.JFrame {
         rbtnVenRel1.setFont(fontmed(12));
         rbtnVenRel1.setForeground(new java.awt.Color(10, 60, 133));
         rbtnVenRel1.setText("Serviço e Venda");
-        rbtnVenRel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnVenRel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnVenRel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnVenRel1ActionPerformed(evt);
@@ -7827,7 +7827,7 @@ public final class main extends javax.swing.JFrame {
         rbtnVenRel.setFont(fontmed(12));
         rbtnVenRel.setForeground(new java.awt.Color(10, 60, 133));
         rbtnVenRel.setText("Venda");
-        rbtnVenRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnVenRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnVenRel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnVenRelActionPerformed(evt);
@@ -7840,7 +7840,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAssRel.setFont(fontmed(12));
         rbtnAssRel.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAssRel.setText("Assistência");
-        rbtnAssRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnAssRel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnAssRelActionPerformed(evt);
@@ -7853,7 +7853,7 @@ public final class main extends javax.swing.JFrame {
         rbtnTodRel.setFont(fontmed(12));
         rbtnTodRel.setForeground(new java.awt.Color(10, 60, 133));
         rbtnTodRel.setText("Todos");
-        rbtnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnTodRel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnTodRelActionPerformed(evt);
@@ -7865,7 +7865,7 @@ public final class main extends javax.swing.JFrame {
         lblDatIniRel.setFont(fontmed(12));
         lblDatIniRel.setForeground(new java.awt.Color(10, 60, 133));
         lblDatIniRel.setText("Data inicial");
-        lblDatIniRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatIniRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblDatIniRel.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 lblDatIniRelFocusGained(evt);
@@ -7907,7 +7907,7 @@ public final class main extends javax.swing.JFrame {
         btnTodRel.setForeground(new java.awt.Color(10, 60, 133));
         btnTodRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnTodRel.setText("Todos");
-        btnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTodRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnTodRel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnTodRelMouseEntered(evt);
@@ -7926,7 +7926,7 @@ public final class main extends javax.swing.JFrame {
         btnAnoRel.setForeground(new java.awt.Color(10, 60, 133));
         btnAnoRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAnoRel.setText("Ano");
-        btnAnoRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAnoRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAnoRel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAnoRelMouseEntered(evt);
@@ -7944,7 +7944,7 @@ public final class main extends javax.swing.JFrame {
         lblDatFinRel.setFont(fontmed(12));
         lblDatFinRel.setForeground(new java.awt.Color(10, 60, 133));
         lblDatFinRel.setText("Data final");
-        lblDatFinRel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatFinRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlRel.add(lblDatFinRel);
         lblDatFinRel.setBounds(420, 220, 80, 20);
 
@@ -7998,7 +7998,7 @@ public final class main extends javax.swing.JFrame {
         btnMenDiaRel.setForeground(new java.awt.Color(255, 0, 0));
         btnMenDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMenDiaRel.setText("-");
-        btnMenDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMenDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMenDiaRelMouseEntered(evt);
@@ -8036,7 +8036,7 @@ public final class main extends javax.swing.JFrame {
         btnMaiDiaRel.setForeground(new java.awt.Color(51, 204, 0));
         btnMaiDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMaiDiaRel.setText("+");
-        btnMaiDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMaiDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMaiDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMaiDiaRelMouseEntered(evt);
@@ -8055,7 +8055,7 @@ public final class main extends javax.swing.JFrame {
         btnDiaRel.setForeground(new java.awt.Color(10, 60, 133));
         btnDiaRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnDiaRel.setText("Dia");
-        btnDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDiaRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnDiaRel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnDiaRelMouseEntered(evt);
@@ -8074,7 +8074,7 @@ public final class main extends javax.swing.JFrame {
         btnMesRel.setForeground(new java.awt.Color(10, 60, 133));
         btnMesRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnMesRel.setText("Mês");
-        btnMesRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMesRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMesRel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMesRelMouseEntered(evt);
@@ -8093,7 +8093,7 @@ public final class main extends javax.swing.JFrame {
         btnSemRel.setForeground(new java.awt.Color(10, 60, 133));
         btnSemRel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnSemRel.setText("Semana");
-        btnSemRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSemRel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSemRel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSemRelMouseEntered(evt);
@@ -8194,7 +8194,7 @@ public final class main extends javax.swing.JFrame {
         chkCus.setForeground(new java.awt.Color(10, 60, 133));
         chkCus.setText("Custo");
         chkCus.setBorder(null);
-        chkCus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkCus.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         chkCus.setEnabled(false);
         chkCus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -8218,7 +8218,7 @@ public final class main extends javax.swing.JFrame {
         btnSalTipSer.setFont(fontmed(12));
         btnSalTipSer.setForeground(new java.awt.Color(10, 60, 133));
         btnSalTipSer.setText("Salvar");
-        btnSalTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalTipSer.setEnabled(false);
         btnSalTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -8231,7 +8231,7 @@ public final class main extends javax.swing.JFrame {
         btnCanTipSer.setFont(fontmed(12));
         btnCanTipSer.setForeground(new java.awt.Color(10, 60, 133));
         btnCanTipSer.setText("Cancelar");
-        btnCanTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanTipSerActionPerformed(evt);
@@ -8244,7 +8244,7 @@ public final class main extends javax.swing.JFrame {
         rbtnOutTipSer.setFont(fontmed(12));
         rbtnOutTipSer.setForeground(new java.awt.Color(10, 60, 133));
         rbtnOutTipSer.setText("Outros");
-        rbtnOutTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnOutTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnOutTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnOutTipSerActionPerformed(evt);
@@ -8257,7 +8257,7 @@ public final class main extends javax.swing.JFrame {
         rbtnSerTimTipSer.setFont(fontmed(12));
         rbtnSerTimTipSer.setForeground(new java.awt.Color(10, 60, 133));
         rbtnSerTimTipSer.setText("Serviço");
-        rbtnSerTimTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnSerTimTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnSerTimTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnSerTimTipSerActionPerformed(evt);
@@ -8270,7 +8270,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAssTipSer.setFont(fontmed(12));
         rbtnAssTipSer.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAssTipSer.setText("Assistência Técnica");
-        rbtnAssTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnAssTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnAssTipSerActionPerformed(evt);
@@ -8282,7 +8282,7 @@ public final class main extends javax.swing.JFrame {
         lblDesTipSer.setFont(fontmed(12));
         lblDesTipSer.setForeground(new java.awt.Color(10, 60, 133));
         lblDesTipSer.setText("Descrição");
-        lblDesTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDesTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadTipSer.add(lblDesTipSer);
         lblDesTipSer.setBounds(460, 170, 70, 20);
 
@@ -8323,7 +8323,7 @@ public final class main extends javax.swing.JFrame {
         btnExcGerTipSer.setFont(fontmed(12));
         btnExcGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
         btnExcGerTipSer.setText("Excluir");
-        btnExcGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnExcGerTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcGerTipSerActionPerformed(evt);
@@ -8335,7 +8335,7 @@ public final class main extends javax.swing.JFrame {
         btnAtvGerTipSer.setFont(fontmed(12));
         btnAtvGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
         btnAtvGerTipSer.setText("Desativar");
-        btnAtvGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAtvGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAtvGerTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtvGerTipSerActionPerformed(evt);
@@ -8347,7 +8347,7 @@ public final class main extends javax.swing.JFrame {
         btnAltGerTipSer.setFont(fontmed(12));
         btnAltGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
         btnAltGerTipSer.setText("Alterar");
-        btnAltGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAltGerTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAltGerTipSerActionPerformed(evt);
@@ -8359,7 +8359,7 @@ public final class main extends javax.swing.JFrame {
         btnCanGerTipSer.setFont(fontmed(12));
         btnCanGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
         btnCanGerTipSer.setText("Cancelar");
-        btnCanGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanGerTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanGerTipSerActionPerformed(evt);
@@ -8371,14 +8371,14 @@ public final class main extends javax.swing.JFrame {
         lblDesTipSer2.setFont(fontmed(11));
         lblDesTipSer2.setForeground(new java.awt.Color(10, 60, 133));
         lblDesTipSer2.setText("Escolha o serviço para gerenciar");
-        lblDesTipSer2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDesTipSer2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerTipSer.add(lblDesTipSer2);
         lblDesTipSer2.setBounds(460, 140, 260, 20);
 
         lblDesGerTipSer.setFont(fontmed(12));
         lblDesGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
         lblDesGerTipSer.setText("Descrição");
-        lblDesGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDesGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerTipSer.add(lblDesGerTipSer);
         lblDesGerTipSer.setBounds(460, 330, 70, 20);
 
@@ -8394,7 +8394,7 @@ public final class main extends javax.swing.JFrame {
 
         scrTipSer.setBackground(new java.awt.Color(250, 250, 250));
         scrTipSer.setBorder(BorderFactory.createEmptyBorder());
-        scrTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        scrTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         tblTipSer.setTableHeader(null);
         tblTipSer.setBackground(new java.awt.Color(241, 241, 241));
@@ -8411,7 +8411,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblTipSer.setFocusable(false);
         tblTipSer.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblTipSer.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -8428,7 +8428,7 @@ public final class main extends javax.swing.JFrame {
         rbtnOutGerTipSer.setFont(fontmed(12));
         rbtnOutGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
         rbtnOutGerTipSer.setText("Outros");
-        rbtnOutGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnOutGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnOutGerTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnOutGerTipSerActionPerformed(evt);
@@ -8441,7 +8441,7 @@ public final class main extends javax.swing.JFrame {
         rbtnAssGerTipSer.setFont(fontmed(12));
         rbtnAssGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
         rbtnAssGerTipSer.setText("Assistência Técnica");
-        rbtnAssGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnAssGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnAssGerTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnAssGerTipSerActionPerformed(evt);
@@ -8454,7 +8454,7 @@ public final class main extends javax.swing.JFrame {
         rbtnTimGerTipSer.setFont(fontmed(12));
         rbtnTimGerTipSer.setForeground(new java.awt.Color(10, 60, 133));
         rbtnTimGerTipSer.setText("Serviço");
-        rbtnTimGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbtnTimGerTipSer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rbtnTimGerTipSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnTimGerTipSerActionPerformed(evt);
@@ -8492,7 +8492,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblConDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblConDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblConDes.setFocusable(false);
         tblConDes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblConDes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -8508,7 +8508,7 @@ public final class main extends javax.swing.JFrame {
         btnVolDes.setFont(fontmed(12));
         btnVolDes.setForeground(new java.awt.Color(10, 60, 133));
         btnVolDes.setText("Voltar");
-        btnVolDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVolDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolDesActionPerformed(evt);
@@ -8531,7 +8531,7 @@ public final class main extends javax.swing.JFrame {
         btnSalDes.setFont(fontmed(12));
         btnSalDes.setForeground(new java.awt.Color(10, 60, 133));
         btnSalDes.setText("Salvar");
-        btnSalDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalDesActionPerformed(evt);
@@ -8543,7 +8543,7 @@ public final class main extends javax.swing.JFrame {
         lblDatDes.setFont(fontmed(12));
         lblDatDes.setForeground(new java.awt.Color(10, 60, 133));
         lblDatDes.setText("Data");
-        lblDatDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadDes.add(lblDatDes);
         lblDatDes.setBounds(500, 210, 50, 20);
 
@@ -8573,7 +8573,7 @@ public final class main extends javax.swing.JFrame {
         lblDesDes.setFont(fontmed(12));
         lblDesDes.setForeground(new java.awt.Color(10, 60, 133));
         lblDesDes.setText("Descrição");
-        lblDesDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDesDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadDes.add(lblDesDes);
         lblDesDes.setBounds(500, 110, 90, 20);
 
@@ -8597,14 +8597,14 @@ public final class main extends javax.swing.JFrame {
 
         lblR$Des.setFont(fontmed(13));
         lblR$Des.setText("R$");
-        lblR$Des.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$Des.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadDes.add(lblR$Des);
         lblR$Des.setBounds(500, 160, 20, 21);
 
         lblPreDes.setFont(fontmed(12));
         lblPreDes.setForeground(new java.awt.Color(10, 60, 133));
         lblPreDes.setText("Preço");
-        lblPreDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblPreDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlCadDes.add(lblPreDes);
         lblPreDes.setBounds(500, 160, 50, 20);
 
@@ -8634,7 +8634,7 @@ public final class main extends javax.swing.JFrame {
         btnCanDes.setFont(fontmed(12));
         btnCanDes.setForeground(new java.awt.Color(10, 60, 133));
         btnCanDes.setText("Cancelar");
-        btnCanDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanDesActionPerformed(evt);
@@ -8657,27 +8657,27 @@ public final class main extends javax.swing.JFrame {
         lblDesGerDes.setFont(fontmed(12));
         lblDesGerDes.setForeground(new java.awt.Color(10, 60, 133));
         lblDesGerDes.setText("Descrição");
-        lblDesGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDesGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerDes.add(lblDesGerDes);
         lblDesGerDes.setBounds(860, 160, 90, 20);
 
         lblDatGerDes.setFont(fontmed(12));
         lblDatGerDes.setForeground(new java.awt.Color(10, 60, 133));
         lblDatGerDes.setText("Data");
-        lblDatGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDatGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerDes.add(lblDatGerDes);
         lblDatGerDes.setBounds(860, 260, 50, 20);
 
         lblPreGerDes.setFont(fontmed(12));
         lblPreGerDes.setForeground(new java.awt.Color(10, 60, 133));
         lblPreGerDes.setText("Preço");
-        lblPreGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblPreGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerDes.add(lblPreGerDes);
         lblPreGerDes.setBounds(860, 210, 50, 20);
 
         lblR$GerDes.setFont(fontmed(13));
         lblR$GerDes.setText("R$");
-        lblR$GerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$GerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerDes.add(lblR$GerDes);
         lblR$GerDes.setBounds(860, 210, 20, 20);
 
@@ -8743,7 +8743,7 @@ public final class main extends javax.swing.JFrame {
         btnExcGerDes.setFont(fontmed(12));
         btnExcGerDes.setForeground(new java.awt.Color(10, 60, 133));
         btnExcGerDes.setText("Excluir");
-        btnExcGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnExcGerDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcGerDesActionPerformed(evt);
@@ -8755,7 +8755,7 @@ public final class main extends javax.swing.JFrame {
         btnAltGerDes.setFont(fontmed(12));
         btnAltGerDes.setForeground(new java.awt.Color(10, 60, 133));
         btnAltGerDes.setText("Alterar");
-        btnAltGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAltGerDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAltGerDesActionPerformed(evt);
@@ -8767,7 +8767,7 @@ public final class main extends javax.swing.JFrame {
         btnCanGerDes.setFont(fontmed(12));
         btnCanGerDes.setForeground(new java.awt.Color(10, 60, 133));
         btnCanGerDes.setText("Cancelar");
-        btnCanGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCanGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCanGerDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanGerDesActionPerformed(evt);
@@ -8779,13 +8779,13 @@ public final class main extends javax.swing.JFrame {
         lblDesTipSer3.setFont(fontmed(12));
         lblDesTipSer3.setForeground(new java.awt.Color(10, 60, 133));
         lblDesTipSer3.setText("Escolha o afazer para alterar ou excluir");
-        lblDesTipSer3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblDesTipSer3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlGerDes.add(lblDesTipSer3);
         lblDesTipSer3.setBounds(140, 110, 260, 20);
 
         scrGerDes.setBackground(new java.awt.Color(250, 250, 250));
         scrGerDes.setBorder(BorderFactory.createEmptyBorder());
-        scrGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        scrGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         tblTipSer.setTableHeader(null);
         tblGerDes.setBackground(new java.awt.Color(241, 241, 241));
@@ -8802,7 +8802,7 @@ public final class main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblGerDes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblGerDes.setFocusable(false);
         tblGerDes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblGerDes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -8829,7 +8829,7 @@ public final class main extends javax.swing.JFrame {
         btnVolJur.setFont(fontmed(12));
         btnVolJur.setForeground(new java.awt.Color(10, 60, 133));
         btnVolJur.setText("Cancelar");
-        btnVolJur.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVolJur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolJurActionPerformed(evt);
@@ -8841,7 +8841,7 @@ public final class main extends javax.swing.JFrame {
         btnCalJur.setFont(fontmed(12));
         btnCalJur.setForeground(new java.awt.Color(10, 60, 133));
         btnCalJur.setText("Calcular");
-        btnCalJur.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCalJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCalJur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCalJurActionPerformed(evt);
@@ -8909,13 +8909,13 @@ public final class main extends javax.swing.JFrame {
         lblValJur.setFont(fontmed(12));
         lblValJur.setForeground(new java.awt.Color(10, 60, 133));
         lblValJur.setText("Preço");
-        lblValJur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblValJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlJur.add(lblValJur);
         lblValJur.setBounds(180, 200, 70, 20);
 
         lblR$Jur.setFont(fontmed(13));
         lblR$Jur.setText("R$");
-        lblR$Jur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblR$Jur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlJur.add(lblR$Jur);
         lblR$Jur.setBounds(180, 200, 20, 21);
 
@@ -8992,7 +8992,7 @@ public final class main extends javax.swing.JFrame {
         lblParJur.setFont(fontmed(12));
         lblParJur.setForeground(new java.awt.Color(10, 60, 133));
         lblParJur.setText("parcela(s)");
-        lblParJur.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lblParJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlJur.add(lblParJur);
         lblParJur.setBounds(360, 200, 70, 20);
 
@@ -9090,7 +9090,7 @@ public final class main extends javax.swing.JFrame {
 
         spnParJur.setFont(fontmed(13));
         spnParJur.setModel(new javax.swing.SpinnerNumberModel(0, 0, 12, 1));
-        spnParJur.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        spnParJur.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         JSpinner.DefaultEditor spnParJur1 = (JSpinner.DefaultEditor) spnParJur.getEditor();
         spnParJur1.getTextField().setEditable(false);
         pnlJur.add(spnParJur);
