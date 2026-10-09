@@ -1,5 +1,6 @@
 package dao;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,23 +69,40 @@ public class despezasDAO {
 
     }
 
-    public boolean verificar() throws SQLException {
+public List<String[]> verificar() throws SQLException {
 
-        String SQL = "SELECT * FROM despezas WHERE (CURDATE() >= CASE WHEN DAYOFWEEK(DATE_SUB(dataDes, INTERVAL 5 DAY)) = 7 THEN DATE_SUB(dataDes, INTERVAL 6 DAY) WHEN DAYOFWEEK(DATE_SUB(dataDes, INTERVAL 5 DAY)) = 1 THEN DATE_SUB(dataDes, INTERVAL 7 DAY) ELSE DATE_SUB(dataDes, INTERVAL 5 DAY) END AND CURDATE() <= dataDes) OR dataDes < CURDATE();";
-        try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL)) {
-            ResultSet rs = stmt.executeQuery();
-            
-            if (rs.next()) {
-                return true;
+    List<String[]> lista = new ArrayList<>();
+
+    String SQL = "SELECT * FROM despezas WHERE "
+            + "(CURDATE() >= CASE "
+            + "WHEN DAYOFWEEK(DATE_SUB(dataDes, INTERVAL 5 DAY)) = 7 "
+            + "THEN DATE_SUB(dataDes, INTERVAL 6 DAY) "
+            + "WHEN DAYOFWEEK(DATE_SUB(dataDes, INTERVAL 5 DAY)) = 1 "
+            + "THEN DATE_SUB(dataDes, INTERVAL 7 DAY) "
+            + "ELSE DATE_SUB(dataDes, INTERVAL 5 DAY) "
+            + "END AND CURDATE() <= dataDes) "
+            + "OR dataDes < CURDATE()";
+
+    try (PreparedStatement stmt = connection.getConnection().prepareStatement(SQL);
+         ResultSet rs = stmt.executeQuery()) {
+
+        ResultSetMetaData meta = (ResultSetMetaData) rs.getMetaData();
+        int colunas = meta.getColumnCount();
+
+        while (rs.next()) {
+
+            String[] row = new String[colunas];
+
+            for (int i = 0; i < colunas; i++) {
+                row[i] = rs.getString(i + 1);
             }
-            
-            rs.close();
+
+            lista.add(row);
         }
-        connection.Close();
-
-        return false;
-
     }
+
+    return lista;
+}
 
     public List<String[]> buscar() throws SQLException {
 

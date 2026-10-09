@@ -96,13 +96,12 @@ public final class main extends javax.swing.JFrame {
 
         loading();
 
-      //PULAR LOADING (MUDAR PRA TRUE NO MAIN NO FINAL)
+        //PULAR LOADING (MUDAR PRA TRUE NO MAIN NO FINAL)
         //iniciasistema();
-        
-    }  
-    
-    public void loading() {      
-        
+    }
+
+    public void loading() {
+
         loading lo = new loading();
         lo.setVisible(true);
 
@@ -153,7 +152,7 @@ public final class main extends javax.swing.JFrame {
                     } else {
                         publish("Atenção! Erro ao fazer backup. Iniciando...");
                         Thread.sleep(3000);
-                    }              
+                    }
 
                     lo.dispose();
 
@@ -227,7 +226,7 @@ public final class main extends javax.swing.JFrame {
         DefaultTableModel model1 = (DefaultTableModel) tblSelIteCadEnt.getModel();
         model1.setRowCount(0);
 
-        setVisible(true);  
+        setVisible(true);
         pnlPrincipal.setVisible(true);
 
     }
@@ -375,7 +374,7 @@ public final class main extends javax.swing.JFrame {
             }
 
         } catch (IOException | InterruptedException ex) {
-             System.out.print(ex);
+            System.out.print(ex);
             return false;
         }
         return true;
@@ -474,7 +473,9 @@ public final class main extends javax.swing.JFrame {
 
             despezasDAO dedao = new despezasDAO();
 
-            if (dedao.verificar()) {
+            List<String[]> lista = dedao.verificar();
+
+            if (!lista.isEmpty()) {
 
                 btnAfaPri.setVisible(true);
 
@@ -485,13 +486,13 @@ public final class main extends javax.swing.JFrame {
                 btnAfaPri.setVisible(false);
 
                 return 1;
-
             }
 
         } catch (SQLException ex) {
+
+            ex.printStackTrace();
             return 2;
         }
-
     }
 
     private static String capitalizeFirstLetterOfEachWord(String text) {
@@ -1459,7 +1460,15 @@ public final class main extends javax.swing.JFrame {
         try {
 
             despezasDAO desdao = new despezasDAO();
+
             List<String[]> lista = desdao.buscar();
+            List<String[]> listaVerificar = desdao.verificar();
+
+            Set<String> idsPintar = new HashSet<>();
+
+            for (String[] d : listaVerificar) {
+                idsPintar.add(d[0]);
+            }
 
             if (!lista.isEmpty()) {
 
@@ -1482,106 +1491,93 @@ public final class main extends javax.swing.JFrame {
                     Date datecon = null;
 
                     if (row[4] != null) {
-
                         datecon = formatterbanco.parse(row[4]);
-
                     }
 
                     rowData[0] = row[0];
                     rowData[1] = row[1];
-                    rowData[2] = (!row[2].equals("0.0")) ? moedadoublereal(Double.valueOf(row[2])) : "Não Aplicável";
+
+                    rowData[2] = (!row[2].equals("0.0"))
+                            ? moedadoublereal(Double.valueOf(row[2]))
+                            : "Não Aplicável";
+
                     rowData[3] = formatter.format(date);
-                    rowData[4] = (row[4] != null) ? formatter.format(datecon) : "Não Concluído";
+
+                    rowData[4] = (row[4] != null)
+                            ? formatter.format(datecon)
+                            : "Não Concluído";
 
                     modelo.addRow(rowData);
-
                 }
 
+                // Renderer: pinta de acordo com o ID retornado pelo DAO
                 DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+
                     @Override
-                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    public Component getTableCellRendererComponent(
+                            JTable table,
+                            Object value,
+                            boolean isSelected,
+                            boolean hasFocus,
+                            int row,
+                            int column) {
 
-                        try {
-                            Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                        Component component = super.getTableCellRendererComponent(
+                                table, value, isSelected, hasFocus, row, column);
 
-                            Date dataatual = new Date();
+                        // Obtém o ID da linha
+                        String id = table.getValueAt(row, 0).toString();
 
-                            Date data = formatter.parse(table.getValueAt(row, 3).toString());
+                        if (isSelected) {
 
-                            Object datacon = table.getValueAt(row, 4);
+                            component.setBackground(table.getSelectionBackground());
+                            component.setForeground(table.getSelectionForeground());
 
-                            int comparacao1 = 0;
-                            int comparacao2 = 0;
+                        } else {
 
-                            long diferencaMilissegundos = Math.abs(dataatual.getTime() - data.getTime());
-
-                            long diferencaDias = TimeUnit.DAYS.convert(diferencaMilissegundos, TimeUnit.MILLISECONDS);
-
-                            comparacao1 = dataatual.compareTo(data);
-
-                            if (!datacon.equals("Não Concluído")) {
-
-                                comparacao2 = data.compareTo(formatter.parse(table.getValueAt(row, 4).toString()));
-
-                                if (comparacao1 < 0 && comparacao2 > 0 && diferencaDias > 4) { //dataatual menor data e data maior datacon
-
-                                    component.setBackground(new Color(182, 222, 170));//verde
-
-                                } else {
-
-                                    component.setBackground(new Color(229, 190, 190));//vermelho
-
-                                }
-
+                            if (idsPintar.contains(id)) {
+                                component.setBackground(new Color(229, 190, 190)); // Verde
                             } else {
-
-                                if (comparacao1 < 0 && diferencaDias > 4) {
-
-                                    component.setBackground(new Color(182, 222, 170));//verde
-
-                                } else {
-
-                                    component.setBackground(new Color(229, 190, 190));
-                                }
-
+                                component.setBackground(new Color(182, 222, 170)); // Vermelho
                             }
 
-                            component.setFont(fontmed(12));
-
-                            return component;
-
-                        } catch (ParseException ex) {
-                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                            component.setForeground(Color.BLACK);
                         }
-                        return null;
-                    }
 
+                        component.setFont(fontmed(12));
+                        setHorizontalAlignment(JLabel.CENTER);
+
+                        return component;
+                    }
                 };
 
                 cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-
                 cellRenderer.setForeground(Color.BLACK);
                 cellRenderer.setFont(fontmed(12));
 
                 header.setForeground(corforeazul);
                 header.setBackground(new Color(241, 241, 241));
-
                 header.setFont(fontbold(13));
                 header.setReorderingAllowed(false);
 
                 tbl.setModel(modelo);
                 tbl.setRowHeight(25);
                 tbl.setDefaultEditor(Object.class, null);
+
                 scr.getVerticalScrollBar().setValue(0);
 
                 for (int i = 0; i < tbl.getColumnCount(); i++) {
-                    tbl.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+                    tbl.getColumnModel()
+                            .getColumn(i)
+                            .setCellRenderer(cellRenderer);
                 }
 
+                // Oculta a coluna ID
                 tbl.getColumnModel().getColumn(0).setMinWidth(0);
                 tbl.getColumnModel().getColumn(0).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(0).setWidth(0);
 
+                // Oculta a coluna Data Conclusão
                 tbl.getColumnModel().getColumn(4).setMinWidth(0);
                 tbl.getColumnModel().getColumn(4).setMaxWidth(0);
                 tbl.getColumnModel().getColumn(4).setWidth(0);
@@ -1590,13 +1586,13 @@ public final class main extends javax.swing.JFrame {
                 scr.setVisible(true);
 
             } else {
-
                 return false;
-
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            return false;
         }
 
         return true;
